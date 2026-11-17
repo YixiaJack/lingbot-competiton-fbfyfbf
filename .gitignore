@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+.DS_Store
+node_modules/
+.vercel/
+*.pt
+*.ckpt
+*.safetensors
+wandb/
+*.m4a
+*.wav
+*.mp3
+.venv/
+.env

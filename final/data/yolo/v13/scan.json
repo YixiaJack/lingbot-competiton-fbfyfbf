@@ -1,0 +1,1815 @@
+{
+ "own_1": {
+  "src": "own",
+  "ep": 1,
+  "instruction": "Pick up the eggplant and place it on the purple plate.",
+  "named": false,
+  "focus": [
+   [
+    "red_apple",
+    0.97
+   ]
+  ]
+ },
+ "own_2": {
+  "src": "own",
+  "ep": 2,
+  "instruction": "Pick up the watermelon and place it on the yellow plate.",
+  "named": false,
+  "focus": [
+   [
+    "red_apple",
+    0.97
+   ]
+  ]
+ },
+ "own_6": {
+  "src": "own",
+  "ep": 6,
+  "instruction": "Pick up the mushroom and place it on the pink plate.",
+  "named": false,
+  "focus": [
+   [
+    "red_apple",
+    0.96
+   ]
+  ]
+ },
+ "own_7": {
+  "src": "own",
+  "ep": 7,
+  "instruction": "Pick up the green apple and place it on the blue plate.",
+  "named": true,
+  "focus": [
+   [
+    "red_apple",
+    0.98
+   ]
+  ]
+ },
+ "own_8": {
+  "src": "own",
+  "ep": 8,
+  "instruction": "Pick up the red apple and place it on the blue plate.",
+  "named": true,
+  "focus": [
+   [
+    "red_apple",
+    0.97
+   ]
+  ]
+ },
+ "own_9": {
+  "src": "own",
+  "ep": 9,
+  "instruction": "Pick up the red apple and place it on the purple plate.",
+  "named": true,
+  "focus": [
+   [
+    "red_apple",
+    0.97
+   ]
+  ]
+ },
+ "own_17": {
+  "src": "own",
+  "ep": 17,
+  "instruction": "Pick up the starfruit and place it on the blue plate.",
+  "named": false,
+  "focus": [
+   [
+    "red_delicious",
+    0.87
+   ]
+  ]
+ },
+ "own_18": {
+  "src": "own",
+  "ep": 18,
+  "instruction": "Pick up the starfruit and place it on the white plate.",
+  "named": false,
+  "focus": [
+   [
+    "red_delicious",
+    0.97
+   ]
+  ]
+ },
+ "own_19": {
+  "src": "own",
+  "ep": 19,
+  "instruction": "Pick up the potato and place it on the blue plate.",
+  "named": true,
+  "focus": [
+   [
+    "potato",
+    0.99
+   ]
+  ]
+ },
+ "own_20": {
+  "src": "own",
+  "ep": 20,
+  "instruction": "Pick up the pineapple and place it on the blue plate.",
+  "named": false,
+  "focus": [
+   [
+    "potato",
+    0.98
+   ]
+  ]
+ },
+ "own_21": {
+  "src": "own",
+  "ep": 21,
+  "instruction": "Pick up the pineapple and place it on the yellow plate.",
+  "named": false,
+  "focus": [
+   [
+    "potato",
+    0.98
+   ]
+  ]
+ },
+ "own_22": {
+  "src": "own",
+  "ep": 22,
+  "instruction": "Pick up the pear and place it on the purple plate.",
+  "named": true,
+  "focus": []
+ },
+ "own_25": {
+  "src": "own",
+  "ep": 25,
+  "instruction": "Pick up the red chili pepper and place it on the blue plate.",
+  "named": false,
+  "focus": [
+   [
+    "peach",
+    0.75
+   ]
+  ]
+ },
+ "own_26": {
+  "src": "own",
+  "ep": 26,
+  "instruction": "Pick up the red chili pepper and place it on the purple plate.",
+  "named": false,
+  "focus": [
+   [
+    "peach",
+    0.96
+   ]
+  ]
+ },
+ "own_27": {
+  "src": "own",
+  "ep": 27,
+  "instruction": "Pick up the bell pepper and place it on the purple plate.",
+  "named": false,
+  "focus": [
+   [
+    "peach",
+    0.96
+   ]
+  ]
+ },
+ "own_28": {
+  "src": "own",
+  "ep": 28,
+  "instruction": "Pick up the avocado and place it on the yellow plate.",
+  "named": false,
+  "focus": [
+   [
+    "pomegranate",
+    0.98
+   ],
+   [
+    "peach",
+    0.97
+   ],
+   [
+    "persimmon",
+    0.94
+   ]
+  ]
+ },
+ "own_29": {
+  "src": "own",
+  "ep": 29,
+  "instruction": "Pick up the avocado and place it on the pink plate.",
+  "named": false,
+  "focus": [
+   [
+    "pomegranate",
+    0.98
+   ],
+   [
+    "peach",
+    0.97
+   ],
+   [
+    "persimmon",
+    0.94
+   ]
+  ]
+ },
+ "own_30": {
+  "src": "own",
+  "ep": 30,
+  "instruction": "Pick up the peach and place it on the pink plate.",
+  "named": false,
+  "focus": [
+   [
+    "pomegranate",
+    0.97
+   ],
+   [
+    "peach",
+    0.96
+   ],
+   [
+    "persimmon",
+    0.95
+   ]
+  ]
+ },
+ "own_31": {
+  "src": "own",
+  "ep": 31,
+  "instruction": "Pick up the pomegranate and place it on the yellow plate.",
+  "named": true,
+  "focus": [
+   [
+    "pomegranate",
+    0.98
+   ],
+   [
+    "peach",
+    0.95
+   ],
+   [
+    "persimmon",
+    0.94
+   ]
+  ]
+ },
+ "own_32": {
+  "src": "own",
+  "ep": 32,
+  "instruction": "Pick up the pomegranate and place it on the pink plate.",
+  "named": true,
+  "focus": [
+   [
+    "pomegranate",
+    0.98
+   ],
+   [
+    "persimmon",
+    0.94
+   ]
+  ]
+ },
+ "own_33": {
+  "src": "own",
+  "ep": 33,
+  "instruction": "Pick up the persimmon and place it on the pink plate.",
+  "named": false,
+  "focus": [
+   [
+    "pomegranate",
+    0.98
+   ],
+   [
+    "persimmon",
+    0.95
+   ]
+  ]
+ },
+ "own_34": {
+  "src": "own",
+  "ep": 34,
+  "instruction": "Pick up the persimmon and place it on the blue plate.",
+  "named": false,
+  "focus": [
+   [
+    "persimmon",
+    0.95
+   ],
+   [
+    "pomegranate",
+    0.65
+   ]
+  ]
+ },
+ "own_35": {
+  "src": "own",
+  "ep": 35,
+  "instruction": "Pick up the lemon and place it on the white plate.",
+  "named": false,
+  "focus": [
+   [
+    "pomegranate",
+    0.78
+   ],
+   [
+    "red_delicious",
+    0.35
+   ]
+  ]
+ },
+ "own_36": {
+  "src": "own",
+  "ep": 36,
+  "instruction": "Pick up the pumpkin and place it on the pink plate.",
+  "named": false,
+  "focus": [
+   [
+    "red_delicious",
+    0.28
+   ]
+  ]
+ },
+ "own_37": {
+  "src": "own",
+  "ep": 37,
+  "instruction": "Pick up the green chili pepper and place it on the white plate.",
+  "named": false,
+  "focus": [
+   [
+    "pomegranate",
+    0.1
+   ]
+  ]
+ },
+ "own_44": {
+  "src": "own",
+  "ep": 44,
+  "instruction": "Pick up the cherry and place it on the white plate.",
+  "named": false,
+  "focus": [
+   [
+    "red_delicious",
+    0.95
+   ]
+  ]
+ },
+ "own_45": {
+  "src": "own",
+  "ep": 45,
+  "instruction": "Pick up the wax apple and place it on the purple plate.",
+  "named": true,
+  "focus": [
+   [
+    "red_delicious",
+    0.2
+   ]
+  ]
+ },
+ "own_46": {
+  "src": "own",
+  "ep": 46,
+  "instruction": "Pick up the orange and place it on the white plate.",
+  "named": false,
+  "focus": [
+   [
+    "red_delicious",
+    0.97
+   ]
+  ]
+ },
+ "own_105": {
+  "src": "own",
+  "ep": 105,
+  "instruction": "Pick up the starfruit and place it on the yellow plate.",
+  "named": false,
+  "focus": [
+   [
+    "potato",
+    0.98
+   ],
+   [
+    "red_delicious",
+    0.98
+   ],
+   [
+    "red_apple",
+    0.96
+   ],
+   [
+    "potato",
+    0.86
+   ]
+  ]
+ },
+ "own_106": {
+  "src": "own",
+  "ep": 106,
+  "instruction": "Pick up the starfruit and place it on the yellow plate.",
+  "named": false,
+  "focus": [
+   [
+    "potato",
+    0.98
+   ],
+   [
+    "red_apple",
+    0.97
+   ],
+   [
+    "red_delicious",
+    0.54
+   ],
+   [
+    "persimmon",
+    0.13
+   ]
+  ]
+ },
+ "own_107": {
+  "src": "own",
+  "ep": 107,
+  "instruction": "Pick up the red delicious apple and place it on the pink plate.",
+  "named": true,
+  "focus": [
+   [
+    "potato",
+    0.98
+   ],
+   [
+    "red_delicious",
+    0.94
+   ]
+  ]
+ },
+ "own_108": {
+  "src": "own",
+  "ep": 108,
+  "instruction": "Pick up the red delicious apple and place it on the blue plate.",
+  "named": true,
+  "focus": [
+   [
+    "red_delicious",
+    0.94
+   ]
+  ]
+ },
+ "own_109": {
+  "src": "own",
+  "ep": 109,
+  "instruction": "Pick up the red apple and place it on the yellow plate.",
+  "named": true,
+  "focus": [
+   [
+    "red_apple",
+    0.96
+   ],
+   [
+    "red_delicious",
+    0.93
+   ]
+  ]
+ },
+ "own_110": {
+  "src": "own",
+  "ep": 110,
+  "instruction": "Pick up the green chili pepper and place it on the blue plate.",
+  "named": false,
+  "focus": [
+   [
+    "red_delicious",
+    0.94
+   ],
+   [
+    "red_apple",
+    0.31
+   ],
+   [
+    "pomegranate",
+    0.2
+   ]
+  ]
+ },
+ "own_111": {
+  "src": "own",
+  "ep": 111,
+  "instruction": "Pick up the onion and place it on the white plate.",
+  "named": false,
+  "focus": [
+   [
+    "tomato",
+    0.94
+   ]
+  ]
+ },
+ "own_112": {
+  "src": "own",
+  "ep": 112,
+  "instruction": "Pick up the tomato and place it on the purple plate.",
+  "named": true,
+  "focus": [
+   [
+    "tomato",
+    0.96
+   ]
+  ]
+ },
+ "own_113": {
+  "src": "own",
+  "ep": 113,
+  "instruction": "Pick up the mangosteen and place it on the purple plate.",
+  "named": false,
+  "focus": [
+   [
+    "red_apple",
+    0.95
+   ]
+  ]
+ },
+ "own_114": {
+  "src": "own",
+  "ep": 114,
+  "instruction": "Pick up the watermellon and place it on the white plate.",
+  "named": false,
+  "focus": [
+   [
+    "red_apple",
+    0.96
+   ]
+  ]
+ },
+ "own_118": {
+  "src": "own",
+  "ep": 118,
+  "instruction": "Pick up the green chili pepper and place it on the blue plate.",
+  "named": false,
+  "focus": [
+   [
+    "persimmon",
+    0.95
+   ],
+   [
+    "potato",
+    0.88
+   ]
+  ]
+ },
+ "own_119": {
+  "src": "own",
+  "ep": 119,
+  "instruction": "Pick up the papaya and place it on the blue plate.",
+  "named": false,
+  "focus": [
+   [
+    "persimmon",
+    0.96
+   ]
+  ]
+ },
+ "own_120": {
+  "src": "own",
+  "ep": 120,
+  "instruction": "Pick up the papaya and place it on the purple plate.",
+  "named": false,
+  "focus": [
+   [
+    "persimmon",
+    0.96
+   ]
+  ]
+ },
+ "own_121": {
+  "src": "own",
+  "ep": 121,
+  "instruction": "Pick up the green chili pepper and place it on the purple plate.",
+  "named": false,
+  "focus": [
+   [
+    "persimmon",
+    0.96
+   ]
+  ]
+ },
+ "own_122": {
+  "src": "own",
+  "ep": 122,
+  "instruction": "Pick up the persimmon and place it on the pink plate.",
+  "named": false,
+  "focus": [
+   [
+    "persimmon",
+    0.97
+   ]
+  ]
+ },
+ "own_123": {
+  "src": "own",
+  "ep": 123,
+  "instruction": "Pick up the pumpkin and place it on the white plate.",
+  "named": false,
+  "focus": [
+   [
+    "persimmon",
+    0.96
+   ]
+  ]
+ },
+ "own_124": {
+  "src": "own",
+  "ep": 124,
+  "instruction": "Pick up the orange and place it on the white plate.",
+  "named": false,
+  "focus": [
+   [
+    "persimmon",
+    0.95
+   ]
+  ]
+ },
+ "own_125": {
+  "src": "own",
+  "ep": 125,
+  "instruction": "Pick up the green apple and place it on the yellow plate.",
+  "named": true,
+  "focus": []
+ },
+ "own_224": {
+  "src": "own",
+  "ep": 224,
+  "instruction": "Put the dragon fruit on the blue plate.",
+  "named": false,
+  "focus": [
+   [
+    "potato",
+    0.99
+   ]
+  ]
+ },
+ "own_225": {
+  "src": "own",
+  "ep": 225,
+  "instruction": "Put the lemon on the white plate.",
+  "named": false,
+  "focus": [
+   [
+    "potato",
+    0.98
+   ]
+  ]
+ },
+ "own_226": {
+  "src": "own",
+  "ep": 226,
+  "instruction": "Put the lemon on the blue plate.",
+  "named": false,
+  "focus": [
+   [
+    "potato",
+    0.98
+   ]
+  ]
+ },
+ "own_227": {
+  "src": "own",
+  "ep": 227,
+  "instruction": "Put the lemon on the blue plate.",
+  "named": false,
+  "focus": [
+   [
+    "potato",
+    0.98
+   ]
+  ]
+ },
+ "own_228": {
+  "src": "own",
+  "ep": 228,
+  "instruction": "Put the watermelon on the blue plate.",
+  "named": false,
+  "focus": [
+   [
+    "potato",
+    0.99
+   ]
+  ]
+ },
+ "own_229": {
+  "src": "own",
+  "ep": 229,
+  "instruction": "Put the potato on the blue plate.",
+  "named": true,
+  "focus": [
+   [
+    "potato",
+    0.98
+   ]
+  ]
+ },
+ "own_230": {
+  "src": "own",
+  "ep": 230,
+  "instruction": "Put the lemon on the purple plate.",
+  "named": false,
+  "focus": [
+   [
+    "potato",
+    0.98
+   ]
+  ]
+ },
+ "own_231": {
+  "src": "own",
+  "ep": 231,
+  "instruction": "Put the potato on the pink plate.",
+  "named": true,
+  "focus": [
+   [
+    "potato",
+    0.99
+   ]
+  ]
+ },
+ "own_232": {
+  "src": "own",
+  "ep": 232,
+  "instruction": "Put the lemon on the blue plate.",
+  "named": false,
+  "focus": [
+   [
+    "potato",
+    0.99
+   ]
+  ]
+ },
+ "own_233": {
+  "src": "own",
+  "ep": 233,
+  "instruction": "Put the red delicious apple on the purple plate.",
+  "named": true,
+  "focus": [
+   [
+    "potato",
+    0.99
+   ],
+   [
+    "red_delicious",
+    0.96
+   ]
+  ]
+ },
+ "own_234": {
+  "src": "own",
+  "ep": 234,
+  "instruction": "Put the red delicious apple on the pink plate.",
+  "named": true,
+  "focus": [
+   [
+    "potato",
+    0.99
+   ],
+   [
+    "red_delicious",
+    0.95
+   ]
+  ]
+ },
+ "own_255": {
+  "src": "own",
+  "ep": 255,
+  "instruction": "Pick up the pumpkin and place it on the purple plate.",
+  "named": false,
+  "focus": [
+   [
+    "persimmon",
+    0.95
+   ]
+  ]
+ },
+ "own_256": {
+  "src": "own",
+  "ep": 256,
+  "instruction": "Pick up the orange and place it on the purple plate.",
+  "named": false,
+  "focus": [
+   [
+    "persimmon",
+    0.94
+   ]
+  ]
+ },
+ "own_257": {
+  "src": "own",
+  "ep": 257,
+  "instruction": "Pick up the mango and place it on the yellow plate.",
+  "named": false,
+  "focus": [
+   [
+    "persimmon",
+    0.95
+   ]
+  ]
+ },
+ "own_258": {
+  "src": "own",
+  "ep": 258,
+  "instruction": "Pick up the carrot and place it on the blue plate.",
+  "named": false,
+  "focus": [
+   [
+    "persimmon",
+    0.95
+   ]
+  ]
+ },
+ "own_259": {
+  "src": "own",
+  "ep": 259,
+  "instruction": "Pick up the persimmon and place it on the yellow plate.",
+  "named": false,
+  "focus": [
+   [
+    "persimmon",
+    0.96
+   ]
+  ]
+ },
+ "own_260": {
+  "src": "own",
+  "ep": 260,
+  "instruction": "Could you put the strawberry on the purple plate?",
+  "named": false,
+  "focus": [
+   [
+    "red_apple",
+    0.97
+   ]
+  ]
+ },
+ "own_261": {
+  "src": "own",
+  "ep": 261,
+  "instruction": "Could you put the bell pepper on the pink plate?",
+  "named": false,
+  "focus": [
+   [
+    "red_apple",
+    0.96
+   ]
+  ]
+ },
+ "own_262": {
+  "src": "own",
+  "ep": 262,
+  "instruction": "Could you put the wax apple on the pink plate?",
+  "named": true,
+  "focus": [
+   [
+    "red_apple",
+    0.96
+   ],
+   [
+    "red_delicious",
+    0.18
+   ]
+  ]
+ },
+ "own_263": {
+  "src": "own",
+  "ep": 263,
+  "instruction": "Could you put the bell pepper on the purple plate?",
+  "named": false,
+  "focus": [
+   [
+    "red_apple",
+    0.96
+   ]
+  ]
+ },
+ "own_264": {
+  "src": "own",
+  "ep": 264,
+  "instruction": "Could you put the red apple on the purple plate?",
+  "named": true,
+  "focus": [
+   [
+    "red_apple",
+    0.96
+   ]
+  ]
+ },
+ "own_265": {
+  "src": "own",
+  "ep": 265,
+  "instruction": "Could you put the cherry on the purple plate?",
+  "named": false,
+  "focus": [
+   [
+    "red_apple",
+    0.96
+   ]
+  ]
+ },
+ "own_308": {
+  "src": "own",
+  "ep": 308,
+  "instruction": "Pick up the papaya and place it on the yellow plate.",
+  "named": false,
+  "focus": [
+   [
+    "persimmon",
+    0.97
+   ]
+  ]
+ },
+ "own_309": {
+  "src": "own",
+  "ep": 309,
+  "instruction": "Pick up the persimmon and place it on the white plate.",
+  "named": false,
+  "focus": [
+   [
+    "persimmon",
+    0.96
+   ]
+  ]
+ },
+ "own_310": {
+  "src": "own",
+  "ep": 310,
+  "instruction": "Pick up the pumpkin and place it on the blue plate.",
+  "named": false,
+  "focus": [
+   [
+    "persimmon",
+    0.96
+   ]
+  ]
+ },
+ "own_311": {
+  "src": "own",
+  "ep": 311,
+  "instruction": "Pick up the carrot and place it on the yellow plate.",
+  "named": false,
+  "focus": [
+   [
+    "persimmon",
+    0.96
+   ]
+  ]
+ },
+ "own_312": {
+  "src": "own",
+  "ep": 312,
+  "instruction": "Pick up the orange and place it on the blue plate.",
+  "named": false,
+  "focus": [
+   [
+    "persimmon",
+    0.96
+   ]
+  ]
+ },
+ "own_313": {
+  "src": "own",
+  "ep": 313,
+  "instruction": "Pick up the tomato and place it on the white plate.",
+  "named": true,
+  "focus": [
+   [
+    "persimmon",
+    0.96
+   ],
+   [
+    "tomato",
+    0.96
+   ]
+  ]
+ },
+ "own_314": {
+  "src": "own",
+  "ep": 314,
+  "instruction": "Pick up the persimmon and place it on the purple plate.",
+  "named": false,
+  "focus": [
+   [
+    "potato",
+    0.98
+   ],
+   [
+    "tomato",
+    0.97
+   ],
+   [
+    "persimmon",
+    0.94
+   ]
+  ]
+ },
+ "own_315": {
+  "src": "own",
+  "ep": 315,
+  "instruction": "Pick up the orange and place it on the blue plate.",
+  "named": false,
+  "focus": [
+   [
+    "persimmon",
+    0.95
+   ],
+   [
+    "tomato",
+    0.93
+   ],
+   [
+    "tomato",
+    0.28
+   ]
+  ]
+ },
+ "own_316": {
+  "src": "own",
+  "ep": 316,
+  "instruction": "Pick up the tomato and place it on the purple plate.",
+  "named": true,
+  "focus": [
+   [
+    "persimmon",
+    0.97
+   ],
+   [
+    "tomato",
+    0.96
+   ]
+  ]
+ },
+ "own_317": {
+  "src": "own",
+  "ep": 317,
+  "instruction": "Pick up the carrot and place it on the purple plate.",
+  "named": false,
+  "focus": [
+   [
+    "persimmon",
+    0.97
+   ],
+   [
+    "tomato",
+    0.96
+   ]
+  ]
+ },
+ "own_318": {
+  "src": "own",
+  "ep": 318,
+  "instruction": "Pick up the persimmon and place it on the white plate.",
+  "named": false,
+  "focus": [
+   [
+    "tomato",
+    0.96
+   ],
+   [
+    "persimmon",
+    0.93
+   ]
+  ]
+ },
+ "own_330": {
+  "src": "own",
+  "ep": 330,
+  "instruction": "Pick up the dragon fruit and place it on the purple plate.",
+  "named": false,
+  "focus": [
+   [
+    "potato",
+    0.98
+   ]
+  ]
+ },
+ "own_331": {
+  "src": "own",
+  "ep": 331,
+  "instruction": "Pick up the potato and place it on the pink plate.",
+  "named": true,
+  "focus": [
+   [
+    "potato",
+    0.98
+   ]
+  ]
+ },
+ "own_332": {
+  "src": "own",
+  "ep": 332,
+  "instruction": "Pick up the lemon and place it on the purple plate.",
+  "named": false,
+  "focus": [
+   [
+    "potato",
+    0.98
+   ]
+  ]
+ },
+ "own_333": {
+  "src": "own",
+  "ep": 333,
+  "instruction": "Pick up the bell pepper and place it on the purple plate.",
+  "named": false,
+  "focus": [
+   [
+    "red_apple",
+    0.96
+   ]
+  ]
+ },
+ "own_334": {
+  "src": "own",
+  "ep": 334,
+  "instruction": "Pick up the wax apple and place it on the pink plate.",
+  "named": true,
+  "focus": [
+   [
+    "red_apple",
+    0.96
+   ]
+  ]
+ },
+ "own_335": {
+  "src": "own",
+  "ep": 335,
+  "instruction": "Pick up the wax apple and place it on the pink plate.",
+  "named": true,
+  "focus": [
+   [
+    "red_apple",
+    0.96
+   ]
+  ]
+ },
+ "own_336": {
+  "src": "own",
+  "ep": 336,
+  "instruction": "Pick up the wax apple and place it on the pink plate.",
+  "named": true,
+  "focus": [
+   [
+    "red_apple",
+    0.95
+   ]
+  ]
+ },
+ "own_337": {
+  "src": "own",
+  "ep": 337,
+  "instruction": "Pick up the bell pepper and place it on the pink plate.",
+  "named": false,
+  "focus": [
+   [
+    "red_apple",
+    0.96
+   ]
+  ]
+ },
+ "own_401": {
+  "src": "own",
+  "ep": 401,
+  "instruction": "Pick up the bell pepper and place it on the white plate.",
+  "named": false,
+  "focus": [
+   [
+    "red_apple",
+    0.96
+   ]
+  ]
+ },
+ "own_402": {
+  "src": "own",
+  "ep": 402,
+  "instruction": "Pick up the bell pepper and place it on the white plate.",
+  "named": false,
+  "focus": [
+   [
+    "red_apple",
+    0.97
+   ]
+  ]
+ },
+ "own_403": {
+  "src": "own",
+  "ep": 403,
+  "instruction": "Pick up the bell pepper and place it on the blue plate.",
+  "named": false,
+  "focus": [
+   [
+    "red_apple",
+    0.97
+   ]
+  ]
+ },
+ "own_404": {
+  "src": "own",
+  "ep": 404,
+  "instruction": "Pick up the carrot and place it on the yellow plate.",
+  "named": false,
+  "focus": [
+   [
+    "red_apple",
+    0.97
+   ]
+  ]
+ },
+ "own_405": {
+  "src": "own",
+  "ep": 405,
+  "instruction": "Pick up the pumpkin and place it on the white plate.",
+  "named": false,
+  "focus": [
+   [
+    "persimmon",
+    0.97
+   ]
+  ]
+ },
+ "own_406": {
+  "src": "own",
+  "ep": 406,
+  "instruction": "Pick up the persimmon and place it on the pink plate.",
+  "named": false,
+  "focus": [
+   [
+    "persimmon",
+    0.96
+   ]
+  ]
+ },
+ "own_407": {
+  "src": "own",
+  "ep": 407,
+  "instruction": "Pick up the orange and place it on the purple plate.",
+  "named": false,
+  "focus": [
+   [
+    "persimmon",
+    0.96
+   ]
+  ]
+ },
+ "own_408": {
+  "src": "own",
+  "ep": 408,
+  "instruction": "Pick up the orange and place it on the white plate.",
+  "named": false,
+  "focus": [
+   [
+    "persimmon",
+    0.96
+   ]
+  ]
+ },
+ "own_414": {
+  "src": "own",
+  "ep": 414,
+  "instruction": "Pick up the pear and place it on the yellow plate.",
+  "named": true,
+  "focus": []
+ },
+ "own_418": {
+  "src": "own",
+  "ep": 418,
+  "instruction": "Pick up the pear and place it on the pink plate.",
+  "named": true,
+  "focus": []
+ },
+ "pol_1": {
+  "src": "pol",
+  "ep": 1,
+  "instruction": "Pick up the orange and place it on the purple plate.",
+  "named": false,
+  "focus": [
+   [
+    "red_apple",
+    0.98
+   ]
+  ]
+ },
+ "pol_2": {
+  "src": "pol",
+  "ep": 2,
+  "instruction": "Pick up the orange and place it on the purple plate.",
+  "named": false,
+  "focus": [
+   [
+    "red_apple",
+    0.97
+   ]
+  ]
+ },
+ "pol_3": {
+  "src": "pol",
+  "ep": 3,
+  "instruction": "Pick up the eggplant and place it on the purple plate.",
+  "named": false,
+  "focus": [
+   [
+    "red_apple",
+    0.97
+   ]
+  ]
+ },
+ "pol_4": {
+  "src": "pol",
+  "ep": 4,
+  "instruction": "Pick up the eggplant and place it on the purple plate.",
+  "named": false,
+  "focus": [
+   [
+    "red_apple",
+    0.97
+   ]
+  ]
+ },
+ "pol_5": {
+  "src": "pol",
+  "ep": 5,
+  "instruction": "Pick up the watermelon and place it on the yellow plate.",
+  "named": false,
+  "focus": [
+   [
+    "red_apple",
+    0.97
+   ]
+  ]
+ },
+ "pol_9": {
+  "src": "pol",
+  "ep": 9,
+  "instruction": "Pick up the mushroom and place it on the pink plate.",
+  "named": false,
+  "focus": [
+   [
+    "red_apple",
+    0.96
+   ]
+  ]
+ },
+ "pol_11": {
+  "src": "pol",
+  "ep": 11,
+  "instruction": "Pick up the green apple and place it on the blue plate.",
+  "named": true,
+  "focus": [
+   [
+    "red_apple",
+    0.98
+   ]
+  ]
+ },
+ "pol_12": {
+  "src": "pol",
+  "ep": 12,
+  "instruction": "Pick up the red apple and place it on the blue plate.",
+  "named": true,
+  "focus": [
+   [
+    "red_apple",
+    0.97
+   ]
+  ]
+ },
+ "pol_13": {
+  "src": "pol",
+  "ep": 13,
+  "instruction": "Pick up the red apple and place it on the purple plate.",
+  "named": true,
+  "focus": [
+   [
+    "red_apple",
+    0.97
+   ]
+  ]
+ },
+ "pol_21": {
+  "src": "pol",
+  "ep": 21,
+  "instruction": "Pick up the starfruit and place it on the blue plate.",
+  "named": false,
+  "focus": [
+   [
+    "red_delicious",
+    0.87
+   ]
+  ]
+ },
+ "pol_22": {
+  "src": "pol",
+  "ep": 22,
+  "instruction": "Pick up the starfruit and place it on the white plate.",
+  "named": false,
+  "focus": [
+   [
+    "red_delicious",
+    0.97
+   ]
+  ]
+ },
+ "pol_23": {
+  "src": "pol",
+  "ep": 23,
+  "instruction": "Pick up the potato and place it on the blue plate.",
+  "named": true,
+  "focus": [
+   [
+    "potato",
+    0.99
+   ]
+  ]
+ },
+ "pol_24": {
+  "src": "pol",
+  "ep": 24,
+  "instruction": "Pick up the pineapple and place it on the blue plate.",
+  "named": false,
+  "focus": [
+   [
+    "potato",
+    0.98
+   ]
+  ]
+ },
+ "pol_25": {
+  "src": "pol",
+  "ep": 25,
+  "instruction": "Pick up the pineapple and place it on the yellow plate.",
+  "named": false,
+  "focus": [
+   [
+    "potato",
+    0.98
+   ]
+  ]
+ },
+ "pol_26": {
+  "src": "pol",
+  "ep": 26,
+  "instruction": "Pick up the pear and place it on the purple plate.",
+  "named": true,
+  "focus": []
+ },
+ "pol_30": {
+  "src": "pol",
+  "ep": 30,
+  "instruction": "Pick up the red chili pepper and place it on the blue plate.",
+  "named": false,
+  "focus": [
+   [
+    "peach",
+    0.75
+   ]
+  ]
+ },
+ "pol_31": {
+  "src": "pol",
+  "ep": 31,
+  "instruction": "Pick up the red chili pepper and place it on the purple plate.",
+  "named": false,
+  "focus": [
+   [
+    "peach",
+    0.96
+   ]
+  ]
+ },
+ "pol_32": {
+  "src": "pol",
+  "ep": 32,
+  "instruction": "Pick up the bell pepper and place it on the purple plate.",
+  "named": false,
+  "focus": [
+   [
+    "peach",
+    0.96
+   ]
+  ]
+ },
+ "pol_33": {
+  "src": "pol",
+  "ep": 33,
+  "instruction": "Pick up the avocado and place it on the yellow plate.",
+  "named": false,
+  "focus": [
+   [
+    "pomegranate",
+    0.98
+   ],
+   [
+    "peach",
+    0.97
+   ],
+   [
+    "persimmon",
+    0.94
+   ]
+  ]
+ },
+ "pol_34": {
+  "src": "pol",
+  "ep": 34,
+  "instruction": "Pick up the avocado and place it on the pink plate.",
+  "named": false,
+  "focus": [
+   [
+    "pomegranate",
+    0.98
+   ],
+   [
+    "peach",
+    0.97
+   ],
+   [
+    "persimmon",
+    0.94
+   ]
+  ]
+ },
+ "pol_35": {
+  "src": "pol",
+  "ep": 35,
+  "instruction": "Pick up the peach and place it on the pink plate.",
+  "named": false,
+  "focus": [
+   [
+    "pomegranate",
+    0.97
+   ],
+   [
+    "peach",
+    0.96
+   ],
+   [
+    "persimmon",
+    0.95
+   ]
+  ]
+ },
+ "pol_36": {
+  "src": "pol",
+  "ep": 36,
+  "instruction": "Pick up the pomegranate and place it on the yellow plate.",
+  "named": true,
+  "focus": [
+   [
+    "pomegranate",
+    0.98
+   ],
+   [
+    "peach",
+    0.95
+   ],
+   [
+    "persimmon",
+    0.94
+   ]
+  ]
+ },
+ "pol_37": {
+  "src": "pol",
+  "ep": 37,
+  "instruction": "Pick up the pomegranate and place it on the pink plate.",
+  "named": true,
+  "focus": [
+   [
+    "pomegranate",
+    0.98
+   ],
+   [
+    "persimmon",
+    0.94
+   ]
+  ]
+ },
+ "pol_38": {
+  "src": "pol",
+  "ep": 38,
+  "instruction": "Pick up the persimmon and place it on the pink plate.",
+  "named": false,
+  "focus": [
+   [
+    "pomegranate",
+    0.98
+   ],
+   [
+    "persimmon",
+    0.95
+   ]
+  ]
+ },
+ "pol_39": {
+  "src": "pol",
+  "ep": 39,
+  "instruction": "Pick up the persimmon and place it on the blue plate.",
+  "named": false,
+  "focus": [
+   [
+    "persimmon",
+    0.95
+   ],
+   [
+    "pomegranate",
+    0.65
+   ]
+  ]
+ },
+ "pol_40": {
+  "src": "pol",
+  "ep": 40,
+  "instruction": "Pick up the lemon and place it on the white plate.",
+  "named": false,
+  "focus": [
+   [
+    "pomegranate",
+    0.78
+   ],
+   [
+    "red_delicious",
+    0.35
+   ]
+  ]
+ },
+ "pol_41": {
+  "src": "pol",
+  "ep": 41,
+  "instruction": "Pick up the pumpkin and place it on the pink plate.",
+  "named": false,
+  "focus": [
+   [
+    "red_delicious",
+    0.28
+   ]
+  ]
+ },
+ "pol_42": {
+  "src": "pol",
+  "ep": 42,
+  "instruction": "Pick up the green chili pepper and place it on the white plate.",
+  "named": false,
+  "focus": [
+   [
+    "pomegranate",
+    0.1
+   ]
+  ]
+ },
+ "pol_50": {
+  "src": "pol",
+  "ep": 50,
+  "instruction": "Pick up the cherry and place it on the white plate.",
+  "named": false,
+  "focus": [
+   [
+    "red_delicious",
+    0.95
+   ]
+  ]
+ },
+ "pol_51": {
+  "src": "pol",
+  "ep": 51,
+  "instruction": "Pick up the wax apple and place it on the purple plate.",
+  "named": true,
+  "focus": [
+   [
+    "red_delicious",
+    0.2
+   ]
+  ]
+ },
+ "pol_52": {
+  "src": "pol",
+  "ep": 52,
+  "instruction": "Pick up the orange and place it on the white plate.",
+  "named": false,
+  "focus": [
+   [
+    "red_delicious",
+    0.97
+   ]
+  ]
+ },
+ "pol_130": {
+  "src": "pol",
+  "ep": 130,
+  "instruction": "Pick up the red apple and place it on the yellow plate.",
+  "named": true,
+  "focus": [
+   [
+    "red_apple",
+    0.97
+   ],
+   [
+    "red_delicious",
+    0.96
+   ]
+  ]
+ },
+ "pol_133": {
+  "src": "pol",
+  "ep": 133,
+  "instruction": "Pick up the green chili pepper and place it on the blue plate.",
+  "named": false,
+  "focus": [
+   [
+    "persimmon",
+    0.95
+   ],
+   [
+    "potato",
+    0.88
+   ]
+  ]
+ },
+ "pol_134": {
+  "src": "pol",
+  "ep": 134,
+  "instruction": "Pick up the papaya and place it on the blue plate.",
+  "named": false,
+  "focus": [
+   [
+    "persimmon",
+    0.96
+   ]
+  ]
+ },
+ "pol_135": {
+  "src": "pol",
+  "ep": 135,
+  "instruction": "Pick up the papaya and place it on the purple plate.",
+  "named": false,
+  "focus": [
+   [
+    "persimmon",
+    0.96
+   ]
+  ]
+ },
+ "pol_136": {
+  "src": "pol",
+  "ep": 136,
+  "instruction": "Pick up the green chili pepper and place it on the purple plate.",
+  "named": false,
+  "focus": [
+   [
+    "persimmon",
+    0.96
+   ]
+  ]
+ },
+ "pol_137": {
+  "src": "pol",
+  "ep": 137,
+  "instruction": "Pick up the persimmon and place it on the pink plate.",
+  "named": false,
+  "focus": [
+   [
+    "persimmon",
+    0.97
+   ]
+  ]
+ },
+ "pol_138": {
+  "src": "pol",
+  "ep": 138,
+  "instruction": "Pick up the pumpkin and place it on the white plate.",
+  "named": false,
+  "focus": [
+   [
+    "persimmon",
+    0.96
+   ]
+  ]
+ },
+ "pol_139": {
+  "src": "pol",
+  "ep": 139,
+  "instruction": "Pick up the orange and place it on the white plate.",
+  "named": false,
+  "focus": [
+   [
+    "persimmon",
+    0.95
+   ]
+  ]
+ },
+ "pol_140": {
+  "src": "pol",
+  "ep": 140,
+  "instruction": "Pick up the green apple and place it on the yellow plate.",
+  "named": true,
+  "focus": []
+ },
+ "pol_141": {
+  "src": "pol",
+  "ep": 141,
+  "instruction": "Pick up the green apple and place it on the yellow plate.",
+  "named": true,
+  "focus": []
+ }
+}

@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>复位参考</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--ink:#16181d;--mute:#6b7280;--line:#e5e7eb;--acc:#2563eb;--ok:#16a34a;--warn:#d97706;--bad:#dc2626;--chip:#eef2ff;--hl:#fff7e6}
+@media (prefers-color-scheme:dark){:root{--bg:#0f1115;--card:#171a21;--ink:#e8eaee;--mute:#9aa3b2;--line:#2a2f3a;--acc:#60a5fa;--ok:#22c55e;--warn:#f59e0b;--bad:#f87171;--chip:#1e2533;--hl:#2a2414}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 -apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue",sans-serif}
+header{display:flex;flex-wrap:wrap;gap:12px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--line);background:var(--card);position:sticky;top:0;z-index:2}
+header h1{font-size:16px;margin:0 8px 0 0}.pill{display:inline-flex;align-items:center;gap:6px;padding:2px 10px;border-radius:999px;background:var(--chip);color:var(--mute);font-size:12px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--bad)}.dot.ok{background:var(--ok)}.dot.wait{background:var(--warn)}
+nav.tabs{display:flex;gap:4px;flex-wrap:wrap}nav.tabs a{padding:3px 12px;border-radius:8px;color:var(--mute);text-decoration:none;border:1px solid var(--line);font-size:13px}nav.tabs a.cur{color:var(--acc);border-color:var(--acc);font-weight:600}
+main{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:14px;padding:14px 16px;max-width:1500px;margin:0 auto}
+@media (max-width:900px){main{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;min-width:0}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.seg{display:inline-flex;flex-wrap:wrap;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.seg button{border:0;border-right:1px solid var(--line);border-radius:0;padding:4px 12px}.seg button:last-child{border-right:0}
+.seg button.on{background:var(--acc);color:#fff}
+button{font:inherit;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;padding:3px 10px;cursor:pointer}
+button.tog.on{border-color:var(--acc);color:var(--acc)}
+label.sl{display:inline-flex;align-items:center;gap:8px;color:var(--mute);font-size:12px}
+input[type=range]{width:140px;accent-color:var(--acc)}
+.imgbox{position:relative;width:100%;max-width:1000px;background:#000;border-radius:8px;overflow:hidden;aspect-ratio:4/3;margin-top:10px}
+.imgbox canvas{position:absolute;inset:0;width:100%;height:100%}
+.label{color:var(--mute);font-size:12px}
+#task{font-size:20px;line-height:1.35;font-weight:600;margin:10px 0 6px;word-break:break-word}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.chip{display:inline-flex;align-items:center;gap:4px;padding:1px 9px;border-radius:999px;background:var(--chip);font-size:12px;border:1px solid transparent}
+.chip.t{background:#fff;color:#111;border-color:#9ca3af}.chip.d{background:#ff8000;color:#fff}.chip.lo{background:transparent;border:1px dashed var(--line);color:var(--mute)}
+.note{margin-top:8px;padding:6px 10px;border-radius:8px;background:var(--hl);font-size:13px}
+.help{margin-top:10px;color:var(--mute);font-size:12px}
+h2{font-size:13px;margin:6px 0 8px;color:var(--mute);font-weight:600}
+.refs{list-style:none;margin:0;padding:0}
+.refs li{display:grid;grid-template-columns:96px minmax(0,1fr);gap:8px;align-items:center;padding:6px;border-radius:8px;cursor:pointer}
+.refs li+li{margin-top:2px}.refs li:hover{background:var(--chip)}.refs li.sel{background:var(--chip);outline:1px solid var(--acc)}
+.refs img{width:96px;height:72px;object-fit:cover;border-radius:6px;display:block;background:#000}
+.refs .tm{font-variant-numeric:tabular-nums;font-weight:600;font-size:13px}.refs .tk{font-size:12px;color:var(--mute);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.empty{color:var(--mute);padding:20px 0;text-align:center}
+</style>
+</head>
+<body>
+<header>
+  <h1 id="h1">复位参考</h1>
+  <nav class="tabs"><a href="/">任务三 · 指令实时</a><a href="/yolo">任务一/二 · YOLO</a><a href="/topref?t=1" id="nav1">复位 · 任务一</a><a href="/topref?t=2" id="nav2">复位 · 任务二</a><a href="/topref?t=3" id="nav3">复位 · 任务三</a></nav>
+  <span class="pill"><span class="dot" id="ldot"></span><span id="ltxt">实时画面连接中…</span></span>
+  <span style="flex:1"></span>
+  <button id="pause" class="tog" title="暂停后推理机上的相机读取在 20 秒后自动停止（空格）">暂停实时</button>
+</header>
+<main>
+  <section class="card">
+    <div class="row">
+      <div class="seg" id="modes">
+        <button data-m="ghost" class="on" title="只叠加参考图里抠出的物体">物体虚影</button>
+        <button data-m="lines" title="叠加参考图的边缘线（透明收纳架也看得出）">轮廓线</button>
+        <button data-m="onion" title="整张参考图半透明叠加">整图叠加</button>
+        <button data-m="blink" title="实时画面和参考图来回切换（B）">闪烁对比</button>
+        <button data-m="ref" title="只看参考图">只看参考</button>
+        <button data-m="live" title="只看实时画面">只看实时</button>
+      </div>
+      <label class="sl">叠加强度 <input type="range" id="alpha" min="10" max="100" value="60"> <span id="aval">60%</span></label>
+      <button class="tog on" id="names" title="在物体位置标出名称">名称</button>
+      <button class="tog on" id="edges" title="物体虚影加黄色描边">描边</button>
+    </div>
+    <div class="imgbox"><canvas id="cv" width="640" height="480"></canvas></div>
+    <div id="info"></div>
+    <div class="help">把桌上的物体摆到虚影的位置和朝向，直到"闪烁对比"里看不出跳动。← / → 换参考图，B 闪烁对比，空格暂停实时。参考图是那次任务开局时的头部相机画面（任务一、二的 YOLO 框已经去掉，任务三取自机器人主机的录像，本来就没有框）；每张图都可以用地址栏里的链接直接分享。</div>
+  </section>
+  <aside class="card">
+    <div id="list"><div class="empty">读取参考图…</div></div>
+  </aside>
+</main>
+<script>
+const ZH = {avocado:'牛油果',banana:'香蕉',bell_pepper:'彩椒',carrot:'胡萝卜',cucumber:'黄瓜',dragon_fruit:'火龙果',eggplant:'茄子',green_apple:'青苹果',kiwi:'猕猴桃',lemon:'柠檬',mango:'芒果',mangosteen:'山竹',mushroom:'蘑菇',onion:'洋葱',orange:'橙子',papaya:'木瓜',passion_fruit:'百香果',peach:'桃子',pear:'梨',persimmon:'柿子',pineapple:'菠萝',pomegranate:'石榴',potato:'土豆',pumpkin:'南瓜',red_apple:'红苹果',strawberry:'草莓',tomato:'番茄',watermelon:'西瓜',wax_apple:'莲雾',grapes:'葡萄',cherry:'樱桃',tangerine:'橘子',red_chili:'红辣椒',red_delicious:'蛇果',starfruit:'杨桃',green_chili:'青椒',plate_white:'白盘',plate_yellow:'黄盘',plate_pink:'粉盘',plate_purple:'紫盘',plate_blue:'蓝盘',lip_gloss:'唇釉',lotion_bottle:'乳液瓶',lipstick:'口红',contour:'修容盘',brush_large:'大刷子',highlighter:'高光盘',powder_puff:'粉扑',eyeshadow_palette:'眼影盘',brush_small:'小刷子',glitter_compact:'闪粉盒',organizer_top:'收纳架上层',organizer_middle:'收纳架中层',organizer_bottom:'收纳架下层',basket:'篮子',dustpan:'簸箕',brush:'刷子',paper_ball:'纸团',object:'物体'};
+const zh = n => ZH[n] || n || '?';
+const TASK = ({'2': 2, '3': 3})[new URLSearchParams(location.search).get('t')] || 1;
+const TASK_NAME = {1: '任务一 · 水果和盘子', 2: '任务二 · 收纳架', 3: '任务三 · 扫纸团'}[TASK];
+const taskOf = r => r.task_no === 2 ? 2 : r.task_no === 3 ? 3 : 1;
+document.title = '复位参考 · 任务' + '一二三'[TASK - 1];
+document.getElementById('h1').textContent = '复位参考 · ' + TASK_NAME;
+document.getElementById('nav' + TASK).classList.add('cur');
+const $ = id => document.getElementById(id);
+const cv = $('cv'), ctx = cv.getContext('2d');
+let refs = [], cur = null, mode = TASK === 2 ? 'lines' : 'ghost', alpha = 0.6, showNames = true, showEdges = true, paused = false;
+let live = null, liveT = 0, liveState = 'connecting', blinkOn = false, blinkTimer = null;
+const imgs = {};
+
+function img(src) {
+  if (!imgs[src]) { const im = new Image(); im.onload = draw; im.src = src; imgs[src] = im; }
+  return imgs[src];
+}
+function layers(r) { return {ref: img(`/topref/ref_${r.id}.jpg`), obj: img(`/topref/obj_${r.id}.png`), edge: img(`/topref/edge_${r.id}.png`), line: img(`/topref/line_${r.id}.png`)}; }
+const ready = im => im && im.complete && im.naturalWidth > 0;
+function nearest(r, c) {
+  let best = null, bd = 1e9;
+  for (const o of r.objects) { const d = Math.hypot(o.box[0] / 2 + o.box[2] / 2 - c[0], o.box[1] / 2 + o.box[3] / 2 - c[1]); if (d < bd) { bd = d; best = o; } }
+  return bd < 12 ? best : null;
+}
+function roles(r) { return r.target_box_center ? {t: nearest(r, r.target_box_center), d: nearest(r, r.dest_box_center)} : {t: null, d: null}; }
+const balls = r => r.objects.filter(o => o.name === 'paper_ball').length;
+
+function pill(x, y, text, bg, fg) {
+  ctx.font = '600 13px -apple-system,"PingFang SC",sans-serif';
+  const w = ctx.measureText(text).width + 12, h = 20;
+  x = Math.max(2, Math.min(640 - w - 2, x - w / 2)); y = Math.max(2, Math.min(480 - h - 2, y - h / 2));
+  ctx.fillStyle = bg; ctx.beginPath(); ctx.roundRect(x, y, w, h, 10); ctx.fill();
+  ctx.fillStyle = fg; ctx.textBaseline = 'middle'; ctx.fillText(text, x + 6, y + h / 2 + 1);
+}
+function draw() {
+  ctx.clearRect(0, 0, 640, 480); ctx.globalAlpha = 1;
+  if (!cur) return;
+  const L = layers(cur), haveLive = live && !paused || (live && paused);
+  const base = (mode === 'ref' || (mode === 'blink' && blinkOn)) ? 'ref' : 'live';
+  if (base === 'live' && live) ctx.drawImage(live, 0, 0, 640, 480);
+  else if (base === 'live') { if (ready(L.ref)) { ctx.drawImage(L.ref, 0, 0); ctx.fillStyle = 'rgba(0,0,0,.6)'; ctx.fillRect(0, 0, 640, 480); } }
+  else if (ready(L.ref)) ctx.drawImage(L.ref, 0, 0);
+  if (base === 'live' && mode !== 'live') {
+    ctx.globalAlpha = alpha;
+    if (mode === 'ghost' && ready(L.obj)) ctx.drawImage(L.obj, 0, 0);
+    if (mode === 'onion' && ready(L.ref)) ctx.drawImage(L.ref, 0, 0);
+    if (mode === 'lines' && ready(L.line)) { ctx.globalAlpha = Math.max(alpha, .5); ctx.drawImage(L.line, 0, 0); }
+    ctx.globalAlpha = 1;
+    if (mode === 'ghost' && showEdges && ready(L.edge)) { ctx.globalAlpha = Math.min(1, alpha + .3); ctx.drawImage(L.edge, 0, 0); ctx.globalAlpha = 1; }
+  }
+  if (showNames && mode !== 'live') {
+    const {t, d} = roles(cur);
+    for (const o of cur.objects) {
+      if (o === t || o === d) continue;
+      pill(o.cx, o.cy, zh(o.name), 'rgba(17,24,39,.72)', '#fff');
+    }
+    if (!cur.target_box_center) { /* task 3: names only */ }
+    else if (d) pill(d.cx, d.cy, '目的地 · ' + zh(cur.dest || d.name), 'rgba(255,128,0,.92)', '#fff');
+    else pill(cur.dest_box_center[0], cur.dest_box_center[1], '目的地 · ' + zh(cur.dest), 'rgba(255,128,0,.92)', '#fff');
+    if (!cur.target_box_center) { /* task 3 */ }
+    else if (t) pill(t.cx, t.cy, '目标 · ' + zh(cur.target || t.name), 'rgba(255,255,255,.95)', '#111');
+    else pill(cur.target_box_center[0], cur.target_box_center[1], '目标 · ' + zh(cur.target), 'rgba(255,255,255,.95)', '#111');
+  }
+  if (!live && mode !== 'ref') {
+    ctx.font = '600 15px -apple-system,"PingFang SC",sans-serif'; ctx.fillStyle = '#fff'; ctx.textBaseline = 'top';
+    ctx.fillText(paused ? '实时画面已暂停' : '没有实时画面（' + liveText() + '）— 先对照参考图摆放', 12, 10);
+  }
+}
+function liveText() { return {starting: '推理机相机读取启动中', 'no frames': '相机话题暂时没有画面', connecting: '正在连接推理机'}[liveState] || liveState; }
+
+function showInfo() {
+  const r = cur; if (!r) { $('info').innerHTML = ''; return; }
+  const {t, d} = roles(r);
+  const chips = r.objects.map(o => {
+    const cls = o === t ? 'chip t' : o === d ? 'chip d' : o.ghost ? 'chip' : 'chip lo';
+    const tip = o.ghost ? '' : (o.name.startsWith('organizer') ? '透明收纳架：看"轮廓线"' : '没抠出虚影：看"轮廓线"或"整图叠加"');
+    return `<span class="${cls}" title="${tip}">${o === t ? '目标 · ' + zh(r.target || o.name) : o === d ? '目的地 · ' + zh(r.dest || o.name) : zh(o.name)}</span>`;
+  }).join('');
+  if (TASK === 3) {
+    const cnt = {}; r.objects.forEach(o => cnt[o.name] = (cnt[o.name] || 0) + 1);
+    const chips3 = ['paper_ball', 'dustpan', 'brush', 'basket', 'object'].filter(k => cnt[k]).map(k =>
+      `<span class="chip${k === 'paper_ball' ? ' t' : ''}">${zh(k)}${cnt[k] > 1 ? ' ×' + cnt[k] : ''}</span>`).join('');
+    $('info').innerHTML = `<div id="task">${esc(r.task || '')}</div>
+      <div class="row"><span class="label">${r.date.slice(4, 6)}/${r.date.slice(6)} ${r.time} 开局画面（机器人主机的录像，会话开始后 ${r.frame_offset_s ?? 0} 秒）</span></div>
+      <div class="chips">${chips3}</div>` +
+      (r.observation ? `<div class="note">开局时大模型对场景的描述：${esc(r.observation)}</div>` : '') +
+      `<div class="help" style="margin-top:6px">纸团的位置每次都不一样，先摆纸团，再摆簸箕和刷子的位置和朝向。物体是按颜色抠出来的（篮子、簸箕、刷子、纸团）。</div>`;
+    return;
+  }
+  $('info').innerHTML = `<div id="task">${esc(r.task || '')}</div>
+    <div class="row"><span class="label">${r.date.slice(4, 6)}/${r.date.slice(6)} ${r.time} 开局画面</span></div>
+    <div class="chips">${chips}</div>` +
+    (r.target_covered ? `<div class="note">这次的目标很细，原图里大半被白框压住，去框后可能看不清；以"目标"标注的位置为准。</div>` : '') +
+    (r.objects.some(o => !o.ghost) ? `<div class="help" style="margin-top:6px">虚线标签的物体没有虚影（透明或和桌面颜色太接近），用"轮廓线"或"整图叠加"对位置。</div>` : '');
+}
+const esc = s => s.replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]));
+
+function select(id, push = true) {
+  cur = refs.find(r => r.id === id) || refs[0]; if (!cur) return;
+  document.querySelectorAll('.refs li').forEach(li => li.classList.toggle('sel', li.dataset.id === cur.id));
+  if (push) history.replaceState(null, '', `?t=${TASK}#${cur.id}`);
+  const i = refs.indexOf(cur); [refs[i - 1], refs[i + 1]].forEach(r => r && layers(r));
+  showInfo(); draw();
+  const li = document.querySelector(`.refs li[data-id="${cur.id}"]`); if (li) li.scrollIntoView({block: 'nearest'});
+}
+function buildList() {
+  if (!refs.length) { $('list').innerHTML = `<div class="empty">${TASK_NAME} 还没有参考图（mk_topref.py 生成）</div>`; return; }
+  $('list').innerHTML = [[TASK, TASK_NAME]].map(([n, title]) => {
+    const rs = refs;
+    return `<h2>${title} · 参考图（${rs.length}）</h2><ul class="refs">` + rs.map(r =>
+      `<li data-id="${r.id}"><img loading="lazy" src="/topref/ref_${r.id}.jpg" alt=""><div style="min-width:0"><div class="tm">${r.time}</div>` +
+      `<div class="tk">${TASK === 3 ? '纸团 ×' + balls(r) : zh(r.target) + ' → ' + zh(r.dest)}</div><div class="tk">${esc(r.task || '')}</div></div></li>`).join('') + '</ul>';
+  }).join('');
+  document.querySelectorAll('.refs li').forEach(li => li.onclick = () => select(li.dataset.id));
+}
+
+async function poll() {
+  if (paused || document.hidden) { setTimeout(poll, 500); return; }
+  let wait = 250;
+  try {
+    const res = await fetch('/live.jpg', {cache: 'no-store'});
+    if (res.ok) {
+      const bm = await createImageBitmap(await res.blob());
+      if (live && live.close) live.close();
+      live = bm; liveT = Date.now(); liveState = 'ok';
+      const age = parseFloat(res.headers.get('X-Frame-Age') || '0');
+      setLive('ok', `实时画面 · ${age < 1 ? '延迟 <1 秒' : '延迟 ' + age.toFixed(1) + ' 秒'}`);
+      draw();
+    } else {
+      const j = await res.json().catch(() => ({})); liveState = j.state || 'connecting'; wait = 1000;
+      if (Date.now() - liveT > 5000) { live = null; draw(); }
+      setLive('wait', liveText() + (j.err ? '：' + j.err.slice(0, 60) : ''));
+    }
+  } catch (e) { wait = 2000; setLive('bad', '看板服务连不上'); }
+  setTimeout(poll, wait);
+}
+function setLive(k, txt) { $('ldot').className = 'dot' + (k === 'ok' ? ' ok' : k === 'wait' ? ' wait' : ''); $('ltxt').textContent = txt; }
+
+function setMode(m) {
+  mode = m; document.querySelectorAll('#modes button').forEach(b => b.classList.toggle('on', b.dataset.m === m));
+  clearInterval(blinkTimer); blinkOn = false;
+  if (m === 'blink') blinkTimer = setInterval(() => { blinkOn = !blinkOn; draw(); }, 600);
+  draw();
+}
+document.querySelectorAll('#modes button').forEach(b => b.onclick = () => setMode(b.dataset.m));
+$('alpha').oninput = e => { alpha = e.target.value / 100; $('aval').textContent = e.target.value + '%'; draw(); };
+$('names').onclick = e => { showNames = !showNames; e.target.classList.toggle('on', showNames); draw(); };
+$('edges').onclick = e => { showEdges = !showEdges; e.target.classList.toggle('on', showEdges); draw(); };
+$('pause').onclick = () => { paused = !paused; $('pause').classList.toggle('on', paused); $('pause').textContent = paused ? '继续实时' : '暂停实时'; if (paused) setLive('wait', '实时画面已暂停'); draw(); };
+document.addEventListener('keydown', e => {
+  if (e.target.tagName === 'INPUT') return;
+  const i = refs.indexOf(cur);
+  if (e.key === 'ArrowRight' && i < refs.length - 1) { select(refs[i + 1].id); e.preventDefault(); }
+  else if (e.key === 'ArrowLeft' && i > 0) { select(refs[i - 1].id); e.preventDefault(); }
+  else if (e.key === 'b' || e.key === 'B') setMode(mode === 'blink' ? 'ghost' : 'blink');
+  else if (e.key === ' ') { $('pause').click(); e.preventDefault(); }
+});
+let all = [];
+function fromHash() {      // a shared link to the other task's reference opens that task's page
+  const id = location.hash.slice(1), r = all.find(x => x.id === id);
+  if (r && taskOf(r) !== TASK) { location.replace(`/topref?t=${taskOf(r)}#${id}`); return; }
+  select(id || (refs[0] && refs[0].id), false);
+}
+window.addEventListener('hashchange', fromHash);
+
+fetch('/topref/refs.json', {cache: 'no-store'}).then(r => r.json()).then(j => {
+  all = j; refs = j.filter(r => taskOf(r) === TASK); buildList(); setMode(mode); fromHash();
+}).catch(() => { $('list').innerHTML = '<div class="empty">参考图清单读不到</div>'; });
+poll();
+</script>
+</body>
+</html>

@@ -1,0 +1,2 @@
+# batches from 24 on, in collection order (mk_v4c: line i -> demos 24+i, DAgger 1.5x). 2nd word "hold" = auto_multi.sh waits for it.
+c89c

@@ -1,0 +1,190 @@
+{
+ "summary": {
+  "yolo": "weights/v12.torchscript",
+  "checked_by_eye": "2026-11-15 14:25: 9/9 cues on the right object, each object left its place and ended on the instructed plate/level by the last frame; 414, 418 (pear) not detected by v12 -> no cue",
+  "mode": "boxgrasp",
+  "line_px": 5
+ },
+ "episodes": {
+  "412": {
+   "id": "ep0412",
+   "instruction": "Move the lemon onto the pink plate.",
+   "target": "lemon",
+   "dest": "plate_pink",
+   "target_box": [
+    257.1,
+    191.5,
+    325.9,
+    244.1
+   ],
+   "dest_box": [
+    51.7,
+    188.2,
+    209.7,
+    286.1
+   ],
+   "grasp_frame": 253,
+   "T": 543
+  },
+  "413": {
+   "id": "ep0413",
+   "instruction": "Put the starfruit on the pink plate.",
+   "target": "starfruit",
+   "dest": "plate_pink",
+   "target_box": [
+    208.4,
+    320.9,
+    289.0,
+    405.2
+   ],
+   "dest_box": [
+    53.5,
+    188.2,
+    209.4,
+    285.3
+   ],
+   "grasp_frame": 181,
+   "T": 489
+  },
+  "415": {
+   "id": "ep0415",
+   "instruction": "Pick up the lemon and place it on the blue plate.",
+   "target": "lemon",
+   "dest": "plate_blue",
+   "target_box": [
+    216.5,
+    237.9,
+    288.5,
+    296.7
+   ],
+   "dest_box": [
+    471.8,
+    183.0,
+    626.7,
+    286.2
+   ],
+   "grasp_frame": 219,
+   "T": 620
+  },
+  "416": {
+   "id": "ep0416",
+   "instruction": "Could you put the starfruit on the pink plate?",
+   "target": "starfruit",
+   "dest": "plate_pink",
+   "target_box": [
+    415.0,
+    296.5,
+    508.7,
+    365.3
+   ],
+   "dest_box": [
+    111.9,
+    193.9,
+    266.2,
+    299.3
+   ],
+   "grasp_frame": 124,
+   "T": 470
+  },
+  "417": {
+   "id": "ep0417",
+   "instruction": "Move the lemon onto the yellow plate.",
+   "target": "lemon",
+   "dest": "plate_yellow",
+   "target_box": [
+    228.4,
+    290.9,
+    299.4,
+    363.0
+   ],
+   "dest_box": [
+    309.2,
+    195.1,
+    459.4,
+    300.0
+   ],
+   "grasp_frame": 174,
+   "T": 491
+  },
+  "419": {
+   "id": "ep0419",
+   "instruction": "Place the starfruit on the pink plate.",
+   "target": "starfruit",
+   "dest": "plate_pink",
+   "target_box": [
+    315.8,
+    179.2,
+    389.0,
+    230.5
+   ],
+   "dest_box": [
+    96.9,
+    192.1,
+    251.8,
+    296.6
+   ],
+   "grasp_frame": 263,
+   "T": 593
+  },
+  "420": {
+   "id": "ep0420",
+   "instruction": "Place the pineapple on the blue plate.",
+   "target": "pineapple",
+   "dest": "plate_blue",
+   "target_box": [
+    378.0,
+    79.6,
+    460.9,
+    246.0
+   ],
+   "dest_box": [
+    472.5,
+    183.3,
+    627.6,
+    286.7
+   ],
+   "grasp_frame": 196,
+   "T": 543
+  },
+  "421": {
+   "id": "ep0421",
+   "instruction": "Pick up the lemon and place it on the pink plate.",
+   "target": "lemon",
+   "dest": "plate_pink",
+   "target_box": [
+    202.8,
+    187.4,
+    272.7,
+    237.6
+   ],
+   "dest_box": [
+    50.1,
+    189.1,
+    206.0,
+    293.5
+   ],
+   "grasp_frame": 357,
+   "T": 604
+  },
+  "422": {
+   "id": "ep0422",
+   "instruction": "Put the beige lotion pump bottle in the middle compartment.",
+   "target": "lotion_bottle",
+   "dest": "organizer_middle",
+   "target_box": [
+    269.1,
+    205.4,
+    343.9,
+    262.0
+   ],
+   "dest_box": [
+    55.1,
+    141.7,
+    230.0,
+    203.5
+   ],
+   "grasp_frame": 261,
+   "T": 597
+  }
+ }
+}

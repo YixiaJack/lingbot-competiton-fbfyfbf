@@ -1,0 +1,123 @@
+--- original/code/lingbot-vla-v2/deploy/lingbot_vla_v2_policy.py	2026-11-01 00:39:54.022669600 +0800
++++ patched/code/lingbot-vla-v2/deploy/lingbot_vla_v2_policy.py	2026-11-14 23:44:54.755181995 +0800
+@@ -96,6 +96,8 @@
+         use_compile: bool = False,
+         capture_time: bool = False,
+         sample_compile_fn: callable = None,
++        prefix_actions=None,
++        prefix_len=0,
+     ) -> Tensor:
+         """Run one model forward for a batch of already-transformed observations.
+ 
+@@ -158,6 +160,9 @@
+                 gpu_times = [starts[i].elapsed_time(ends[i]) for i in range(iters)]
+                 print(f"sample_actions avg time: {sum(gpu_times)/len(gpu_times):.4f} ms, min time: {min(gpu_times):.4f} ms, max time: {max(gpu_times):.4f} ms")
+         else:
++            # team patch p10 RTC: prefix kwargs only when there is a prefix (otherwise the original call)
++            rtc_kwargs = {} if not prefix_len else {
++                "prefix_actions": prefix_actions.to(dtype=dtype, device=device), "prefix_len": int(prefix_len)}
+             actions = sample_compile_fn(
+                             images.to(dtype=dtype, device=device),
+                             img_masks.to(device=device),
+@@ -165,6 +170,7 @@
+                             lang_masks.to(device=device),
+                             state.to(dtype=dtype, device=device),
+                             image_grid_thw=self._to_device_image_grid_thw(image_grid_thw, device),
++                            **rtc_kwargs,
+             )
+ 
+         delta_time = time.time() - s1
+@@ -441,9 +447,71 @@
+             return torch.stack(padded, dim=0)
+ 
+         raise ValueError(f"Cannot batch tensors with different shapes: {shapes}")
++    def _rtc_prefix_kwargs(self, transformed, rtc):
++        """Team patch (p10 RTC): absolute prefix actions -> the model's normalized, state-relative, padded action space.
++        FeatureTransform.unapply (model space -> absolute) is affine per dimension (unnormalize, + state for relative
++        joints, dims selected by the joint masks), so it is inverted from one probe of D + 1 rows; the result must
++        reproduce the prefix through unapply, otherwise no prefix is used."""
++        import logging
++        log = logging.getLogger("lingbot_infer")
++        keys = list(self.action_key)
++        T, D = int(transformed["actions"].shape[-2]), int(transformed["actions"].shape[-1])
++        d = min(int(rtc["d"]), T)
++
++        def unap(norm):
++            single = dict(transformed)
++            single["actions"] = norm.to(dtype=torch.float32, device="cpu")
++            if "state" in single:
++                single["state"] = single["state"].to(dtype=torch.float32)
++            out = self.vla.feature_transform.unapply(single)
++            return np.concatenate([np.asarray(out[k].float().cpu().numpy() if torch.is_tensor(out[k]) else out[k],
++                                              dtype=np.float64).reshape(norm.shape[0], -1) for k in keys], axis=1)
++
++        probe = torch.zeros(D + 1, D)
++        probe[1:] = torch.eye(D)
++        a = unap(probe)
++        base, resp = a[0], a[1:] - a[0]            # resp[j, k]: effect of model dim j on absolute dim k
++        nz = np.abs(resp) > 1e-9
++        if not np.all(nz.sum(axis=0) == 1):
++            log.warning("RTC: unapply is not one model dim per action dim (%s); no prefix", nz.sum(axis=0).tolist())
++            return {}
++        jk = nz.argmax(axis=0)
++        scale = resp[jk, np.arange(resp.shape[1])]
++        target = np.concatenate([np.asarray(rtc[k], dtype=np.float64)[:d].reshape(d, -1) for k in keys], axis=1)
++        norm = np.zeros((T, D), dtype=np.float64)
++        norm[:d, jk] = (target - base) / scale
++        err = float(np.abs(unap(torch.from_numpy(norm).float())[:d] - target).max())
++        if not np.isfinite(err) or err > 1e-3:
++            log.warning("RTC: prefix round trip error %.2e; no prefix", err)
++            return {}
++        self._rtc_last = {"d": d, "err": err, "target": target}
++        return {"prefix_actions": torch.from_numpy(norm).float()[None], "prefix_len": d}
++
++    def _rtc_log_junction(self, unnormalized_actions):
++        import logging
++        try:
++            last = self._rtc_last
++            d, keys = last["d"], list(self.action_key)
++            new = np.concatenate([np.asarray(unnormalized_actions[k][0], dtype=np.float64).reshape(
++                np.asarray(unnormalized_actions[k][0]).shape[0], -1) for k in keys], axis=1)
++            kept = float(np.abs(new[:d] - last["target"]).max())
++            parts = []
++            for k in keys:   # per action group (arm joints, grippers): step at the junction vs the median step after it
++                a = np.asarray(unnormalized_actions[k][0], dtype=np.float64)
++                st = np.abs(np.diff(a.reshape(a.shape[0], -1), axis=0)).max(axis=1)
++                parts.append(f"{k.split('.')[1]} {st[d - 1]:.4f}/{float(np.median(st[d:])):.4f}")
++            logging.getLogger("lingbot_infer").info(
++                "RTC chunk: d=%d roundtrip=%.1e prefix_kept=%.1e junction/median step: %s",
++                d, last["err"], kept, ", ".join(parts))
++        except Exception:
++            logging.getLogger("lingbot_infer").exception("RTC: junction log failed")
++
+     def _infer_batch(self, observations, return_normalized=False):
+         if not isinstance(observations, (list, tuple)) or len(observations) == 0:
+             raise ValueError("batch observation must be a non-empty list")
++        # team patch p10 RTC: the adapter attaches the fixed prefix (absolute actions) as "__rtc_prefix__"
++        observations = [dict(obs) for obs in observations]
++        rtc = [obs.pop("__rtc_prefix__", None) for obs in observations]
+         applied = [self._prepare_model_input(obs) for obs in observations] # bsize, dict{key }
+         batch_observation = {}
+         for key in applied[0].keys():
+@@ -454,15 +522,21 @@
+             else:
+                 batch_observation[key] = values
+ 
++        rtc_kwargs = {}
++        if rtc[0] is not None and len(applied) == 1:
++            rtc_kwargs = self._rtc_prefix_kwargs(applied[0], rtc[0])
+         actions = self.vla.sample_actions_batch(
+             batch_observation,
+             self.use_bf16,
+             self.use_compile,
+             capture_time=False,
+             sample_compile_fn = self.sample_actions_fn,
++            **rtc_kwargs,
+         )
+         
+         unnormalized_actions = self._unapply_batched_actions(applied, actions)
++        if rtc_kwargs:
++            self._rtc_log_junction(unnormalized_actions)
+         if return_normalized:
+             return unnormalized_actions, actions
+         return unnormalized_actions

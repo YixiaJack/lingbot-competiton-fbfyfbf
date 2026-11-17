@@ -1,0 +1,1133 @@
+{
+  "version": 1,
+  "reference": "official-public-real",
+  "tasks": {
+    "1": {
+      "reference_episodes": 215,
+      "templates": [
+        {
+          "id": "put",
+          "text": "Put the {object} on the {destination} plate.",
+          "weight": 41
+        },
+        {
+          "id": "pick",
+          "text": "Pick up the {object} and place it on the {destination} plate.",
+          "weight": 43
+        },
+        {
+          "id": "move",
+          "text": "Move the {object} onto the {destination} plate.",
+          "weight": 46
+        },
+        {
+          "id": "place",
+          "text": "Place the {object} on the {destination} plate.",
+          "weight": 43
+        },
+        {
+          "id": "could",
+          "text": "Could you put the {object} on the {destination} plate?",
+          "weight": 42
+        }
+      ],
+      "object_phrases": {
+        "wax_apple": "wax apple",
+        "bell_pepper": "bell pepper",
+        "grapes": "bunch of grapes",
+        "tomato": "tomato",
+        "lemon": "lemon",
+        "orange": "orange",
+        "mangosteen": "mangosteen",
+        "persimmon": "persimmon",
+        "mushroom": "mushroom",
+        "strawberry": "strawberry",
+        "red_delicious": "red delicious apple",
+        "tangerine": "mandarin",
+        "kiwi": "kiwi",
+        "onion": "onion",
+        "avocado": "avocado",
+        "pomegranate": "pomegranate",
+        "pumpkin": "pumpkin",
+        "pear": "pear",
+        "mango": "mango",
+        "cherry": "cherries",
+        "banana": "banana",
+        "carrot": "carrot",
+        "red_chili": "red chili pepper",
+        "papaya": "papaya",
+        "passion_fruit": "passion fruit",
+        "dragon_fruit": "dragon fruit",
+        "cucumber": "cucumber",
+        "peach": "peach",
+        "watermelon": "watermelon",
+        "green_apple": "green apple",
+        "pineapple": "pineapple",
+        "eggplant": "eggplant",
+        "red_apple": "red apple",
+        "potato": "potato"
+      },
+      "destinations": [
+        "white",
+        "yellow",
+        "pink",
+        "purple",
+        "blue"
+      ]
+    },
+    "2": {
+      "reference_episodes": 216,
+      "templates": [
+        {
+          "id": "put",
+          "text": "Put the {object} in the {destination} compartment.",
+          "weight": 48
+        },
+        {
+          "id": "place",
+          "text": "Place the {object} inside the {destination} level of the organizer.",
+          "weight": 42
+        },
+        {
+          "id": "store",
+          "text": "Store the {object} in the {destination} compartment.",
+          "weight": 43
+        },
+        {
+          "id": "take",
+          "text": "Take the {object} and put it in the {destination} section.",
+          "weight": 40
+        },
+        {
+          "id": "organize",
+          "text": "Organize the {object} into the {destination} compartment.",
+          "weight": 43
+        }
+      ],
+      "object_phrases": {
+        "lotion_bottle": "beige lotion pump bottle",
+        "eyeshadow_palette": "rectangular multicolor eyeshadow palette",
+        "lip_gloss": "beige lip gloss tube",
+        "lipstick": "black lipstick with a clear cap",
+        "powder_puff": "pink makeup puff",
+        "brush_large": "large black and gold makeup brush",
+        "contour": "dark-colored round contour compact",
+        "highlighter": "light-colored round highlighter compact"
+      },
+      "destinations": [
+        "top",
+        "middle",
+        "bottom"
+      ]
+    },
+    "3": {
+      "reference_episodes": 216,
+      "templates": [
+        {
+          "id": "sweep-c5ddfd85f3a3",
+          "text": "After brushing all tabletop paper balls into the dustpan, empty the collected paper into the basket. Lay both tools down; bring both arms home and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-9978536b1560",
+          "text": "After brushing all tabletop paper balls into the dustpan, empty the collected paper into the basket. Place both tools down; return both arms home and remain stationary.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-15f7b7a40651",
+          "text": "After brushing all tabletop paper balls into the dustpan, empty the collected paper into the basket. Put both tools down, return both arms home, and remain still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-fe9db81ada9f",
+          "text": "After brushing all tabletop paper balls into the dustpan, empty the collected paper into the basket. Set both tools down, return both arms home, and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-9d22ab9e2f41",
+          "text": "After brushing all tabletop paper balls into the dustpan, empty the collected paper into the basket. Set both tools down; move both arms home and hold still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-099b3878891d",
+          "text": "Brush all paper balls off the table into the dustpan, then pour them into the basket. Lay both tools down; bring both arms home and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-5f75c92fa3bb",
+          "text": "Brush all paper balls off the table into the dustpan, then pour them into the basket. Place both tools down; return both arms home and remain stationary.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-d84bce268ad1",
+          "text": "Brush all paper balls off the table into the dustpan, then pour them into the basket. Put both tools down, return both arms home, and remain still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-2f0c6dce18d6",
+          "text": "Brush all paper balls off the table into the dustpan, then pour them into the basket. Set both tools down, return both arms home, and stay still.",
+          "weight": 2
+        },
+        {
+          "id": "sweep-0c5075ab33d3",
+          "text": "Brush all paper balls off the table into the dustpan, then pour them into the basket. Set both tools down; move both arms home and hold still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-1d9cf7a4f6b0",
+          "text": "Brush all paper balls off the tabletop into the dustpan before pouring them into the basket. Lay both tools down; bring both arms home and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-d53eb9ffb7f2",
+          "text": "Brush all paper balls off the tabletop into the dustpan before pouring them into the basket. Place both tools down; return both arms home and remain stationary.",
+          "weight": 2
+        },
+        {
+          "id": "sweep-4f2bff025898",
+          "text": "Brush all paper balls off the tabletop into the dustpan before pouring them into the basket. Put both tools down, return both arms home, and remain still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-6f4317f21b0d",
+          "text": "Brush all paper balls off the tabletop into the dustpan before pouring them into the basket. Set both tools down, return both arms home, and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-9a09d7555d90",
+          "text": "Brush all paper balls off the tabletop into the dustpan before pouring them into the basket. Set both tools down; move both arms home and hold still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-4f5179050a32",
+          "text": "Brush all tabletop paper balls into the dustpan, then empty it into the basket. Lay both tools down; bring both arms home and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-89fe19c8d8d5",
+          "text": "Brush all tabletop paper balls into the dustpan, then empty it into the basket. Place both tools down; return both arms home and remain stationary.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-121373de714b",
+          "text": "Brush all tabletop paper balls into the dustpan, then empty it into the basket. Put both tools down, return both arms home, and remain still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-47bd177d39e0",
+          "text": "Brush all tabletop paper balls into the dustpan, then empty it into the basket. Set both tools down, return both arms home, and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-7875f6aeb17b",
+          "text": "Brush all tabletop paper balls into the dustpan, then empty it into the basket. Set both tools down; move both arms home and hold still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-c5e431071086",
+          "text": "Brush all tabletop paper balls into the dustpan; after collecting them all, empty the dustpan into the basket. Lay both tools down; bring both arms home and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-22bf4aa90e28",
+          "text": "Brush all tabletop paper balls into the dustpan; after collecting them all, empty the dustpan into the basket. Place both tools down; return both arms home and remain stationary.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-9c3403ef44e5",
+          "text": "Brush all tabletop paper balls into the dustpan; after collecting them all, empty the dustpan into the basket. Put both tools down, return both arms home, and remain still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-457510d6a5a7",
+          "text": "Brush all tabletop paper balls into the dustpan; after collecting them all, empty the dustpan into the basket. Set both tools down, return both arms home, and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-08904271e33e",
+          "text": "Brush all tabletop paper balls into the dustpan; after collecting them all, empty the dustpan into the basket. Set both tools down; move both arms home and hold still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-6505f09614f5",
+          "text": "Brush every last tabletop paper ball into the dustpan, then empty the dustpan into the basket. Lay both tools down; bring both arms home and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-e5ea4c3be4af",
+          "text": "Brush every last tabletop paper ball into the dustpan, then empty the dustpan into the basket. Place both tools down; return both arms home and remain stationary.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-e3b50c3517c5",
+          "text": "Brush every last tabletop paper ball into the dustpan, then empty the dustpan into the basket. Put both tools down, return both arms home, and remain still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-eb5b143ea515",
+          "text": "Brush every last tabletop paper ball into the dustpan, then empty the dustpan into the basket. Set both tools down, return both arms home, and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-0117fad7cb82",
+          "text": "Brush every last tabletop paper ball into the dustpan, then empty the dustpan into the basket. Set both tools down; move both arms home and hold still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-30f8bd239541",
+          "text": "Brush every paper ball from the table into the dustpan; use the dustpan to empty them into the basket. Lay both tools down; bring both arms home and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-ba9b453cb24d",
+          "text": "Brush every paper ball from the table into the dustpan; use the dustpan to empty them into the basket. Place both tools down; return both arms home and remain stationary.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-cbd4d6cfe61a",
+          "text": "Brush every paper ball from the table into the dustpan; use the dustpan to empty them into the basket. Put both tools down, return both arms home, and remain still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-9acecb626b7b",
+          "text": "Brush every paper ball from the table into the dustpan; use the dustpan to empty them into the basket. Set both tools down, return both arms home, and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-e91bc149beb9",
+          "text": "Brush every paper ball from the table into the dustpan; use the dustpan to empty them into the basket. Set both tools down; move both arms home and hold still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-fa0a6d8097a9",
+          "text": "Brush the entire set of tabletop paper balls into the dustpan, then pour them into the basket. Lay both tools down; bring both arms home and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-0a10ca867793",
+          "text": "Brush the entire set of tabletop paper balls into the dustpan, then pour them into the basket. Place both tools down; return both arms home and remain stationary.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-012d086a15f1",
+          "text": "Brush the entire set of tabletop paper balls into the dustpan, then pour them into the basket. Put both tools down, return both arms home, and remain still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-738bf5b2c977",
+          "text": "Brush the entire set of tabletop paper balls into the dustpan, then pour them into the basket. Set both tools down, return both arms home, and stay still.",
+          "weight": 2
+        },
+        {
+          "id": "sweep-59b99a29a87b",
+          "text": "Brush the entire set of tabletop paper balls into the dustpan, then pour them into the basket. Set both tools down; move both arms home and hold still.",
+          "weight": 2
+        },
+        {
+          "id": "sweep-45e4eb90a9e2",
+          "text": "Brush until all tabletop paper balls are in the dustpan, then tip them into the basket. Lay both tools down; bring both arms home and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-a908f6f796de",
+          "text": "Brush until all tabletop paper balls are in the dustpan, then tip them into the basket. Place both tools down; return both arms home and remain stationary.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-aeaac1033b9f",
+          "text": "Brush until all tabletop paper balls are in the dustpan, then tip them into the basket. Put both tools down, return both arms home, and remain still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-764f0d1e490c",
+          "text": "Brush until all tabletop paper balls are in the dustpan, then tip them into the basket. Set both tools down, return both arms home, and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-609d08ea85cf",
+          "text": "Brush until all tabletop paper balls are in the dustpan, then tip them into the basket. Set both tools down; move both arms home and hold still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-f021e02b971a",
+          "text": "Clean the tabletop by brushing all paper balls into the dustpan, then pouring them into the basket. Lay both tools down; bring both arms home and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-7f76e235a182",
+          "text": "Clean the tabletop by brushing all paper balls into the dustpan, then pouring them into the basket. Place both tools down; return both arms home and remain stationary.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-57eb242247c0",
+          "text": "Clean the tabletop by brushing all paper balls into the dustpan, then pouring them into the basket. Put both tools down, return both arms home, and remain still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-e0d5b6b1c5ff",
+          "text": "Clean the tabletop by brushing all paper balls into the dustpan, then pouring them into the basket. Set both tools down, return both arms home, and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-c1e44570a5eb",
+          "text": "Clean the tabletop by brushing all paper balls into the dustpan, then pouring them into the basket. Set both tools down; move both arms home and hold still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-1aa341245b6a",
+          "text": "Clear the table: brush every paper ball into the dustpan, then empty it into the basket. Lay both tools down; bring both arms home and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-7a2a910f1f35",
+          "text": "Clear the table: brush every paper ball into the dustpan, then empty it into the basket. Place both tools down; return both arms home and remain stationary.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-7a15a891d578",
+          "text": "Clear the table: brush every paper ball into the dustpan, then empty it into the basket. Put both tools down, return both arms home, and remain still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-4ed11aa8f643",
+          "text": "Clear the table: brush every paper ball into the dustpan, then empty it into the basket. Set both tools down, return both arms home, and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-9b2d8cf809db",
+          "text": "Clear the table: brush every paper ball into the dustpan, then empty it into the basket. Set both tools down; move both arms home and hold still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-a373a83093c2",
+          "text": "Clear the tabletop by brushing every paper ball into the dustpan and tipping the contents into the basket. Lay both tools down; bring both arms home and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-75f9f0e177c1",
+          "text": "Clear the tabletop by brushing every paper ball into the dustpan and tipping the contents into the basket. Place both tools down; return both arms home and remain stationary.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-249a1513b96f",
+          "text": "Clear the tabletop by brushing every paper ball into the dustpan and tipping the contents into the basket. Put both tools down, return both arms home, and remain still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-3f7fddcdd9ed",
+          "text": "Clear the tabletop by brushing every paper ball into the dustpan and tipping the contents into the basket. Set both tools down, return both arms home, and stay still.",
+          "weight": 2
+        },
+        {
+          "id": "sweep-d058ad0602ea",
+          "text": "Clear the tabletop by brushing every paper ball into the dustpan and tipping the contents into the basket. Set both tools down; move both arms home and hold still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-a287356977e5",
+          "text": "Collect every tabletop paper ball in the dustpan using the brush, then pour them into the basket. Lay both tools down; bring both arms home and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-f56a547ee476",
+          "text": "Collect every tabletop paper ball in the dustpan using the brush, then pour them into the basket. Place both tools down; return both arms home and remain stationary.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-2be135f23ad1",
+          "text": "Collect every tabletop paper ball in the dustpan using the brush, then pour them into the basket. Put both tools down, return both arms home, and remain still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-5c3a7821fb22",
+          "text": "Collect every tabletop paper ball in the dustpan using the brush, then pour them into the basket. Set both tools down, return both arms home, and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-9775eb5e43ac",
+          "text": "Collect every tabletop paper ball in the dustpan using the brush, then pour them into the basket. Set both tools down; move both arms home and hold still.",
+          "weight": 2
+        },
+        {
+          "id": "sweep-45fd865eaa72",
+          "text": "Complete the cleanup by brushing every tabletop paper ball into the dustpan, then emptying it into the basket. Lay both tools down; bring both arms home and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-bdf146ef9daf",
+          "text": "Complete the cleanup by brushing every tabletop paper ball into the dustpan, then emptying it into the basket. Place both tools down; return both arms home and remain stationary.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-00fa09326ce4",
+          "text": "Complete the cleanup by brushing every tabletop paper ball into the dustpan, then emptying it into the basket. Put both tools down, return both arms home, and remain still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-b31a9883284c",
+          "text": "Complete the cleanup by brushing every tabletop paper ball into the dustpan, then emptying it into the basket. Set both tools down, return both arms home, and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-edb4ccf5b103",
+          "text": "Complete the cleanup by brushing every tabletop paper ball into the dustpan, then emptying it into the basket. Set both tools down; move both arms home and hold still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-e75266d202e1",
+          "text": "Coordinate both arms to brush every tabletop paper ball into the dustpan, then pour them into the basket. Lay both tools down; bring both arms home and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-73510de17666",
+          "text": "Coordinate both arms to brush every tabletop paper ball into the dustpan, then pour them into the basket. Place both tools down; return both arms home and remain stationary.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-e436cd97fe43",
+          "text": "Coordinate both arms to brush every tabletop paper ball into the dustpan, then pour them into the basket. Put both tools down, return both arms home, and remain still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-56fe4a69eccd",
+          "text": "Coordinate both arms to brush every tabletop paper ball into the dustpan, then pour them into the basket. Set both tools down, return both arms home, and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-dc69fbfc99e5",
+          "text": "Coordinate both arms to brush every tabletop paper ball into the dustpan, then pour them into the basket. Set both tools down; move both arms home and hold still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-2ae5f5e504b6",
+          "text": "Could you brush every tabletop paper ball into the dustpan and tip the contents into the basket? Lay both tools down; bring both arms home and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-597bac208069",
+          "text": "Could you brush every tabletop paper ball into the dustpan and tip the contents into the basket? Place both tools down; return both arms home and remain stationary.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-656dc6232d06",
+          "text": "Could you brush every tabletop paper ball into the dustpan and tip the contents into the basket? Put both tools down, return both arms home, and remain still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-a3862b040913",
+          "text": "Could you brush every tabletop paper ball into the dustpan and tip the contents into the basket? Set both tools down, return both arms home, and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-f735cf69021c",
+          "text": "Could you brush every tabletop paper ball into the dustpan and tip the contents into the basket? Set both tools down; move both arms home and hold still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-2f045a7329d0",
+          "text": "Finish brushing every tabletop paper ball into the dustpan before tipping the contents into the basket. Lay both tools down; bring both arms home and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-c21ecaef4b31",
+          "text": "Finish brushing every tabletop paper ball into the dustpan before tipping the contents into the basket. Place both tools down; return both arms home and remain stationary.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-4ed6f348527a",
+          "text": "Finish brushing every tabletop paper ball into the dustpan before tipping the contents into the basket. Put both tools down, return both arms home, and remain still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-c941e47f76ac",
+          "text": "Finish brushing every tabletop paper ball into the dustpan before tipping the contents into the basket. Set both tools down, return both arms home, and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-1100d9652723",
+          "text": "Finish brushing every tabletop paper ball into the dustpan before tipping the contents into the basket. Set both tools down; move both arms home and hold still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-9a976dbe2219",
+          "text": "First brush all tabletop paper balls into the dustpan; next, empty it into the basket. Lay both tools down; bring both arms home and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-ba40c74e8eee",
+          "text": "First brush all tabletop paper balls into the dustpan; next, empty it into the basket. Place both tools down; return both arms home and remain stationary.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-40c51fab02d6",
+          "text": "First brush all tabletop paper balls into the dustpan; next, empty it into the basket. Put both tools down, return both arms home, and remain still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-ea0be87d39bb",
+          "text": "First brush all tabletop paper balls into the dustpan; next, empty it into the basket. Set both tools down, return both arms home, and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-a1c1104716c4",
+          "text": "First brush all tabletop paper balls into the dustpan; next, empty it into the basket. Set both tools down; move both arms home and hold still.",
+          "weight": 2
+        },
+        {
+          "id": "sweep-720844b52e8a",
+          "text": "First use the brush to sweep all tabletop paper balls into the dustpan, then tip them into the basket. Lay both tools down; bring both arms home and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-61668e234467",
+          "text": "First use the brush to sweep all tabletop paper balls into the dustpan, then tip them into the basket. Place both tools down; return both arms home and remain stationary.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-9b33ff6ef710",
+          "text": "First use the brush to sweep all tabletop paper balls into the dustpan, then tip them into the basket. Put both tools down, return both arms home, and remain still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-0b5540ef5aa2",
+          "text": "First use the brush to sweep all tabletop paper balls into the dustpan, then tip them into the basket. Set both tools down, return both arms home, and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-6444ff237278",
+          "text": "First use the brush to sweep all tabletop paper balls into the dustpan, then tip them into the basket. Set both tools down; move both arms home and hold still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-3b8446af8305",
+          "text": "For a clear tabletop, brush every paper ball into the dustpan, then empty the contents into the basket. Lay both tools down; bring both arms home and stay still.",
+          "weight": 2
+        },
+        {
+          "id": "sweep-9d8cde08ca28",
+          "text": "For a clear tabletop, brush every paper ball into the dustpan, then empty the contents into the basket. Place both tools down; return both arms home and remain stationary.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-cbbbcd42b208",
+          "text": "For a clear tabletop, brush every paper ball into the dustpan, then empty the contents into the basket. Put both tools down, return both arms home, and remain still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-07ff19c9aceb",
+          "text": "For a clear tabletop, brush every paper ball into the dustpan, then empty the contents into the basket. Set both tools down, return both arms home, and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-f872c30a8dda",
+          "text": "For a clear tabletop, brush every paper ball into the dustpan, then empty the contents into the basket. Set both tools down; move both arms home and hold still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-2c4aeb48023b",
+          "text": "For disposal in the basket, brush all tabletop paper balls into the dustpan, then tip them into the basket. Lay both tools down; bring both arms home and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-d1ed76d6b0f7",
+          "text": "For disposal in the basket, brush all tabletop paper balls into the dustpan, then tip them into the basket. Place both tools down; return both arms home and remain stationary.",
+          "weight": 2
+        },
+        {
+          "id": "sweep-33049aa8f484",
+          "text": "For disposal in the basket, brush all tabletop paper balls into the dustpan, then tip them into the basket. Put both tools down, return both arms home, and remain still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-27eb4c72d6dc",
+          "text": "For disposal in the basket, brush all tabletop paper balls into the dustpan, then tip them into the basket. Set both tools down, return both arms home, and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-6897f2079ce5",
+          "text": "For disposal in the basket, brush all tabletop paper balls into the dustpan, then tip them into the basket. Set both tools down; move both arms home and hold still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-1f548d262635",
+          "text": "Get every tabletop paper ball into the basket: brush them into the dustpan, then empty it there. Lay both tools down; bring both arms home and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-4bd8b30c3820",
+          "text": "Get every tabletop paper ball into the basket: brush them into the dustpan, then empty it there. Place both tools down; return both arms home and remain stationary.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-e1bd87242ef6",
+          "text": "Get every tabletop paper ball into the basket: brush them into the dustpan, then empty it there. Put both tools down, return both arms home, and remain still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-0d35fed67445",
+          "text": "Get every tabletop paper ball into the basket: brush them into the dustpan, then empty it there. Set both tools down, return both arms home, and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-1661d415a59f",
+          "text": "Get every tabletop paper ball into the basket: brush them into the dustpan, then empty it there. Set both tools down; move both arms home and hold still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-ead10a9d3505",
+          "text": "Leave no paper balls on the table: brush them into the dustpan, then tip them into the basket. Lay both tools down; bring both arms home and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-3c84a6748556",
+          "text": "Leave no paper balls on the table: brush them into the dustpan, then tip them into the basket. Place both tools down; return both arms home and remain stationary.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-59edc666a59a",
+          "text": "Leave no paper balls on the table: brush them into the dustpan, then tip them into the basket. Put both tools down, return both arms home, and remain still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-279445ad7628",
+          "text": "Leave no paper balls on the table: brush them into the dustpan, then tip them into the basket. Set both tools down, return both arms home, and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-ef34e0e3f3f1",
+          "text": "Leave no paper balls on the table: brush them into the dustpan, then tip them into the basket. Set both tools down; move both arms home and hold still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-aa7449323796",
+          "text": "Once every tabletop paper ball is brushed into the dustpan, pour the contents into the basket. Lay both tools down; bring both arms home and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-5b597d744f90",
+          "text": "Once every tabletop paper ball is brushed into the dustpan, pour the contents into the basket. Place both tools down; return both arms home and remain stationary.",
+          "weight": 2
+        },
+        {
+          "id": "sweep-aea43705c9a2",
+          "text": "Once every tabletop paper ball is brushed into the dustpan, pour the contents into the basket. Put both tools down, return both arms home, and remain still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-321443c05c9a",
+          "text": "Once every tabletop paper ball is brushed into the dustpan, pour the contents into the basket. Set both tools down, return both arms home, and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-dda0a1f3c10b",
+          "text": "Once every tabletop paper ball is brushed into the dustpan, pour the contents into the basket. Set both tools down; move both arms home and hold still.",
+          "weight": 2
+        },
+        {
+          "id": "sweep-acc23eab0bec",
+          "text": "Please brush all tabletop paper balls into the dustpan, then pour them into the basket. Lay both tools down; bring both arms home and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-ebfccc22822b",
+          "text": "Please brush all tabletop paper balls into the dustpan, then pour them into the basket. Place both tools down; return both arms home and remain stationary.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-59d93b72c054",
+          "text": "Please brush all tabletop paper balls into the dustpan, then pour them into the basket. Put both tools down, return both arms home, and remain still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-51c844f9c0db",
+          "text": "Please brush all tabletop paper balls into the dustpan, then pour them into the basket. Set both tools down, return both arms home, and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-eeb67d9b0216",
+          "text": "Please brush all tabletop paper balls into the dustpan, then pour them into the basket. Set both tools down; move both arms home and hold still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-ba9907f681ce",
+          "text": "Please sweep all tabletop paper balls into the dustpan with the brush, then empty it into the basket. Lay both tools down; bring both arms home and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-91f945bf6c15",
+          "text": "Please sweep all tabletop paper balls into the dustpan with the brush, then empty it into the basket. Place both tools down; return both arms home and remain stationary.",
+          "weight": 2
+        },
+        {
+          "id": "sweep-9f2e527620a1",
+          "text": "Please sweep all tabletop paper balls into the dustpan with the brush, then empty it into the basket. Put both tools down, return both arms home, and remain still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-57ce8e52f888",
+          "text": "Please sweep all tabletop paper balls into the dustpan with the brush, then empty it into the basket. Set both tools down, return both arms home, and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-a55fc4eafebf",
+          "text": "Please sweep all tabletop paper balls into the dustpan with the brush, then empty it into the basket. Set both tools down; move both arms home and hold still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-ef200f79e9e5",
+          "text": "Put all tabletop paper balls in the basket by brushing them into the dustpan and tipping them out. Lay both tools down; bring both arms home and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-bf70258babe8",
+          "text": "Put all tabletop paper balls in the basket by brushing them into the dustpan and tipping them out. Place both tools down; return both arms home and remain stationary.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-dc2ad560c041",
+          "text": "Put all tabletop paper balls in the basket by brushing them into the dustpan and tipping them out. Put both tools down, return both arms home, and remain still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-5fd7636fcfa2",
+          "text": "Put all tabletop paper balls in the basket by brushing them into the dustpan and tipping them out. Set both tools down, return both arms home, and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-5a80174e41aa",
+          "text": "Put all tabletop paper balls in the basket by brushing them into the dustpan and tipping them out. Set both tools down; move both arms home and hold still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-c5a47d1310b3",
+          "text": "Send every tabletop paper ball to the basket: brush them into the dustpan, then pour them into the basket. Lay both tools down; bring both arms home and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-8d78996d063e",
+          "text": "Send every tabletop paper ball to the basket: brush them into the dustpan, then pour them into the basket. Place both tools down; return both arms home and remain stationary.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-e28b971e50b1",
+          "text": "Send every tabletop paper ball to the basket: brush them into the dustpan, then pour them into the basket. Put both tools down, return both arms home, and remain still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-0b79789a5405",
+          "text": "Send every tabletop paper ball to the basket: brush them into the dustpan, then pour them into the basket. Set both tools down, return both arms home, and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-4e541e75750e",
+          "text": "Send every tabletop paper ball to the basket: brush them into the dustpan, then pour them into the basket. Set both tools down; move both arms home and hold still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-63a32b33d85c",
+          "text": "Start by brushing every tabletop paper ball into the dustpan, then tip the paper into the basket. Lay both tools down; bring both arms home and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-6cd3fb32f69c",
+          "text": "Start by brushing every tabletop paper ball into the dustpan, then tip the paper into the basket. Place both tools down; return both arms home and remain stationary.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-88a751e563a5",
+          "text": "Start by brushing every tabletop paper ball into the dustpan, then tip the paper into the basket. Put both tools down, return both arms home, and remain still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-03075cc6c2b1",
+          "text": "Start by brushing every tabletop paper ball into the dustpan, then tip the paper into the basket. Set both tools down, return both arms home, and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-7c4d6065cec7",
+          "text": "Start by brushing every tabletop paper ball into the dustpan, then tip the paper into the basket. Set both tools down; move both arms home and hold still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-59af23d8614c",
+          "text": "Sweep all paper balls from the table into the dustpan using the brush, then empty it into the basket. Lay both tools down; bring both arms home and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-9d3d91c14d2a",
+          "text": "Sweep all paper balls from the table into the dustpan using the brush, then empty it into the basket. Place both tools down; return both arms home and remain stationary.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-8b4180b7648b",
+          "text": "Sweep all paper balls from the table into the dustpan using the brush, then empty it into the basket. Put both tools down, return both arms home, and remain still.",
+          "weight": 2
+        },
+        {
+          "id": "sweep-06d13cb39c94",
+          "text": "Sweep all paper balls from the table into the dustpan using the brush, then empty it into the basket. Set both tools down, return both arms home, and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-379f348bea52",
+          "text": "Sweep all paper balls from the table into the dustpan using the brush, then empty it into the basket. Set both tools down; move both arms home and hold still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-d5f6ba1d0327",
+          "text": "Sweep every tabletop paper ball into the dustpan using the brush; empty everything collected into the basket. Lay both tools down; bring both arms home and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-1df127a90b49",
+          "text": "Sweep every tabletop paper ball into the dustpan using the brush; empty everything collected into the basket. Place both tools down; return both arms home and remain stationary.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-b789175df6e8",
+          "text": "Sweep every tabletop paper ball into the dustpan using the brush; empty everything collected into the basket. Put both tools down, return both arms home, and remain still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-eafaeecbcee3",
+          "text": "Sweep every tabletop paper ball into the dustpan using the brush; empty everything collected into the basket. Set both tools down, return both arms home, and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-0845bea8c201",
+          "text": "Sweep every tabletop paper ball into the dustpan using the brush; empty everything collected into the basket. Set both tools down; move both arms home and hold still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-1cc9e59d1c55",
+          "text": "Sweep every tabletop paper ball into the dustpan with the brush, then tip them into the basket. Lay both tools down; bring both arms home and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-1d4a11149f16",
+          "text": "Sweep every tabletop paper ball into the dustpan with the brush, then tip them into the basket. Place both tools down; return both arms home and remain stationary.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-0facea0ab858",
+          "text": "Sweep every tabletop paper ball into the dustpan with the brush, then tip them into the basket. Put both tools down, return both arms home, and remain still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-8d49b3d1b20d",
+          "text": "Sweep every tabletop paper ball into the dustpan with the brush, then tip them into the basket. Set both tools down, return both arms home, and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-c376781d7bf6",
+          "text": "Sweep every tabletop paper ball into the dustpan with the brush, then tip them into the basket. Set both tools down; move both arms home and hold still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-04ebee5874c4",
+          "text": "The cleanup is to brush all tabletop paper balls into the dustpan, then empty it into the basket. Lay both tools down; bring both arms home and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-025700052d27",
+          "text": "The cleanup is to brush all tabletop paper balls into the dustpan, then empty it into the basket. Place both tools down; return both arms home and remain stationary.",
+          "weight": 2
+        },
+        {
+          "id": "sweep-d13f8a33eeed",
+          "text": "The cleanup is to brush all tabletop paper balls into the dustpan, then empty it into the basket. Put both tools down, return both arms home, and remain still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-e05026c5fbce",
+          "text": "The cleanup is to brush all tabletop paper balls into the dustpan, then empty it into the basket. Set both tools down, return both arms home, and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-e089a192fea5",
+          "text": "The cleanup is to brush all tabletop paper balls into the dustpan, then empty it into the basket. Set both tools down; move both arms home and hold still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-1b12e2599e79",
+          "text": "Use the brush to sweep every tabletop paper ball into the dustpan, then empty it into the basket. Lay both tools down; bring both arms home and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-f6a189952190",
+          "text": "Use the brush to sweep every tabletop paper ball into the dustpan, then empty it into the basket. Place both tools down; return both arms home and remain stationary.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-8eb1d076bd0d",
+          "text": "Use the brush to sweep every tabletop paper ball into the dustpan, then empty it into the basket. Put both tools down, return both arms home, and remain still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-6269f703ebac",
+          "text": "Use the brush to sweep every tabletop paper ball into the dustpan, then empty it into the basket. Set both tools down, return both arms home, and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-9f26b670d9ad",
+          "text": "Use the brush to sweep every tabletop paper ball into the dustpan, then empty it into the basket. Set both tools down; move both arms home and hold still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-4f244557f149",
+          "text": "Using both arms, brush all tabletop paper balls into the dustpan, then empty it into the basket. Lay both tools down; bring both arms home and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-d86435d7146e",
+          "text": "Using both arms, brush all tabletop paper balls into the dustpan, then empty it into the basket. Place both tools down; return both arms home and remain stationary.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-ea51130635fd",
+          "text": "Using both arms, brush all tabletop paper balls into the dustpan, then empty it into the basket. Put both tools down, return both arms home, and remain still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-7d4b4c21474a",
+          "text": "Using both arms, brush all tabletop paper balls into the dustpan, then empty it into the basket. Set both tools down, return both arms home, and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-5fe0efeae035",
+          "text": "Using both arms, brush all tabletop paper balls into the dustpan, then empty it into the basket. Set both tools down; move both arms home and hold still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-c30c33a22b23",
+          "text": "With both arms, brush every tabletop paper ball into the dustpan and empty the contents into the basket. Lay both tools down; bring both arms home and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-843ebb0c91eb",
+          "text": "With both arms, brush every tabletop paper ball into the dustpan and empty the contents into the basket. Place both tools down; return both arms home and remain stationary.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-7acc6aebb5fc",
+          "text": "With both arms, brush every tabletop paper ball into the dustpan and empty the contents into the basket. Put both tools down, return both arms home, and remain still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-7e9c58df2d44",
+          "text": "With both arms, brush every tabletop paper ball into the dustpan and empty the contents into the basket. Set both tools down, return both arms home, and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-86e2b10d19f2",
+          "text": "With both arms, brush every tabletop paper ball into the dustpan and empty the contents into the basket. Set both tools down; move both arms home and hold still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-f15f6fb5e0f7",
+          "text": "With the brush, sweep all tabletop paper balls into the dustpan, then tip the contents into the basket. Lay both tools down; bring both arms home and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-de041cab14d3",
+          "text": "With the brush, sweep all tabletop paper balls into the dustpan, then tip the contents into the basket. Place both tools down; return both arms home and remain stationary.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-f92d0e868b95",
+          "text": "With the brush, sweep all tabletop paper balls into the dustpan, then tip the contents into the basket. Put both tools down, return both arms home, and remain still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-4168187c5cfe",
+          "text": "With the brush, sweep all tabletop paper balls into the dustpan, then tip the contents into the basket. Set both tools down, return both arms home, and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-f4b7826ad46d",
+          "text": "With the brush, sweep all tabletop paper balls into the dustpan, then tip the contents into the basket. Set both tools down; move both arms home and hold still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-e9dc0cbc2982",
+          "text": "Work with both arms: brush all tabletop paper balls into the dustpan, then tip them into the basket. Lay both tools down; bring both arms home and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-585057997e27",
+          "text": "Work with both arms: brush all tabletop paper balls into the dustpan, then tip them into the basket. Place both tools down; return both arms home and remain stationary.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-2e5ee7ef6620",
+          "text": "Work with both arms: brush all tabletop paper balls into the dustpan, then tip them into the basket. Put both tools down, return both arms home, and remain still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-7b7f530029b8",
+          "text": "Work with both arms: brush all tabletop paper balls into the dustpan, then tip them into the basket. Set both tools down, return both arms home, and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-16758949a339",
+          "text": "Work with both arms: brush all tabletop paper balls into the dustpan, then tip them into the basket. Set both tools down; move both arms home and hold still.",
+          "weight": 2
+        },
+        {
+          "id": "sweep-0ca7e87568ee",
+          "text": "Would you brush all paper balls off the table into the dustpan, then empty it into the basket? Lay both tools down; bring both arms home and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-3b181833103a",
+          "text": "Would you brush all paper balls off the table into the dustpan, then empty it into the basket? Place both tools down; return both arms home and remain stationary.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-ad603a0b2a5e",
+          "text": "Would you brush all paper balls off the table into the dustpan, then empty it into the basket? Put both tools down, return both arms home, and remain still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-f1b6cf8e51ff",
+          "text": "Would you brush all paper balls off the table into the dustpan, then empty it into the basket? Set both tools down, return both arms home, and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-5991b63885e7",
+          "text": "Would you brush all paper balls off the table into the dustpan, then empty it into the basket? Set both tools down; move both arms home and hold still.",
+          "weight": 2
+        },
+        {
+          "id": "sweep-5c0e643396ea",
+          "text": "Your task: brush all tabletop paper balls into the dustpan, then pour the collected paper into the basket. Lay both tools down; bring both arms home and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-c8e9528aac49",
+          "text": "Your task: brush all tabletop paper balls into the dustpan, then pour the collected paper into the basket. Place both tools down; return both arms home and remain stationary.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-382290e591ea",
+          "text": "Your task: brush all tabletop paper balls into the dustpan, then pour the collected paper into the basket. Put both tools down, return both arms home, and remain still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-49ec298fda6f",
+          "text": "Your task: brush all tabletop paper balls into the dustpan, then pour the collected paper into the basket. Set both tools down, return both arms home, and stay still.",
+          "weight": 1
+        },
+        {
+          "id": "sweep-1f8872012f07",
+          "text": "Your task: brush all tabletop paper balls into the dustpan, then pour the collected paper into the basket. Set both tools down; move both arms home and hold still.",
+          "weight": 1
+        }
+      ],
+      "object_phrases": {},
+      "destinations": [
+        "basket"
+      ]
+    }
+  }
+}

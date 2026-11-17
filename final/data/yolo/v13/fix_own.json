@@ -1,0 +1,7 @@
+{
+ "414": {"box": {"6": [256, 150, 312, 224]}, "why": "pear box from the frame difference was too big (took in the plate rim); tightened by eye"},
+ "418": {"box": {"6": [261, 157, 317, 222]}, "why": "pear box tightened by eye"},
+ "22":  {"why": "6 = the pear lying with its base to the camera (ends on the purple plate in the last frame)"},
+ "107": {"set": {"6": "red_apple"}, "why": "6 = bright red apple (v12: passion_fruit 0.65); 4 dark red_delicious is the target"},
+ "108": {"set": {"3": "red_delicious", "4": "red_apple", "6": "onion"}, "why": "last frame: the dark red_delicious (3) went to the blue plate; the frame difference picked the red apple (4) as target by mistake; 6 = onion (low box)"}
+}

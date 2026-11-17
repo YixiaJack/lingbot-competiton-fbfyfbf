@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>YOLO 识别实时</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--ink:#16181d;--mute:#6b7280;--line:#e5e7eb;--acc:#2563eb;--ok:#16a34a;--warn:#d97706;--bad:#dc2626;--chip:#eef2ff;--hl:#fff7e6}
+@media (prefers-color-scheme:dark){:root{--bg:#0f1115;--card:#171a21;--ink:#e8eaee;--mute:#9aa3b2;--line:#2a2f3a;--acc:#60a5fa;--ok:#22c55e;--warn:#f59e0b;--bad:#f87171;--chip:#1e2533;--hl:#2a2414}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 -apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue",sans-serif}
+header{display:flex;flex-wrap:wrap;gap:12px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--line);background:var(--card);position:sticky;top:0;z-index:2}
+header h1{font-size:16px;margin:0 8px 0 0}.pill{display:inline-flex;align-items:center;gap:6px;padding:2px 10px;border-radius:999px;background:var(--chip);color:var(--mute);font-size:12px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--bad)}.dot.ok{background:var(--ok)}
+nav.tabs{display:flex;gap:4px}nav.tabs a{padding:3px 12px;border-radius:8px;color:var(--mute);text-decoration:none;border:1px solid var(--line);font-size:13px}nav.tabs a.cur{color:var(--acc);border-color:var(--acc);font-weight:600}
+main{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:14px;padding:14px 16px;max-width:1500px;margin:0 auto}
+@media (max-width:900px){main{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.state{font-weight:600;padding:2px 10px;border-radius:999px;font-size:12px;color:#fff}
+.s-running{background:var(--ok)}.s-paused{background:var(--warn)}.s-stopped{background:var(--mute)}
+.label{color:var(--mute);font-size:12px}
+#instr{font-size:24px;line-height:1.3;font-weight:600;margin:8px 0 4px;word-break:break-word}
+.verdict{display:inline-block;font-weight:600;padding:3px 12px;border-radius:8px;font-size:14px}
+.v-ok{background:color-mix(in srgb,var(--ok) 16%,transparent);color:var(--ok)}.v-bad{background:color-mix(in srgb,var(--bad) 16%,transparent);color:var(--bad)}
+.v-wait{background:var(--chip);color:var(--mute)}
+.pair{display:grid;grid-template-columns:minmax(0,1fr);gap:10px;margin-top:10px}
+.imgbox{position:relative;width:100%;max-width:900px;background:#000;border-radius:8px;overflow:hidden;aspect-ratio:4/3}
+.imgbox img,.imgbox canvas{position:absolute;inset:0;width:100%;height:100%}
+.imgbox .ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#9aa3b2;font-size:13px}
+.thumbs{display:flex;gap:8px;flex-wrap:wrap}.thumbs figure{margin:0;width:200px}.thumbs img{width:200px;border-radius:6px;display:block}.thumbs figcaption{font-size:12px;color:var(--mute)}
+table{border-collapse:collapse;width:100%;font-size:13px}td,th{padding:4px 6px;border-top:1px solid var(--line);text-align:left}th{color:var(--mute);font-weight:500;border-top:0}
+td.c{font-variant-numeric:tabular-nums;width:64px}.bar{height:6px;border-radius:3px;background:var(--acc);opacity:.5}
+tr.tg td{background:var(--hl)}.mk{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+.sess{list-style:none;margin:0;padding:0}.sess li{padding:8px 6px;border-top:1px solid var(--line);cursor:pointer;border-radius:6px}
+.sess li:first-child{border-top:0}.sess li.sel{background:var(--chip)}.sess .tk{font-size:12px;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+h2{font-size:13px;margin:0 0 8px;color:var(--mute);font-weight:600}
+.stack{display:flex;flex-direction:column;gap:14px;min-width:0}
+button{font:inherit;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;padding:3px 10px;cursor:pointer}
+button.on{border-color:var(--acc);color:var(--acc)}
+.empty{color:var(--mute);padding:20px 0;text-align:center}
+.ev{list-style:none;margin:0;padding:0;font-size:13px}.ev li{padding:4px 0;border-top:1px solid var(--line)}.ev li:first-child{border-top:0}.ev .t{color:var(--mute);font-variant-numeric:tabular-nums;margin-right:8px}
+</style>
+</head>
+<body>
+<header>
+  <h1>YOLO 识别实时</h1>
+  <nav class="tabs"><a href="/">任务三 · 指令实时</a><a href="/yolo" class="cur">任务一/二 · YOLO</a><a href="/topref?t=1">复位 · 任务一</a><a href="/topref?t=2">复位 · 任务二</a><a href="/topref?t=3">复位 · 任务三</a></nav>
+  <span class="pill"><span class="dot" id="ldot"></span><span id="ltxt">连接中…</span></span>
+  <span class="pill" id="clock">5080 时间 —</span>
+  <span class="pill" id="modes">yolocue —</span>
+  <span style="flex:1"></span>
+  <button id="follow" class="on" title="新的一次任务开始时自动切过去">跟随最新</button>
+</header>
+<main>
+  <div class="stack">
+    <section class="card" id="cur">
+      <div class="empty" id="none">等任务一或任务二开始…（任务开局时 yolocue 检测一次，结果会马上出现在这里）</div>
+      <div id="body" hidden>
+        <div class="row"><span class="state" id="st">—</span><span class="label" id="when"></span><span class="label" id="wts"></span></div>
+        <div id="instr"></div>
+        <div class="row"><span class="verdict" id="verdict"></span><span class="label" id="pick"></span></div>
+        <div class="pair">
+          <div>
+            <div class="row" style="margin-bottom:6px"><span class="label" id="imgcap"></span><span style="flex:1"></span>
+              <button id="tAll" class="on">全部检测框</button></div>
+            <div class="imgbox"><img id="img" alt=""><canvas id="cv"></canvas><div class="ph" id="ph">图片加载中…</div></div>
+          </div>
+          <div class="thumbs" id="thumbs"></div>
+        </div>
+      </div>
+    </section>
+    <section class="card" id="detcard" hidden>
+      <h2>开局检测到的物体（置信度从高到低；<span class="mk" style="background:#fff;border:1px solid #999"></span>目标 <span class="mk" style="background:#f59e0b"></span>目的地）</h2>
+      <table><thead><tr><th>类别</th><th>置信度</th><th></th></tr></thead><tbody id="dets"></tbody></table>
+    </section>
+    <section class="card" id="evcard" hidden><h2>这次任务的 yolocue 记录</h2><ul class="ev" id="ev"></ul></section>
+  </div>
+  <div class="stack">
+    <section class="card"><h2>最近的任务一/二</h2><ul class="sess" id="sess"></ul><div class="empty" id="sessnone">还没有</div></section>
+    <section class="card"><h2>怎么看</h2><div class="label" style="line-height:1.7">
+      左图是模型实际看到的头部相机画面：白框 = 要拿的物体，橙框 = 要放的位置；彩色细框是 YOLO 检出的全部物体。<br>
+      没画出框时（比如目标没检测到），显示的是原图加全部检测框，方便看 YOLO 把目标认成了什么。<br>
+      抓起之后的画面（白框去掉、只留橙框）出现在下方小图。</div></section>
+  </div>
+</main>
+<script>
+const ZH={avocado:'牛油果',banana:'香蕉',bell_pepper:'彩椒',carrot:'胡萝卜',cucumber:'黄瓜',dragon_fruit:'火龙果',eggplant:'茄子',green_apple:'青苹果',kiwi:'猕猴桃',lemon:'柠檬',mango:'芒果',mangosteen:'山竹',mushroom:'蘑菇',onion:'洋葱',orange:'橙子',papaya:'木瓜',passion_fruit:'百香果',peach:'桃子',pear:'梨',persimmon:'柿子',pineapple:'菠萝',pomegranate:'石榴',potato:'土豆',pumpkin:'南瓜',red_apple:'红苹果',strawberry:'草莓',tomato:'西红柿',watermelon:'西瓜',wax_apple:'莲雾',grapes:'葡萄',cherry:'樱桃',tangerine:'橘子',red_chili:'红尖椒',red_delicious:'蛇果',starfruit:'杨桃',green_chili:'青尖椒',plate_white:'白盘',plate_yellow:'黄盘',plate_pink:'粉盘',plate_purple:'紫盘',plate_blue:'蓝盘',lip_gloss:'唇蜜',lotion_bottle:'乳液瓶',lipstick:'口红',contour:'修容饼',brush_large:'大刷子',highlighter:'高光',powder_puff:'粉扑',eyeshadow_palette:'眼影盘',brush_small:'小刷子',glitter_compact:'亮片粉饼',organizer_top:'收纳盒上层',organizer_middle:'收纳盒中层',organizer_bottom:'收纳盒下层'};
+const zh=c=>ZH[c]?`${ZH[c]} ${c}`:c;
+const REASON={ok:'框提示已画出','target not detected':'没画框：目标没检测到','target ambiguous':'没画框：检出两个以上同类目标，分不清是哪个','destination not detected':'没画框：目的盘子没检测到','level not detected':'没画框：收纳盒那一层没检测到','target overlaps destination':'没画框：目标和目的地框重叠','no frame at start':'没画框：开局没拿到画面'};
+const rz=r=>REASON[r]||(String(r).startsWith('detector error')?'没画框：检测器出错':r);
+const $=id=>document.getElementById(id);
+const sessions=new Map(), bySid=new Map(); let sel=null, follow=true, offset=0, hb={}, lastHb=0, linkOk=false, showAll=true;
+const pad=n=>String(n).padStart(2,'0'), hms=w=>{const d=new Date(w*1000);return `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`};
+function base(f){return f.replace(/\.jsonl$/,'')}
+function onYolo(file,r){
+  const b=base(file); let s=sessions.get(b);
+  if(!s){s={base:b,start:null,det:[],grasp:null,regrasp:[],end:null,ev:[],state:'running'};sessions.set(b,s);}
+  s.ev.push(r);
+  if(r.event==='start'){s.start=r;if(r.session_id){bySid.set(r.session_id,b);const st=sidState.get(r.session_id);if(st)s.state=st;}}
+  else if(r.event==='detect')s.det.push(r);else if(r.event==='grasp')s.grasp=r;else if(r.event==='regrasp')s.regrasp.push(r);
+  else if(r.event==='end'){s.end=r;s.state='stopped';}
+  if(follow&&r.event==='start')sel=b;
+}
+const sidState=new Map();
+function onSession(r){const st=r.event==='start'||r.event==='resume'?'running':r.event==='pause'||r.event==='takeover'?'paused':r.event==='stop'?'stopped':null;
+  if(!st||!r.session_id)return;sidState.set(r.session_id,st);const b=bySid.get(r.session_id);if(b&&sessions.get(b))sessions.get(b).state=st;}
+function list(){return [...sessions.values()].filter(s=>s.start).sort((a,b)=>b.start.wall_time-a.start.wall_time)}
+let imgKey='';
+function drawOverlay(s,d){
+  const cv=$('cv'),img=$('img');const W=img.clientWidth,H=img.clientHeight;cv.width=W*devicePixelRatio;cv.height=H*devicePixelRatio;
+  const g=cv.getContext('2d');g.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);g.clearRect(0,0,W,H);
+  if(!d)return;const k=W/640,P=s.start.parsed||[];
+  const boxes=(showAll?(d.dets||[]):[]);
+  g.font='12px -apple-system,PingFang SC,sans-serif';g.textBaseline='top';
+  boxes.forEach(x=>{const [c,x0,y0,x1,y1,cf]=x;const isT=c===P[1],isD=c===P[2];
+    const hue=[...c].reduce((a,ch)=>a+ch.charCodeAt(0),0)*47%360;const col=isT?'#ffffff':isD?'#f59e0b':`hsl(${hue} 90% 60%)`;
+    g.strokeStyle=col;g.lineWidth=isT||isD?2.5:1.5;g.strokeRect(x0*k,y0*k,(x1-x0)*k,(y1-y0)*k);
+    const t=`${ZH[c]||c} ${cf.toFixed(2)}`;const tw=g.measureText(t).width+6;const ty=y0*k>15?y0*k-15:y1*k+1;
+    g.fillStyle='rgba(0,0,0,.72)';g.fillRect(x0*k,ty,tw,15);g.fillStyle=col;g.fillText(t,x0*k+3,ty+1);});
+}
+function setImg(s){
+  const d=s.det[0]; const ok=d&&d.reason==='ok'; const name=ok?`${s.base}_cue.jpg`:`${s.base}_nocue_raw.jpg`;
+  $('imgcap').textContent=ok?'模型看到的画面（开局第一帧，白框=目标，橙框=目的地）':'原图（没画框，模型拿到的就是这张）';
+  if(imgKey===name){drawOverlay(s,d);return;} imgKey=name; const img=$('img'); $('ph').hidden=false; $('ph').textContent='图片加载中…';
+  let tries=0; img.onload=()=>{$('ph').hidden=true;drawOverlay(s,d);};
+  img.onerror=()=>{if(++tries<20&&imgKey===name)setTimeout(()=>{img.src=`/yimg/${name}?t=${tries}`},1500);else $('ph').textContent='没有这张图（yolocue 只在开局保存一张）';};
+  img.src=`/yimg/${name}`;
+}
+function render(){
+  const L=list(); $('sessnone').hidden=L.length>0;
+  $('sess').innerHTML=L.slice(0,30).map(s=>{const d=s.det[0];const v=!d?'…':d.reason==='ok'?'✓':'✗';
+    return `<li class="${s.base===sel?'sel':''}" data-b="${s.base}"><b>${hms(s.start.wall_time)}</b> <span style="color:${!d?'var(--mute)':d.reason==='ok'?'var(--ok)':'var(--bad)'}">${v} ${d?(d.reason==='ok'?'有框':rz(d.reason).replace('没画框：','')):''}</span><div class="tk">${s.start.task||''}</div></li>`}).join('');
+  if(!sel&&L.length)sel=L[0].base; const s=sessions.get(sel);
+  $('none').hidden=!!s; $('body').hidden=!s; $('detcard').hidden=!s; $('evcard').hidden=!s; if(!s)return;
+  const st=s.state; $('st').className='state s-'+st; $('st').textContent={running:'进行中',paused:'人工接管/暂停',stopped:'已结束'}[st];
+  $('when').textContent=`开始 ${hms(s.start.wall_time)}`; $('wts').textContent=`检测器 ${String(s.start.weights||'').replace('weights/','')}`;
+  $('instr').textContent=s.start.task||''; const P=s.start.parsed||[]; const d=s.det[0];
+  $('verdict').className='verdict '+(!d?'v-wait':d.reason==='ok'?'v-ok':'v-bad'); $('verdict').textContent=!d?'检测中…':rz(d.reason);
+  $('pick').textContent=P.length?`任务${P[0]}：目标 ${zh(P[1])} → ${zh(P[2])}${d&&d.ms?` · 检测 ${d.ms} ms`:''}`:'这条指令不是任务一/二模板，不画框';
+  setImg(s);
+  const th=[]; if(s.grasp)th.push([`${s.base}_grasp.jpg`,`抓起后（${s.grasp.arm==='left'?'左':'右'}臂）`]);
+  s.regrasp.forEach(r=>th.push([`${s.base}_regrasp${r.n}.jpg`,`补救重抓 #${r.n}（松手 ${r.after_s}s 后）`]));
+  $('thumbs').innerHTML=th.map(([n,c])=>`<figure><img src="/yimg/${n}" onerror="this.closest('figure').hidden=true"><figcaption>${c}</figcaption></figure>`).join('');
+  const dets=(d&&d.dets||[]).slice().sort((a,b)=>b[5]-a[5]);
+  $('dets').innerHTML=dets.length?dets.map(x=>{const isT=x[0]===P[1],isD=x[0]===P[2];
+    return `<tr class="${isT||isD?'tg':''}"><td>${isT?'<span class="mk" style="background:#fff;border:1px solid #999"></span>':isD?'<span class="mk" style="background:#f59e0b"></span>':''}${zh(x[0])}</td><td class="c">${x[5].toFixed(2)}</td><td><div class="bar" style="width:${Math.round(x[5]*100)}%"></div></td></tr>`}).join(''):'<tr><td colspan="3" class="label">没有检测结果</td></tr>';
+  $('ev').innerHTML=s.ev.map(r=>{const t=(r.t??0).toFixed(1)+'s';let x='';
+    if(r.event==='start')x=`开始（${r.mode}）`;else if(r.event==='detect')x=`检测（${({start:'开局',retry:'重试',regrasp:'补救'})[r.why]||r.why}）：${rz(r.reason)}`;
+    else if(r.event==='grasp')x=`抓起：${r.arm==='left'?'左':'右'}臂，第 ${r.chunk} 段`;else if(r.event==='regrasp')x=`补救重抓 #${r.n}`;
+    else if(r.event==='end')x=`结束（${r.why}）：placed=${r.placed}，补救 ${r.regrasps} 次${r.cue_prompt?'，点名指令':''}`;else x=r.event||'';
+    return `<li><span class="t">${t}</span>${x}</li>`}).join('');
+}
+function tick(){
+  const fresh=Date.now()-lastHb<6000; $('ldot').className='dot'+(linkOk&&fresh?' ok':''); $('ltxt').textContent=linkOk&&fresh?'已连上推理机':'连接中断';
+  if(lastHb)$('clock').textContent='5080 时间 '+hms(Date.now()/1000+offset);
+  $('modes').textContent=`yolocue ${hb.yolocue_mode??'—'}`;
+}
+$('sess').onclick=e=>{const li=e.target.closest('li');if(!li)return;sel=li.dataset.b;follow=false;$('follow').classList.remove('on');render();};
+$('follow').onclick=()=>{follow=!follow;$('follow').classList.toggle('on',follow);if(follow){const L=list();if(L.length)sel=L[0].base;render();}};
+$('tAll').onclick=()=>{showAll=!showAll;$('tAll').classList.toggle('on',showAll);const s=sessions.get(sel);if(s)drawOverlay(s,s.det[0]);};
+addEventListener('resize',()=>{const s=sessions.get(sel);if(s)drawOverlay(s,s.det[0]);});
+let pend=false;const later=()=>{if(!pend){pend=true;requestAnimationFrame(()=>{pend=false;render();});}};
+function connect(){
+  const es=new EventSource('/events');
+  es.onmessage=e=>{const m=JSON.parse(e.data);
+    if(m.src==='reset'){sessions.clear();bySid.clear();sidState.clear();imgKey='';return;}
+    if(m.src==='link'){linkOk=!!m.rec.ok;return;}
+    if(m.src==='hb'){offset=m.rec.wall_time-Date.now()/1000;lastHb=Date.now();hb=m.rec;linkOk=true;return;}
+    if(m.src==='session'){onSession(m.rec);later();return;}
+    if(m.src==='yolocue'){onYolo(m.file,m.rec);later();}
+  };
+}
+connect(); setInterval(tick,1000); tick();
+</script>
+</body>
+</html>

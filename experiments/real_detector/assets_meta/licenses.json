@@ -1,0 +1,286 @@
+{
+ "green_apple": {
+  "source": "RoboTwin 2.0 assets",
+  "category": "103_fruit",
+  "id": "0"
+ },
+ "peach": {
+  "source": "RoboTwin 2.0 assets",
+  "category": "103_fruit",
+  "id": "5"
+ },
+ "pomegranate": {
+  "uid": "fc2b47ccf968426f9af981a3e4581675",
+  "title": "Pomegranate Fruit",
+  "license": "CC Attribution",
+  "url": "https://sketchfab.com/3d-models/fc2b47ccf968426f9af981a3e4581675",
+  "via": "Objaverse (allenai/objaverse)"
+ },
+ "tangerine": {
+  "uid": "e5015b222a6949478d68bd6b38fc6ee0",
+  "title": "Tangerine",
+  "license": "CC Attribution",
+  "url": "https://sketchfab.com/3d-models/e5015b222a6949478d68bd6b38fc6ee0",
+  "via": "Objaverse (allenai/objaverse)"
+ },
+ "watermelon": {
+  "uid": "5a0ae2276ac845c9a93b240c076aae19",
+  "title": "Watermelon",
+  "license": "CC Attribution",
+  "url": "https://sketchfab.com/3d-models/5a0ae2276ac845c9a93b240c076aae19",
+  "via": "Objaverse (allenai/objaverse)"
+ },
+ "banana": {
+  "uid": "d48a903d948345e9904fba6e19345f85",
+  "title": "Banana",
+  "license": "CC Attribution",
+  "url": "https://sketchfab.com/3d-models/d48a903d948345e9904fba6e19345f85",
+  "via": "Objaverse (allenai/objaverse)"
+ },
+ "red_apple": {
+  "source": "RoboTwin 2.0 assets",
+  "category": "035_apple",
+  "id": "1"
+ },
+ "grapes": {
+  "uid": "9396a10bd8804811a14b58f50d543575",
+  "title": "Grapes",
+  "license": "CC Attribution",
+  "url": "https://sketchfab.com/3d-models/9396a10bd8804811a14b58f50d543575",
+  "via": "Objaverse (allenai/objaverse)"
+ },
+ "starfruit": {
+  "uid": "5c857ed29ecf4236843e30ea4a2cde51",
+  "title": "Star Fruit (Game Ready / 2K PBR)",
+  "license": "CC Attribution",
+  "url": "https://sketchfab.com/3d-models/5c857ed29ecf4236843e30ea4a2cde51",
+  "via": "Objaverse (allenai/objaverse)"
+ },
+ "red_delicious": {
+  "uid": "dc5a0c0c439942d58d038a10d7064c91",
+  "title": "Delicious Red Apple",
+  "license": "CC Attribution-NonCommercial",
+  "url": "https://sketchfab.com/3d-models/dc5a0c0c439942d58d038a10d7064c91",
+  "via": "Objaverse (allenai/objaverse)"
+ },
+ "strawberry": {
+  "uid": "0b9867d98c154737b422fa5afacfc178",
+  "title": "Strawberry (Jumbo Poly) Freebie",
+  "license": "CC Attribution",
+  "url": "https://sketchfab.com/3d-models/0b9867d98c154737b422fa5afacfc178",
+  "via": "Objaverse (allenai/objaverse)"
+ },
+ "persimmon": {
+  "source": "procedural (process_assets.py)"
+ },
+ "lemon": {
+  "source": "RoboTwin 2.0 assets",
+  "category": "103_fruit",
+  "id": "3"
+ },
+ "orange": {
+  "source": "RoboTwin 2.0 assets",
+  "category": "103_fruit",
+  "id": "2"
+ },
+ "mangosteen": {
+  "source": "procedural (process_assets.py)"
+ },
+ "pineapple": {
+  "source": "RoboTwin 2.0 assets",
+  "category": "103_fruit",
+  "id": "4"
+ },
+ "mango": {
+  "uid": "1c5abb0dd9424a829ea1e16f6a07fc7a",
+  "title": "Colorful Mango",
+  "license": "CC Attribution",
+  "url": "https://sketchfab.com/3d-models/1c5abb0dd9424a829ea1e16f6a07fc7a",
+  "via": "Objaverse (allenai/objaverse)"
+ },
+ "pear": {
+  "source": "RoboTwin 2.0 assets",
+  "category": "103_fruit",
+  "id": "1"
+ },
+ "passion_fruit": {
+  "uid": "4c4a553f3359470db4f78fca337b52de",
+  "title": "Passion Fruit",
+  "license": "CC Attribution",
+  "url": "https://sketchfab.com/3d-models/4c4a553f3359470db4f78fca337b52de",
+  "via": "Objaverse (allenai/objaverse)"
+ },
+ "dragon_fruit": {
+  "uid": "e69e134aac6149a3afe9068026d1bd72",
+  "title": "Dragon Fruit",
+  "license": "CC Attribution",
+  "url": "https://sketchfab.com/3d-models/e69e134aac6149a3afe9068026d1bd72",
+  "via": "Objaverse (allenai/objaverse)"
+ },
+ "kiwi": {
+  "uid": "5ebb6b41072547189da584d9ba1e217c",
+  "title": "Kiwi (Game Ready / 2K PBR)",
+  "license": "CC Attribution",
+  "url": "https://sketchfab.com/3d-models/5ebb6b41072547189da584d9ba1e217c",
+  "via": "Objaverse (allenai/objaverse)"
+ },
+ "avocado": {
+  "uid": "fbc9211966e548f6a7c62025d559d89b",
+  "title": "Avocado",
+  "license": "CC Attribution",
+  "url": "https://sketchfab.com/3d-models/fbc9211966e548f6a7c62025d559d89b",
+  "via": "Objaverse (allenai/objaverse)"
+ },
+ "cherry": {
+  "uid": "8e076ba031bb4969930dc8e49d35668d",
+  "title": "Cherry (Free Download)",
+  "license": "CC Attribution",
+  "url": "https://sketchfab.com/3d-models/8e076ba031bb4969930dc8e49d35668d",
+  "via": "Objaverse (allenai/objaverse)"
+ },
+ "wax_apple": {
+  "uid": "cda1f772e4ac4fab9a52219ce3a0909b",
+  "title": "My name is Chompoo",
+  "license": "CC Attribution",
+  "url": "https://sketchfab.com/3d-models/cda1f772e4ac4fab9a52219ce3a0909b",
+  "via": "Objaverse (allenai/objaverse)"
+ },
+ "papaya": {
+  "uid": "baf9b8057b5e4f2fbb4fd9299c624fd5",
+  "title": "Carica papaya",
+  "license": "CC Attribution",
+  "url": "https://sketchfab.com/3d-models/baf9b8057b5e4f2fbb4fd9299c624fd5",
+  "via": "Objaverse (allenai/objaverse)"
+ },
+ "tomato": {
+  "source": "RoboTwin 2.0 assets",
+  "category": "069_vagetable",
+  "id": "3"
+ },
+ "mushroom": {
+  "uid": "ade09b61de8b4a7d9e850b710d3eb151",
+  "title": "Mushroom",
+  "license": "CC Attribution",
+  "url": "https://sketchfab.com/3d-models/ade09b61de8b4a7d9e850b710d3eb151",
+  "via": "Objaverse (allenai/objaverse)"
+ },
+ "cucumber": {
+  "source": "RoboTwin 2.0 assets",
+  "category": "069_vagetable",
+  "id": "2"
+ },
+ "pumpkin": {
+  "uid": "cc77931e16b740bf9c701ce0f82251ad",
+  "title": "Pumpkin",
+  "license": "CC Attribution",
+  "url": "https://sketchfab.com/3d-models/cc77931e16b740bf9c701ce0f82251ad",
+  "via": "Objaverse (allenai/objaverse)"
+ },
+ "bell_pepper": {
+  "uid": "7dceb5e3fa574027b6b8c6ffff8c980c",
+  "title": "Red Bell Pepper",
+  "license": "CC Attribution",
+  "url": "https://sketchfab.com/3d-models/7dceb5e3fa574027b6b8c6ffff8c980c",
+  "via": "Objaverse (allenai/objaverse)"
+ },
+ "carrot": {
+  "source": "RoboTwin 2.0 assets",
+  "category": "069_vagetable",
+  "id": "6"
+ },
+ "red_chili": {
+  "uid": "0da140cc02f548bab6bb35b949bd7210",
+  "title": "Chili Pepper from Poly by Google",
+  "license": "CC Attribution",
+  "url": "https://sketchfab.com/3d-models/0da140cc02f548bab6bb35b949bd7210",
+  "via": "Objaverse (allenai/objaverse)"
+ },
+ "green_chili": {
+  "uid": "bf9c9182d5154809ab05105f7c2469f2",
+  "title": "Chili Pepper from Poly by Google",
+  "license": "CC Attribution",
+  "url": "https://sketchfab.com/3d-models/bf9c9182d5154809ab05105f7c2469f2",
+  "via": "Objaverse (allenai/objaverse)"
+ },
+ "eggplant": {
+  "source": "RoboTwin 2.0 assets",
+  "category": "069_vagetable",
+  "id": "4"
+ },
+ "onion": {
+  "source": "RoboTwin 2.0 assets",
+  "category": "069_vagetable",
+  "id": "1"
+ },
+ "potato": {
+  "source": "RoboTwin 2.0 assets",
+  "category": "069_vagetable",
+  "id": "0"
+ },
+ "lotion_bottle": {
+  "source": "procedural (process_assets.py)"
+ },
+ "lip_gloss": {
+  "source": "procedural (process_assets.py)"
+ },
+ "lipstick": {
+  "source": "procedural (process_assets.py)"
+ },
+ "eyeshadow_palette": {
+  "source": "procedural (process_assets.py)"
+ },
+ "brush_large": {
+  "source": "procedural (process_assets.py)"
+ },
+ "brush_small": {
+  "source": "procedural (process_assets.py)"
+ },
+ "highlighter": {
+  "source": "procedural (process_assets.py)"
+ },
+ "contour": {
+  "source": "procedural (process_assets.py)"
+ },
+ "powder_puff": {
+  "source": "procedural (process_assets.py)"
+ },
+ "glitter_compact": {
+  "source": "procedural (process_assets.py)"
+ },
+ "dustpan": {
+  "source": "RoboTwin 2.0 assets",
+  "category": "082_smallshovel",
+  "id": "3"
+ },
+ "brush": {
+  "source": "RoboTwin 2.0 assets",
+  "category": "083_brush",
+  "id": "2"
+ },
+ "basket": {
+  "source": "RoboTwin 2.0 assets",
+  "category": "110_basket",
+  "id": "0"
+ },
+ "paper_ball_red": {
+  "source": "procedural (process_assets.py)"
+ },
+ "paper_ball_white": {
+  "source": "procedural (process_assets.py)"
+ },
+ "plate_white": {
+  "source": "procedural (process_assets.py)"
+ },
+ "plate_yellow": {
+  "source": "procedural (process_assets.py)"
+ },
+ "plate_pink": {
+  "source": "procedural (process_assets.py)"
+ },
+ "plate_purple": {
+  "source": "procedural (process_assets.py)"
+ },
+ "plate_blue": {
+  "source": "procedural (process_assets.py)"
+ }
+}

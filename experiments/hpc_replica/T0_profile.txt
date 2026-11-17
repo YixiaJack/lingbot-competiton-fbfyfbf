@@ -1,0 +1,66 @@
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                                   Name    Self CPU %      Self CPU   CPU total %     CPU total  CPU time avg     Self CUDA   Self CUDA %    CUDA total  CUDA time avg    # of Calls  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+autograd::engine::evaluate_function: CompiledFunctio...         0.77%      42.897ms        17.02%     946.394ms     594.468us       0.000us         0.00%        1.657s       1.041ms          1592  
+                    Optimizer.step#DistributedMuon.step         1.40%      77.777ms        21.92%        1.219s     609.588ms       0.000us         0.00%        1.626s     812.832ms             2  
+                               CompiledFunctionBackward         5.75%     319.574ms        11.41%     634.571ms     398.600us       0.000us         0.00%        1.442s     905.799us          1592  
+                    Optimizer.step#DistributedMuon.step         0.00%       0.000us         0.00%       0.000us       0.000us        1.207s        26.58%        1.207s     603.294ms             2  
+                                          aten::baddbmm         0.73%      40.784ms         8.03%     446.328ms     146.818us     462.637ms        10.19%     838.507ms     275.825us          3040  
+                triton_tem_fused_slice_backward_zeros_2         0.06%       3.592ms         0.08%       4.277ms      29.699us     709.796ms        15.64%     709.796ms       4.929ms           144  
+                triton_tem_fused_slice_backward_zeros_2         0.00%       0.000us         0.00%       0.000us       0.000us     709.796ms        15.64%     709.796ms       4.929ms           144  
+                             Torch-Compiled Region: 1/0         0.06%       3.560ms        32.27%        1.794s     448.597ms       0.000us         0.00%     707.118ms     176.780ms             4  
+                                               aten::mm         2.78%     154.388ms         4.09%     227.545ms      28.673us     698.965ms        15.40%     699.290ms      88.116us          7936  
+                             Torch-Compiled Region: 2/0         0.00%     141.009us        31.60%        1.757s     439.323ms       0.000us         0.00%     688.571ms     172.143ms             4  
+                             Torch-Compiled Region: 3/0         0.01%     697.577us        31.56%        1.755s     438.724ms       0.000us         0.00%     688.546ms     172.137ms             4  
+                                     record_param_comms         1.52%      84.569ms         2.30%     127.815ms      85.438us     630.041ms        13.88%     647.747ms     432.986us          1496  
+                            Torch-Compiled Region: 22/0         1.07%      59.676ms        26.26%        1.460s     365.121ms       0.000us         0.00%     591.060ms     147.765ms             4  
+                                    Command Buffer Full        16.11%     895.813ms        16.11%     896.138ms     550.792us     473.841ms        10.44%     473.841ms     291.236us          1627  
+                                           aten::matmul         0.14%       7.801ms         3.20%     178.235ms     108.680us       0.000us         0.00%     444.829ms     271.237us          1640  
+                                              aten::bmm         0.54%      29.937ms         2.98%     165.864ms      93.814us     291.647ms         6.43%     443.170ms     250.661us          1768  
+                                            aten::copy_         1.35%      75.254ms        10.53%     585.826ms      31.946us     342.565ms         7.55%     407.061ms      22.198us         18338  
+                                       CompiledFunction         4.26%     236.782ms         8.48%     471.840ms     296.382us       0.000us         0.00%     401.824ms     252.402us          1592  
+autograd::engine::evaluate_function: RegisterPostBac...         0.15%       8.104ms        11.30%     628.590ms     913.648us       0.000us         0.00%     364.942ms     530.438us           688  
+ncclDevKernel_AllGather_RING_LL(ncclDevKernelArgsSto...         0.00%       0.000us         0.00%       0.000us       0.000us     363.194ms         8.00%     363.194ms     463.258us           784  
+                   RegisterPostBackwardFunctionBackward         0.49%      26.978ms        11.07%     615.901ms     895.206us       0.000us         0.00%     361.180ms     524.971us           688  
+                                 c10d::_allgather_base_         0.25%      13.677ms         1.17%      64.841ms      93.163us       0.000us         0.00%     281.260ms     404.109us           696  
+                                  nccl:_all_gather_base         0.00%       0.000us         0.00%       0.000us       0.000us     281.260ms         6.20%     281.260ms     404.109us           696  
+                            c10d::_reduce_scatter_base_         0.27%      14.978ms         1.24%      68.684ms      98.684us       0.000us         0.00%     265.473ms     381.427us           696  
+ncclDevKernel_ReduceScatter_Sum_f32_RING_LL(ncclDevK...         0.00%       0.000us         0.00%       0.000us       0.000us     265.473ms         5.85%     265.473ms     381.427us           696  
+                              nccl:_reduce_scatter_base         0.00%       0.000us         0.00%       0.000us       0.000us     265.473ms         5.85%     265.473ms     381.427us           696  
+                                       cuLaunchKernelEx         1.36%      75.394ms         6.57%     365.194ms      25.130us       0.000us         0.00%     238.980ms      16.445us         14532  
+              nvjet_tst_320x128_64x3_1x2_h_bz_coopB_TNT         0.00%       0.000us         0.00%       0.000us       0.000us     223.675ms         4.93%     223.675ms       1.511ms           148  
+              nvjet_tst_256x128_64x4_1x2_h_bx_coopA_NNT         0.00%       0.000us         0.00%       0.000us       0.000us     222.218ms         4.90%     222.218ms     178.345us          1246  
+                                           aten::linear         0.17%       9.603ms         2.36%     131.374ms      42.933us       0.000us         0.00%     213.024ms      69.616us          3060  
+                                               aten::to         0.25%      13.713ms         7.31%     406.382ms      21.641us       0.000us         0.00%     175.055ms       9.322us         18778  
+                                         aten::_to_copy         0.53%      29.299ms         7.06%     392.667ms      34.092us       0.000us         0.00%     175.055ms      15.198us         11518  
+              nvjet_tst_320x128_64x3_1x2_h_bx_coopB_NNT         0.00%       0.000us         0.00%       0.000us       0.000us     173.417ms         3.82%     173.417ms     688.164us           252  
+                            Torch-Compiled Region: 11/3         0.38%      20.974ms         2.04%     113.608ms     788.944us       0.000us         0.00%     166.006ms       1.153ms           144  
+                            Torch-Compiled Region: 24/1         0.08%       4.665ms         1.05%      58.533ms     406.477us       0.000us         0.00%     161.208ms       1.119ms           144  
+                                        cudaMemsetAsync         0.50%      27.657ms         1.03%      57.016ms       9.902us       0.000us         0.00%     152.844ms      26.545us          5758  
+                                            aten::addmm         1.18%      65.561ms         1.72%      95.420ms      32.193us     149.408ms         3.29%     149.635ms      50.484us          2964  
+                            Torch-Compiled Region: 11/1         0.40%      22.144ms         4.82%     267.831ms       1.860ms       0.000us         0.00%     133.028ms     923.805us           144  
+              nvjet_tst_256x128_64x4_1x2_h_bz_coopA_NTT         0.00%       0.000us         0.00%       0.000us       0.000us     133.007ms         2.93%     133.007ms     307.888us           432  
+                                           aten::conv2d         0.05%       2.842ms         1.44%      80.328ms      69.488us       0.000us         0.00%     125.389ms     108.468us          1156  
+              nvjet_tst_128x256_64x4_2x1_v_bz_coopA_NNN         0.00%       0.000us         0.00%       0.000us       0.000us     112.847ms         2.49%     112.847ms     156.732us           720  
+                                             aten::add_         0.55%      30.837ms         2.97%     165.197ms      19.865us      99.655ms         2.20%     103.556ms      12.453us          8316  
+                                        nccl:all_gather         0.00%       0.000us         0.00%       0.000us       0.000us      99.986ms         2.20%      99.986ms       1.136ms            88  
+                                       c10d::allgather_         0.04%       2.386ms         0.44%      24.317ms     276.331us       0.000us         0.00%      99.640ms       1.132ms            88  
+                             Torch-Compiled Region: 4/0         0.01%     430.286us         5.27%     292.834ms      73.209ms       0.000us         0.00%      97.467ms      24.367ms             4  
+              nvjet_tst_256x128_64x4_1x2_h_bz_coopA_TNT         0.00%       0.000us         0.00%       0.000us       0.000us      97.104ms         2.14%      97.104ms      66.601us          1458  
+                             Torch-Compiled Region: 5/0         0.00%      31.667us         3.72%     206.663ms      51.666ms       0.000us         0.00%      91.467ms      22.867ms             4  
+                             Torch-Compiled Region: 6/1         0.01%     787.064us         3.71%     206.507ms      51.627ms       0.000us         0.00%      91.467ms      22.867ms             4  
+void at::native::vectorized_elementwise_kernel<4, at...         0.00%       0.000us         0.00%       0.000us       0.000us      90.063ms         1.98%      90.063ms      12.540us          7182  
+                             Torch-Compiled Region: 8/0         0.01%     422.665us         3.59%     199.451ms      49.863ms       0.000us         0.00%      89.691ms      22.423ms             4  
+                         Memcpy DtoD (Device -> Device)         0.00%       0.000us         0.00%       0.000us       0.000us      88.699ms         1.95%      88.699ms      17.447us          5084  
+                            Torch-Compiled Region: 11/5         0.40%      22.130ms         4.49%     249.961ms       1.785ms       0.000us         0.00%      88.648ms     633.199us           140  
+              nvjet_tst_256x160_64x4_1x2_h_bz_coopA_TNT         0.00%       0.000us         0.00%       0.000us       0.000us      83.371ms         1.84%      83.371ms     289.482us           288  
+                             Torch-Compiled Region: 9/0         0.06%       3.275ms         3.41%     189.678ms      47.419ms       0.000us         0.00%      82.116ms      20.529ms             4  
+                                        fsdp::chunk_cat         0.20%      11.219ms         2.81%     156.246ms     224.492us       0.000us         0.00%      79.165ms     113.742us           696  
+                                       aten::_chunk_cat         1.76%      98.084ms         2.61%     145.027ms     208.373us      72.237ms         1.59%      79.165ms     113.742us           696  
+                            Torch-Compiled Region: 28/0         0.09%       5.136ms         0.66%      36.724ms     255.024us       0.000us         0.00%      78.344ms     544.058us           144  
+                                      aten::convolution         0.01%     824.570us         0.67%      36.989ms      54.396us       0.000us         0.00%      76.439ms     112.410us           680  
+                                     aten::_convolution         0.05%       2.853ms         0.65%      36.164ms      53.183us       0.000us         0.00%      76.439ms     112.410us           680  
+                                   aten::_foreach_copy_         0.29%      16.360ms         0.59%      32.670ms      29.700us      76.213ms         1.68%      76.213ms      69.285us          1100  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+Self CPU time total: 5.561s
+Self CUDA time total: 4.539s

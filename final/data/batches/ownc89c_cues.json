@@ -1,0 +1,90 @@
+{
+ "summary": {
+  "yolo": "weights/v13.torchscript",
+  "checked_by_eye": "11/15 22:5x: all 4 cues correct (target, destination plate, grasp of the boxed object, final plate)",
+  "mode": "boxgrasp",
+  "line_px": 5
+ },
+ "episodes": {
+  "529": {
+   "id": "ep0529",
+   "instruction": "Place the orange on the white plate.",
+   "target": "orange",
+   "dest": "plate_white",
+   "target_box": [
+    505.8,
+    285.7,
+    600.0,
+    362.5
+   ],
+   "dest_box": [
+    425.1,
+    184.2,
+    578.8,
+    287.7
+   ],
+   "grasp_frame": 231,
+   "T": 539
+  },
+  "530": {
+   "id": "ep0530",
+   "instruction": "Pick up the orange and place it on the pink plate.",
+   "target": "orange",
+   "dest": "plate_pink",
+   "target_box": [
+    481.0,
+    300.1,
+    579.5,
+    378.1
+   ],
+   "dest_box": [
+    200.8,
+    298.8,
+    387.4,
+    456.3
+   ],
+   "grasp_frame": 208,
+   "T": 536
+  },
+  "531": {
+   "id": "ep0531",
+   "instruction": "Could you put the carrot on the blue plate?",
+   "target": "carrot",
+   "dest": "plate_blue",
+   "target_box": [
+    241.5,
+    202.0,
+    333.1,
+    289.5
+   ],
+   "dest_box": [
+    3.9,
+    174.9,
+    157.0,
+    276.0
+   ],
+   "grasp_frame": 249,
+   "T": 629
+  },
+  "532": {
+   "id": "ep0532",
+   "instruction": "Move the tomato onto the blue plate.",
+   "target": "tomato",
+   "dest": "plate_blue",
+   "target_box": [
+    84.3,
+    187.7,
+    152.4,
+    252.5
+   ],
+   "dest_box": [
+    179.3,
+    312.5,
+    371.4,
+    478.0
+   ],
+   "grasp_frame": 170,
+   "T": 424
+  }
+ }
+}

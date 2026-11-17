@@ -1,0 +1,117 @@
+{
+ "218": {
+  "set": {
+   "4": "red_chili"
+  }
+ },
+ "219": {
+  "set": {
+   "6": "mangosteen"
+  }
+ },
+ "220": {
+  "set": {
+   "6": "mangosteen"
+  }
+ },
+ "223": {
+  "set": {
+   "6": "mangosteen"
+  }
+ },
+ "225": {
+  "set": {
+   "2": "potato",
+   "5": "lemon"
+  }
+ },
+ "226": {
+  "set": {
+   "5": "watermelon"
+  }
+ },
+ "233": {
+  "set": {
+   "6": "plate_pink"
+  }
+ },
+ "241": {
+  "set": {
+   "7": "plate_purple"
+  }
+ },
+ "246": {
+  "set": {
+   "2": "cucumber",
+   "4": "plate_purple"
+  }
+ },
+ "247": {
+  "set": {
+   "4": "cucumber"
+  }
+ },
+ "252": {
+  "set": {
+   "5": "green_chili"
+  }
+ },
+ "253": {
+  "set": {
+   "6": "green_chili"
+  }
+ },
+ "254": {
+  "set": {
+   "6": "green_chili"
+  }
+ },
+ "255": {
+  "set": {
+   "6": "papaya"
+  }
+ },
+ "256": {
+  "set": {
+   "6": "papaya"
+  }
+ },
+ "258": {
+  "set": {
+   "5": "papaya"
+  }
+ },
+ "259": {
+  "set": {
+   "5": "papaya"
+  },
+  "unknown": [
+   8
+  ]
+ },
+ "260": {
+  "set": {
+   "3": "wax_apple",
+   "4": "plate_purple"
+  },
+  "unknown": [
+   6
+  ]
+ },
+ "261": {
+  "set": {
+   "5": "wax_apple",
+   "6": "bell_pepper"
+  }
+ },
+ "263": {
+  "set": {
+   "6": "wax_apple"
+  }
+ },
+ "257": {
+  "set": {
+   "6": "papaya"
+  }
+ }
+}

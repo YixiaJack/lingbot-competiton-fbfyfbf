@@ -1,0 +1,11 @@
+{
+ "264": {"drop": [7], "why": "7 = second cherry box inside the cherry pair (1)"},
+ "265": {"set": {"6": "wax_apple"}, "why": "same object as ep264 #5; bell shape, lobed bottom = wax apple (cf. ep262 by-eye label)"},
+ "269": {"drop": [6], "why": "6 = hand/arm behind the organizer at the left edge, not a lotion bottle"},
+ "275": {"set": {"5": "brush_large"}, "why": "wide black fan head = large brush"},
+ "283": {"set": {"6": "brush_small"}, "why": "thin short tip = small brush"},
+ "285": {"set": {"6": "brush_small"}, "why": "thin short tip = small brush"},
+ "288": {"set": {"2": "brush_small"}, "why": "thin short tip = small brush"},
+ "290": {"drop": [6], "why": "6 = one pan of the eyeshadow palette, not a contour compact"},
+ "291": {"drop": [6], "why": "6 = one pan of the eyeshadow palette, not a contour compact"}
+}

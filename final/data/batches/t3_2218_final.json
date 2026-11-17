@@ -1,0 +1,137 @@
+{
+ "note": "cfa641b0 2218a27f task 3; checked by eye 2026-11-16 03:0x",
+ "pieces": {
+  "33_grasp_589": {
+   "ep": 33,
+   "start": 589,
+   "end": 665,
+   "subtask": "grasp",
+   "pan_arm": "right",
+   "kind": "takeover",
+   "secs": 2.5,
+   "task": "Grasp the dustpan handle with the right gripper, then grasp the brush handle with the left gripper.",
+   "result": "成功"
+  },
+  "33_sweep_665": {
+   "ep": 33,
+   "start": 665,
+   "end": 1378,
+   "subtask": "sweep",
+   "pan_arm": "right",
+   "kind": "follow",
+   "secs": 23.8,
+   "task": "Sweep all the paper balls into the dustpan with the brush.",
+   "result": "成功"
+  },
+  "33_dump_1378": {
+   "ep": 33,
+   "start": 1378,
+   "end": 1753,
+   "subtask": "dump",
+   "pan_arm": "right",
+   "kind": "follow",
+   "secs": 12.5,
+   "task": "Lift the dustpan over the basket and pour the paper balls into the basket.",
+   "result": "成功"
+  },
+  "33_home_1753": {
+   "ep": 33,
+   "start": 1753,
+   "end": 2228,
+   "subtask": "home",
+   "pan_arm": "right",
+   "kind": "follow",
+   "secs": 15.8,
+   "task": "Put the dustpan and the brush down on the table, then return both arms home and stay still.",
+   "result": "成功"
+  },
+  "34_grasp_480": {
+   "ep": 34,
+   "start": 480,
+   "end": 718,
+   "subtask": "grasp",
+   "pan_arm": "right",
+   "kind": "takeover",
+   "secs": 7.9,
+   "task": "Grasp the dustpan handle with the right gripper, then grasp the brush handle with the left gripper.",
+   "result": "成功"
+  },
+  "34_sweep_718": {
+   "ep": 34,
+   "start": 718,
+   "end": 1681,
+   "subtask": "sweep",
+   "pan_arm": "right",
+   "kind": "follow",
+   "secs": 32.1,
+   "task": "Sweep all the paper balls into the dustpan with the brush.",
+   "result": "成功"
+  },
+  "34_dump_1681": {
+   "ep": 34,
+   "start": 1681,
+   "end": 1982,
+   "subtask": "dump",
+   "pan_arm": "right",
+   "kind": "follow",
+   "secs": 10.0,
+   "task": "Lift the dustpan over the basket and pour the paper balls into the basket.",
+   "result": "成功"
+  },
+  "34_home_1982": {
+   "ep": 34,
+   "start": 1982,
+   "end": 2344,
+   "subtask": "home",
+   "pan_arm": "right",
+   "kind": "follow",
+   "secs": 12.1,
+   "task": "Put the dustpan and the brush down on the table, then return both arms home and stay still.",
+   "result": "成功"
+  },
+  "35_grasp_0": {
+   "ep": 35,
+   "start": 0,
+   "end": 603,
+   "subtask": "grasp",
+   "pan_arm": "right",
+   "kind": "demo",
+   "secs": 20.1,
+   "task": "Grasp the dustpan handle with the right gripper, then grasp the brush handle with the left gripper.",
+   "result": "成功"
+  },
+  "35_sweep_603": {
+   "ep": 35,
+   "start": 603,
+   "end": 1330,
+   "subtask": "sweep",
+   "pan_arm": "right",
+   "kind": "demo",
+   "secs": 24.2,
+   "task": "Sweep all the paper balls into the dustpan with the brush.",
+   "result": "成功"
+  },
+  "35_dump_1330": {
+   "ep": 35,
+   "start": 1330,
+   "end": 1700,
+   "subtask": "dump",
+   "pan_arm": "right",
+   "kind": "demo",
+   "secs": 12.3,
+   "task": "Lift the dustpan over the basket and pour the paper balls into the basket.",
+   "result": "成功"
+  },
+  "35_home_1700": {
+   "ep": 35,
+   "start": 1700,
+   "end": 2140,
+   "subtask": "home",
+   "pan_arm": "right",
+   "kind": "demo",
+   "secs": 14.7,
+   "task": "Put the dustpan and the brush down on the table, then return both arms home and stay still.",
+   "result": "成功"
+  }
+ }
+}

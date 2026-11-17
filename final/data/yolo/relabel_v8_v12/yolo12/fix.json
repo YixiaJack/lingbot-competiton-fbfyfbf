@@ -1,0 +1,18 @@
+{
+ "390": {"set": {"5": "cucumber"}, "why": "target locator renamed the cucumber box to carrot; carrot is #3"},
+ "391": {"set": {"4": "cucumber"}, "why": "straight smooth one = cucumber (v11 green_chili 0.96); curved #6 = green chili"},
+ "392": {"set": {"4": "cucumber"}, "why": "same scene"},
+ "393": {"set": {"4": "cucumber"}, "why": "same scene"},
+ "394": {"set": {"3": "cucumber"}, "why": "same scene"},
+ "395": {"set": {"3": "cucumber"}, "why": "same scene; curved #7 = green chili (target)"},
+ "396": {"drop": [7, 8], "add": [["cucumber", [90.0, 204.0, 208.0, 238.0]]], "why": "diff/blob boxes partial -> one cucumber box set from the image"},
+ "397": {"why": "#7 cucumber correct (target locator), #3 green chili"},
+ "398": {"set": {"7": "cucumber"}, "why": "straight one = cucumber (v11 green_chili 0.86)"},
+ "399": {"set": {"6": "cucumber"}, "why": "same"},
+ "400": {"set": {"6": "cucumber"}, "why": "same"},
+ "404": {"set": {"7": "bell_pepper"}, "why": "red lobed pepper with green stem = bell pepper (v11 red_delicious 0.94)"},
+ "406": {"set": {"6": "carrot"}, "why": "target locator renamed the carrot box to persimmon; persimmon is #1"},
+ "409": {"set": {"6": "mangosteen"}, "box": {"6": [281.0, 235.0, 335.0, 278.0]}, "why": "mangosteen half hidden behind the grapes (v11 glitter_compact 0.21)"},
+ "410": {"set": {"6": "mangosteen"}, "why": "mangosteen (v11 avocado 0.41); #7 blob = its calyx, not labelled"},
+ "411": {"set": {"7": "mangosteen"}, "box": {"7": [362.0, 247.0, 418.0, 295.0]}, "drop": [6], "why": "mangosteen behind the grapes = blob #7; #6 diff box is the white plate (placement)"}
+}

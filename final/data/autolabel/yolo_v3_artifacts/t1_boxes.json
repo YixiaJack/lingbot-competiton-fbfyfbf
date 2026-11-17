@@ -1,0 +1,3988 @@
+{
+ "summary": {
+  "t1_episodes": 215,
+  "with_cue": 189,
+  "reasons": {
+   "target not detected": 25,
+   "ok": 189,
+   "destination not detected": 1
+  },
+  "diffgt_check": {
+   "checked": 171,
+   "target_right": 170
+  },
+  "grasp_frame_missing": 0,
+  "grasp_frame_s": [
+   4.51,
+   5.97,
+   7.77
+  ],
+  "mode": "boxgrasp",
+  "line_px": 5,
+  "colors": {
+   "target": [
+    255,
+    255,
+    255
+   ],
+   "dest": [
+    255,
+    128,
+    0
+   ]
+  }
+ },
+ "episodes": {
+  "217": {
+   "id": "T1_train002",
+   "instruction": "Pick up the bell pepper and place it on the purple plate.",
+   "target": "bell_pepper",
+   "dest": "plate_purple",
+   "target_box": [
+    212.2,
+    288.1,
+    308.8,
+    369.3
+   ],
+   "dest_box": [
+    151.1,
+    166.3,
+    308.0,
+    277.9
+   ],
+   "grasp_frame": 223,
+   "T": 579,
+   "target_matches_diffgt": true
+  },
+  "218": {
+   "id": "T1_train003",
+   "instruction": "Place the bunch of grapes on the purple plate.",
+   "target": "grapes",
+   "dest": "plate_purple",
+   "target_box": [
+    442.2,
+    147.7,
+    587.4,
+    224.9
+   ],
+   "dest_box": [
+    366.6,
+    282.0,
+    560.3,
+    448.6
+   ],
+   "grasp_frame": 249,
+   "T": 634,
+   "target_matches_diffgt": true
+  },
+  "219": {
+   "id": "T1_train004",
+   "instruction": "Pick up the tomato and place it on the pink plate.",
+   "target": "tomato",
+   "dest": "plate_pink",
+   "target_box": [
+    284.3,
+    192.2,
+    351.3,
+    264.1
+   ],
+   "dest_box": [
+    199.1,
+    297.8,
+    395.8,
+    473.5
+   ],
+   "grasp_frame": 276,
+   "T": 617,
+   "target_matches_diffgt": true
+  },
+  "220": {
+   "id": "T1_train005",
+   "instruction": "Place the lemon on the pink plate.",
+   "target": "lemon",
+   "dest": "plate_pink",
+   "target_box": [
+    536.8,
+    370.1,
+    616.1,
+    463.0
+   ],
+   "dest_box": [
+    92.0,
+    265.4,
+    283.8,
+    424.6
+   ],
+   "grasp_frame": 182,
+   "T": 530,
+   "target_matches_diffgt": true
+  },
+  "223": {
+   "id": "T1_train008",
+   "instruction": "Pick up the mangosteen and place it on the purple plate.",
+   "target": "mangosteen",
+   "dest": "plate_purple",
+   "target_box": [
+    472.1,
+    287.9,
+    536.5,
+    357.1
+   ],
+   "dest_box": [
+    163.3,
+    187.8,
+    327.8,
+    313.2
+   ],
+   "grasp_frame": 182,
+   "T": 514,
+   "target_matches_diffgt": true
+  },
+  "225": {
+   "id": "T1_train010",
+   "instruction": "Could you put the mushroom on the blue plate?",
+   "target": "mushroom",
+   "dest": "plate_blue",
+   "target_box": [
+    144.1,
+    185.7,
+    212.4,
+    250.4
+   ],
+   "dest_box": [
+    236.2,
+    144.1,
+    387.4,
+    249.2
+   ],
+   "grasp_frame": 227,
+   "T": 569,
+   "target_matches_diffgt": true
+  },
+  "227": {
+   "id": "T1_train012",
+   "instruction": "Move the red delicious apple onto the blue plate.",
+   "target": "red_delicious",
+   "dest": "plate_blue",
+   "target_box": [
+    360.1,
+    226.1,
+    434.8,
+    308.6
+   ],
+   "dest_box": [
+    186.1,
+    226.3,
+    362.5,
+    366.9
+   ],
+   "grasp_frame": 205,
+   "T": 534
+  },
+  "228": {
+   "id": "T1_train013",
+   "instruction": "Could you put the orange on the blue plate?",
+   "target": "orange",
+   "dest": "plate_blue",
+   "target_box": [
+    491.3,
+    198.0,
+    562.9,
+    267.3
+   ],
+   "dest_box": [
+    258.1,
+    184.4,
+    419.7,
+    304.8
+   ],
+   "grasp_frame": 174,
+   "T": 517,
+   "target_matches_diffgt": true
+  },
+  "230": {
+   "id": "T1_train015",
+   "instruction": "Pick up the kiwi and place it on the pink plate.",
+   "target": "kiwi",
+   "dest": "plate_pink",
+   "target_box": [
+    142.8,
+    322.3,
+    214.3,
+    380.4
+   ],
+   "dest_box": [
+    85.9,
+    144.1,
+    241.1,
+    250.5
+   ],
+   "grasp_frame": 191,
+   "T": 515,
+   "target_matches_diffgt": true
+  },
+  "231": {
+   "id": "T1_train016",
+   "instruction": "Put the mangosteen on the pink plate.",
+   "target": "mangosteen",
+   "dest": "plate_pink",
+   "target_box": [
+    331.2,
+    376.8,
+    395.7,
+    453.7
+   ],
+   "dest_box": [
+    291.8,
+    172.9,
+    450.8,
+    288.9
+   ],
+   "grasp_frame": 167,
+   "T": 475,
+   "target_matches_diffgt": true
+  },
+  "232": {
+   "id": "T1_train017",
+   "instruction": "Place the onion on the yellow plate.",
+   "target": "onion",
+   "dest": "plate_yellow",
+   "target_box": [
+    410.3,
+    285.4,
+    487.8,
+    356.0
+   ],
+   "dest_box": [
+    78.7,
+    279.5,
+    274.3,
+    446.8
+   ],
+   "grasp_frame": 184,
+   "T": 554,
+   "target_matches_diffgt": true
+  },
+  "233": {
+   "id": "T1_train018",
+   "instruction": "Pick up the avocado and place it on the yellow plate.",
+   "target": "avocado",
+   "dest": "plate_yellow",
+   "target_box": [
+    378.6,
+    206.0,
+    433.8,
+    274.7
+   ],
+   "dest_box": [
+    154.3,
+    285.9,
+    349.1,
+    455.6
+   ],
+   "grasp_frame": 187,
+   "T": 513,
+   "target_matches_diffgt": true
+  },
+  "234": {
+   "id": "T1_train019",
+   "instruction": "Could you put the mushroom on the pink plate?",
+   "target": "mushroom",
+   "dest": "plate_pink",
+   "target_box": [
+    307.6,
+    202.1,
+    378.5,
+    274.4
+   ],
+   "dest_box": [
+    12.0,
+    168.2,
+    177.4,
+    284.1
+   ],
+   "grasp_frame": 241,
+   "T": 598
+  },
+  "235": {
+   "id": "T1_train020",
+   "instruction": "Move the pomegranate onto the white plate.",
+   "target": "pomegranate",
+   "dest": "plate_white",
+   "target_box": [
+    215.5,
+    293.7,
+    293.4,
+    376.0
+   ],
+   "dest_box": [
+    423.6,
+    231.6,
+    606.6,
+    374.3
+   ],
+   "grasp_frame": 155,
+   "T": 453
+  },
+  "236": {
+   "id": "T1_train021",
+   "instruction": "Put the pumpkin on the purple plate.",
+   "target": "pumpkin",
+   "dest": "plate_purple",
+   "target_box": [
+    96.3,
+    295.7,
+    184.5,
+    380.0
+   ],
+   "dest_box": [
+    70.9,
+    146.9,
+    228.0,
+    255.0
+   ],
+   "grasp_frame": 172,
+   "T": 461,
+   "target_matches_diffgt": true
+  },
+  "237": {
+   "id": "T1_train022",
+   "instruction": "Place the pomegranate on the yellow plate.",
+   "target": "pomegranate",
+   "dest": "plate_yellow",
+   "target_box": [
+    416.1,
+    284.2,
+    494.9,
+    363.1
+   ],
+   "dest_box": [
+    69.0,
+    156.8,
+    228.8,
+    267.6
+   ],
+   "grasp_frame": 183,
+   "T": 539,
+   "target_matches_diffgt": true
+  },
+  "238": {
+   "id": "T1_train023",
+   "instruction": "Pick up the lemon and place it on the white plate.",
+   "target": "lemon",
+   "dest": "plate_white",
+   "target_box": [
+    25.9,
+    313.5,
+    106.2,
+    386.6
+   ],
+   "dest_box": [
+    199.7,
+    232.6,
+    376.0,
+    375.1
+   ],
+   "grasp_frame": 234,
+   "T": 524,
+   "target_matches_diffgt": true
+  },
+  "239": {
+   "id": "T1_train024",
+   "instruction": "Place the pear on the pink plate.",
+   "target": "pear",
+   "dest": "plate_pink",
+   "target_box": [
+    341.2,
+    346.5,
+    423.7,
+    433.9
+   ],
+   "dest_box": [
+    261.8,
+    155.4,
+    416.0,
+    265.7
+   ],
+   "grasp_frame": 164,
+   "T": 555,
+   "target_matches_diffgt": true
+  },
+  "240": {
+   "id": "T1_train025",
+   "instruction": "Pick up the avocado and place it on the purple plate.",
+   "target": "avocado",
+   "dest": "plate_purple",
+   "target_box": [
+    480.4,
+    378.4,
+    554.6,
+    469.3
+   ],
+   "dest_box": [
+    322.0,
+    176.4,
+    480.1,
+    291.9
+   ],
+   "grasp_frame": 159,
+   "T": 448,
+   "target_matches_diffgt": true
+  },
+  "242": {
+   "id": "T1_train027",
+   "instruction": "Move the cherries onto the yellow plate.",
+   "target": "cherry",
+   "dest": "plate_yellow",
+   "target_box": [
+    478.7,
+    376.2,
+    538.4,
+    441.3
+   ],
+   "dest_box": [
+    148.0,
+    287.7,
+    341.8,
+    456.8
+   ],
+   "grasp_frame": 155,
+   "T": 466,
+   "target_matches_diffgt": true
+  },
+  "243": {
+   "id": "T1_train028",
+   "instruction": "Put the banana on the white plate.",
+   "target": "banana",
+   "dest": "plate_white",
+   "target_box": [
+    227.3,
+    214.2,
+    337.0,
+    341.3
+   ],
+   "dest_box": [
+    42.6,
+    203.2,
+    217.9,
+    333.2
+   ],
+   "grasp_frame": 232,
+   "T": 560,
+   "target_matches_diffgt": true
+  },
+  "244": {
+   "id": "T1_train029",
+   "instruction": "Move the carrot onto the purple plate.",
+   "target": "carrot",
+   "dest": "plate_purple",
+   "target_box": [
+    226.8,
+    165.0,
+    374.8,
+    209.0
+   ],
+   "dest_box": [
+    152.8,
+    277.2,
+    344.9,
+    444.2
+   ],
+   "grasp_frame": 210,
+   "T": 604
+  },
+  "245": {
+   "id": "T1_train030",
+   "instruction": "Could you put the cherries on the white plate?",
+   "target": "cherry",
+   "dest": "plate_white",
+   "target_box": [
+    90.9,
+    323.5,
+    138.2,
+    369.8
+   ],
+   "dest_box": [
+    82.7,
+    150.5,
+    241.0,
+    259.8
+   ],
+   "grasp_frame": 182,
+   "T": 502,
+   "target_matches_diffgt": true
+  },
+  "246": {
+   "id": "T1_train031",
+   "instruction": "Move the mango onto the pink plate.",
+   "target": "mango",
+   "dest": "plate_pink",
+   "target_box": [
+    139.8,
+    300.8,
+    259.7,
+    369.2
+   ],
+   "dest_box": [
+    6.7,
+    166.2,
+    172.4,
+    282.5
+   ],
+   "grasp_frame": 223,
+   "T": 719,
+   "target_matches_diffgt": true
+  },
+  "247": {
+   "id": "T1_train032",
+   "instruction": "Could you put the avocado on the blue plate?",
+   "target": "avocado",
+   "dest": "plate_blue",
+   "target_box": [
+    290.5,
+    348.5,
+    371.4,
+    429.3
+   ],
+   "dest_box": [
+    11.5,
+    299.3,
+    218.5,
+    478.8
+   ],
+   "grasp_frame": 202,
+   "T": 538,
+   "target_matches_diffgt": true
+  },
+  "248": {
+   "id": "T1_train033",
+   "instruction": "Could you put the tomato on the yellow plate?",
+   "target": "tomato",
+   "dest": "plate_yellow",
+   "target_box": [
+    266.5,
+    312.5,
+    348.4,
+    401.9
+   ],
+   "dest_box": [
+    397.7,
+    264.1,
+    587.8,
+    422.6
+   ],
+   "grasp_frame": 199,
+   "T": 502,
+   "target_matches_diffgt": true
+  },
+  "249": {
+   "id": "T1_train034",
+   "instruction": "Move the red chili pepper onto the pink plate.",
+   "target": "red_chili",
+   "dest": "plate_pink",
+   "target_box": [
+    277.5,
+    208.4,
+    330.1,
+    326.2
+   ],
+   "dest_box": [
+    29.5,
+    167.0,
+    194.2,
+    282.1
+   ],
+   "grasp_frame": 173,
+   "T": 512,
+   "target_matches_diffgt": true
+  },
+  "250": {
+   "id": "T1_train035",
+   "instruction": "Could you put the papaya on the yellow plate?",
+   "target": "papaya",
+   "dest": "plate_yellow",
+   "target_box": [
+    314.2,
+    291.9,
+    404.9,
+    383.2
+   ],
+   "dest_box": [
+    144.2,
+    165.8,
+    302.7,
+    279.1
+   ],
+   "grasp_frame": 218,
+   "T": 567,
+   "target_matches_diffgt": true
+  },
+  "252": {
+   "id": "T1_train037",
+   "instruction": "Place the banana on the purple plate.",
+   "target": "banana",
+   "dest": "plate_purple",
+   "target_box": [
+    177.8,
+    278.7,
+    289.8,
+    438.0
+   ],
+   "dest_box": [
+    341.7,
+    284.0,
+    536.0,
+    451.1
+   ],
+   "grasp_frame": 157,
+   "T": 540,
+   "target_matches_diffgt": true
+  },
+  "253": {
+   "id": "T1_train038",
+   "instruction": "Could you put the mandarin on the yellow plate?",
+   "target": "tangerine",
+   "dest": "plate_yellow",
+   "target_box": [
+    116.1,
+    227.4,
+    191.4,
+    300.1
+   ],
+   "dest_box": [
+    404.9,
+    166.8,
+    564.9,
+    281.3
+   ],
+   "grasp_frame": 184,
+   "T": 685,
+   "target_matches_diffgt": true
+  },
+  "255": {
+   "id": "T1_train040",
+   "instruction": "Place the pear on the pink plate.",
+   "target": "pear",
+   "dest": "plate_pink",
+   "target_box": [
+    262.1,
+    216.0,
+    327.3,
+    297.0
+   ],
+   "dest_box": [
+    80.5,
+    181.9,
+    246.7,
+    301.7
+   ],
+   "grasp_frame": 249,
+   "T": 590,
+   "target_matches_diffgt": true
+  },
+  "256": {
+   "id": "T1_train041",
+   "instruction": "Put the cucumber on the blue plate.",
+   "target": "cucumber",
+   "dest": "plate_blue",
+   "target_box": [
+    125.4,
+    309.8,
+    214.8,
+    438.2
+   ],
+   "dest_box": [
+    321.2,
+    168.1,
+    479.0,
+    280.9
+   ],
+   "grasp_frame": 235,
+   "T": 726,
+   "target_matches_diffgt": true
+  },
+  "259": {
+   "id": "T1_train044",
+   "instruction": "Pick up the pumpkin and place it on the blue plate.",
+   "target": "pumpkin",
+   "dest": "plate_blue",
+   "target_box": [
+    292.8,
+    281.9,
+    371.9,
+    362.9
+   ],
+   "dest_box": [
+    36.0,
+    176.0,
+    203.7,
+    295.8
+   ],
+   "grasp_frame": 213,
+   "T": 588,
+   "target_matches_diffgt": true
+  },
+  "260": {
+   "id": "T1_train045",
+   "instruction": "Put the carrot on the yellow plate.",
+   "target": "carrot",
+   "dest": "plate_yellow",
+   "target_box": [
+    399.3,
+    238.9,
+    568.1,
+    358.1
+   ],
+   "dest_box": [
+    184.3,
+    260.4,
+    368.4,
+    415.8
+   ],
+   "grasp_frame": 183,
+   "T": 525,
+   "target_matches_diffgt": true
+  },
+  "261": {
+   "id": "T1_train046",
+   "instruction": "Could you put the red chili pepper on the blue plate?",
+   "target": "red_chili",
+   "dest": "plate_blue",
+   "target_box": [
+    65.5,
+    291.5,
+    139.8,
+    440.8
+   ],
+   "dest_box": [
+    449.9,
+    161.2,
+    611.0,
+    272.3
+   ],
+   "grasp_frame": 238,
+   "T": 640
+  },
+  "262": {
+   "id": "T1_train047",
+   "instruction": "Move the dragon fruit onto the blue plate.",
+   "target": "dragon_fruit",
+   "dest": "plate_blue",
+   "target_box": [
+    72.0,
+    228.0,
+    169.9,
+    366.4
+   ],
+   "dest_box": [
+    187.0,
+    202.0,
+    355.6,
+    330.5
+   ],
+   "grasp_frame": 204,
+   "T": 604,
+   "target_matches_diffgt": true
+  },
+  "263": {
+   "id": "T1_train048",
+   "instruction": "Could you put the bell pepper on the yellow plate?",
+   "target": "bell_pepper",
+   "dest": "plate_yellow",
+   "target_box": [
+    479.5,
+    147.7,
+    554.4,
+    226.2
+   ],
+   "dest_box": [
+    314.3,
+    155.9,
+    466.7,
+    265.2
+   ],
+   "grasp_frame": 178,
+   "T": 588,
+   "target_matches_diffgt": true
+  },
+  "264": {
+   "id": "T1_train049",
+   "instruction": "Pick up the strawberry and place it on the pink plate.",
+   "target": "strawberry",
+   "dest": "plate_pink",
+   "target_box": [
+    415.3,
+    389.6,
+    471.3,
+    474.3
+   ],
+   "dest_box": [
+    218.1,
+    243.9,
+    397.4,
+    390.1
+   ],
+   "grasp_frame": 187,
+   "T": 553,
+   "target_matches_diffgt": true
+  },
+  "265": {
+   "id": "T1_train050",
+   "instruction": "Pick up the mushroom and place it on the yellow plate.",
+   "target": "mushroom",
+   "dest": "plate_yellow",
+   "target_box": [
+    74.0,
+    296.4,
+    159.3,
+    385.2
+   ],
+   "dest_box": [
+    19.2,
+    159.8,
+    181.7,
+    272.7
+   ],
+   "grasp_frame": 216,
+   "T": 582,
+   "target_matches_diffgt": true
+  },
+  "266": {
+   "id": "T1_train051",
+   "instruction": "Move the mushroom onto the pink plate.",
+   "target": "mushroom",
+   "dest": "plate_pink",
+   "target_box": [
+    240.9,
+    307.2,
+    326.3,
+    398.3
+   ],
+   "dest_box": [
+    307.2,
+    191.4,
+    471.3,
+    315.4
+   ],
+   "grasp_frame": 184,
+   "T": 463,
+   "target_matches_diffgt": true
+  },
+  "267": {
+   "id": "T1_train052",
+   "instruction": "Place the peach on the yellow plate.",
+   "target": "peach",
+   "dest": "plate_yellow",
+   "target_box": [
+    250.7,
+    201.4,
+    318.5,
+    272.7
+   ],
+   "dest_box": [
+    371.7,
+    235.1,
+    551.5,
+    376.4
+   ],
+   "grasp_frame": 172,
+   "T": 471,
+   "target_matches_diffgt": true
+  },
+  "268": {
+   "id": "T1_train053",
+   "instruction": "Place the dragon fruit on the white plate.",
+   "target": "dragon_fruit",
+   "dest": "plate_white",
+   "target_box": [
+    452.9,
+    260.8,
+    616.0,
+    356.4
+   ],
+   "dest_box": [
+    212.0,
+    265.9,
+    398.0,
+    424.3
+   ],
+   "grasp_frame": 207,
+   "T": 569,
+   "target_matches_diffgt": true
+  },
+  "269": {
+   "id": "T1_train054",
+   "instruction": "Put the lemon on the blue plate.",
+   "target": "lemon",
+   "dest": "plate_blue",
+   "target_box": [
+    254.3,
+    206.3,
+    321.5,
+    272.5
+   ],
+   "dest_box": [
+    335.0,
+    278.1,
+    527.6,
+    443.8
+   ],
+   "grasp_frame": 220,
+   "T": 580
+  },
+  "270": {
+   "id": "T1_train055",
+   "instruction": "Could you put the pomegranate on the pink plate?",
+   "target": "pomegranate",
+   "dest": "plate_pink",
+   "target_box": [
+    110.3,
+    221.6,
+    184.8,
+    292.3
+   ],
+   "dest_box": [
+    198.8,
+    171.9,
+    358.0,
+    288.2
+   ],
+   "grasp_frame": 183,
+   "T": 536,
+   "target_matches_diffgt": true
+  },
+  "271": {
+   "id": "T1_train056",
+   "instruction": "Move the pumpkin onto the white plate.",
+   "target": "pumpkin",
+   "dest": "plate_white",
+   "target_box": [
+    97.7,
+    258.3,
+    178.1,
+    333.4
+   ],
+   "dest_box": [
+    458.5,
+    180.0,
+    627.8,
+    301.7
+   ],
+   "grasp_frame": 224,
+   "T": 571,
+   "target_matches_diffgt": true
+  },
+  "272": {
+   "id": "T1_train057",
+   "instruction": "Pick up the onion and place it on the blue plate.",
+   "target": "onion",
+   "dest": "plate_blue",
+   "target_box": [
+    433.1,
+    195.5,
+    498.9,
+    255.0
+   ],
+   "dest_box": [
+    29.9,
+    153.0,
+    191.0,
+    261.8
+   ],
+   "grasp_frame": 274,
+   "T": 681,
+   "target_matches_diffgt": true
+  },
+  "273": {
+   "id": "T1_train058",
+   "instruction": "Put the carrot on the yellow plate.",
+   "target": "carrot",
+   "dest": "plate_yellow",
+   "target_box": [
+    91.1,
+    284.9,
+    267.6,
+    372.3
+   ],
+   "dest_box": [
+    376.3,
+    219.1,
+    549.7,
+    354.6
+   ],
+   "grasp_frame": 187,
+   "T": 508,
+   "target_matches_diffgt": true
+  },
+  "274": {
+   "id": "T1_train059",
+   "instruction": "Pick up the red delicious apple and place it on the purple plate.",
+   "target": "red_delicious",
+   "dest": "plate_purple",
+   "target_box": [
+    62.7,
+    186.0,
+    138.4,
+    263.7
+   ],
+   "dest_box": [
+    127.3,
+    224.5,
+    304.4,
+    364.3
+   ],
+   "grasp_frame": 178,
+   "T": 506,
+   "target_matches_diffgt": true
+  },
+  "275": {
+   "id": "T1_train060",
+   "instruction": "Put the red delicious apple on the pink plate.",
+   "target": "red_delicious",
+   "dest": "plate_pink",
+   "target_box": [
+    412.1,
+    333.9,
+    502.1,
+    427.5
+   ],
+   "dest_box": [
+    455.7,
+    190.5,
+    626.3,
+    315.3
+   ],
+   "grasp_frame": 165,
+   "T": 503,
+   "target_matches_diffgt": true
+  },
+  "276": {
+   "id": "T1_train061",
+   "instruction": "Could you put the lemon on the purple plate?",
+   "target": "lemon",
+   "dest": "plate_purple",
+   "target_box": [
+    69.6,
+    248.4,
+    138.5,
+    321.5
+   ],
+   "dest_box": [
+    238.3,
+    265.8,
+    423.8,
+    421.8
+   ],
+   "grasp_frame": 152,
+   "T": 498,
+   "target_matches_diffgt": true
+  },
+  "277": {
+   "id": "T1_train062",
+   "instruction": "Move the avocado onto the pink plate.",
+   "target": "avocado",
+   "dest": "plate_pink",
+   "target_box": [
+    487.7,
+    181.0,
+    544.6,
+    244.2
+   ],
+   "dest_box": [
+    234.1,
+    198.0,
+    398.8,
+    321.7
+   ],
+   "grasp_frame": 163,
+   "T": 491
+  },
+  "278": {
+   "id": "T1_train063",
+   "instruction": "Move the papaya onto the blue plate.",
+   "target": "papaya",
+   "dest": "plate_blue",
+   "target_box": [
+    268.3,
+    351.4,
+    350.7,
+    451.9
+   ],
+   "dest_box": [
+    408.7,
+    288.0,
+    608.9,
+    460.7
+   ],
+   "grasp_frame": 188,
+   "T": 538
+  },
+  "280": {
+   "id": "T1_train065",
+   "instruction": "Pick up the watermelon and place it on the pink plate.",
+   "target": "watermelon",
+   "dest": "plate_pink",
+   "target_box": [
+    61.2,
+    244.9,
+    198.9,
+    342.0
+   ],
+   "dest_box": [
+    428.1,
+    247.3,
+    615.7,
+    396.1
+   ],
+   "grasp_frame": 222,
+   "T": 601,
+   "target_matches_diffgt": true
+  },
+  "282": {
+   "id": "T1_train067",
+   "instruction": "Put the strawberry on the yellow plate.",
+   "target": "strawberry",
+   "dest": "plate_yellow",
+   "target_box": [
+    388.3,
+    324.7,
+    425.7,
+    389.6
+   ],
+   "dest_box": [
+    146.0,
+    259.7,
+    332.0,
+    413.6
+   ],
+   "grasp_frame": 150,
+   "T": 444,
+   "target_matches_diffgt": true
+  },
+  "283": {
+   "id": "T1_train068",
+   "instruction": "Move the banana onto the pink plate.",
+   "target": "banana",
+   "dest": "plate_pink",
+   "target_box": [
+    51.9,
+    349.6,
+    258.1,
+    480.0
+   ],
+   "dest_box": [
+    300.7,
+    164.2,
+    455.7,
+    275.9
+   ],
+   "grasp_frame": 173,
+   "T": 575,
+   "target_matches_diffgt": true
+  },
+  "284": {
+   "id": "T1_train069",
+   "instruction": "Put the orange on the purple plate.",
+   "target": "orange",
+   "dest": "plate_purple",
+   "target_box": [
+    71.6,
+    195.7,
+    144.5,
+    266.9
+   ],
+   "dest_box": [
+    131.8,
+    202.3,
+    302.2,
+    331.2
+   ],
+   "grasp_frame": 205,
+   "T": 497,
+   "target_matches_diffgt": true
+  },
+  "286": {
+   "id": "T1_train071",
+   "instruction": "Place the watermelon on the blue plate.",
+   "target": "watermelon",
+   "dest": "plate_blue",
+   "target_box": [
+    474.3,
+    180.6,
+    582.7,
+    254.1
+   ],
+   "dest_box": [
+    201.4,
+    164.8,
+    358.2,
+    276.8
+   ],
+   "grasp_frame": 205,
+   "T": 576,
+   "target_matches_diffgt": true
+  },
+  "287": {
+   "id": "T1_train072",
+   "instruction": "Move the green apple onto the pink plate.",
+   "target": "green_apple",
+   "dest": "plate_pink",
+   "target_box": [
+    419.2,
+    218.9,
+    494.4,
+    296.5
+   ],
+   "dest_box": [
+    263.5,
+    164.2,
+    418.9,
+    276.0
+   ],
+   "grasp_frame": 160,
+   "T": 466,
+   "target_matches_diffgt": true
+  },
+  "288": {
+   "id": "T1_train073",
+   "instruction": "Place the kiwi on the blue plate.",
+   "target": "kiwi",
+   "dest": "plate_blue",
+   "target_box": [
+    410.3,
+    388.5,
+    485.6,
+    453.3
+   ],
+   "dest_box": [
+    197.6,
+    146.8,
+    349.6,
+    254.3
+   ],
+   "grasp_frame": 182,
+   "T": 647,
+   "target_matches_diffgt": true
+  },
+  "289": {
+   "id": "T1_train074",
+   "instruction": "Move the bunch of grapes onto the white plate.",
+   "target": "grapes",
+   "dest": "plate_white",
+   "target_box": [
+    51.7,
+    374.5,
+    250.5,
+    479.6
+   ],
+   "dest_box": [
+    327.7,
+    266.9,
+    519.4,
+    427.9
+   ],
+   "grasp_frame": 153,
+   "T": 478,
+   "target_matches_diffgt": true
+  },
+  "290": {
+   "id": "T1_train075",
+   "instruction": "Could you put the passion fruit on the pink plate?",
+   "target": "passion_fruit",
+   "dest": "plate_pink",
+   "target_box": [
+    130.4,
+    390.4,
+    204.8,
+    471.2
+   ],
+   "dest_box": [
+    142.6,
+    187.3,
+    307.1,
+    308.0
+   ],
+   "grasp_frame": 176,
+   "T": 517,
+   "target_matches_diffgt": true
+  },
+  "291": {
+   "id": "T1_train076",
+   "instruction": "Move the peach onto the yellow plate.",
+   "target": "peach",
+   "dest": "plate_yellow",
+   "target_box": [
+    165.6,
+    294.0,
+    244.4,
+    375.9
+   ],
+   "dest_box": [
+    430.1,
+    228.0,
+    610.6,
+    367.8
+   ],
+   "grasp_frame": 164,
+   "T": 492,
+   "target_matches_diffgt": true
+  },
+  "292": {
+   "id": "T1_train077",
+   "instruction": "Place the red chili pepper on the purple plate.",
+   "target": "red_chili",
+   "dest": "plate_purple",
+   "target_box": [
+    450.1,
+    220.7,
+    556.9,
+    336.8
+   ],
+   "dest_box": [
+    71.9,
+    220.9,
+    251.4,
+    357.7
+   ],
+   "grasp_frame": 142,
+   "T": 514,
+   "target_matches_diffgt": true
+  },
+  "293": {
+   "id": "T1_train078",
+   "instruction": "Put the kiwi on the purple plate.",
+   "target": "kiwi",
+   "dest": "plate_purple",
+   "target_box": [
+    76.1,
+    169.2,
+    134.2,
+    214.4
+   ],
+   "dest_box": [
+    1.6,
+    226.2,
+    187.1,
+    367.6
+   ],
+   "grasp_frame": 243,
+   "T": 567,
+   "target_matches_diffgt": true
+  },
+  "294": {
+   "id": "T1_train079",
+   "instruction": "Place the mango on the purple plate.",
+   "target": "mango",
+   "dest": "plate_purple",
+   "target_box": [
+    229.6,
+    329.5,
+    312.8,
+    451.1
+   ],
+   "dest_box": [
+    448.4,
+    164.3,
+    609.8,
+    277.8
+   ],
+   "grasp_frame": 158,
+   "T": 471,
+   "target_matches_diffgt": true
+  },
+  "295": {
+   "id": "T1_train080",
+   "instruction": "Move the green apple onto the yellow plate.",
+   "target": "green_apple",
+   "dest": "plate_yellow",
+   "target_box": [
+    465.0,
+    301.3,
+    553.1,
+    388.3
+   ],
+   "dest_box": [
+    100.7,
+    154.0,
+    258.8,
+    263.5
+   ],
+   "grasp_frame": 204,
+   "T": 542,
+   "target_matches_diffgt": true
+  },
+  "296": {
+   "id": "T1_train081",
+   "instruction": "Place the pineapple on the blue plate.",
+   "target": "pineapple",
+   "dest": "plate_blue",
+   "target_box": [
+    208.5,
+    177.9,
+    317.9,
+    376.2
+   ],
+   "dest_box": [
+    460.4,
+    155.4,
+    619.0,
+    266.0
+   ],
+   "grasp_frame": 142,
+   "T": 476,
+   "target_matches_diffgt": true
+  },
+  "298": {
+   "id": "T1_train083",
+   "instruction": "Put the pear on the blue plate.",
+   "target": "pear",
+   "dest": "plate_blue",
+   "target_box": [
+    67.0,
+    218.6,
+    145.0,
+    307.4
+   ],
+   "dest_box": [
+    286.2,
+    188.6,
+    449.3,
+    311.3
+   ],
+   "grasp_frame": 171,
+   "T": 608
+  },
+  "299": {
+   "id": "T1_train084",
+   "instruction": "Move the tomato onto the purple plate.",
+   "target": "tomato",
+   "dest": "plate_purple",
+   "target_box": [
+    462.8,
+    256.0,
+    542.9,
+    336.3
+   ],
+   "dest_box": [
+    109.5,
+    203.7,
+    280.1,
+    333.5
+   ],
+   "grasp_frame": 183,
+   "T": 558,
+   "target_matches_diffgt": true
+  },
+  "300": {
+   "id": "T1_train085",
+   "instruction": "Could you put the eggplant on the purple plate?",
+   "target": "eggplant",
+   "dest": "plate_purple",
+   "target_box": [
+    482.8,
+    231.0,
+    579.4,
+    312.6
+   ],
+   "dest_box": [
+    267.4,
+    236.9,
+    444.2,
+    380.5
+   ],
+   "grasp_frame": 158,
+   "T": 421,
+   "target_matches_diffgt": true
+  },
+  "301": {
+   "id": "T1_train086",
+   "instruction": "Pick up the red apple and place it on the white plate.",
+   "target": "red_apple",
+   "dest": "plate_white",
+   "target_box": [
+    148.1,
+    181.9,
+    218.3,
+    251.8
+   ],
+   "dest_box": [
+    397.9,
+    296.1,
+    600.4,
+    471.5
+   ],
+   "grasp_frame": 184,
+   "T": 574
+  },
+  "302": {
+   "id": "T1_train087",
+   "instruction": "Place the mushroom on the purple plate.",
+   "target": "mushroom",
+   "dest": "plate_purple",
+   "target_box": [
+    509.6,
+    306.2,
+    593.5,
+    393.4
+   ],
+   "dest_box": [
+    474.0,
+    150.8,
+    631.2,
+    260.3
+   ],
+   "grasp_frame": 178,
+   "T": 469,
+   "target_matches_diffgt": true
+  },
+  "303": {
+   "id": "T1_train088",
+   "instruction": "Put the red apple on the blue plate.",
+   "target": "red_apple",
+   "dest": "plate_blue",
+   "target_box": [
+    450.7,
+    318.5,
+    540.6,
+    407.7
+   ],
+   "dest_box": [
+    167.1,
+    193.9,
+    332.9,
+    317.5
+   ],
+   "grasp_frame": 153,
+   "T": 521,
+   "target_matches_diffgt": true
+  },
+  "304": {
+   "id": "T1_train089",
+   "instruction": "Put the peach on the blue plate.",
+   "target": "peach",
+   "dest": "plate_blue",
+   "target_box": [
+    97.4,
+    224.5,
+    172.7,
+    301.9
+   ],
+   "dest_box": [
+    412.8,
+    288.0,
+    612.4,
+    458.5
+   ],
+   "grasp_frame": 148,
+   "T": 513,
+   "target_matches_diffgt": true
+  },
+  "306": {
+   "id": "T1_train091",
+   "instruction": "Move the kiwi onto the purple plate.",
+   "target": "kiwi",
+   "dest": "plate_purple",
+   "target_box": [
+    324.6,
+    322.1,
+    391.6,
+    377.8
+   ],
+   "dest_box": [
+    416.1,
+    170.3,
+    577.2,
+    285.0
+   ],
+   "grasp_frame": 208,
+   "T": 493,
+   "target_matches_diffgt": true
+  },
+  "308": {
+   "id": "T1_train093",
+   "instruction": "Could you put the bunch of grapes on the pink plate?",
+   "target": "grapes",
+   "dest": "plate_pink",
+   "target_box": [
+    513.2,
+    235.9,
+    590.3,
+    389.5
+   ],
+   "dest_box": [
+    257.6,
+    163.6,
+    413.2,
+    276.4
+   ],
+   "grasp_frame": 163,
+   "T": 617,
+   "target_matches_diffgt": true
+  },
+  "309": {
+   "id": "T1_train094",
+   "instruction": "Move the lemon onto the yellow plate.",
+   "target": "lemon",
+   "dest": "plate_yellow",
+   "target_box": [
+    302.5,
+    363.3,
+    388.8,
+    449.2
+   ],
+   "dest_box": [
+    348.4,
+    169.5,
+    507.7,
+    284.0
+   ],
+   "grasp_frame": 189,
+   "T": 504,
+   "target_matches_diffgt": true
+  },
+  "310": {
+   "id": "T1_train095",
+   "instruction": "Place the peach on the pink plate.",
+   "target": "peach",
+   "dest": "plate_pink",
+   "target_box": [
+    226.5,
+    334.1,
+    312.4,
+    454.4
+   ],
+   "dest_box": [
+    63.1,
+    203.2,
+    237.0,
+    332.7
+   ],
+   "grasp_frame": 195,
+   "T": 561,
+   "target_matches_diffgt": true
+  },
+  "311": {
+   "id": "T1_train096",
+   "instruction": "Put the red apple on the blue plate.",
+   "target": "red_apple",
+   "dest": "plate_blue",
+   "target_box": [
+    375.4,
+    280.4,
+    453.4,
+    362.8
+   ],
+   "dest_box": [
+    11.5,
+    275.0,
+    209.3,
+    439.4
+   ],
+   "grasp_frame": 231,
+   "T": 560,
+   "target_matches_diffgt": true
+  },
+  "312": {
+   "id": "T1_train097",
+   "instruction": "Move the pineapple onto the purple plate.",
+   "target": "pineapple",
+   "dest": "plate_purple",
+   "target_box": [
+    0.0,
+    210.3,
+    143.7,
+    414.6
+   ],
+   "dest_box": [
+    142.1,
+    266.8,
+    329.9,
+    423.7
+   ],
+   "grasp_frame": 150,
+   "T": 568,
+   "target_matches_diffgt": true
+  },
+  "313": {
+   "id": "T1_train098",
+   "instruction": "Could you put the mandarin on the purple plate?",
+   "target": "tangerine",
+   "dest": "plate_purple",
+   "target_box": [
+    208.5,
+    377.9,
+    296.9,
+    468.4
+   ],
+   "dest_box": [
+    219.1,
+    187.6,
+    381.2,
+    312.3
+   ],
+   "grasp_frame": 185,
+   "T": 579,
+   "target_matches_diffgt": true
+  },
+  "314": {
+   "id": "T1_train099",
+   "instruction": "Could you put the mangosteen on the yellow plate?",
+   "target": "mangosteen",
+   "dest": "plate_yellow",
+   "target_box": [
+    142.6,
+    357.9,
+    214.4,
+    432.4
+   ],
+   "dest_box": [
+    295.7,
+    244.1,
+    475.8,
+    390.0
+   ],
+   "grasp_frame": 225,
+   "T": 589,
+   "target_matches_diffgt": true
+  },
+  "315": {
+   "id": "T1_train100",
+   "instruction": "Place the carrot on the blue plate.",
+   "target": "carrot",
+   "dest": "plate_blue",
+   "target_box": [
+    426.9,
+    177.8,
+    559.7,
+    271.9
+   ],
+   "dest_box": [
+    70.7,
+    190.2,
+    239.7,
+    314.4
+   ],
+   "grasp_frame": 228,
+   "T": 651,
+   "target_matches_diffgt": true
+  },
+  "316": {
+   "id": "T1_train101",
+   "instruction": "Move the strawberry onto the purple plate.",
+   "target": "strawberry",
+   "dest": "plate_purple",
+   "target_box": [
+    158.4,
+    254.9,
+    198.4,
+    317.2
+   ],
+   "dest_box": [
+    10.7,
+    159.5,
+    174.5,
+    272.6
+   ],
+   "grasp_frame": 159,
+   "T": 457,
+   "target_matches_diffgt": true
+  },
+  "317": {
+   "id": "T1_train102",
+   "instruction": "Place the red apple on the pink plate.",
+   "target": "red_apple",
+   "dest": "plate_pink",
+   "target_box": [
+    433.7,
+    259.1,
+    511.9,
+    339.4
+   ],
+   "dest_box": [
+    250.4,
+    181.8,
+    410.5,
+    301.5
+   ],
+   "grasp_frame": 160,
+   "T": 460,
+   "target_matches_diffgt": true
+  },
+  "318": {
+   "id": "T1_train103",
+   "instruction": "Pick up the red chili pepper and place it on the yellow plate.",
+   "target": "red_chili",
+   "dest": "plate_yellow",
+   "target_box": [
+    86.5,
+    206.3,
+    236.4,
+    271.3
+   ],
+   "dest_box": [
+    419.4,
+    289.7,
+    617.9,
+    460.6
+   ],
+   "grasp_frame": 180,
+   "T": 543,
+   "target_matches_diffgt": true
+  },
+  "319": {
+   "id": "T1_train104",
+   "instruction": "Pick up the cucumber and place it on the white plate.",
+   "target": "cucumber",
+   "dest": "plate_white",
+   "target_box": [
+    446.8,
+    314.6,
+    538.3,
+    440.7
+   ],
+   "dest_box": [
+    40.8,
+    282.1,
+    239.2,
+    449.9
+   ],
+   "grasp_frame": 203,
+   "T": 498,
+   "target_matches_diffgt": true
+  },
+  "320": {
+   "id": "T1_train105",
+   "instruction": "Move the onion onto the white plate.",
+   "target": "onion",
+   "dest": "plate_white",
+   "target_box": [
+    285.1,
+    379.9,
+    371.6,
+    467.4
+   ],
+   "dest_box": [
+    364.5,
+    257.9,
+    554.3,
+    414.8
+   ],
+   "grasp_frame": 184,
+   "T": 524,
+   "target_matches_diffgt": true
+  },
+  "321": {
+   "id": "T1_train106",
+   "instruction": "Put the green apple on the white plate.",
+   "target": "green_apple",
+   "dest": "plate_white",
+   "target_box": [
+    118.3,
+    194.9,
+    193.8,
+    268.3
+   ],
+   "dest_box": [
+    390.5,
+    289.7,
+    588.9,
+    461.6
+   ],
+   "grasp_frame": 171,
+   "T": 523,
+   "target_matches_diffgt": true
+  },
+  "322": {
+   "id": "T1_train107",
+   "instruction": "Move the mangosteen onto the blue plate.",
+   "target": "mangosteen",
+   "dest": "plate_blue",
+   "target_box": [
+    134.3,
+    171.6,
+    189.0,
+    228.2
+   ],
+   "dest_box": [
+    189.7,
+    269.4,
+    378.6,
+    429.9
+   ],
+   "grasp_frame": 161,
+   "T": 469,
+   "target_matches_diffgt": true
+  },
+  "324": {
+   "id": "T1_train109",
+   "instruction": "Could you put the carrot on the white plate?",
+   "target": "carrot",
+   "dest": "plate_white",
+   "target_box": [
+    192.2,
+    337.5,
+    378.3,
+    427.2
+   ],
+   "dest_box": [
+    69.2,
+    199.5,
+    243.0,
+    326.8
+   ],
+   "grasp_frame": 163,
+   "T": 469,
+   "target_matches_diffgt": true
+  },
+  "325": {
+   "id": "T1_train110",
+   "instruction": "Put the eggplant on the blue plate.",
+   "target": "eggplant",
+   "dest": "plate_blue",
+   "target_box": [
+    80.6,
+    270.1,
+    140.3,
+    402.8
+   ],
+   "dest_box": [
+    275.8,
+    250.4,
+    457.3,
+    400.7
+   ],
+   "grasp_frame": 153,
+   "T": 419,
+   "target_matches_diffgt": true
+  },
+  "326": {
+   "id": "T1_train111",
+   "instruction": "Pick up the bunch of grapes and place it on the blue plate.",
+   "target": "grapes",
+   "dest": "plate_blue",
+   "target_box": [
+    256.0,
+    183.4,
+    329.9,
+    309.9
+   ],
+   "dest_box": [
+    411.6,
+    168.5,
+    574.1,
+    284.4
+   ],
+   "grasp_frame": 155,
+   "T": 482,
+   "target_matches_diffgt": true
+  },
+  "327": {
+   "id": "T1_train112",
+   "instruction": "Move the pear onto the yellow plate.",
+   "target": "pear",
+   "dest": "plate_yellow",
+   "target_box": [
+    127.0,
+    364.1,
+    217.4,
+    458.8
+   ],
+   "dest_box": [
+    141.0,
+    183.2,
+    304.2,
+    303.1
+   ],
+   "grasp_frame": 186,
+   "T": 500,
+   "target_matches_diffgt": true
+  },
+  "328": {
+   "id": "T1_train113",
+   "instruction": "Place the mango on the white plate.",
+   "target": "mango",
+   "dest": "plate_white",
+   "target_box": [
+    200.4,
+    327.2,
+    289.2,
+    433.6
+   ],
+   "dest_box": [
+    36.3,
+    242.0,
+    223.7,
+    389.9
+   ],
+   "grasp_frame": 198,
+   "T": 503
+  },
+  "329": {
+   "id": "T1_train114",
+   "instruction": "Place the bell pepper on the white plate.",
+   "target": "bell_pepper",
+   "dest": "plate_white",
+   "target_box": [
+    310.9,
+    240.0,
+    390.5,
+    330.3
+   ],
+   "dest_box": [
+    111.7,
+    292.7,
+    312.6,
+    468.0
+   ],
+   "grasp_frame": 172,
+   "T": 525,
+   "target_matches_diffgt": true
+  },
+  "330": {
+   "id": "T1_train115",
+   "instruction": "Place the eggplant on the pink plate.",
+   "target": "eggplant",
+   "dest": "plate_pink",
+   "target_box": [
+    177.1,
+    240.2,
+    319.3,
+    320.8
+   ],
+   "dest_box": [
+    460.2,
+    159.9,
+    621.5,
+    272.5
+   ],
+   "grasp_frame": 235,
+   "T": 603,
+   "target_matches_diffgt": true
+  },
+  "331": {
+   "id": "T1_train116",
+   "instruction": "Place the red delicious apple on the white plate.",
+   "target": "red_delicious",
+   "dest": "plate_white",
+   "target_box": [
+    163.7,
+    318.3,
+    249.4,
+    410.8
+   ],
+   "dest_box": [
+    56.5,
+    193.4,
+    229.3,
+    320.9
+   ],
+   "grasp_frame": 167,
+   "T": 505,
+   "target_matches_diffgt": true
+  },
+  "332": {
+   "id": "T1_train117",
+   "instruction": "Pick up the mango and place it on the yellow plate.",
+   "target": "mango",
+   "dest": "plate_yellow",
+   "target_box": [
+    462.6,
+    197.5,
+    539.4,
+    273.2
+   ],
+   "dest_box": [
+    61.4,
+    290.6,
+    261.5,
+    462.5
+   ],
+   "grasp_frame": 205,
+   "T": 556,
+   "target_matches_diffgt": true
+  },
+  "333": {
+   "id": "T1_train118",
+   "instruction": "Put the bell pepper on the pink plate.",
+   "target": "bell_pepper",
+   "dest": "plate_pink",
+   "target_box": [
+    28.0,
+    346.5,
+    119.9,
+    449.6
+   ],
+   "dest_box": [
+    167.8,
+    161.1,
+    324.9,
+    272.8
+   ],
+   "grasp_frame": 151,
+   "T": 548,
+   "target_matches_diffgt": true
+  },
+  "334": {
+   "id": "T1_train119",
+   "instruction": "Move the bell pepper onto the blue plate.",
+   "target": "bell_pepper",
+   "dest": "plate_blue",
+   "target_box": [
+    443.8,
+    363.0,
+    533.1,
+    459.3
+   ],
+   "dest_box": [
+    321.7,
+    217.5,
+    495.3,
+    352.1
+   ],
+   "grasp_frame": 190,
+   "T": 516,
+   "target_matches_diffgt": true
+  },
+  "335": {
+   "id": "T1_train120",
+   "instruction": "Move the red apple onto the yellow plate.",
+   "target": "red_apple",
+   "dest": "plate_yellow",
+   "target_box": [
+    342.7,
+    247.2,
+    418.4,
+    325.3
+   ],
+   "dest_box": [
+    179.4,
+    150.0,
+    331.9,
+    257.8
+   ],
+   "grasp_frame": 212,
+   "T": 534,
+   "target_matches_diffgt": true
+  },
+  "336": {
+   "id": "T1_train121",
+   "instruction": "Move the red chili pepper onto the white plate.",
+   "target": "red_chili",
+   "dest": "plate_white",
+   "target_box": [
+    248.0,
+    356.1,
+    400.6,
+    474.1
+   ],
+   "dest_box": [
+    394.1,
+    206.3,
+    566.6,
+    336.8
+   ],
+   "grasp_frame": 193,
+   "T": 489,
+   "target_matches_diffgt": true
+  },
+  "337": {
+   "id": "T1_train122",
+   "instruction": "Put the kiwi on the yellow plate.",
+   "target": "kiwi",
+   "dest": "plate_yellow",
+   "target_box": [
+    416.6,
+    203.8,
+    478.3,
+    252.2
+   ],
+   "dest_box": [
+    177.6,
+    295.1,
+    373.7,
+    468.7
+   ],
+   "grasp_frame": 230,
+   "T": 521,
+   "target_matches_diffgt": true
+  },
+  "338": {
+   "id": "T1_train123",
+   "instruction": "Put the pineapple on the yellow plate.",
+   "target": "pineapple",
+   "dest": "plate_yellow",
+   "target_box": [
+    229.6,
+    126.0,
+    330.5,
+    316.4
+   ],
+   "dest_box": [
+    323.0,
+    279.8,
+    514.0,
+    445.1
+   ],
+   "grasp_frame": 179,
+   "T": 563,
+   "target_matches_diffgt": true
+  },
+  "339": {
+   "id": "T1_train124",
+   "instruction": "Place the bunch of grapes on the yellow plate.",
+   "target": "grapes",
+   "dest": "plate_yellow",
+   "target_box": [
+    209.2,
+    307.3,
+    360.0,
+    443.7
+   ],
+   "dest_box": [
+    233.7,
+    183.7,
+    394.3,
+    302.4
+   ],
+   "grasp_frame": 158,
+   "T": 463,
+   "target_matches_diffgt": true
+  },
+  "340": {
+   "id": "T1_train125",
+   "instruction": "Pick up the lemon and place it on the pink plate.",
+   "target": "lemon",
+   "dest": "plate_pink",
+   "target_box": [
+    546.1,
+    187.7,
+    621.1,
+    248.7
+   ],
+   "dest_box": [
+    51.8,
+    167.6,
+    216.9,
+    283.5
+   ],
+   "grasp_frame": 169,
+   "T": 608,
+   "target_matches_diffgt": true
+  },
+  "341": {
+   "id": "T1_train126",
+   "instruction": "Place the tomato on the blue plate.",
+   "target": "tomato",
+   "dest": "plate_blue",
+   "target_box": [
+    67.5,
+    292.0,
+    161.8,
+    379.2
+   ],
+   "dest_box": [
+    103.4,
+    177.9,
+    268.6,
+    297.9
+   ],
+   "grasp_frame": 136,
+   "T": 439,
+   "target_matches_diffgt": true
+  },
+  "342": {
+   "id": "T1_train127",
+   "instruction": "Put the dragon fruit on the pink plate.",
+   "target": "dragon_fruit",
+   "dest": "plate_pink",
+   "target_box": [
+    179.7,
+    216.6,
+    331.3,
+    302.0
+   ],
+   "dest_box": [
+    163.4,
+    305.0,
+    363.6,
+    480.0
+   ],
+   "grasp_frame": 187,
+   "T": 482,
+   "target_matches_diffgt": true
+  },
+  "343": {
+   "id": "T1_train128",
+   "instruction": "Could you put the peach on the purple plate?",
+   "target": "peach",
+   "dest": "plate_purple",
+   "target_box": [
+    529.8,
+    296.3,
+    615.0,
+    407.6
+   ],
+   "dest_box": [
+    122.5,
+    258.7,
+    308.3,
+    411.6
+   ],
+   "grasp_frame": 142,
+   "T": 427,
+   "target_matches_diffgt": true
+  },
+  "344": {
+   "id": "T1_train129",
+   "instruction": "Move the eggplant onto the purple plate.",
+   "target": "eggplant",
+   "dest": "plate_purple",
+   "target_box": [
+    268.6,
+    310.6,
+    415.1,
+    392.4
+   ],
+   "dest_box": [
+    99.5,
+    181.9,
+    264.8,
+    302.2
+   ],
+   "grasp_frame": 163,
+   "T": 531,
+   "target_matches_diffgt": true
+  },
+  "345": {
+   "id": "T1_train130",
+   "instruction": "Pick up the green apple and place it on the yellow plate.",
+   "target": "green_apple",
+   "dest": "plate_yellow",
+   "target_box": [
+    259.2,
+    251.9,
+    336.3,
+    332.2
+   ],
+   "dest_box": [
+    39.1,
+    155.5,
+    198.6,
+    263.8
+   ],
+   "grasp_frame": 189,
+   "T": 567,
+   "target_matches_diffgt": true
+  },
+  "346": {
+   "id": "T1_train131",
+   "instruction": "Place the avocado on the purple plate.",
+   "target": "avocado",
+   "dest": "plate_purple",
+   "target_box": [
+    157.8,
+    310.7,
+    226.2,
+    398.2
+   ],
+   "dest_box": [
+    334.1,
+    206.8,
+    501.7,
+    336.0
+   ],
+   "grasp_frame": 202,
+   "T": 575,
+   "target_matches_diffgt": true
+  },
+  "347": {
+   "id": "T1_train132",
+   "instruction": "Put the bunch of grapes on the purple plate.",
+   "target": "grapes",
+   "dest": "plate_purple",
+   "target_box": [
+    132.2,
+    219.9,
+    262.7,
+    336.0
+   ],
+   "dest_box": [
+    323.0,
+    256.0,
+    508.3,
+    410.5
+   ],
+   "grasp_frame": 216,
+   "T": 574
+  },
+  "348": {
+   "id": "T1_train133",
+   "instruction": "Place the cucumber on the pink plate.",
+   "target": "cucumber",
+   "dest": "plate_pink",
+   "target_box": [
+    290.7,
+    218.2,
+    374.6,
+    321.2
+   ],
+   "dest_box": [
+    114.9,
+    187.0,
+    280.5,
+    308.9
+   ],
+   "grasp_frame": 214,
+   "T": 531,
+   "target_matches_diffgt": true
+  },
+  "349": {
+   "id": "T1_train134",
+   "instruction": "Could you put the red apple on the purple plate?",
+   "target": "red_apple",
+   "dest": "plate_purple",
+   "target_box": [
+    77.8,
+    350.6,
+    171.1,
+    443.9
+   ],
+   "dest_box": [
+    39.2,
+    203.4,
+    213.9,
+    333.2
+   ],
+   "grasp_frame": 181,
+   "T": 532,
+   "target_matches_diffgt": true
+  },
+  "350": {
+   "id": "T1_train135",
+   "instruction": "Put the avocado on the white plate.",
+   "target": "avocado",
+   "dest": "plate_white",
+   "target_box": [
+    162.8,
+    201.0,
+    222.2,
+    262.1
+   ],
+   "dest_box": [
+    424.1,
+    215.6,
+    603.8,
+    352.9
+   ],
+   "grasp_frame": 204,
+   "T": 544,
+   "target_matches_diffgt": true
+  },
+  "351": {
+   "id": "T1_train136",
+   "instruction": "Move the cucumber onto the purple plate.",
+   "target": "cucumber",
+   "dest": "plate_purple",
+   "target_box": [
+    330.2,
+    293.4,
+    468.9,
+    372.3
+   ],
+   "dest_box": [
+    135.8,
+    147.6,
+    289.5,
+    255.5
+   ],
+   "grasp_frame": 171,
+   "T": 481,
+   "target_matches_diffgt": true
+  },
+  "352": {
+   "id": "T1_train137",
+   "instruction": "Place the pumpkin on the yellow plate.",
+   "target": "pumpkin",
+   "dest": "plate_yellow",
+   "target_box": [
+    263.5,
+    214.8,
+    335.5,
+    286.4
+   ],
+   "dest_box": [
+    201.3,
+    290.5,
+    394.1,
+    462.1
+   ],
+   "grasp_frame": 126,
+   "T": 392,
+   "target_matches_diffgt": true
+  },
+  "353": {
+   "id": "T1_train138",
+   "instruction": "Pick up the onion and place it on the white plate.",
+   "target": "onion",
+   "dest": "plate_white",
+   "target_box": [
+    76.7,
+    304.4,
+    158.4,
+    379.8
+   ],
+   "dest_box": [
+    376.6,
+    197.5,
+    545.3,
+    322.9
+   ],
+   "grasp_frame": 166,
+   "T": 629,
+   "target_matches_diffgt": true
+  },
+  "354": {
+   "id": "T1_train139",
+   "instruction": "Put the dragon fruit on the pink plate.",
+   "target": "dragon_fruit",
+   "dest": "plate_pink",
+   "target_box": [
+    188.4,
+    283.7,
+    331.0,
+    410.5
+   ],
+   "dest_box": [
+    60.4,
+    200.0,
+    233.9,
+    328.4
+   ],
+   "grasp_frame": 187,
+   "T": 515,
+   "target_matches_diffgt": true
+  },
+  "355": {
+   "id": "T1_train140",
+   "instruction": "Could you put the kiwi on the white plate?",
+   "target": "kiwi",
+   "dest": "plate_white",
+   "target_box": [
+    304.6,
+    202.0,
+    358.5,
+    248.1
+   ],
+   "dest_box": [
+    403.4,
+    208.4,
+    576.3,
+    339.5
+   ],
+   "grasp_frame": 222,
+   "T": 521,
+   "target_matches_diffgt": true
+  },
+  "356": {
+   "id": "T1_train141",
+   "instruction": "Pick up the banana and place it on the pink plate.",
+   "target": "banana",
+   "dest": "plate_pink",
+   "target_box": [
+    52.4,
+    211.1,
+    153.2,
+    341.6
+   ],
+   "dest_box": [
+    277.7,
+    154.6,
+    430.5,
+    263.8
+   ],
+   "grasp_frame": 150,
+   "T": 615,
+   "target_matches_diffgt": true
+  },
+  "357": {
+   "id": "T1_train142",
+   "instruction": "Could you put the pear on the purple plate?",
+   "target": "pear",
+   "dest": "plate_purple",
+   "target_box": [
+    446.2,
+    329.4,
+    531.5,
+    417.7
+   ],
+   "dest_box": [
+    213.3,
+    304.3,
+    410.8,
+    480.0
+   ],
+   "grasp_frame": 167,
+   "T": 466,
+   "target_matches_diffgt": true
+  },
+  "358": {
+   "id": "T1_train143",
+   "instruction": "Move the persimmon onto the pink plate.",
+   "target": "persimmon",
+   "dest": "plate_pink",
+   "target_box": [
+    547.9,
+    150.0,
+    614.4,
+    212.7
+   ],
+   "dest_box": [
+    267.6,
+    295.9,
+    463.2,
+    469.8
+   ],
+   "grasp_frame": 150,
+   "T": 493,
+   "target_matches_diffgt": true
+  },
+  "359": {
+   "id": "T1_train144",
+   "instruction": "Could you put the passion fruit on the white plate?",
+   "target": "passion_fruit",
+   "dest": "plate_white",
+   "target_box": [
+    187.7,
+    188.5,
+    241.5,
+    242.2
+   ],
+   "dest_box": [
+    21.1,
+    256.0,
+    213.2,
+    412.4
+   ],
+   "grasp_frame": 185,
+   "T": 479
+  },
+  "360": {
+   "id": "T1_train145",
+   "instruction": "Could you put the strawberry on the white plate?",
+   "target": "strawberry",
+   "dest": "plate_white",
+   "target_box": [
+    78.6,
+    328.0,
+    140.8,
+    408.3
+   ],
+   "dest_box": [
+    314.8,
+    229.1,
+    492.2,
+    369.0
+   ],
+   "grasp_frame": 182,
+   "T": 559,
+   "target_matches_diffgt": true
+  },
+  "361": {
+   "id": "T1_train146",
+   "instruction": "Could you put the watermelon on the white plate?",
+   "target": "watermelon",
+   "dest": "plate_white",
+   "target_box": [
+    173.7,
+    286.2,
+    316.6,
+    381.7
+   ],
+   "dest_box": [
+    112.1,
+    177.9,
+    276.6,
+    297.1
+   ],
+   "grasp_frame": 221,
+   "T": 620,
+   "target_matches_diffgt": true
+  },
+  "362": {
+   "id": "T1_train147",
+   "instruction": "Put the pomegranate on the white plate.",
+   "target": "pomegranate",
+   "dest": "plate_white",
+   "target_box": [
+    120.1,
+    294.8,
+    200.3,
+    374.7
+   ],
+   "dest_box": [
+    439.0,
+    172.0,
+    604.3,
+    289.6
+   ],
+   "grasp_frame": 188,
+   "T": 544,
+   "target_matches_diffgt": true
+  },
+  "363": {
+   "id": "T1_train148",
+   "instruction": "Move the potato onto the blue plate.",
+   "target": "potato",
+   "dest": "plate_blue",
+   "target_box": [
+    502.4,
+    225.3,
+    570.0,
+    304.8
+   ],
+   "dest_box": [
+    297.7,
+    167.7,
+    453.7,
+    281.8
+   ],
+   "grasp_frame": 171,
+   "T": 498,
+   "target_matches_diffgt": true
+  },
+  "365": {
+   "id": "T1_train149",
+   "instruction": "Pick up the pineapple and place it on the pink plate.",
+   "target": "pineapple",
+   "dest": "plate_pink",
+   "target_box": [
+    401.1,
+    151.2,
+    543.0,
+    343.9
+   ],
+   "dest_box": [
+    72.6,
+    163.2,
+    234.9,
+    277.7
+   ],
+   "grasp_frame": 182,
+   "T": 543,
+   "target_matches_diffgt": true
+  },
+  "366": {
+   "id": "T1_train151",
+   "instruction": "Place the cherries on the pink plate.",
+   "target": "cherry",
+   "dest": "plate_pink",
+   "target_box": [
+    113.7,
+    234.4,
+    159.7,
+    271.3
+   ],
+   "dest_box": [
+    204.5,
+    172.7,
+    362.4,
+    288.9
+   ],
+   "grasp_frame": 179,
+   "T": 511,
+   "target_matches_diffgt": true
+  },
+  "367": {
+   "id": "T1_train152",
+   "instruction": "Put the potato on the pink plate.",
+   "target": "potato",
+   "dest": "plate_pink",
+   "target_box": [
+    85.8,
+    263.7,
+    177.9,
+    337.0
+   ],
+   "dest_box": [
+    176.4,
+    285.9,
+    369.3,
+    455.9
+   ],
+   "grasp_frame": 205,
+   "T": 589,
+   "target_matches_diffgt": true
+  },
+  "368": {
+   "id": "T1_train153",
+   "instruction": "Place the pumpkin on the blue plate.",
+   "target": "pumpkin",
+   "dest": "plate_blue",
+   "target_box": [
+    510.0,
+    320.9,
+    602.2,
+    408.5
+   ],
+   "dest_box": [
+    13.8,
+    270.2,
+    209.3,
+    432.0
+   ],
+   "grasp_frame": 129,
+   "T": 482,
+   "target_matches_diffgt": true
+  },
+  "369": {
+   "id": "T1_train154",
+   "instruction": "Put the tomato on the yellow plate.",
+   "target": "tomato",
+   "dest": "plate_yellow",
+   "target_box": [
+    167.6,
+    190.0,
+    241.0,
+    261.8
+   ],
+   "dest_box": [
+    127.8,
+    272.2,
+    318.0,
+    434.7
+   ],
+   "grasp_frame": 193,
+   "T": 532,
+   "target_matches_diffgt": true
+  },
+  "370": {
+   "id": "T1_train155",
+   "instruction": "Could you put the pineapple on the white plate?",
+   "target": "pineapple",
+   "dest": "plate_white",
+   "target_box": [
+    54.9,
+    109.6,
+    172.9,
+    294.4
+   ],
+   "dest_box": [
+    315.1,
+    151.8,
+    468.4,
+    260.1
+   ],
+   "grasp_frame": 208,
+   "T": 628,
+   "target_matches_diffgt": true
+  },
+  "371": {
+   "id": "T1_train156",
+   "instruction": "Move the orange onto the white plate.",
+   "target": "orange",
+   "dest": "plate_white",
+   "target_box": [
+    72.8,
+    360.3,
+    162.3,
+    448.4
+   ],
+   "dest_box": [
+    179.8,
+    271.0,
+    369.0,
+    431.5
+   ],
+   "grasp_frame": 213,
+   "T": 501,
+   "target_matches_diffgt": true
+  },
+  "372": {
+   "id": "T1_train157",
+   "instruction": "Pick up the banana and place it on the yellow plate.",
+   "target": "banana",
+   "dest": "plate_yellow",
+   "target_box": [
+    405.4,
+    221.9,
+    557.0,
+    336.3
+   ],
+   "dest_box": [
+    213.0,
+    235.7,
+    388.9,
+    376.0
+   ],
+   "grasp_frame": 173,
+   "T": 436,
+   "target_matches_diffgt": true
+  },
+  "373": {
+   "id": "T1_train158",
+   "instruction": "Put the cherries on the blue plate.",
+   "target": "cherry",
+   "dest": "plate_blue",
+   "target_box": [
+    295.6,
+    213.5,
+    467.1,
+    347.5
+   ],
+   "dest_box": [
+    295.8,
+    214.1,
+    467.0,
+    346.0
+   ],
+   "grasp_frame": 153,
+   "T": 407,
+   "target_matches_diffgt": false
+  },
+  "374": {
+   "id": "T1_train159",
+   "instruction": "Place the strawberry on the blue plate.",
+   "target": "strawberry",
+   "dest": "plate_blue",
+   "target_box": [
+    317.4,
+    252.2,
+    353.4,
+    307.7
+   ],
+   "dest_box": [
+    406.9,
+    178.9,
+    572.1,
+    298.3
+   ],
+   "grasp_frame": 170,
+   "T": 480
+  },
+  "375": {
+   "id": "T1_train160",
+   "instruction": "Could you put the red delicious apple on the yellow plate?",
+   "target": "red_delicious",
+   "dest": "plate_yellow",
+   "target_box": [
+    328.6,
+    344.0,
+    414.5,
+    440.3
+   ],
+   "dest_box": [
+    368.9,
+    163.3,
+    525.6,
+    276.1
+   ],
+   "grasp_frame": 158,
+   "T": 462,
+   "target_matches_diffgt": true
+  },
+  "377": {
+   "id": "T1_train162",
+   "instruction": "Place the mangosteen on the white plate.",
+   "target": "mangosteen",
+   "dest": "plate_white",
+   "target_box": [
+    421.1,
+    265.1,
+    481.9,
+    332.8
+   ],
+   "dest_box": [
+    79.2,
+    158.0,
+    239.7,
+    269.3
+   ],
+   "grasp_frame": 232,
+   "T": 594,
+   "target_matches_diffgt": true
+  },
+  "378": {
+   "id": "T1_train163",
+   "instruction": "Put the mushroom on the white plate.",
+   "target": "mushroom",
+   "dest": "plate_white",
+   "target_box": [
+    412.8,
+    249.5,
+    485.4,
+    328.3
+   ],
+   "dest_box": [
+    220.4,
+    286.2,
+    413.1,
+    454.4
+   ],
+   "grasp_frame": 171,
+   "T": 522,
+   "target_matches_diffgt": true
+  },
+  "379": {
+   "id": "T1_train164",
+   "instruction": "Pick up the pear and place it on the white plate.",
+   "target": "pear",
+   "dest": "plate_white",
+   "target_box": [
+    498.1,
+    184.4,
+    574.0,
+    269.2
+   ],
+   "dest_box": [
+    117.0,
+    219.4,
+    292.5,
+    354.9
+   ],
+   "grasp_frame": 162,
+   "T": 457,
+   "target_matches_diffgt": true
+  },
+  "381": {
+   "id": "T1_train166",
+   "instruction": "Place the persimmon on the blue plate.",
+   "target": "persimmon",
+   "dest": "plate_blue",
+   "target_box": [
+    507.5,
+    358.2,
+    601.4,
+    448.7
+   ],
+   "dest_box": [
+    53.4,
+    269.1,
+    248.9,
+    431.4
+   ],
+   "grasp_frame": 163,
+   "T": 528,
+   "target_matches_diffgt": true
+  },
+  "383": {
+   "id": "T1_train168",
+   "instruction": "Could you put the cherries on the purple plate?",
+   "target": "cherry",
+   "dest": "plate_purple",
+   "target_box": [
+    332.6,
+    260.7,
+    391.7,
+    298.8
+   ],
+   "dest_box": [
+    449.3,
+    210.0,
+    624.1,
+    341.2
+   ],
+   "grasp_frame": 189,
+   "T": 479
+  },
+  "384": {
+   "id": "T1_train169",
+   "instruction": "Put the onion on the purple plate.",
+   "target": "onion",
+   "dest": "plate_purple",
+   "target_box": [
+    367.8,
+    228.3,
+    437.6,
+    295.0
+   ],
+   "dest_box": [
+    69.5,
+    227.9,
+    250.2,
+    367.8
+   ],
+   "grasp_frame": 222,
+   "T": 631
+  },
+  "385": {
+   "id": "T1_train170",
+   "instruction": "Pick up the peach and place it on the white plate.",
+   "target": "peach",
+   "dest": "plate_white",
+   "target_box": [
+    509.4,
+    204.2,
+    583.1,
+    296.7
+   ],
+   "dest_box": [
+    321.0,
+    209.3,
+    491.2,
+    341.2
+   ],
+   "grasp_frame": 143,
+   "T": 383,
+   "target_matches_diffgt": true
+  },
+  "386": {
+   "id": "T1_train171",
+   "instruction": "Move the mandarin onto the blue plate.",
+   "target": "tangerine",
+   "dest": "plate_blue",
+   "target_box": [
+    34.1,
+    336.6,
+    122.7,
+    422.2
+   ],
+   "dest_box": [
+    199.7,
+    287.0,
+    393.7,
+    458.4
+   ],
+   "grasp_frame": 146,
+   "T": 479,
+   "target_matches_diffgt": true
+  },
+  "387": {
+   "id": "T1_train172",
+   "instruction": "Move the potato onto the blue plate.",
+   "target": "potato",
+   "dest": "plate_blue",
+   "target_box": [
+    90.3,
+    295.6,
+    167.3,
+    373.6
+   ],
+   "dest_box": [
+    291.0,
+    212.8,
+    461.6,
+    347.9
+   ],
+   "grasp_frame": 148,
+   "T": 428,
+   "target_matches_diffgt": true
+  },
+  "388": {
+   "id": "T1_train173",
+   "instruction": "Could you put the pumpkin on the pink plate?",
+   "target": "pumpkin",
+   "dest": "plate_pink",
+   "target_box": [
+    462.4,
+    168.2,
+    534.0,
+    234.1
+   ],
+   "dest_box": [
+    15.0,
+    233.1,
+    199.9,
+    376.6
+   ],
+   "grasp_frame": 166,
+   "T": 596,
+   "target_matches_diffgt": true
+  },
+  "389": {
+   "id": "T1_train174",
+   "instruction": "Could you put the onion on the pink plate?",
+   "target": "onion",
+   "dest": "plate_pink",
+   "target_box": [
+    48.0,
+    216.2,
+    123.5,
+    280.3
+   ],
+   "dest_box": [
+    380.0,
+    300.5,
+    581.2,
+    478.8
+   ],
+   "grasp_frame": 196,
+   "T": 540,
+   "target_matches_diffgt": true
+  },
+  "390": {
+   "id": "T1_train175",
+   "instruction": "Move the bell pepper onto the pink plate.",
+   "target": "bell_pepper",
+   "dest": "plate_pink",
+   "target_box": [
+    49.0,
+    251.2,
+    136.8,
+    340.2
+   ],
+   "dest_box": [
+    325.5,
+    145.6,
+    476.7,
+    251.7
+   ],
+   "grasp_frame": 171,
+   "T": 621,
+   "target_matches_diffgt": true
+  },
+  "391": {
+   "id": "T1_train176",
+   "instruction": "Move the watermelon onto the purple plate.",
+   "target": "watermelon",
+   "dest": "plate_purple",
+   "target_box": [
+    215.4,
+    213.6,
+    318.0,
+    316.3
+   ],
+   "dest_box": [
+    391.4,
+    149.6,
+    546.8,
+    260.9
+   ],
+   "grasp_frame": 174,
+   "T": 492,
+   "target_matches_diffgt": true
+  },
+  "392": {
+   "id": "T1_train177",
+   "instruction": "Could you put the tomato on the white plate?",
+   "target": "tomato",
+   "dest": "plate_white",
+   "target_box": [
+    427.5,
+    344.4,
+    519.0,
+    433.8
+   ],
+   "dest_box": [
+    161.7,
+    260.2,
+    347.8,
+    416.9
+   ],
+   "grasp_frame": 148,
+   "T": 451,
+   "target_matches_diffgt": true
+  },
+  "393": {
+   "id": "T1_train178",
+   "instruction": "Put the mandarin on the pink plate.",
+   "target": "tangerine",
+   "dest": "plate_pink",
+   "target_box": [
+    302.0,
+    193.0,
+    369.9,
+    258.9
+   ],
+   "dest_box": [
+    391.6,
+    221.8,
+    568.1,
+    358.2
+   ],
+   "grasp_frame": 181,
+   "T": 477,
+   "target_matches_diffgt": true
+  },
+  "394": {
+   "id": "T1_train179",
+   "instruction": "Pick up the cherries and place it on the white plate.",
+   "target": "cherry",
+   "dest": "plate_white",
+   "target_box": [
+    338.0,
+    320.9,
+    401.4,
+    364.8
+   ],
+   "dest_box": [
+    424.2,
+    285.2,
+    623.5,
+    454.6
+   ],
+   "grasp_frame": 184,
+   "T": 552,
+   "target_matches_diffgt": true
+  },
+  "395": {
+   "id": "T1_train180",
+   "instruction": "Put the watermelon on the yellow plate.",
+   "target": "watermelon",
+   "dest": "plate_yellow",
+   "target_box": [
+    472.7,
+    293.7,
+    539.0,
+    440.9
+   ],
+   "dest_box": [
+    296.6,
+    184.4,
+    457.7,
+    303.3
+   ],
+   "grasp_frame": 126,
+   "T": 401,
+   "target_matches_diffgt": true
+  },
+  "396": {
+   "id": "T1_train181",
+   "instruction": "Put the red chili pepper on the white plate.",
+   "target": "red_chili",
+   "dest": "plate_white",
+   "target_box": [
+    431.2,
+    340.4,
+    577.4,
+    462.6
+   ],
+   "dest_box": [
+    211.9,
+    159.6,
+    367.8,
+    271.9
+   ],
+   "grasp_frame": 120,
+   "T": 488,
+   "target_matches_diffgt": true
+  },
+  "397": {
+   "id": "T1_train182",
+   "instruction": "Place the persimmon on the purple plate.",
+   "target": "persimmon",
+   "dest": "plate_purple",
+   "target_box": [
+    35.5,
+    292.8,
+    120.4,
+    376.8
+   ],
+   "dest_box": [
+    319.4,
+    166.1,
+    476.4,
+    279.1
+   ],
+   "grasp_frame": 126,
+   "T": 491,
+   "target_matches_diffgt": true
+  },
+  "398": {
+   "id": "T1_train183",
+   "instruction": "Pick up the potato and place it on the purple plate.",
+   "target": "potato",
+   "dest": "plate_purple",
+   "target_box": [
+    366.5,
+    164.8,
+    412.9,
+    215.9
+   ],
+   "dest_box": [
+    421.5,
+    240.8,
+    605.9,
+    386.6
+   ],
+   "grasp_frame": 174,
+   "T": 460
+  },
+  "399": {
+   "id": "T1_train184",
+   "instruction": "Pick up the eggplant and place it on the white plate.",
+   "target": "eggplant",
+   "dest": "plate_white",
+   "target_box": [
+    452.6,
+    318.6,
+    539.9,
+    442.4
+   ],
+   "dest_box": [
+    132.1,
+    304.3,
+    332.5,
+    480.0
+   ],
+   "grasp_frame": 137,
+   "T": 442,
+   "target_matches_diffgt": true
+  },
+  "400": {
+   "id": "T1_train185",
+   "instruction": "Place the green apple on the purple plate.",
+   "target": "green_apple",
+   "dest": "plate_purple",
+   "target_box": [
+    47.1,
+    328.8,
+    140.1,
+    420.3
+   ],
+   "dest_box": [
+    47.3,
+    178.7,
+    214.5,
+    300.4
+   ],
+   "grasp_frame": 135,
+   "T": 433,
+   "target_matches_diffgt": true
+  },
+  "401": {
+   "id": "T1_train186",
+   "instruction": "Could you put the banana on the blue plate?",
+   "target": "banana",
+   "dest": "plate_blue",
+   "target_box": [
+    372.8,
+    340.2,
+    566.9,
+    431.0
+   ],
+   "dest_box": [
+    294.8,
+    185.7,
+    455.9,
+    306.3
+   ],
+   "grasp_frame": 139,
+   "T": 429,
+   "target_matches_diffgt": true
+  },
+  "402": {
+   "id": "T1_train187",
+   "instruction": "Put the mangosteen on the yellow plate.",
+   "target": "mangosteen",
+   "dest": "plate_yellow",
+   "target_box": [
+    284.4,
+    211.6,
+    341.5,
+    273.2
+   ],
+   "dest_box": [
+    162.6,
+    284.2,
+    355.4,
+    452.4
+   ],
+   "grasp_frame": 126,
+   "T": 400,
+   "target_matches_diffgt": true
+  },
+  "403": {
+   "id": "T1_train188",
+   "instruction": "Could you put the dragon fruit on the yellow plate?",
+   "target": "dragon_fruit",
+   "dest": "plate_yellow",
+   "target_box": [
+    6.3,
+    310.6,
+    133.4,
+    434.9
+   ],
+   "dest_box": [
+    418.6,
+    166.3,
+    579.0,
+    280.8
+   ],
+   "grasp_frame": 224,
+   "T": 640,
+   "target_matches_diffgt": true
+  },
+  "406": {
+   "id": "T1_train191",
+   "instruction": "Move the eggplant onto the yellow plate.",
+   "target": "eggplant",
+   "dest": "plate_yellow",
+   "target_box": [
+    106.5,
+    182.2,
+    182.1,
+    279.0
+   ],
+   "dest_box": [
+    415.9,
+    205.3,
+    588.6,
+    335.3
+   ],
+   "grasp_frame": 138,
+   "T": 477,
+   "target_matches_diffgt": true
+  },
+  "407": {
+   "id": "T1_train192",
+   "instruction": "Pick up the red delicious apple and place it on the yellow plate.",
+   "target": "red_delicious",
+   "dest": "plate_yellow",
+   "target_box": [
+    419.3,
+    257.9,
+    498.4,
+    338.8
+   ],
+   "dest_box": [
+    465.2,
+    160.2,
+    625.0,
+    271.9
+   ],
+   "grasp_frame": 130,
+   "T": 402,
+   "target_matches_diffgt": true
+  },
+  "408": {
+   "id": "T1_train193",
+   "instruction": "Move the cucumber onto the yellow plate.",
+   "target": "cucumber",
+   "dest": "plate_yellow",
+   "target_box": [
+    30.0,
+    227.5,
+    101.1,
+    344.5
+   ],
+   "dest_box": [
+    157.3,
+    284.2,
+    350.7,
+    452.4
+   ],
+   "grasp_frame": 144,
+   "T": 419,
+   "target_matches_diffgt": true
+  },
+  "409": {
+   "id": "T1_train194",
+   "instruction": "Could you put the green apple on the blue plate?",
+   "target": "green_apple",
+   "dest": "plate_blue",
+   "target_box": [
+    226.2,
+    319.4,
+    311.9,
+    407.8
+   ],
+   "dest_box": [
+    338.0,
+    280.5,
+    531.6,
+    446.8
+   ],
+   "grasp_frame": 147,
+   "T": 412,
+   "target_matches_diffgt": true
+  },
+  "410": {
+   "id": "T1_train195",
+   "instruction": "Place the passion fruit on the yellow plate.",
+   "target": "passion_fruit",
+   "dest": "plate_yellow",
+   "target_box": [
+    490.0,
+    243.9,
+    545.3,
+    304.9
+   ],
+   "dest_box": [
+    76.2,
+    294.3,
+    275.9,
+    469.2
+   ],
+   "grasp_frame": 132,
+   "T": 385,
+   "target_matches_diffgt": true
+  },
+  "411": {
+   "id": "T1_train196",
+   "instruction": "Pick up the papaya and place it on the purple plate.",
+   "target": "papaya",
+   "dest": "plate_purple",
+   "target_box": [
+    153.1,
+    189.2,
+    229.1,
+    273.3
+   ],
+   "dest_box": [
+    246.5,
+    299.3,
+    442.7,
+    476.6
+   ],
+   "grasp_frame": 143,
+   "T": 450,
+   "target_matches_diffgt": true
+  },
+  "412": {
+   "id": "T1_train197",
+   "instruction": "Could you put the mango on the blue plate?",
+   "target": "mango",
+   "dest": "plate_blue",
+   "target_box": [
+    393.0,
+    343.5,
+    477.2,
+    471.5
+   ],
+   "dest_box": [
+    236.6,
+    185.5,
+    399.0,
+    306.4
+   ],
+   "grasp_frame": 128,
+   "T": 379,
+   "target_matches_diffgt": true
+  },
+  "413": {
+   "id": "T1_train198",
+   "instruction": "Could you put the potato on the yellow plate?",
+   "target": "potato",
+   "dest": "plate_yellow",
+   "target_box": [
+    501.7,
+    357.4,
+    586.0,
+    454.9
+   ],
+   "dest_box": [
+    457.4,
+    173.9,
+    621.6,
+    290.0
+   ],
+   "grasp_frame": 157,
+   "T": 454,
+   "target_matches_diffgt": true
+  },
+  "414": {
+   "id": "T1_train199",
+   "instruction": "Pick up the carrot and place it on the pink plate.",
+   "target": "carrot",
+   "dest": "plate_pink",
+   "target_box": [
+    132.6,
+    178.3,
+    236.6,
+    250.4
+   ],
+   "dest_box": [
+    363.2,
+    188.7,
+    528.3,
+    309.4
+   ],
+   "grasp_frame": 210,
+   "T": 599,
+   "target_matches_diffgt": true
+  },
+  "415": {
+   "id": "T1_train200",
+   "instruction": "Place the potato on the white plate.",
+   "target": "potato",
+   "dest": "plate_white",
+   "target_box": [
+    253.8,
+    317.7,
+    327.7,
+    405.8
+   ],
+   "dest_box": [
+    205.8,
+    190.7,
+    370.7,
+    315.3
+   ],
+   "grasp_frame": 198,
+   "T": 567
+  },
+  "416": {
+   "id": "T1_reserve001",
+   "instruction": "Move the green apple onto the pink plate.",
+   "target": "green_apple",
+   "dest": "plate_pink",
+   "target_box": [
+    519.6,
+    219.1,
+    599.1,
+    295.2
+   ],
+   "dest_box": [
+    25.7,
+    197.1,
+    200.1,
+    324.7
+   ],
+   "grasp_frame": 189,
+   "T": 595,
+   "target_matches_diffgt": true
+  },
+  "417": {
+   "id": "T1_reserve002",
+   "instruction": "Pick up the red apple and place it on the white plate.",
+   "target": "red_apple",
+   "dest": "plate_white",
+   "target_box": [
+    158.1,
+    219.8,
+    231.7,
+    294.0
+   ],
+   "dest_box": [
+    27.6,
+    284.2,
+    228.6,
+    454.8
+   ],
+   "grasp_frame": 184,
+   "T": 521,
+   "target_matches_diffgt": true
+  },
+  "418": {
+   "id": "T1_reserve003",
+   "instruction": "Move the red delicious apple onto the blue plate.",
+   "target": "red_delicious",
+   "dest": "plate_blue",
+   "target_box": [
+    219.2,
+    258.9,
+    297.3,
+    341.5
+   ],
+   "dest_box": [
+    415.1,
+    279.4,
+    611.4,
+    448.1
+   ],
+   "grasp_frame": 168,
+   "T": 478,
+   "target_matches_diffgt": true
+  },
+  "421": {
+   "id": "T1_reserve006",
+   "instruction": "Pick up the strawberry and place it on the blue plate.",
+   "target": "strawberry",
+   "dest": "plate_blue",
+   "target_box": [
+    429.5,
+    161.4,
+    461.0,
+    211.9
+   ],
+   "dest_box": [
+    172.3,
+    172.1,
+    332.6,
+    287.7
+   ],
+   "grasp_frame": 158,
+   "T": 533,
+   "target_matches_diffgt": true
+  },
+  "422": {
+   "id": "T1_reserve007",
+   "instruction": "Move the cherries onto the yellow plate.",
+   "target": "cherry",
+   "dest": "plate_yellow",
+   "target_box": [
+    531.7,
+    394.4,
+    592.8,
+    442.9
+   ],
+   "dest_box": [
+    375.2,
+    226.7,
+    552.2,
+    365.9
+   ],
+   "grasp_frame": 145,
+   "T": 424,
+   "target_matches_diffgt": true
+  },
+  "423": {
+   "id": "T1_reserve008",
+   "instruction": "Place the bunch of grapes on the purple plate.",
+   "target": "grapes",
+   "dest": "plate_purple",
+   "target_box": [
+    409.9,
+    253.8,
+    565.9,
+    321.4
+   ],
+   "dest_box": [
+    257.0,
+    273.0,
+    444.4,
+    434.4
+   ],
+   "grasp_frame": 175,
+   "T": 502,
+   "target_matches_diffgt": true
+  },
+  "424": {
+   "id": "T1_reserve009",
+   "instruction": "Could you put the mushroom on the blue plate?",
+   "target": "mushroom",
+   "dest": "plate_blue",
+   "target_box": [
+    53.4,
+    171.4,
+    123.2,
+    240.9
+   ],
+   "dest_box": [
+    407.2,
+    191.2,
+    576.9,
+    316.1
+   ],
+   "grasp_frame": 183,
+   "T": 571,
+   "target_matches_diffgt": true
+  },
+  "425": {
+   "id": "T1_reserve010",
+   "instruction": "Put the cucumber on the blue plate.",
+   "target": "cucumber",
+   "dest": "plate_blue",
+   "target_box": [
+    142.7,
+    263.9,
+    237.0,
+    387.0
+   ],
+   "dest_box": [
+    278.8,
+    289.7,
+    472.9,
+    461.3
+   ],
+   "grasp_frame": 152,
+   "T": 437,
+   "target_matches_diffgt": true
+  },
+  "426": {
+   "id": "T1_reserve011",
+   "instruction": "Move the red chili pepper onto the pink plate.",
+   "target": "red_chili",
+   "dest": "plate_pink",
+   "target_box": [
+    216.3,
+    179.5,
+    269.9,
+    287.9
+   ],
+   "dest_box": [
+    51.7,
+    275.5,
+    247.7,
+    440.0
+   ],
+   "grasp_frame": 167,
+   "T": 441,
+   "target_matches_diffgt": true
+  },
+  "427": {
+   "id": "T1_reserve012",
+   "instruction": "Move the carrot onto the purple plate.",
+   "target": "carrot",
+   "dest": "plate_purple",
+   "target_box": [
+    168.1,
+    205.1,
+    288.2,
+    280.8
+   ],
+   "dest_box": [
+    270.1,
+    284.6,
+    463.1,
+    453.8
+   ],
+   "grasp_frame": 158,
+   "T": 460,
+   "target_matches_diffgt": true
+  },
+  "428": {
+   "id": "T1_reserve013",
+   "instruction": "Could you put the eggplant on the purple plate?",
+   "target": "eggplant",
+   "dest": "plate_purple",
+   "target_box": [
+    403.0,
+    221.5,
+    526.0,
+    299.7
+   ],
+   "dest_box": [
+    110.4,
+    299.2,
+    310.1,
+    476.1
+   ],
+   "grasp_frame": 152,
+   "T": 489,
+   "target_matches_diffgt": true
+  },
+  "429": {
+   "id": "T1_reserve014",
+   "instruction": "Move the potato onto the blue plate.",
+   "target": "potato",
+   "dest": "plate_blue",
+   "target_box": [
+    514.2,
+    163.2,
+    578.9,
+    228.6
+   ],
+   "dest_box": [
+    286.2,
+    160.4,
+    440.8,
+    272.2
+   ],
+   "grasp_frame": 180,
+   "T": 507,
+   "target_matches_diffgt": true
+  },
+  "430": {
+   "id": "T1_reserve015",
+   "instruction": "Place the lemon on the pink plate.",
+   "target": "lemon",
+   "dest": "plate_pink",
+   "target_box": [
+    482.2,
+    319.2,
+    557.0,
+    406.0
+   ],
+   "dest_box": [
+    199.9,
+    284.1,
+    392.2,
+    453.5
+   ],
+   "grasp_frame": 160,
+   "T": 481,
+   "target_matches_diffgt": true
+  }
+ }
+}

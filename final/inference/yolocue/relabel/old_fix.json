@@ -1,0 +1,546 @@
+{
+ "1001": {
+  "set": {
+   "4": "dragon_fruit"
+  }
+ },
+ "1002": {
+  "set": {
+   "5": "dragon_fruit"
+  }
+ },
+ "1003": {
+  "set": {
+   "4": "dragon_fruit"
+  },
+  "add": [
+   {
+    "cls": "orange",
+    "box": [
+     198,
+     203,
+     253,
+     262
+    ]
+   }
+  ]
+ },
+ "1004": {
+  "set": {
+   "4": "dragon_fruit"
+  },
+  "add": [
+   {
+    "cls": "orange",
+    "box": [
+     200,
+     202,
+     252,
+     260
+    ]
+   }
+  ]
+ },
+ "1005": {
+  "add": [
+   {
+    "cls": "dragon_fruit",
+    "box": [
+     422,
+     202,
+     532,
+     318
+    ]
+   },
+   {
+    "cls": "orange",
+    "box": [
+     428,
+     293,
+     502,
+     364
+    ]
+   }
+  ]
+ },
+ "1007": {
+  "set": {
+   "6": "dragon_fruit"
+  }
+ },
+ "1011": {
+  "set": {
+   "4": "carrot"
+  }
+ },
+ "1012": {
+  "set": {
+   "4": "carrot"
+  }
+ },
+ "1013": {
+  "set": {
+   "5": "mushroom"
+  }
+ },
+ "1016": {
+  "set": {
+   "5": "mango"
+  }
+ },
+ "1017": {
+  "set": {
+   "3": "red_chili",
+   "4": "mango"
+  }
+ },
+ "1018": {
+  "drop": [
+   3
+  ],
+  "set": {
+   "6": "mango"
+  }
+ },
+ "1019": {
+  "set": {
+   "5": "mango"
+  }
+ },
+ "1020": {
+  "set": {
+   "4": "red_chili"
+  }
+ },
+ "1021": {
+  "set": {
+   "3": "red_delicious"
+  },
+  "add": [
+   {
+    "cls": "plate_blue",
+    "box": [
+     398,
+     248,
+     568,
+     375
+    ],
+    "raw": true
+   },
+   {
+    "cls": "plate_white",
+    "box": [
+     98,
+     348,
+     302,
+     480
+    ],
+    "raw": true
+   }
+  ]
+ },
+ "1023": {
+  "set": {
+   "5": "starfruit"
+  }
+ },
+ "1024": {
+  "add": [
+   {
+    "cls": "starfruit",
+    "box": [
+     180,
+     325,
+     254,
+     392
+    ]
+   }
+  ]
+ },
+ "1025": {
+  "set": {
+   "7": "starfruit"
+  }
+ },
+ "1027": {
+  "unknown": [
+   5,
+   6
+  ]
+ },
+ "1028": {
+  "set": {
+   "6": "strawberry"
+  }
+ },
+ "1029": {
+  "set": {
+   "6": "strawberry"
+  }
+ },
+ "1031": {
+  "add": [
+   {
+    "cls": "kiwi",
+    "box": [
+     168,
+     265,
+     222,
+     312
+    ]
+   },
+   {
+    "cls": "peach",
+    "box": [
+     192,
+     300,
+     257,
+     385
+    ]
+   }
+  ]
+ },
+ "1032": {
+  "add": [
+   {
+    "cls": "kiwi",
+    "box": [
+     168,
+     265,
+     222,
+     310
+    ]
+   },
+   {
+    "cls": "peach",
+    "box": [
+     192,
+     298,
+     257,
+     385
+    ]
+   }
+  ]
+ },
+ "1033": {
+  "set": {
+   "5": "pomegranate",
+   "6": "peach"
+  }
+ },
+ "1034": {
+  "set": {
+   "4": "pomegranate",
+   "5": "peach",
+   "6": "persimmon"
+  }
+ },
+ "1035": {
+  "set": {
+   "4": "persimmon",
+   "5": "avocado",
+   "6": "pomegranate"
+  },
+  "add": [
+   {
+    "cls": "plate_yellow",
+    "box": [
+     63,
+     260,
+     238,
+     397
+    ],
+    "raw": true
+   },
+   {
+    "cls": "watermelon",
+    "box": [
+     175,
+     228,
+     280,
+     285
+    ]
+   }
+  ]
+ },
+ "1038": {
+  "set": {
+   "0": "pomegranate"
+  },
+  "add": [
+   {
+    "cls": "plate_blue",
+    "box": [
+     72,
+     252,
+     238,
+     380
+    ],
+    "raw": true
+   },
+   {
+    "cls": "plate_pink",
+    "box": [
+     446,
+     280,
+     630,
+     425
+    ],
+    "raw": true
+   }
+  ]
+ },
+ "1040": {
+  "set": {
+   "3": "green_chili"
+  },
+  "unknown": [
+   6
+  ]
+ },
+ "1041": {
+  "unknown": [
+   5
+  ]
+ },
+ "1042": {
+  "unknown": [
+   6
+  ]
+ },
+ "1046": {
+  "add": [
+   {
+    "cls": "plate_white",
+    "box": [
+     168,
+     265,
+     345,
+     385
+    ],
+    "raw": true
+   }
+  ]
+ },
+ "1049": {
+  "set": {
+   "3": "cherry",
+   "4": "green_chili",
+   "5": "watermelon"
+  },
+  "add": [
+   {
+    "cls": "plate_pink",
+    "box": [
+     375,
+     210,
+     540,
+     325
+    ],
+    "raw": true
+   }
+  ]
+ },
+ "1050": {
+  "set": {
+   "3": "wax_apple",
+   "4": "starfruit",
+   "5": "orange",
+   "6": "red_delicious"
+  }
+ },
+ "1052": {
+  "set": {
+   "5": "red_delicious",
+   "7": "bell_pepper"
+  }
+ },
+ "1053": {
+  "set": {
+   "4": "highlighter",
+   "6": "brush_small"
+  }
+ },
+ "1054": {
+  "set": {
+   "4": "highlighter"
+  }
+ },
+ "1055": {
+  "set": {
+   "0": "brush_large",
+   "6": "brush_small",
+   "4": "highlighter"
+  }
+ },
+ "1056": {
+  "set": {
+   "0": "brush_large",
+   "6": "brush_small",
+   "4": "highlighter"
+  }
+ },
+ "1058": {
+  "set": {
+   "4": "brush_small"
+  }
+ },
+ "1061": {
+  "unknown": [
+   4
+  ],
+  "set": {
+   "5": "lotion_bottle",
+   "6": "highlighter"
+  }
+ },
+ "1062": {
+  "set": {
+   "6": "highlighter"
+  }
+ },
+ "1063": {
+  "set": {
+   "6": "highlighter"
+  }
+ },
+ "1065": {
+  "set": {
+   "6": "glitter_compact"
+  }
+ },
+ "1066": {
+  "drop": [
+   5
+  ]
+ },
+ "1070": {
+  "drop": [
+   4
+  ],
+  "set": {
+   "7": "lotion_bottle",
+   "8": "highlighter"
+  }
+ },
+ "1071": {
+  "set": {
+   "5": "highlighter"
+  },
+  "unknown": [
+   7
+  ]
+ },
+ "1075": {
+  "set": {
+   "4": "highlighter",
+   "5": "brush_small",
+   "7": "powder_puff"
+  }
+ },
+ "1076": {
+  "set": {
+   "4": "brush_small",
+   "5": "highlighter"
+  },
+  "unknown": [
+   6
+  ]
+ },
+ "1077": {
+  "set": {
+   "7": "highlighter"
+  }
+ },
+ "1078": {
+  "set": {
+   "7": "highlighter"
+  }
+ },
+ "1079": {
+  "set": {
+   "6": "highlighter",
+   "7": "powder_puff"
+  }
+ },
+ "1080": {
+  "set": {
+   "7": "highlighter"
+  }
+ },
+ "1081": {
+  "set": {
+   "7": "highlighter"
+  }
+ },
+ "1082": {
+  "set": {
+   "6": "brush_small",
+   "7": "highlighter"
+  }
+ },
+ "1084": {
+  "set": {
+   "0": "brush_large",
+   "7": "brush_small",
+   "6": "highlighter"
+  }
+ },
+ "1088": {
+  "set": {
+   "0": "brush_large",
+   "6": "brush_small",
+   "4": "highlighter"
+  }
+ },
+ "1089": {
+  "set": {
+   "6": "brush_small",
+   "7": "lip_gloss"
+  }
+ },
+ "1090": {
+  "set": {
+   "5": "brush_small",
+   "7": "lip_gloss"
+  }
+ },
+ "1091": {
+  "set": {
+   "4": "lip_gloss",
+   "5": "brush_small",
+   "6": "lotion_bottle",
+   "7": "contour"
+  }
+ },
+ "1092": {
+  "set": {
+   "6": "lip_gloss"
+  },
+  "add": [
+   {
+    "cls": "brush_small",
+    "box": [
+     318,
+     383,
+     410,
+     425
+    ],
+    "raw": true
+   }
+  ]
+ },
+ "1048": {
+  "add": [
+   {
+    "cls": "cherry",
+    "box": [
+     318,
+     216,
+     354,
+     252
+    ]
+   }
+  ]
+ }
+}

@@ -1,0 +1,294 @@
+[
+ [
+  375,
+  "organizer_middle",
+  {
+   "center": 0.811904761904762,
+   "bottom": 0.9825396825396826,
+   "top": 0.6412698412698413,
+   "conf": 0.879,
+   "outside_px": 0
+  }
+ ],
+ [
+  376,
+  "organizer_middle",
+  {
+   "center": 0.717425431711146,
+   "bottom": 0.9058084772370487,
+   "top": 0.5290423861852435,
+   "conf": 0.638,
+   "outside_px": 0
+  }
+ ],
+ [
+  377,
+  "organizer_middle",
+  {
+   "center": 0.5188087774294673,
+   "bottom": 0.9169278996865202,
+   "top": 0.12068965517241403,
+   "conf": 0.865,
+   "outside_px": 0
+  }
+ ],
+ [
+  379,
+  "organizer_middle",
+  {
+   "center": 0.46299212598425205,
+   "bottom": 0.9039370078740159,
+   "top": 0.02204724409448828,
+   "conf": 0.936,
+   "outside_px": 0
+  }
+ ],
+ [
+  380,
+  "organizer_bottom",
+  {
+   "center": 0.7732864674868194,
+   "bottom": 0.9894551845342703,
+   "top": 0.5571177504393675,
+   "conf": 0.606,
+   "outside_px": 0
+  }
+ ],
+ [
+  381,
+  "organizer_middle",
+  null
+ ],
+ [
+  382,
+  "organizer_bottom",
+  null
+ ],
+ [
+  341,
+  "organizer_middle",
+  {
+   "center": 0.6996830427892231,
+   "bottom": 0.9762282091917591,
+   "top": 0.42313787638668765,
+   "conf": 0.914,
+   "outside_px": 0
+  }
+ ],
+ [
+  357,
+  "organizer_middle",
+  null
+ ],
+ [
+  358,
+  "organizer_middle",
+  null
+ ],
+ [
+  359,
+  "organizer_bottom",
+  null
+ ],
+ [
+  360,
+  "organizer_top",
+  null
+ ],
+ [
+  361,
+  "organizer_bottom",
+  {
+   "center": 0.5860215053763438,
+   "bottom": 1.00179211469534,
+   "top": 0.17025089605734764,
+   "conf": 0.463,
+   "outside_px": 0
+  }
+ ],
+ [
+  302,
+  "organizer_middle",
+  {
+   "center": 0.5877458396369137,
+   "bottom": 0.7503782148260212,
+   "top": 0.4251134644478063,
+   "conf": 0.612,
+   "outside_px": 0
+  }
+ ],
+ [
+  447,
+  "organizer_top",
+  {
+   "center": 0.4416376306620209,
+   "bottom": 0.7648083623693379,
+   "top": 0.1184668989547038,
+   "conf": 0.866,
+   "outside_px": 0
+  }
+ ],
+ [
+  448,
+  "organizer_top",
+  null
+ ],
+ [
+  449,
+  "organizer_top",
+  {
+   "center": 0.6143617021276594,
+   "bottom": 0.9078014184397161,
+   "top": 0.3209219858156027,
+   "conf": 0.911,
+   "outside_px": 0
+  }
+ ],
+ [
+  450,
+  "organizer_top",
+  {
+   "center": 0.3630849220103987,
+   "bottom": 0.7001733102253035,
+   "top": 0.02599653379549394,
+   "conf": 0.893,
+   "outside_px": 0
+  }
+ ],
+ [
+  451,
+  "organizer_middle",
+  null
+ ],
+ [
+  452,
+  "organizer_bottom",
+  {
+   "center": 0.9750889679715297,
+   "bottom": 1.1174377224199281,
+   "top": 0.8327402135231311,
+   "conf": 0.321,
+   "outside_px": 0
+  }
+ ],
+ [
+  453,
+  "organizer_middle",
+  {
+   "center": 0.45648854961832025,
+   "bottom": 0.96030534351145,
+   "top": -0.04732824427480951,
+   "conf": 0.946,
+   "outside_px": 0
+  }
+ ],
+ [
+  455,
+  "organizer_top",
+  {
+   "center": 0.4778761061946903,
+   "bottom": 0.9203539823008849,
+   "top": 0.035398230088495575,
+   "conf": 0.941,
+   "outside_px": 0
+  }
+ ],
+ [
+  456,
+  "organizer_top",
+  {
+   "center": 0.4615384615384615,
+   "bottom": 0.9038461538461539,
+   "top": 0.019230769230769374,
+   "conf": 0.824,
+   "outside_px": 0
+  }
+ ],
+ [
+  457,
+  "organizer_top",
+  null
+ ],
+ [
+  458,
+  "organizer_middle",
+  {
+   "center": 0.557877813504823,
+   "bottom": 0.927652733118971,
+   "top": 0.18810289389067508,
+   "conf": 0.876,
+   "outside_px": 0
+  }
+ ],
+ [
+  459,
+  "organizer_middle",
+  {
+   "center": 0.5080515297906605,
+   "bottom": 0.8421900161030599,
+   "top": 0.17391304347826106,
+   "conf": 0.481,
+   "outside_px": 0
+  }
+ ],
+ [
+  460,
+  "organizer_middle",
+  {
+   "center": 0.7116613418530354,
+   "bottom": 0.9840255591054313,
+   "top": 0.439297124600639,
+   "conf": 0.913,
+   "outside_px": 0
+  }
+ ],
+ [
+  461,
+  "organizer_top",
+  {
+   "center": 0.6769509981851183,
+   "bottom": 0.9673321234119785,
+   "top": 0.38656987295825795,
+   "conf": 0.867,
+   "outside_px": 0
+  }
+ ],
+ [
+  463,
+  "organizer_bottom",
+  {
+   "center": 0.7007299270072996,
+   "bottom": 1.0583941605839424,
+   "top": 0.34306569343065724,
+   "conf": 0.933,
+   "outside_px": 0
+  }
+ ],
+ [
+  464,
+  "organizer_top",
+  {
+   "center": 0.6867256637168143,
+   "bottom": 0.9805309734513276,
+   "top": 0.392920353982301,
+   "conf": 0.886,
+   "outside_px": 0
+  }
+ ],
+ [
+  465,
+  "organizer_top",
+  null
+ ],
+ [
+  422,
+  "organizer_middle",
+  {
+   "center": 0.7338187702265374,
+   "bottom": 1.0080906148867315,
+   "top": 0.459546925566343,
+   "conf": 0.926,
+   "outside_px": 0
+  }
+ ]
+]

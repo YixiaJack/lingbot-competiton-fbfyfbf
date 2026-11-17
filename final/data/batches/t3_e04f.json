@@ -1,0 +1,178 @@
+{
+ "544_grasp_0": {
+  "ep": 544,
+  "start": 0,
+  "end": 331,
+  "subtask": "grasp",
+  "pan_arm": "left",
+  "kind": "demo",
+  "secs": 11.0,
+  "task": "Grasp the dustpan handle with the left gripper, then grasp the brush handle with the right gripper.",
+  "result": "成功"
+ },
+ "544_sweep_331": {
+  "ep": 544,
+  "start": 331,
+  "end": 607,
+  "subtask": "sweep",
+  "pan_arm": "left",
+  "kind": "demo",
+  "secs": 9.2,
+  "task": "Sweep all the paper balls into the dustpan with the brush.",
+  "result": "成功"
+ },
+ "544_dump_607": {
+  "ep": 544,
+  "start": 607,
+  "end": 765,
+  "subtask": "dump",
+  "pan_arm": "left",
+  "kind": "demo",
+  "secs": 5.3,
+  "task": "Lift the dustpan over the basket and pour the paper balls into the basket.",
+  "result": "成功"
+ },
+ "544_home_765": {
+  "ep": 544,
+  "start": 765,
+  "end": 1055,
+  "subtask": "home",
+  "pan_arm": "left",
+  "kind": "demo",
+  "secs": 9.7,
+  "task": "Put the dustpan and the brush down on the table, then return both arms home and stay still.",
+  "result": "成功"
+ },
+ "545_grasp_0": {
+  "ep": 545,
+  "start": 0,
+  "end": 340,
+  "subtask": "grasp",
+  "pan_arm": "right",
+  "kind": "demo",
+  "secs": 11.3,
+  "task": "Grasp the dustpan handle with the right gripper, then grasp the brush handle with the left gripper.",
+  "result": "成功"
+ },
+ "545_sweep_340": {
+  "ep": 545,
+  "start": 340,
+  "end": 854,
+  "subtask": "sweep",
+  "pan_arm": "right",
+  "kind": "demo",
+  "secs": 17.1,
+  "task": "Sweep all the paper balls into the dustpan with the brush.",
+  "result": "成功"
+ },
+ "545_dump_854": {
+  "ep": 545,
+  "start": 854,
+  "end": 1053,
+  "subtask": "dump",
+  "pan_arm": "right",
+  "kind": "demo",
+  "secs": 6.6,
+  "task": "Lift the dustpan over the basket and pour the paper balls into the basket.",
+  "result": "成功"
+ },
+ "545_home_1053": {
+  "ep": 545,
+  "start": 1053,
+  "end": 1274,
+  "subtask": "home",
+  "pan_arm": "right",
+  "kind": "demo",
+  "secs": 7.4,
+  "task": "Put the dustpan and the brush down on the table, then return both arms home and stay still.",
+  "result": "成功"
+ },
+ "546_grasp_0": {
+  "ep": 546,
+  "start": 0,
+  "end": 393,
+  "subtask": "grasp",
+  "pan_arm": "left",
+  "kind": "demo",
+  "secs": 13.1,
+  "task": "Grasp the dustpan handle with the left gripper, then grasp the brush handle with the right gripper.",
+  "result": "成功"
+ },
+ "546_sweep_393": {
+  "ep": 546,
+  "start": 393,
+  "end": 896,
+  "subtask": "sweep",
+  "pan_arm": "left",
+  "kind": "demo",
+  "secs": 16.8,
+  "task": "Sweep all the paper balls into the dustpan with the brush.",
+  "result": "成功"
+ },
+ "546_dump_896": {
+  "ep": 546,
+  "start": 896,
+  "end": 1164,
+  "subtask": "dump",
+  "pan_arm": "left",
+  "kind": "demo",
+  "secs": 8.9,
+  "task": "Lift the dustpan over the basket and pour the paper balls into the basket.",
+  "result": "成功"
+ },
+ "546_home_1164": {
+  "ep": 546,
+  "start": 1164,
+  "end": 1364,
+  "subtask": "home",
+  "pan_arm": "left",
+  "kind": "demo",
+  "secs": 6.7,
+  "task": "Put the dustpan and the brush down on the table, then return both arms home and stay still.",
+  "result": "成功"
+ },
+ "547_grasp_0": {
+  "ep": 547,
+  "start": 0,
+  "end": 298,
+  "subtask": "grasp",
+  "pan_arm": "right",
+  "kind": "demo",
+  "secs": 9.9,
+  "task": "Grasp the dustpan handle with the right gripper, then grasp the brush handle with the left gripper.",
+  "result": "成功"
+ },
+ "547_sweep_298": {
+  "ep": 547,
+  "start": 298,
+  "end": 562,
+  "subtask": "sweep",
+  "pan_arm": "right",
+  "kind": "demo",
+  "secs": 8.8,
+  "task": "Sweep all the paper balls into the dustpan with the brush.",
+  "result": "成功"
+ },
+ "547_dump_562": {
+  "ep": 547,
+  "start": 562,
+  "end": 940,
+  "subtask": "dump",
+  "pan_arm": "right",
+  "kind": "demo",
+  "secs": 12.6,
+  "task": "Lift the dustpan over the basket and pour the paper balls into the basket.",
+  "result": "成功"
+ },
+ "547_home_940": {
+  "ep": 547,
+  "start": 940,
+  "end": 1154,
+  "subtask": "home",
+  "pan_arm": "right",
+  "kind": "demo",
+  "secs": 7.1,
+  "task": "Put the dustpan and the brush down on the table, then return both arms home and stay still.",
+  "result": "成功"
+ }
+}

@@ -1,0 +1,248 @@
+{
+ "dropped": {
+  "501_0": "the highlighter ends on the front lip of the bottom level, half outside (labelled partial)",
+  "509_0": "3.6 s human segment: the arm only holds the bottle, then the policy resumes"
+ },
+ "segments": {
+  "494_0": {
+   "ep": 494,
+   "start": 899,
+   "end": 1702,
+   "T": 1757,
+   "instruction": "Organize the small black and gold makeup brush into the top compartment.",
+   "result": "部分成功",
+   "human_s": 26.8,
+   "policy_s_before": 30.0,
+   "ee_step_at_end": 0.0041,
+   "grip_range": [
+    0.0,
+    0.48
+   ],
+   "train_instruction": "Put the small black and gold makeup brush in the top compartment."
+  },
+  "495_0": {
+   "ep": 495,
+   "start": 284,
+   "end": 1117,
+   "T": 1117,
+   "instruction": "Organize the small black and gold makeup brush into the top compartment.",
+   "result": "成功",
+   "human_s": 27.8,
+   "policy_s_before": 9.5,
+   "ee_step_at_end": 0.0033,
+   "grip_range": [
+    0.0,
+    0.64
+   ],
+   "train_instruction": "Place the small black and gold makeup brush inside the top level of the organizer."
+  },
+  "496_0": {
+   "ep": 496,
+   "start": 412,
+   "end": 1215,
+   "T": 1215,
+   "instruction": "Organize the small black and gold makeup brush into the top compartment.",
+   "result": "部分成功",
+   "human_s": 26.8,
+   "policy_s_before": 13.7,
+   "ee_step_at_end": 0.0056,
+   "grip_range": [
+    0.0,
+    0.99
+   ],
+   "train_instruction": "Store the small black and gold makeup brush in the top compartment."
+  },
+  "497_0": {
+   "ep": 497,
+   "start": 583,
+   "end": 1614,
+   "T": 1614,
+   "instruction": "Organize the small black and gold makeup brush into the top compartment.",
+   "result": "成功",
+   "human_s": 34.4,
+   "policy_s_before": 19.4,
+   "ee_step_at_end": 0.0013,
+   "grip_range": [
+    0.0,
+    0.99
+   ],
+   "train_instruction": "Organize the small black and gold makeup brush into the top compartment."
+  },
+  "498_0": {
+   "ep": 498,
+   "start": 746,
+   "end": 1344,
+   "T": 1344,
+   "instruction": "Organize the dark-colored round contour compact into the top compartment.",
+   "result": "成功",
+   "human_s": 19.9,
+   "policy_s_before": 24.9,
+   "ee_step_at_end": 0.0015,
+   "grip_range": [
+    0.0,
+    0.99
+   ],
+   "train_instruction": "Take the dark-colored round contour compact and put it in the top section."
+  },
+  "499_0": {
+   "ep": 499,
+   "start": 308,
+   "end": 1126,
+   "T": 1126,
+   "instruction": "Organize the dark-colored round contour compact into the middle compartment.",
+   "result": "成功",
+   "human_s": 27.3,
+   "policy_s_before": 10.3,
+   "ee_step_at_end": 0.0029,
+   "grip_range": [
+    0.0,
+    0.99
+   ],
+   "train_instruction": "Organize the dark-colored round contour compact into the middle compartment."
+  },
+  "502_0": {
+   "ep": 502,
+   "start": 429,
+   "end": 1118,
+   "T": 1118,
+   "instruction": "Organize the beige lotion pump bottle into the top compartment.",
+   "result": "部分成功",
+   "human_s": 23.0,
+   "policy_s_before": 14.3,
+   "ee_step_at_end": 0.0039,
+   "grip_range": [
+    0.0,
+    0.71
+   ],
+   "train_instruction": "Place the beige lotion pump bottle inside the top level of the organizer."
+  },
+  "503_0": {
+   "ep": 503,
+   "start": 545,
+   "end": 1018,
+   "T": 1058,
+   "instruction": "Organize the beige lotion pump bottle into the top compartment.",
+   "result": "成功",
+   "human_s": 15.8,
+   "policy_s_before": 18.2,
+   "ee_step_at_end": 0.0036,
+   "grip_range": [
+    0.0,
+    0.44
+   ],
+   "train_instruction": "Take the beige lotion pump bottle and put it in the top section."
+  },
+  "504_0": {
+   "ep": 504,
+   "start": 453,
+   "end": 868,
+   "T": 868,
+   "instruction": "Organize the beige lotion pump bottle into the middle compartment.",
+   "result": "成功",
+   "human_s": 13.8,
+   "policy_s_before": 15.1,
+   "ee_step_at_end": 0.001,
+   "grip_range": [
+    0.0,
+    0.66
+   ],
+   "train_instruction": "Store the beige lotion pump bottle in the middle compartment."
+  },
+  "505_0": {
+   "ep": 505,
+   "start": 358,
+   "end": 925,
+   "T": 925,
+   "instruction": "Organize the beige lotion pump bottle into the middle compartment.",
+   "result": "成功",
+   "human_s": 18.9,
+   "policy_s_before": 11.9,
+   "ee_step_at_end": 0.0009,
+   "grip_range": [
+    0.0,
+    1.0
+   ],
+   "train_instruction": "Put the beige lotion pump bottle in the middle compartment."
+  },
+  "506_0": {
+   "ep": 506,
+   "start": 477,
+   "end": 950,
+   "T": 950,
+   "instruction": "Organize the beige lotion pump bottle into the middle compartment.",
+   "result": "成功",
+   "human_s": 15.8,
+   "policy_s_before": 15.9,
+   "ee_step_at_end": 0.0003,
+   "grip_range": [
+    0.0,
+    0.56
+   ],
+   "train_instruction": "Take the beige lotion pump bottle and put it in the middle section."
+  },
+  "507_0": {
+   "ep": 507,
+   "start": 279,
+   "end": 841,
+   "T": 841,
+   "instruction": "Organize the beige lotion pump bottle into the middle compartment.",
+   "result": "成功",
+   "human_s": 18.7,
+   "policy_s_before": 9.3,
+   "ee_step_at_end": 0.0002,
+   "grip_range": [
+    0.0,
+    0.91
+   ],
+   "train_instruction": "Put the beige lotion pump bottle in the middle compartment."
+  },
+  "508_0": {
+   "ep": 508,
+   "start": 467,
+   "end": 932,
+   "T": 932,
+   "instruction": "Organize the beige lotion pump bottle into the top compartment.",
+   "result": "成功",
+   "human_s": 15.5,
+   "policy_s_before": 15.6,
+   "ee_step_at_end": 0.0014,
+   "grip_range": [
+    0.0,
+    0.91
+   ],
+   "train_instruction": "Store the beige lotion pump bottle in the top compartment."
+  },
+  "509_1": {
+   "ep": 509,
+   "start": 757,
+   "end": 1724,
+   "T": 1724,
+   "instruction": "Organize the beige lotion pump bottle into the top compartment.",
+   "result": "成功",
+   "human_s": 32.2,
+   "policy_s_before": 25.2,
+   "ee_step_at_end": 0.001,
+   "grip_range": [
+    0.0,
+    0.67
+   ],
+   "train_instruction": "Organize the beige lotion pump bottle into the top compartment."
+  },
+  "510_0": {
+   "ep": 510,
+   "start": 378,
+   "end": 1317,
+   "T": 1336,
+   "instruction": "Organize the beige lotion pump bottle into the top compartment.",
+   "result": "成功",
+   "human_s": 31.3,
+   "policy_s_before": 12.6,
+   "ee_step_at_end": 0.0008,
+   "grip_range": [
+    0.0,
+    0.66
+   ],
+   "train_instruction": "Place the beige lotion pump bottle inside the top level of the organizer."
+  }
+ }
+}

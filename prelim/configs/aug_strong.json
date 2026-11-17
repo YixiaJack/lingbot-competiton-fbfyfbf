@@ -1,0 +1,77 @@
+{
+  "p_identity": 0.3,
+  "brightness": [
+    0.6,
+    1.2
+  ],
+  "contrast": [
+    0.65,
+    1.35
+  ],
+  "saturation": [
+    0.4,
+    1.6
+  ],
+  "color_temp": 0.2,
+  "p_geometric": 0.6,
+  "scale": [
+    0.9,
+    1.1
+  ],
+  "translate": 0.08,
+  "p_blur": 0.4,
+  "gauss_sigma": [
+    0.3,
+    2.0
+  ],
+  "p_motion": 0.3,
+  "motion_kernel": [
+    3,
+    9
+  ],
+  "p_noise": 0.4,
+  "noise_sigma": [
+    0.01,
+    0.06
+  ],
+  "p_salt_pepper": 0.15,
+  "salt_pepper_amount": [
+    0.001,
+    0.008
+  ],
+  "p_cutout": 0.6,
+  "cutout_num": [
+    1,
+    2
+  ],
+  "cutout_area": [
+    0.02,
+    0.12
+  ],
+  "cutout_aspect": [
+    0.5,
+    2.0
+  ],
+  "p_jpeg": 0.4,
+  "jpeg_quality": [
+    20,
+    90
+  ],
+  "p_wrist_drop": 0.4,
+  "wrist_drop_both": 0.5,
+  "p_fourier": 0.95,
+  "p_fourier_cam": 0.68,
+  "fourier_amp": [
+    0.45,
+    1.55
+  ],
+  "fourier_env_strength": [
+    0.0,
+    0.7
+  ],
+  "fourier_env_grid": 8,
+  "fourier_env_range": [
+    0.45,
+    1.55
+  ]
+}

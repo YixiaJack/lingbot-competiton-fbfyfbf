@@ -1,0 +1,133 @@
+{
+ "note": "446 dropped: gripper command stays closed (0.0) through the whole human segment 569-1345: the compact is still held when it ends, the release comes after",
+ "segments": {
+  "439_0": {
+   "ep": 439,
+   "start": 1424,
+   "end": 1993,
+   "T": 2019,
+   "instruction": "Organize the pink makeup puff into the bottom compartment.",
+   "result": "成功",
+   "human_s": 19.0,
+   "policy_s_before": 47.5,
+   "ee_step_at_end": 0.0003,
+   "grip_range": [
+    0.0,
+    0.86
+   ],
+   "train_instruction": "Put the pink makeup puff in the bottom compartment."
+  },
+  "440_0": {
+   "ep": 440,
+   "start": 645,
+   "end": 1026,
+   "T": 1055,
+   "instruction": "Organize the pink makeup puff into the bottom compartment.",
+   "result": "成功",
+   "human_s": 12.7,
+   "policy_s_before": 21.5,
+   "ee_step_at_end": 0.0006,
+   "grip_range": [
+    0.0,
+    0.52
+   ],
+   "train_instruction": "Store the pink makeup puff in the bottom compartment."
+  },
+  "441_0": {
+   "ep": 441,
+   "start": 646,
+   "end": 1213,
+   "T": 1213,
+   "instruction": "Organize the small black and gold makeup brush into the middle compartment.",
+   "result": "成功",
+   "human_s": 18.9,
+   "policy_s_before": 21.5,
+   "ee_step_at_end": 0.0008,
+   "grip_range": [
+    0.0,
+    0.99
+   ],
+   "train_instruction": "Take the small black and gold makeup brush and put it in the middle section."
+  },
+  "442_0": {
+   "ep": 442,
+   "start": 415,
+   "end": 962,
+   "T": 962,
+   "instruction": "Organize the small black and gold makeup brush into the middle compartment.",
+   "result": "成功",
+   "human_s": 18.2,
+   "policy_s_before": 13.8,
+   "ee_step_at_end": 0.0019,
+   "grip_range": [
+    0.0,
+    0.99
+   ],
+   "train_instruction": "Organize the small black and gold makeup brush into the middle compartment."
+  },
+  "443_0": {
+   "ep": 443,
+   "start": 1274,
+   "end": 1792,
+   "T": 1823,
+   "instruction": "Organize the small black and gold makeup brush into the middle compartment.",
+   "result": "成功",
+   "human_s": 17.3,
+   "policy_s_before": 42.5,
+   "ee_step_at_end": 0.0041,
+   "grip_range": [
+    0.0,
+    0.44
+   ],
+   "train_instruction": "Organize the small black and gold makeup brush into the middle compartment."
+  },
+  "444_0": {
+   "ep": 444,
+   "start": 525,
+   "end": 1217,
+   "T": 1270,
+   "instruction": "Organize the dark-colored round contour compact into the top compartment.",
+   "result": "部分成功",
+   "human_s": 23.1,
+   "policy_s_before": 17.5,
+   "ee_step_at_end": 0.0053,
+   "grip_range": [
+    0.0,
+    0.93
+   ],
+   "train_instruction": "Store the dark-colored round contour compact in the top compartment."
+  },
+  "445_0": {
+   "ep": 445,
+   "start": 583,
+   "end": 1014,
+   "T": 1037,
+   "instruction": "Organize the dark-colored round contour compact into the top compartment.",
+   "result": "部分成功",
+   "human_s": 14.4,
+   "policy_s_before": 19.4,
+   "ee_step_at_end": 0.001,
+   "grip_range": [
+    0.0,
+    0.67
+   ],
+   "train_instruction": "Put the dark-colored round contour compact in the top compartment."
+  },
+  "454_0": {
+   "ep": 454,
+   "start": 487,
+   "end": 923,
+   "T": 964,
+   "instruction": "Organize the dark-colored round contour compact into the top compartment.",
+   "result": "成功",
+   "human_s": 14.5,
+   "policy_s_before": 16.2,
+   "ee_step_at_end": 0.0015,
+   "grip_range": [
+    0.0,
+    0.92
+   ],
+   "train_instruction": "Place the dark-colored round contour compact inside the top level of the organizer."
+  }
+ }
+}

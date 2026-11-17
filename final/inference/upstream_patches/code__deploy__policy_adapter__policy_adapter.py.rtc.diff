@@ -1,0 +1,116 @@
+--- original/code/deploy/policy_adapter/policy_adapter.py	2026-11-01 01:03:56.233132800 +0800
++++ patched/code/deploy/policy_adapter/policy_adapter.py	2026-11-15 17:55:15.810319737 +0800
+@@ -15,6 +15,25 @@
+ from utils.data_define import ActionChunk, ModelInput
+ from utils.canonical_keys import ACTION_KEYS, STATE_KEYS
+ 
++import logging as _rtc_logging
++
++# Team patch (p10 RTC, experiments/async_rtc): async + real-time chunking for RTC-trained checkpoints.
++_RTC_MAX_PREFIX = 24   # largest prefix the RTC-trained checkpoints saw in training (LB_RTC_MAX_DELAY)
++_rtc_log = _rtc_logging.getLogger("lingbot_infer")
++
++
++def _rtc_ckpt_ok(model_path) -> tuple[bool, str]:
++    path = Path(str(model_path))
++    if (path / "rtc_trained.json").is_file():
++        return True, "rtc_trained.json"
++    allow = Path.home() / "rtc" / "allow.txt"
++    if allow.is_file():
++        for line in allow.read_text().splitlines():
++            line = line.strip()
++            if line and not line.startswith("#") and line in str(path):
++                return True, f"allow.txt: {line}"
++    return False, "no rtc_trained.json and not in ~/rtc/allow.txt"
++
+ 
+ def _load_symbol(entrypoint: str) -> type[Any]:
+     module_name, class_name = entrypoint.split(":", 1)
+@@ -210,6 +229,31 @@
+     def _reset_native(self) -> None:
+         self._native.reset(robo_name="agilex_cobot_magic")
+ 
++    def validate_rtc(self, *, refill_threshold: int, action_hz: float) -> None:
++        # Team patch (p10 RTC): config errors refuse START; a checkpoint without RTC training runs plain async.
++        if refill_threshold > _RTC_MAX_PREFIX:
++            raise ValueError(f"RTC: refill_threshold {refill_threshold} > trained prefix maximum {_RTC_MAX_PREFIX}")
++        if self._use_length < 2 * refill_threshold:
++            raise ValueError(f"RTC: use_length {self._use_length} must be >= 2 * refill_threshold {refill_threshold}")
++        self._rtc_ok, why = _rtc_ckpt_ok(self.config.model_path)
++        if self._rtc_ok:
++            _rtc_log.info("RTC on: refill_threshold=%s use_length=%s action_hz=%s (%s)",
++                          refill_threshold, self._use_length, action_hz, why)
++        else:
++            _rtc_log.warning("RTC requested but the checkpoint is not marked RTC-trained (%s): async WITHOUT prefix", why)
++
++    def _rtc_prefix(self, rtc_prefix_len, prev_action_chunk):
++        d = int(rtc_prefix_len or 0)
++        if d <= 0 or prev_action_chunk is None or not getattr(self, "_rtc_ok", False):
++            return None
++        d = min(d, prev_action_chunk.chunk_length, _RTC_MAX_PREFIX)
++        acts = prev_action_chunk.actions
++        arm = np.concatenate([np.asarray(acts[ACTION_KEYS[f"{s}_arm.position"]], dtype=np.float32)[:d]
++                              for s in self._arm_sides], axis=1)
++        effector = np.concatenate([np.asarray(acts[ACTION_KEYS[f"{s}_gripper.position"]], dtype=np.float32)[:d]
++                                   for s in self._arm_sides], axis=1)
++        return {"d": d, "action.arm.position": arm, "action.effector.position": effector}
++
+     def init(self, robot_config: RobotConfig, task: str | None) -> None:
+         if robot_config.type != "songling":
+             raise ValueError("LingBot VLA v2 deployment only supports songling")
+@@ -260,8 +304,10 @@
+         rtc_prefix_len: int | None = None,
+         prev_action_chunk: ActionChunk | None = None,
+     ) -> object | None:
++        rtc = None
+         if rtc_prefix_len is not None or prev_action_chunk is not None:
+-            raise ValueError("The official LingBot VLA v2 runtime does not support RTC")
++            # Team patch (p10 RTC): the executing chunk's remaining actions become the fixed prefix
++            rtc = self._rtc_prefix(rtc_prefix_len, prev_action_chunk)
+         if self._native is None or self._feature_transform is None:
+             raise RuntimeError("Policy.init() must be called before preprocess()")
+         # 官方实现没有 observe/history 接口，中间控制步不执行模型调用。
+@@ -300,6 +346,8 @@
+         ):
+             observation[key] = np.zeros((horizon, width), dtype=np.float32)
+             observation[f"{key}_is_pad"] = np.zeros(horizon, dtype=bool)
++        if rtc is not None:
++            observation["__rtc_prefix__"] = rtc
+         return observation
+ 
+     def postprocess(self, model_output: object) -> ActionChunk:
+@@ -326,12 +374,28 @@
+         chunk = ActionChunk(actions=actions)
+         if chunk.chunk_length < self._use_length:
+             raise ValueError("Native output is shorter than use_length")
+-        return ActionChunk(
+-            actions={
+-                key: value[: self._use_length].copy()
+-                for key, value in chunk.actions.items()
+-            }
+-        )
++        out_actions = {
++            key: value[: self._use_length].copy()
++            for key, value in chunk.actions.items()
++        }
++        # Team patch (actsmooth, 11/15): per-chunk arm smoothing + gripper gate. Mode file ~/actsmooth/mode.
++        try:
++            if getattr(self, "_actsmooth", None) is None:
++                import sys as _sys
++                _p = os.path.expanduser("~/actsmooth")
++                if _p not in _sys.path:
++                    _sys.path.insert(0, _p)
++                import actsmooth as _actsmooth_mod
++                self._actsmooth = _actsmooth_mod.Smoother(os.path.expanduser("~/workspace/lingbot/inference/logs"))
++            out_actions = self._actsmooth.apply(
++                out_actions,
++                [ACTION_KEYS[f"{s}_arm.position"] for s in self._arm_sides],
++                [ACTION_KEYS[f"{s}_gripper.position"] for s in self._arm_sides],
++                task=getattr(self, "_task", None),
++            )
++        except Exception:
++            _rtc_logging.getLogger("lingbot_infer").exception("actsmooth failed; raw chunk used")
++        return ActionChunk(actions=out_actions)
+ 
+     def shutdown(self) -> None:
+         self._feature_transform = None

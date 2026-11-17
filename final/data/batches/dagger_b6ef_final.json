@@ -1,0 +1,247 @@
+{
+ "note": "424 dropped: human segment ends at f815 with the bottle still in the gripper and the arm moving (ee step 0.0087); the rest of the episode is policy",
+ "segments": {
+  "423_0": {
+   "ep": 423,
+   "start": 345,
+   "end": 889,
+   "T": 910,
+   "instruction": "Take the beige lotion pump bottle and put it in the middle section.",
+   "result": "部分成功",
+   "human_s": 18.1,
+   "policy_s_before": 11.5,
+   "ee_step_at_end": 0.0016,
+   "grip_range": [
+    0.0,
+    0.99
+   ],
+   "train_instruction": "Place the beige lotion pump bottle inside the middle level of the organizer."
+  },
+  "425_0": {
+   "ep": 425,
+   "start": 683,
+   "end": 1398,
+   "T": 1398,
+   "instruction": "Take the black lipstick with a clear cap and put it in the top section.",
+   "result": "部分成功",
+   "human_s": 23.8,
+   "policy_s_before": 22.8,
+   "ee_step_at_end": 0.0049,
+   "grip_range": [
+    0.0,
+    0.99
+   ],
+   "train_instruction": "Put the black lipstick with a clear cap in the top compartment."
+  },
+  "426_0": {
+   "ep": 426,
+   "start": 484,
+   "end": 975,
+   "T": 975,
+   "instruction": "Take the black lipstick with a clear cap and put it in the top section.",
+   "result": "成功",
+   "human_s": 16.4,
+   "policy_s_before": 16.1,
+   "ee_step_at_end": 0.0053,
+   "grip_range": [
+    0.0,
+    1.0
+   ],
+   "train_instruction": "Place the black lipstick with a clear cap inside the top level of the organizer."
+  },
+  "427_0": {
+   "ep": 427,
+   "start": 362,
+   "end": 900,
+   "T": 932,
+   "instruction": "Take the black lipstick with a clear cap and put it in the top section.",
+   "result": "成功",
+   "human_s": 17.9,
+   "policy_s_before": 12.1,
+   "ee_step_at_end": 0.0016,
+   "grip_range": [
+    0.0,
+    0.99
+   ],
+   "train_instruction": "Organize the black lipstick with a clear cap into the top compartment."
+  },
+  "428_0": {
+   "ep": 428,
+   "start": 373,
+   "end": 845,
+   "T": 880,
+   "instruction": "Take the black lipstick with a clear cap and put it in the top section.",
+   "result": "成功",
+   "human_s": 15.7,
+   "policy_s_before": 12.4,
+   "ee_step_at_end": 0.0016,
+   "grip_range": [
+    0.0,
+    0.99
+   ],
+   "train_instruction": "Store the black lipstick with a clear cap in the top compartment."
+  },
+  "429_0": {
+   "ep": 429,
+   "start": 380,
+   "end": 1206,
+   "T": 1231,
+   "instruction": "Take the black lipstick with a clear cap and put it in the top section.",
+   "result": "部分成功",
+   "human_s": 27.5,
+   "policy_s_before": 12.7,
+   "ee_step_at_end": 0.0015,
+   "grip_range": [
+    0.0,
+    0.99
+   ],
+   "train_instruction": "Organize the black lipstick with a clear cap into the top compartment."
+  },
+  "430_0": {
+   "ep": 430,
+   "start": 410,
+   "end": 1033,
+   "T": 1066,
+   "instruction": "Organize the beige lotion pump bottle into the top compartment.",
+   "result": "成功",
+   "human_s": 20.8,
+   "policy_s_before": 13.7,
+   "ee_step_at_end": 0.0005,
+   "grip_range": [
+    0.0,
+    0.99
+   ],
+   "train_instruction": "Store the beige lotion pump bottle in the top compartment."
+  },
+  "431_0": {
+   "ep": 431,
+   "start": 633,
+   "end": 1242,
+   "T": 1242,
+   "instruction": "Organize the beige lotion pump bottle into the bottom compartment.",
+   "result": "成功",
+   "human_s": 20.3,
+   "policy_s_before": 21.1,
+   "ee_step_at_end": 0.0004,
+   "grip_range": [
+    0.0,
+    0.61
+   ],
+   "train_instruction": "Take the beige lotion pump bottle and put it in the bottom section."
+  },
+  "432_0": {
+   "ep": 432,
+   "start": 1237,
+   "end": 1875,
+   "T": 1932,
+   "instruction": "Organize the beige lotion pump bottle into the top compartment.",
+   "result": "部分成功",
+   "human_s": 21.3,
+   "policy_s_before": 41.2,
+   "ee_step_at_end": 0.0009,
+   "grip_range": [
+    0.0,
+    0.99
+   ],
+   "note": "end cut to 1875: a human hand enters at the right edge between f1881 and f1890",
+   "train_instruction": "Take the beige lotion pump bottle and put it in the top section."
+  },
+  "433_0": {
+   "ep": 433,
+   "start": 596,
+   "end": 1122,
+   "T": 1122,
+   "instruction": "Organize the beige lotion pump bottle into the top compartment.",
+   "result": "成功",
+   "human_s": 17.5,
+   "policy_s_before": 19.9,
+   "ee_step_at_end": 0.0003,
+   "grip_range": [
+    0.0,
+    0.71
+   ],
+   "train_instruction": "Place the beige lotion pump bottle inside the top level of the organizer."
+  },
+  "434_0": {
+   "ep": 434,
+   "start": 421,
+   "end": 892,
+   "T": 892,
+   "instruction": "Organize the beige lotion pump bottle into the top compartment.",
+   "result": "成功",
+   "human_s": 15.7,
+   "policy_s_before": 14.0,
+   "ee_step_at_end": 0.0017,
+   "grip_range": [
+    0.0,
+    0.99
+   ],
+   "train_instruction": "Take the beige lotion pump bottle and put it in the top section."
+  },
+  "435_0": {
+   "ep": 435,
+   "start": 495,
+   "end": 881,
+   "T": 881,
+   "instruction": "Organize the beige lotion pump bottle into the top compartment.",
+   "result": "成功",
+   "human_s": 12.9,
+   "policy_s_before": 16.5,
+   "ee_step_at_end": 0.0015,
+   "grip_range": [
+    0.0,
+    0.73
+   ],
+   "train_instruction": "Store the beige lotion pump bottle in the top compartment."
+  },
+  "436_0": {
+   "ep": 436,
+   "start": 528,
+   "end": 961,
+   "T": 961,
+   "instruction": "Organize the beige lotion pump bottle into the top compartment.",
+   "result": "成功",
+   "human_s": 14.4,
+   "policy_s_before": 17.6,
+   "ee_step_at_end": 0.0002,
+   "grip_range": [
+    0.0,
+    0.75
+   ],
+   "train_instruction": "Organize the beige lotion pump bottle into the top compartment."
+  },
+  "437_0": {
+   "ep": 437,
+   "start": 728,
+   "end": 1106,
+   "T": 1106,
+   "instruction": "Organize the large black and gold makeup brush into the middle compartment.",
+   "result": "成功",
+   "human_s": 12.6,
+   "policy_s_before": 24.3,
+   "ee_step_at_end": 0.0005,
+   "grip_range": [
+    0.0,
+    0.99
+   ],
+   "train_instruction": "Put the large black and gold makeup brush in the middle compartment."
+  },
+  "438_0": {
+   "ep": 438,
+   "start": 467,
+   "end": 800,
+   "T": 1001,
+   "instruction": "Organize the large black and gold makeup brush into the middle compartment.",
+   "result": "部分成功",
+   "human_s": 11.1,
+   "policy_s_before": 15.6,
+   "ee_step_at_end": 0.0006,
+   "grip_range": [
+    0.0,
+    0.58
+   ],
+   "note": "end cut to 800: a human hand reaches into the organizer from f805-817",
+   "train_instruction": "Put the large black and gold makeup brush in the middle compartment."
+  }
+ }
+}

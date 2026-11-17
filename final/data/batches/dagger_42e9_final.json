@@ -1,0 +1,421 @@
+{
+ "343_0": {
+  "ep": 343,
+  "start": 323,
+  "end": 950,
+  "T": 950,
+  "instruction": "Take the beige lotion pump bottle and put it in the middle section.",
+  "result": "成功",
+  "human_s": 20.9,
+  "policy_s_before": 10.8,
+  "ee_step_at_end": 0.0001,
+  "grip_range": [
+   0.0,
+   0.99
+  ],
+  "train_instruction": "Store the beige lotion pump bottle in the middle compartment."
+ },
+ "344_0": {
+  "ep": 344,
+  "start": 567,
+  "end": 969,
+  "T": 969,
+  "instruction": "Take the beige lotion pump bottle and put it in the middle section.",
+  "result": "部分成功",
+  "human_s": 13.4,
+  "policy_s_before": 18.9,
+  "ee_step_at_end": 0.0005,
+  "grip_range": [
+   0.0,
+   0.93
+  ],
+  "train_instruction": "Store the beige lotion pump bottle in the middle compartment."
+ },
+ "345_0": {
+  "ep": 345,
+  "start": 468,
+  "end": 820,
+  "T": 850,
+  "instruction": "Take the beige lotion pump bottle and put it in the middle section.",
+  "result": "部分成功",
+  "human_s": 12.7,
+  "policy_s_before": 15.6,
+  "ee_step_at_end": 0.0006,
+  "grip_range": [
+   0.0,
+   0.75
+  ],
+  "note": "end cut to 820: a human hand enters at the right edge from f845",
+  "train_instruction": "Organize the beige lotion pump bottle into the middle compartment."
+ },
+ "346_0": {
+  "ep": 346,
+  "start": 277,
+  "end": 960,
+  "T": 960,
+  "instruction": "Take the beige lotion pump bottle and put it in the middle section.",
+  "result": "成功",
+  "human_s": 22.8,
+  "policy_s_before": 9.2,
+  "ee_step_at_end": 0.0021,
+  "grip_range": [
+   0.0,
+   1.0
+  ],
+  "train_instruction": "Take the beige lotion pump bottle and put it in the middle section."
+ },
+ "347_0": {
+  "ep": 347,
+  "start": 473,
+  "end": 956,
+  "T": 980,
+  "instruction": "Take the black lipstick with a clear cap and put it in the top section.",
+  "result": "部分成功",
+  "human_s": 16.1,
+  "policy_s_before": 15.8,
+  "ee_step_at_end": 0.0003,
+  "grip_range": [
+   0.0,
+   0.99
+  ],
+  "train_instruction": "Organize the black lipstick with a clear cap into the top compartment."
+ },
+ "348_0": {
+  "ep": 348,
+  "start": 407,
+  "end": 1284,
+  "T": 1305,
+  "instruction": "Take the black lipstick with a clear cap and put it in the top section.",
+  "result": "部分成功",
+  "human_s": 29.2,
+  "policy_s_before": 13.6,
+  "ee_step_at_end": 0.0014,
+  "grip_range": [
+   0.0,
+   0.99
+  ],
+  "train_instruction": "Organize the black lipstick with a clear cap into the top compartment."
+ },
+ "349_0": {
+  "ep": 349,
+  "start": 441,
+  "end": 965,
+  "T": 1006,
+  "instruction": "Take the pink makeup puff and put it in the top section.",
+  "result": "成功",
+  "human_s": 17.5,
+  "policy_s_before": 14.7,
+  "ee_step_at_end": 0.001,
+  "grip_range": [
+   0.0,
+   0.76
+  ],
+  "train_instruction": "Store the pink makeup puff in the top compartment."
+ },
+ "350_0": {
+  "ep": 350,
+  "start": 341,
+  "end": 1077,
+  "T": 1100,
+  "instruction": "Take the pink makeup puff and put it in the middle section.",
+  "result": "成功",
+  "human_s": 24.5,
+  "policy_s_before": 11.4,
+  "ee_step_at_end": 0.0017,
+  "grip_range": [
+   0.0,
+   1.0
+  ],
+  "train_instruction": "Put the pink makeup puff in the middle compartment."
+ },
+ "351_0": {
+  "ep": 351,
+  "start": 786,
+  "end": 1326,
+  "T": 1326,
+  "instruction": "Take the rectangular multicolor eyeshadow palette and put it in the middle section.",
+  "result": "部分成功",
+  "human_s": 18.0,
+  "policy_s_before": 26.2,
+  "ee_step_at_end": 0.0008,
+  "grip_range": [
+   0.0,
+   0.87
+  ],
+  "note": "palette stands upright in the middle level (checked zoomed)",
+  "train_instruction": "Organize the rectangular multicolor eyeshadow palette into the middle compartment."
+ },
+ "352_0": {
+  "ep": 352,
+  "start": 542,
+  "end": 1355,
+  "T": 1404,
+  "instruction": "Take the light-colored round highlighter compact and put it in the middle section.",
+  "result": "部分成功",
+  "human_s": 27.1,
+  "policy_s_before": 18.1,
+  "ee_step_at_end": 0.0013,
+  "grip_range": [
+   0.0,
+   1.0
+  ],
+  "train_instruction": "Place the light-colored round highlighter compact inside the middle level of the organizer."
+ },
+ "353_0": {
+  "ep": 353,
+  "start": 650,
+  "end": 1190,
+  "T": 1226,
+  "instruction": "Take the light-colored round highlighter compact and put it in the middle section.",
+  "result": "成功",
+  "human_s": 18.0,
+  "policy_s_before": 21.7,
+  "ee_step_at_end": 0.0014,
+  "grip_range": [
+   0.0,
+   0.71
+  ],
+  "train_instruction": "Place the light-colored round highlighter compact inside the middle level of the organizer."
+ },
+ "354_0": {
+  "ep": 354,
+  "start": 470,
+  "end": 1240,
+  "T": 1240,
+  "instruction": "Take the black round glitter compact and put it in the top section.",
+  "result": "部分成功",
+  "human_s": 25.7,
+  "policy_s_before": 15.7,
+  "ee_step_at_end": 0.0018,
+  "grip_range": [
+   0.0,
+   0.99
+  ],
+  "train_instruction": "Put the black round glitter compact in the top compartment."
+ },
+ "355_0": {
+  "ep": 355,
+  "start": 637,
+  "end": 1042,
+  "T": 1068,
+  "instruction": "Take the black round glitter compact and put it in the top section.",
+  "result": "部分成功",
+  "human_s": 13.5,
+  "policy_s_before": 21.2,
+  "ee_step_at_end": 0.0012,
+  "grip_range": [
+   0.0,
+   0.85
+  ],
+  "train_instruction": "Put the black round glitter compact in the top compartment."
+ },
+ "356_0": {
+  "ep": 356,
+  "start": 372,
+  "end": 1253,
+  "T": 1298,
+  "instruction": "Take the rectangular multicolor eyeshadow palette and put it in the top section.",
+  "result": "部分成功",
+  "human_s": 29.4,
+  "policy_s_before": 12.4,
+  "ee_step_at_end": 0.0012,
+  "grip_range": [
+   0.0,
+   0.98
+  ],
+  "train_instruction": "Store the rectangular multicolor eyeshadow palette in the top compartment."
+ },
+ "362_0": {
+  "ep": 362,
+  "start": 415,
+  "end": 1084,
+  "T": 1084,
+  "instruction": "Take the dark-colored round contour compact and put it in the middle section.",
+  "result": "部分成功",
+  "human_s": 22.3,
+  "policy_s_before": 13.8,
+  "ee_step_at_end": 0.0003,
+  "grip_range": [
+   0.0,
+   0.99
+  ],
+  "train_instruction": "Put the dark-colored round contour compact in the middle compartment."
+ },
+ "363_0": {
+  "ep": 363,
+  "start": 404,
+  "end": 864,
+  "T": 864,
+  "instruction": "Take the dark-colored round contour compact and put it in the middle section.",
+  "result": "部分成功",
+  "human_s": 15.3,
+  "policy_s_before": 13.5,
+  "ee_step_at_end": 0.0008,
+  "grip_range": [
+   0.0,
+   0.99
+  ],
+  "train_instruction": "Take the dark-colored round contour compact and put it in the middle section."
+ },
+ "364_0": {
+  "ep": 364,
+  "start": 474,
+  "end": 945,
+  "T": 945,
+  "instruction": "Take the dark-colored round contour compact and put it in the bottom section.",
+  "result": "成功",
+  "human_s": 15.7,
+  "policy_s_before": 15.8,
+  "ee_step_at_end": 0.0009,
+  "grip_range": [
+   0.0,
+   0.74
+  ],
+  "train_instruction": "Take the dark-colored round contour compact and put it in the bottom section."
+ },
+ "365_0": {
+  "ep": 365,
+  "start": 635,
+  "end": 1052,
+  "T": 1091,
+  "instruction": "Take the pink makeup puff and put it in the top section.",
+  "result": "部分成功",
+  "human_s": 13.9,
+  "policy_s_before": 21.2,
+  "ee_step_at_end": 0.0015,
+  "grip_range": [
+   0.0,
+   0.83
+  ],
+  "train_instruction": "Place the pink makeup puff inside the top level of the organizer."
+ },
+ "366_0": {
+  "ep": 366,
+  "start": 598,
+  "end": 1054,
+  "T": 1054,
+  "instruction": "Take the pink makeup puff and put it in the middle section.",
+  "result": "成功",
+  "human_s": 15.2,
+  "policy_s_before": 19.9,
+  "ee_step_at_end": 0.0003,
+  "grip_range": [
+   0.0,
+   0.68
+  ],
+  "train_instruction": "Organize the pink makeup puff into the middle compartment."
+ },
+ "367_0": {
+  "ep": 367,
+  "start": 455,
+  "end": 1231,
+  "T": 1254,
+  "instruction": "Take the pink makeup puff and put it in the bottom section.",
+  "result": "成功",
+  "human_s": 25.9,
+  "policy_s_before": 15.2,
+  "ee_step_at_end": 0.0002,
+  "grip_range": [
+   0.0,
+   1.0
+  ],
+  "train_instruction": "Place the pink makeup puff inside the bottom level of the organizer."
+ },
+ "368_0": {
+  "ep": 368,
+  "start": 765,
+  "end": 1444,
+  "T": 1474,
+  "instruction": "Take the small black and gold makeup brush and put it in the bottom section.",
+  "result": "部分成功",
+  "human_s": 22.6,
+  "policy_s_before": 25.5,
+  "ee_step_at_end": 0.0009,
+  "grip_range": [
+   0.0,
+   0.8
+  ],
+  "train_instruction": "Put the small black and gold makeup brush in the bottom compartment."
+ },
+ "369_0": {
+  "ep": 369,
+  "start": 455,
+  "end": 1167,
+  "T": 1167,
+  "instruction": "Take the small black and gold makeup brush and put it in the bottom section.",
+  "result": "成功",
+  "human_s": 23.7,
+  "policy_s_before": 15.2,
+  "ee_step_at_end": 0.0009,
+  "grip_range": [
+   0.0,
+   0.55
+  ],
+  "train_instruction": "Place the small black and gold makeup brush inside the bottom level of the organizer."
+ },
+ "370_0": {
+  "ep": 370,
+  "start": 323,
+  "end": 861,
+  "T": 861,
+  "instruction": "Take the small black and gold makeup brush and put it in the middle section.",
+  "result": "部分成功",
+  "human_s": 17.9,
+  "policy_s_before": 10.8,
+  "ee_step_at_end": 0.001,
+  "grip_range": [
+   0.0,
+   0.62
+  ],
+  "train_instruction": "Put the small black and gold makeup brush in the middle compartment."
+ },
+ "371_0": {
+  "ep": 371,
+  "start": 431,
+  "end": 880,
+  "T": 982,
+  "instruction": "Take the small black and gold makeup brush and put it in the middle section.",
+  "result": "部分成功",
+  "human_s": 17.7,
+  "policy_s_before": 14.4,
+  "ee_step_at_end": 0.0047,
+  "grip_range": [
+   0.0,
+   0.99
+  ],
+  "note": "end cut to 880: brush already placed in the middle level by the robot; a human hand enters at f920 and takes it out",
+  "train_instruction": "Take the small black and gold makeup brush and put it in the middle section."
+ },
+ "372_0": {
+  "ep": 372,
+  "start": 415,
+  "end": 1714,
+  "T": 1740,
+  "instruction": "Take the small black and gold makeup brush and put it in the middle section.",
+  "result": "部分成功",
+  "human_s": 43.3,
+  "policy_s_before": 13.8,
+  "ee_step_at_end": 0.0007,
+  "grip_range": [
+   0.0,
+   0.99
+  ],
+  "train_instruction": "Take the small black and gold makeup brush and put it in the middle section."
+ },
+ "373_0": {
+  "ep": 373,
+  "start": 887,
+  "end": 1399,
+  "T": 1425,
+  "instruction": "Take the small black and gold makeup brush and put it in the middle section.",
+  "result": "部分成功",
+  "human_s": 17.1,
+  "policy_s_before": 29.6,
+  "ee_step_at_end": 0.0005,
+  "grip_range": [
+   0.0,
+   0.65
+  ],
+  "train_instruction": "Store the small black and gold makeup brush in the middle compartment."
+ }
+}

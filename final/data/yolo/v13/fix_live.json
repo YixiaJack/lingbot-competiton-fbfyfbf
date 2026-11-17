@@ -1,0 +1,13 @@
+{
+ "20261115_080608": {"drop": [7], "why": "7 = colour blob (shadow beside the bell pepper); v12 labels all correct now"},
+ "20261115_103619": {"why": "v12 labels all correct now (red chili 0.92)"},
+ "20261115_112038": {"why": "v12 labels all correct now (mangosteen 0.92)"},
+ "20261115_172346": {"set": {"5": "pear"}, "drop": [8, 9], "why": "5 = yellow pear at the right edge (v12: potato 0.59); 7 lemon correct; 8/9 empty blobs"},
+ "20261115_172432": {"set": {"4": "pear", "5": "mango"}, "why": "4 = the pear (v12: potato 0.67); 5 = mango (low box, v12 hint potato 0.16)"},
+ "20261115_172549": {"set": {"5": "pear"}, "why": "5 = the same pear (v12: papaya 0.62); no lemon in this scene although the instruction asks for one"},
+ "20261115_173022": {"set": {"5": "pear"}, "why": "same scene as 172549"},
+ "20261115_175132": {"why": "6 pomegranate (0.44) and 7 red_delicious (0.32) are the right classes, low confidence"},
+ "20261115_175219": {"set": {"7": "red_apple"}, "why": "7 = red apple on its side (bright red, yellow stem end; our tomato prop is orange with a green calyx), v12 called it a second red_delicious -> ambiguous"},
+ "20261115_175700": {"drop": [8], "why": "6 red_delicious 0.44 and 7 pomegranate 0.39 correct; 8 empty blob"},
+ "20261115_180359": {"set": {"7": "persimmon"}, "why": "7 = persimmon with the calyx turned away (v12: orange 0.89); 3 = orange (navel dimple)"}
+}

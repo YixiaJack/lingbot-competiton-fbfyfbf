@@ -1,0 +1,14 @@
+--- original/code/deploy/utils/arguments.py	2026-11-01 01:03:15.853618100 +0800
++++ patched/code/deploy/utils/arguments.py	2026-11-14 23:42:45.873415466 +0800
+@@ -533,10 +533,7 @@
+                 raise ValueError(
+                     "RTC does not support converted control-space prefixes"
+                 )
+-            if self.scheduler.async_pipeline.rtc_enabled:
+-                raise ValueError(
+-                    "The official LingBot VLA v2 runtime does not support RTC"
+-                )
++            # Team patch (p10 RTC): the patched LingBot adapter supports RTC and checks it in validate_rtc
+             if self.scheduler.transition_steps > 0:
+                 # Keep the fallback aligned with BasePolicy's native crop default.
+                 use_length = self.policy.options.get("use_length", 1)

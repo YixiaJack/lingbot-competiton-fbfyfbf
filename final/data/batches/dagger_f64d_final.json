@@ -1,0 +1,181 @@
+{
+ "note": "406 dropped: persimmon ended on the white plate, instruction says pink",
+ "segments": {
+  "389_0": {
+   "ep": 389,
+   "start": 581,
+   "end": 1090,
+   "T": 1090,
+   "instruction": "Pick up the red chili pepper and place it on the white plate.",
+   "result": "成功",
+   "human_s": 17.0,
+   "policy_s_before": 19.4,
+   "ee_step_at_end": 0.0008,
+   "grip_range": [
+    0.0,
+    0.56
+   ],
+   "train_instruction": "Put the red chili pepper on the white plate."
+  },
+  "390_0": {
+   "ep": 390,
+   "start": 372,
+   "end": 1023,
+   "T": 1023,
+   "instruction": "Pick up the carrot and place it on the blue plate.",
+   "result": "部分成功",
+   "human_s": 21.7,
+   "policy_s_before": 12.4,
+   "ee_step_at_end": 0.0002,
+   "grip_range": [
+    0.0,
+    0.99
+   ],
+   "train_instruction": "Place the carrot on the blue plate."
+  },
+  "401_0": {
+   "ep": 401,
+   "start": 338,
+   "end": 1005,
+   "T": 1035,
+   "instruction": "Pick up the bell pepper and place it on the white plate.",
+   "result": "部分成功",
+   "human_s": 22.2,
+   "policy_s_before": 11.3,
+   "ee_step_at_end": 0.0016,
+   "grip_range": [
+    0.0,
+    0.99
+   ],
+   "train_instruction": "Move the bell pepper onto the white plate."
+  },
+  "402_0": {
+   "ep": 402,
+   "start": 291,
+   "end": 914,
+   "T": 940,
+   "instruction": "Pick up the bell pepper and place it on the white plate.",
+   "result": "部分成功",
+   "human_s": 20.8,
+   "policy_s_before": 9.7,
+   "ee_step_at_end": 0.0017,
+   "grip_range": [
+    0.0,
+    0.99
+   ],
+   "train_instruction": "Could you put the bell pepper on the white plate?"
+  },
+  "403_0": {
+   "ep": 403,
+   "start": 310,
+   "end": 836,
+   "T": 947,
+   "instruction": "Pick up the bell pepper and place it on the blue plate.",
+   "result": "部分成功",
+   "human_s": 17.5,
+   "policy_s_before": 10.3,
+   "ee_step_at_end": 0.0017,
+   "grip_range": [
+    0.0,
+    0.99
+   ],
+   "train_instruction": "Pick up the bell pepper and place it on the blue plate."
+  },
+  "404_0": {
+   "ep": 404,
+   "start": 393,
+   "end": 1064,
+   "T": 1091,
+   "instruction": "Pick up the carrot and place it on the yellow plate.",
+   "result": "部分成功",
+   "human_s": 22.4,
+   "policy_s_before": 13.1,
+   "ee_step_at_end": 0.0022,
+   "grip_range": [
+    0.0,
+    0.99
+   ],
+   "train_instruction": "Could you put the carrot on the yellow plate?"
+  },
+  "405_0": {
+   "ep": 405,
+   "start": 331,
+   "end": 1008,
+   "T": 1039,
+   "instruction": "Pick up the pumpkin and place it on the white plate.",
+   "result": "成功",
+   "human_s": 22.6,
+   "policy_s_before": 11.0,
+   "ee_step_at_end": 0.0013,
+   "grip_range": [
+    0.0,
+    1.0
+   ],
+   "train_instruction": "Move the pumpkin onto the white plate."
+  },
+  "407_0": {
+   "ep": 407,
+   "start": 354,
+   "end": 936,
+   "T": 936,
+   "instruction": "Pick up the orange and place it on the purple plate.",
+   "result": "成功",
+   "human_s": 19.4,
+   "policy_s_before": 11.8,
+   "ee_step_at_end": 0.0015,
+   "grip_range": [
+    0.0,
+    1.0
+   ],
+   "train_instruction": "Put the orange on the purple plate."
+  },
+  "408_0": {
+   "ep": 408,
+   "start": 312,
+   "end": 980,
+   "T": 1018,
+   "instruction": "Pick up the orange and place it on the white plate.",
+   "result": "成功",
+   "human_s": 22.3,
+   "policy_s_before": 10.4,
+   "ee_step_at_end": 0.002,
+   "grip_range": [
+    0.0,
+    1.0
+   ],
+   "train_instruction": "Move the orange onto the white plate."
+  },
+  "410_0": {
+   "ep": 410,
+   "start": 461,
+   "end": 1125,
+   "T": 1160,
+   "instruction": "Pick up the grapes and place it on the purple plate.",
+   "result": "成功",
+   "human_s": 22.1,
+   "policy_s_before": 15.4,
+   "ee_step_at_end": 0.0016,
+   "grip_range": [
+    0.0,
+    1.0
+   ],
+   "train_instruction": "Place the bunch of grapes on the purple plate."
+  },
+  "411_0": {
+   "ep": 411,
+   "start": 401,
+   "end": 943,
+   "T": 970,
+   "instruction": "Pick up the mangosteen and place it on the white plate.",
+   "result": "成功",
+   "human_s": 18.1,
+   "policy_s_before": 13.4,
+   "ee_step_at_end": 0.0014,
+   "grip_range": [
+    0.0,
+    0.99
+   ],
+   "train_instruction": "Pick up the mangosteen and place it on the white plate."
+  }
+ }
+}

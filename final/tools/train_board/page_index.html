@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>训练进度</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--fg:#1d2128;--muted:#6b7380;--border:#e3e6eb;--chip:#eef1f5;--grid:#e9ecf0;--track:#e6e9ee;
+--series-1:#2a78d6;--ok:#1f9d55;--warn:#b7791f;--err:#d64545;color-scheme:light}
+@media (prefers-color-scheme:dark){:root:where(:not([data-theme="light"])){--bg:#14161a;--card:#1d2026;--fg:#e7e9ee;--muted:#9097a3;
+--border:#2b2f37;--chip:#262a31;--grid:#2a2e36;--track:#2b2f37;--series-1:#3987e5;--ok:#3cc47c;--warn:#e0a84a;--err:#f06a6a;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#14161a;--card:#1d2026;--fg:#e7e9ee;--muted:#9097a3;--border:#2b2f37;--chip:#262a31;--grid:#2a2e36;
+--track:#2b2f37;--series-1:#3987e5;--ok:#3cc47c;--warn:#e0a84a;--err:#f06a6a;color-scheme:dark}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.5 -apple-system,BlinkMacSystemFont,"PingFang SC","Noto Sans SC","Segoe UI",sans-serif}
+.num,.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-variant-numeric:tabular-nums}
+header{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--border)}
+.top{display:flex;align-items:center;gap:12px;padding:10px 16px;max-width:1180px;margin:0 auto;flex-wrap:wrap}
+.top h1{font-size:16px;margin:0;font-weight:650}
+.top a{color:var(--muted);text-decoration:none;font-size:13px}
+.top .sp{flex:1}
+main{max-width:1180px;margin:0 auto;padding:14px 16px 60px;overflow-wrap:anywhere}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr))}
+.kpis{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));margin-top:12px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px;min-width:0}
+.card h2{font-size:14px;margin:0 0 8px;font-weight:650}
+.card h3{font-size:13px;margin:12px 0 6px;color:var(--muted);font-weight:600}
+.big{font-size:26px;font-weight:650;line-height:1.15}
+.kl{font-size:12px;color:var(--muted)}.kv{font-size:18px;font-weight:650}
+.muted{color:var(--muted)}.small{font-size:12px}
+.ok{color:var(--ok)}.warn{color:var(--warn)}.err{color:var(--err)}
+.status{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;padding:2px 10px;border-radius:999px;background:var(--chip)}
+.status::before{content:"";width:8px;height:8px;border-radius:50%;background:currentColor}
+.banner{border-radius:10px;padding:10px 14px;margin-bottom:12px;border:1px solid var(--border);background:var(--card)}
+.banner.warn{border-color:var(--warn)}.banner.err{border-color:var(--err)}
+.bar{height:10px;border-radius:999px;background:var(--track);overflow:hidden;margin:10px 0 4px}
+.bar>i{display:block;height:100%;background:var(--series-1);border-radius:999px}
+.mini{height:6px;border-radius:999px;background:var(--track);overflow:hidden;min-width:60px}
+.mini>i{display:block;height:100%;background:var(--series-1)}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{text-align:left;padding:5px 8px;border-bottom:1px solid var(--border);vertical-align:top}
+th{color:var(--muted);font-weight:600;font-size:12px}
+td.r,th.r{text-align:right}
+td.num,td .num,th{white-space:nowrap;overflow-wrap:normal}
+.scroll{overflow-x:auto}
+.chart{position:relative}
+.chart svg{display:block;width:100%;touch-action:pan-y}
+.chart .head{display:flex;align-items:baseline;gap:8px;margin-bottom:2px}
+.chart .head b{font-size:13px}.chart .head .v{margin-left:auto;font-size:15px;font-weight:650}
+.tip{position:absolute;pointer-events:none;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:6px 9px;
+font-size:12px;box-shadow:0 4px 14px rgba(0,0,0,.12);white-space:nowrap;display:none;z-index:3}
+.tip .tv{font-weight:650;font-size:13px}
+.key{display:inline-block;width:14px;height:0;border-top:2px solid var(--series-1);vertical-align:middle;margin-right:4px}
+.key.raw{border-top-width:1px;opacity:.45}
+.legend{font-size:12px;color:var(--muted);margin:0 0 10px}
+details summary{cursor:pointer;color:var(--muted);font-size:13px}
+pre{white-space:pre-wrap;font-size:12px;margin:8px 0 0}
+.two{display:grid;gap:12px;grid-template-columns:minmax(0,3fr) minmax(0,2fr)}
+@media (max-width:860px){.two{grid-template-columns:minmax(0,1fr)}}
+</style>
+</head>
+<body>
+<header><div class="top"><h1>训练进度</h1><a href="/">← GPU 看板</a><a href="/field">现场作战台</a><span class="sp"></span>
+<span id="fresh" class="small muted">读取中…</span></div></header>
+<main id="main"><div class="card muted">读取训练数据…</div></main>
+<script>
+"use strict";
+var S={data:null,err:null,hoverStep:null};
+var TZ='Asia/Shanghai';
+var METRICS=[['Loss','总 Loss',1],['VLA_Loss','动作 Loss（VLA）',1],['Depth_Loss','深度 Loss',1],['Future_Depth_Loss','未来深度 Loss',1],
+  ['FutureVideo_Loss','未来视频 Loss',1],['GradNorm','梯度范数',0],['StepTime','每步耗时（秒）',0]];
+function el(id){return document.getElementById(id)}
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function fmtTime(iso,withDate){if(!iso)return '—';var d=new Date(iso);if(isNaN(d))return '—';
+  var o={timeZone:TZ,hour:'2-digit',minute:'2-digit',hour12:false};if(withDate){o.month='numeric';o.day='numeric'}
+  return d.toLocaleString('zh-CN',o)}
+function dur(s){if(s==null||!isFinite(s))return '—';s=Math.max(0,Math.round(s));var h=Math.floor(s/3600),m=Math.floor(s%3600/60);
+  if(h>=24)return Math.floor(h/24)+' 天 '+(h%24)+' 小时';if(h)return h+' 小时 '+m+' 分';if(m)return m+' 分钟';return s+' 秒'}
+function ago(iso){if(!iso)return '—';var s=(Date.now()-new Date(iso))/1000;return s<60?'刚刚':dur(s)+'前'}
+function bytes(b){if(b==null)return '—';var u=['B','KB','MB','GB','TB'],i=0;while(b>=1024&&i<4){b/=1024;i++}return b.toFixed(i>2?1:0)+' '+u[i]}
+function num(v,d){if(v==null||!isFinite(v))return '—';if(v===0)return '0';var a=Math.abs(v);if(d==null)d=a>=100?0:a>=10?1:a>=1?2:a>=0.01?3:4;return v.toFixed(d)}
+function cfgGet(c,k){for(var key in c){if(key===k||key.slice(-k.length-1)==='.'+k)return c[key]}return null}
+
+function runStatus(r,saveSteps){
+  if(r.alive){
+    if(r.log_age_s>600)return {cls:'warn',text:'可能卡住',why:'进程还在，但日志 '+dur(r.log_age_s)+'没有更新'};
+    if(saveSteps&&r.step>0&&r.step%saveSteps===0&&r.log_age_s>45)return {cls:'ok',text:'正在保存 checkpoint',why:'第 '+r.step+' 步，日志 '+dur(r.log_age_s)+'前更新'};
+    return {cls:'ok',text:'运行中',why:'日志 '+dur(r.log_age_s)+'前更新'};
+  }
+  if(r.max_steps&&r.step>=r.max_steps)return {cls:'ok',text:'已完成',why:''};
+  if(r.signal15)return {cls:'muted',text:'已手动停止',why:''};
+  if(r.error)return {cls:'err',text:r.step?'出错停止':'启动失败',why:r.error};
+  return {cls:'muted',text:'已停止',why:''};
+}
+
+function ema(vals,w){var out=[],m=null;for(var i=0;i<vals.length;i++){var v=vals[i];if(v==null){out.push(null);continue}
+  m=m==null?v:m*w+v*(1-w);out.push(m)}return out}
+
+function render(){
+  var d=S.data,m=el('main');
+  if(!d){m.innerHTML='<div class="card '+(S.err?'err':'muted')+'">'+esc(S.err||'读取训练数据…')+'</div>';return}
+  var cur=d.runs.filter(function(r){return r.name===d.current})[0];
+  var h='';
+  var age=(Date.now()-new Date(d.generated))/1000;
+  if(age>6*60)h+='<div class="banner warn"><b class="warn">数据 '+dur(age)+'没更新。</b> 读训练机的脚本（队员电脑上的 <span class="mono">train_board.sh</span>）可能停了，或者电脑休眠 / 断网了。下面是 '+esc(fmtTime(d.generated,true))+' 的状态。</div>';
+  var dp=cur&&diskPlan(d,cur);
+  if(dp&&dp.short)h+='<div class="banner err"><b class="err">磁盘会不够。</b> '+esc(dp.text)+'要清旧 checkpoint 或者改保存设置。</div>';
+  if(cur)h+=vCurrent(d,cur);
+  if(cur&&cur.series&&cur.series.length)h+=vCharts(d,cur);
+  h+='<div class="two" style="margin-top:12px"><div>'+vGpus(d)+vHistory(d)+'</div><div>'+(cur?vData(d,cur)+vConfig(cur):'')+'</div></div>';
+  if(d.ab_summary)h+='<div class="card" style="margin-top:12px"><details><summary>提速 A/B 记录（runs/ab_summary.txt）</summary><pre class="mono">'+esc(d.ab_summary)+'</pre></details></div>';
+  m.innerHTML=h;
+  drawCharts();
+  updateFresh();
+}
+
+function vCurrent(d,r){
+  var save=+cfgGet(r.config||{},'save_steps')||null,st=runStatus(r,save),max=r.max_steps||0,step=r.step||0;
+  var pct=max?Math.min(100,step/max*100):0,stt=r.step_time_recent||(r.bar&&r.bar.sit)||null;
+  var gen=new Date(d.generated).getTime(),started=r.started?new Date(r.started).getTime():null;
+  var left=max&&stt?(max-step)*stt:null,finish=left!=null?new Date(gen+left*1000).toISOString():null;
+  var next=save?Math.min(max||Infinity,(Math.floor(step/save)+1)*save):null,nextAt=next&&stt?new Date(gen+(next-step)*stt*1000).toISOString():null;
+  var gb=+cfgGet(r.config||{},'global_batch_size')||null;
+  var lossS=ema((r.series||[]).map(function(p){return p.Loss}),0.9),lastLoss=lossS.length?lossS[lossS.length-1]:null;
+  var h='<div class="card"><div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><h2 style="margin:0">当前训练 <span class="mono">'+esc(r.name)+'</span></h2>'+
+    '<span class="status '+st.cls+'">'+esc(st.text)+'</span><span class="small muted">'+esc(st.why)+'</span></div>';
+  if(st.cls==='err')h+='<div class="err small mono" style="margin-top:6px">'+esc(r.error)+'</div>';
+  h+='<div style="display:flex;align-items:baseline;gap:10px;margin-top:10px;flex-wrap:wrap"><span class="big num">'+step.toLocaleString()+' / '+(max?max.toLocaleString():'?')+' 步</span>'+
+    '<span class="muted num">'+num(pct,1)+'%</span></div><div class="bar" role="progressbar" aria-valuenow="'+step+'" aria-valuemax="'+max+'"><i style="width:'+pct.toFixed(2)+'%"></i></div>';
+  h+='<div class="kpis">'+
+    kpi('每步耗时',stt?num(stt,2)+' 秒':'—',gb&&stt?num(gb/stt,1)+' 样本 / 秒（全局 batch '+gb+'）':'')+
+    kpi('已训练',started?dur((gen-started)/1000):'—',r.started?'从 '+fmtTime(r.started,true)+' 开始':'')+
+    kpi('预计结束',r.alive&&finish?fmtTime(finish,true):'—',r.alive&&left!=null?'还要 '+dur(left)+'（按最近 50 步估算，不含存 checkpoint）':'')+
+    kpi('下一个 checkpoint',r.alive&&next?'第 '+next.toLocaleString()+' 步':'—',r.alive&&nextAt?'约 '+fmtTime(nextAt)+(save?'，每 '+save+' 步存一次':''):'')+
+    kpi('总 Loss（平滑）',num(lastLoss),r.last?'最近一步 '+num(r.last.Loss)+' · Epoch '+esc(r.last.ep):'')+
+    '</div>';
+  var ck=r.checkpoints||[];
+  h+='<h3>已保存的 checkpoint（'+ck.length+'）</h3>';
+  if(!ck.length)h+='<div class="small muted">还没有'+(next?'，第一个在第 '+next.toLocaleString()+' 步':'')+'。</div>';
+  else h+='<div class="scroll"><table><tr><th>名字</th><th class="r">步数</th><th>保存时间</th><th>内容</th><th class="r">大小</th></tr>'+ck.slice().reverse().map(function(c){
+    return '<tr><td class="mono">'+esc(c.name)+'</td><td class="r num">'+esc(c.step)+'</td><td>'+esc(fmtTime(c.time,true))+'</td><td>'+esc(ckTag(c))+'</td><td class="r num">'+bytes(c.bytes)+'</td></tr>'}).join('')+'</table></div>';
+  return h+'</div>';
+}
+function ckTag(c){var p=c.parts||[],m=p.indexOf('model')>=0,h=p.indexOf('hf_ckpt')>=0;
+  return m&&h?'可续训 + 提交权重':m?'可续训（提交权重还没转好）':h?'只剩提交权重':'—'}
+function diskPlan(d,r){   // will the remaining checkpoints fit on the disk that holds this run's checkpoints?
+  var save=+cfgGet(r.config||{},'save_steps')||0,full=(r.checkpoints||[]).filter(function(c){return c.bytes&&(c.parts||[]).indexOf('model')>=0});
+  if(!save||!r.max_steps||!full.length||!d.disk||!r.alive)return null;
+  var size=full[full.length-1].bytes,hf=size*0.2,left=Math.max(0,Math.floor(r.max_steps/save)-Math.floor(r.step/save));
+  var guard=!!(d.guard&&d.guard.alive),free=d.disk.free,need=guard?(left?(left-1)*hf+size:0):left*size;
+  var p={size:size,free:free,left:left,guard:guard,need:need,short:free<need};
+  if(p.short){   // with the guard each save needs a full checkpoint for a while, then nets ~ the hf_ckpt
+    var k=guard?Math.max(0,Math.floor((free-size)/hf)+1):Math.floor(free/size),stt=r.step_time_recent||8,failStep=(Math.floor(r.step/save)+k+1)*save;
+    p.text='每个 checkpoint 约 '+bytes(size)+'，checkpoint 所在磁盘剩 '+bytes(free)+'，跑完 '+r.max_steps.toLocaleString()+' 步还要存 '+left+' 个'+
+      (guard?'（磁盘保护删掉旧 checkpoint 的续训部分后，每个净增约 '+bytes(hf)+'）':'')+'。按现在的速度，大约第 '+failStep.toLocaleString()+' 步（'+
+      fmtTime(new Date(new Date(d.generated).getTime()+(failStep-r.step)*stt*1000).toISOString(),true)+' 左右）存 checkpoint 时会写满。';
+  }
+  return p;
+}
+function kpi(l,v,sub){return '<div><div class="kl">'+esc(l)+'</div><div class="kv num">'+esc(v)+'</div>'+(sub?'<div class="small muted">'+esc(sub)+'</div>':'')+'</div>'}
+
+function vCharts(d,r){
+  var h='<div class="card" style="margin-top:12px"><h2>训练曲线 <span class="small muted" style="font-weight:400">'+esc(r.name)+'</span></h2>'+
+    '<div class="legend"><span class="key raw"></span>每步原始值 <span class="key" style="margin-left:12px"></span>平滑（EMA 0.9）· 横轴是步数，画到当前步 · 竖虚线是保存 checkpoint 的位置 · 鼠标或手指移到图上看每一步的数</div><div class="grid">';
+  METRICS.forEach(function(mt){
+    if(!r.series.some(function(p){return p[mt[0]]!=null}))return;
+    h+='<div class="chart" data-k="'+mt[0]+'"><div class="head"><b>'+esc(mt[1])+'</b><span class="small muted" data-scale></span><span class="v num" data-v></span></div><svg height="150" aria-label="'+esc(mt[1])+'"></svg><div class="tip"></div></div>';
+  });
+  return h+'</div></div>';
+}
+
+function niceTicks(lo,hi,n){var span=hi-lo||Math.abs(hi)||1,step=Math.pow(10,Math.floor(Math.log10(span/n))),e=span/n/step;
+  step*=e>=5?10:e>=2?5:e>=1?2:1;var t=[],v=Math.ceil(lo/step)*step;for(;v<=hi+step*1e-9;v+=step)t.push(+v.toPrecision(12));return t}
+function logTicks(lo,hi){var t=[];for(var e=Math.floor(Math.log10(lo));e<=Math.ceil(Math.log10(hi));e++)[1,2,5].forEach(function(m){var v=m*Math.pow(10,e);if(v>=lo*0.999&&v<=hi*1.001)t.push(v)});
+  if(t.length>6)t=t.filter(function(v){return /^1/.test(v.toExponential())});return t}
+
+var CH=[];
+function drawCharts(){
+  CH=[];var d=S.data,r=d&&d.runs.filter(function(x){return x.name===d.current})[0];if(!r||!r.series)return;
+  var ser=r.series,steps=ser.map(function(p){return p.s}),max=Math.max(10,Math.ceil((steps[steps.length-1]||1)*1.03));
+  var ckSteps=(r.checkpoints||[]).map(function(c){return c.step}).filter(function(s){return s!=null});
+  document.querySelectorAll('.chart').forEach(function(box){
+    var k=box.getAttribute('data-k'),isLoss=METRICS.filter(function(m){return m[0]===k})[0][2];
+    var raw=ser.map(function(p){return p[k]==null?null:p[k]}),sm=ema(raw,0.9);
+    var vals=raw.filter(function(v){return v!=null&&isFinite(v)});if(!vals.length)return;
+    var sorted=vals.slice().sort(function(a,b){return a-b}),lo=sorted[0],hi=sorted[sorted.length-1];
+    var med=sorted[Math.floor(sorted.length/2)],p95=sorted[Math.floor(sorted.length*0.95)]||hi,clipped=false;
+    if(!isLoss&&hi>Math.max(med*2,p95*1.3)){hi=p95*1.3;clipped=true}   // warm-up spikes must not flatten the line
+    var useLog=isLoss&&lo>0&&hi/lo>5;
+    var svg=box.querySelector('svg'),W=svg.clientWidth||300,H=150,L=44,R=8,T=8,B=20;
+    var xs=function(s){return L+(W-L-R)*(Math.min(s,max)/max)};
+    var y0,y1;if(useLog){y0=Math.log10(lo);y1=Math.log10(hi)}else{var pad=(hi-lo)*0.08||Math.abs(hi)*0.1||1;y0=Math.max(isLoss||k==='StepTime'||k==='GradNorm'?0:-Infinity,lo-pad);y1=hi+pad}
+    var ys=function(v){var t=useLog?Math.log10(Math.max(v,lo)):v;t=Math.min(Math.max(t,y0),y1);return T+(H-T-B)*(1-(t-y0)/((y1-y0)||1))};
+    var ticks=useLog?logTicks(lo,hi):niceTicks(y0,y1,3);
+    var g='';
+    ticks.forEach(function(t){var y=ys(t);g+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+y+'" y2="'+y+'" stroke="var(--grid)" stroke-width="1"/><text x="'+(L-6)+'" y="'+(y+4)+'" text-anchor="end" font-size="10" fill="var(--muted)" class="num">'+num(t)+'</text>'});
+    niceTicks(0,max,4).forEach(function(t){var x=xs(t);g+='<text x="'+x+'" y="'+(H-5)+'" text-anchor="middle" font-size="10" fill="var(--muted)" class="num">'+(t>=1000?(t/1000)+'k':t)+'</text>'});
+    ckSteps.forEach(function(s){var x=xs(s);g+='<line x1="'+x+'" x2="'+x+'" y1="'+T+'" y2="'+(H-B)+'" stroke="var(--muted)" stroke-dasharray="3 3" stroke-width="1" opacity=".6"/>'});
+    var path=function(a){var s='',pen=false;for(var i=0;i<a.length;i++){if(a[i]==null||!isFinite(a[i])){pen=false;continue}s+=(pen?'L':'M')+xs(steps[i]).toFixed(1)+' '+ys(a[i]).toFixed(1);pen=true}return s};
+    g+='<path d="'+path(raw)+'" fill="none" stroke="var(--series-1)" stroke-width="1" opacity=".35" stroke-linejoin="round"/>';
+    g+='<path d="'+path(sm)+'" fill="none" stroke="var(--series-1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>';
+    g+='<line class="xh" x1="0" x2="0" y1="'+T+'" y2="'+(H-B)+'" stroke="var(--fg)" stroke-width="1" opacity=".5" style="display:none"/>';
+    g+='<circle class="dot" r="4" fill="var(--series-1)" stroke="var(--card)" stroke-width="2" style="display:none"/>';
+    g+='<rect x="'+L+'" y="0" width="'+(W-L-R)+'" height="'+H+'" fill="transparent" class="hit"/>';
+    svg.setAttribute('viewBox','0 0 '+W+' '+H);svg.innerHTML=g;
+    box.querySelector('[data-scale]').textContent=useLog?'对数坐标':clipped?'开头的尖峰超出上沿':'';
+    var lastSm=null;for(var i=sm.length-1;i>=0;i--)if(sm[i]!=null){lastSm=sm[i];break}
+    box.querySelector('[data-v]').textContent=num(lastSm);
+    var c={box:box,k:k,raw:raw,sm:sm,xs:xs,ys:ys,W:W,L:L,R:R,steps:steps,max:max,svg:svg};CH.push(c);
+    var hit=svg.querySelector('.hit');
+    var mv=function(ev){var rect=svg.getBoundingClientRect(),x=(ev.clientX-rect.left)*(W/rect.width);
+      var s=(x-L)/(W-L-R)*max,i=nearest(steps,s);showHover(i,c)};
+    hit.addEventListener('pointermove',mv);hit.addEventListener('pointerdown',mv);
+    hit.addEventListener('pointerleave',function(){hideHover()});
+  });
+}
+function nearest(a,v){var lo=0,hi=a.length-1;while(hi-lo>1){var m=(lo+hi)>>1;if(a[m]<v)lo=m;else hi=m}return Math.abs(a[lo]-v)<=Math.abs(a[hi]-v)?lo:hi}
+function showHover(i,src){
+  var r=S.data.runs.filter(function(x){return x.name===S.data.current})[0],p=r.series[i];
+  CH.forEach(function(c){
+    var x=c.xs(c.steps[i]),xh=c.svg.querySelector('.xh'),dot=c.svg.querySelector('.dot');
+    xh.setAttribute('x1',x);xh.setAttribute('x2',x);xh.style.display='';
+    if(c.sm[i]!=null){dot.setAttribute('cx',x);dot.setAttribute('cy',c.ys(c.sm[i]));dot.style.display=''}else dot.style.display='none';
+    var tip=c.box.querySelector('.tip');
+    if(c!==src){tip.style.display='none';return}
+    tip.textContent='';
+    var v=document.createElement('div');v.className='tv num';v.textContent=num(c.sm[i])+'（平滑）';tip.appendChild(v);
+    var r1=document.createElement('div');r1.className='num muted';r1.textContent='原始 '+num(c.raw[i]);tip.appendChild(r1);
+    var r2=document.createElement('div');r2.className='muted';r2.textContent='第 '+p.s+' 步 · '+fmtTime(p.t,true);tip.appendChild(r2);
+    tip.style.display='block';
+    var bw=c.box.clientWidth,tw=tip.offsetWidth,px=x*(c.svg.clientWidth/c.W);
+    tip.style.left=Math.max(0,Math.min(bw-tw,px+12>bw-tw?px-tw-12:px+12))+'px';tip.style.top='30px';
+  });
+}
+function hideHover(){CH.forEach(function(c){c.svg.querySelector('.xh').style.display='none';c.svg.querySelector('.dot').style.display='none';c.box.querySelector('.tip').style.display='none'})}
+
+function vGpus(d){
+  var g=d.gpus||[];var h='<div class="card"><h2>GPU（'+esc(d.host||'训练机')+'）</h2>';
+  if(!g.length)return h+'<div class="muted small">没有读到 nvidia-smi。</div></div>';
+  h+='<div class="scroll"><table><tr><th>卡</th><th>利用率</th><th class="r">显存</th><th class="r">温度</th><th class="r">功耗</th></tr>'+g.map(function(x){
+    return '<tr><td class="num">'+x.i+'</td><td><div style="display:flex;align-items:center;gap:6px"><div class="mini" style="flex:1"><i style="width:'+(x.util||0)+'%"></i></div><span class="num">'+num(x.util,0)+'%</span></div></td>'+
+      '<td class="r num">'+num((x.mem||0)/1024,1)+' / '+num((x.mem_total||0)/1024,0)+' GB</td><td class="r num">'+num(x.temp,0)+' °C</td><td class="r num">'+num(x.power,0)+' W</td></tr>'}).join('')+'</table></div>';
+  var dk=d.disk,cur=d.runs.filter(function(x){return x.name===d.current})[0],dp=cur&&diskPlan(d,cur);
+  if(dk)h+='<div class="small '+(dp&&dp.short?'err':'muted')+'" style="margin-top:8px">checkpoint 所在磁盘（<span class="mono">'+esc(dk.path||'~')+'</span>）剩余 '+bytes(dk.free)+' / '+bytes(dk.total)+
+    (dp?'。跑完还要存 '+dp.left+' 个 checkpoint，每个约 '+bytes(dp.size)+'，大约要 '+bytes(dp.need):'')+'</div>';
+  if(d.disk_home&&dk&&d.disk_home.total!==dk.total)h+='<div class="small muted">家目录磁盘剩余 '+bytes(d.disk_home.free)+' / '+bytes(d.disk_home.total)+'</div>';
+  var g=d.guard;
+  if(g)h+='<div class="small '+(g.alive?'muted':'warn')+'">磁盘保护'+(g.alive?'开启':'没在运行')+'：每 10 分钟检查一次，checkpoint 所在磁盘剩余低于 '+esc(g.min_free_gb)+' GB 时，从最旧的开始删 checkpoint 的续训部分（model / optimizer）；每个运行最新的 checkpoint、提交权重（hf_ckpt）都不动。最近检查 '+
+    esc(fmtTime(g.checked))+(g.actions&&g.actions.length?'，最近一次删除：'+esc(g.actions[g.actions.length-1].msg)+'（'+esc(fmtTime(g.actions[g.actions.length-1].time,true))+'）':'，还没删过')+'</div>';
+  h+='<div class="small muted">名字里带 train_lingbotvla 的进程 '+esc(d.train_procs)+' 个（含数据加载子进程）</div>';
+  return h+'</div>';
+}
+
+function vHistory(d){
+  var rows=d.runs.slice().reverse();
+  return '<div class="card" style="margin-top:12px"><h2>训练记录（'+rows.length+'）</h2><div class="small muted" style="margin-bottom:6px">训练机 ~/lingbot_train/runs 下的每一次运行，最新在上</div><div class="scroll"><table><tr><th>名字</th><th>状态</th><th class="r">步数</th><th>开始</th><th>最后日志</th><th class="r">最后 Loss</th></tr>'+
+    rows.map(function(r){var st=runStatus(r,null);
+      return '<tr><td class="mono">'+esc(r.name)+(r.name===d.current?' <span class="small muted">当前</span>':'')+'</td><td><span class="'+st.cls+'">'+esc(st.text)+'</span>'+
+        (st.cls==='err'?'<div class="small muted mono" style="max-width:260px;white-space:normal;word-break:break-all">'+esc(r.error)+'</div>':'')+'</td><td class="r num">'+esc(r.step||0)+(r.max_steps?' / '+esc(r.max_steps):'')+'</td><td>'+esc(fmtTime(r.started,true))+'</td><td>'+esc(fmtTime(r.log_mtime,true))+'</td><td class="r num">'+num(r.last&&r.last.Loss)+'</td></tr>'}).join('')+'</table></div></div>';
+}
+
+var PREP_STATE={no_eligible_private_data:'自采数据没有可用的（都被质量规则排除了）',waiting_private_data:'还没有自采快照挂到训练机',ready:'已准备好训练副本'};
+var REASON={numeric_quality_mapping_required:'质量是数字评分，还没设阈值',missing_quality:'没有质量标注',low_quality:'质量标注为差',unknown_label:'未知标签',ambiguous_instruction:'指令不明确'};
+function vData(d,r){
+  var roots=r.roots||[],tot=roots.reduce(function(a,x){return a+(x.episodes||0)},0),fr=roots.reduce(function(a,x){return a+(x.frames||0)},0);
+  var h='<div class="card"><h2>这次训练用的数据</h2><div class="scroll"><table><tr><th>数据</th><th class="r">条数</th><th class="r">帧数</th></tr>'+roots.map(function(x){
+    return '<tr><td class="mono">'+esc(x.name)+'</td><td class="r num">'+(x.episodes!=null?x.episodes.toLocaleString():'—')+'</td><td class="r num">'+(x.frames!=null?x.frames.toLocaleString():'—')+'</td></tr>'}).join('')+
+    '<tr><td><b>合计</b></td><td class="r num"><b>'+tot.toLocaleString()+'</b></td><td class="r num"><b>'+fr.toLocaleString()+'</b></td></tr></table></div>';
+  var p=d.field_prep;
+  if(p){h+='<h3>自采数据准备（~/field_training，'+esc(fmtTime(p.generated,true))+'）</h3><div class="small">'+esc(PREP_STATE[p.state]||p.state)+'</div>';
+    (p.reports||[]).forEach(function(x){var rs=x.reasons||{};
+      h+='<div class="small muted" style="margin-top:4px">快照 <span class="mono">'+esc(String(x.source).split('/')[0].slice(0,8))+'</span>：'+esc(x.input)+' 条，通过 '+esc(x.accepted)+'，排除 '+esc(x.excluded)+
+        (Object.keys(rs).length?'（'+Object.keys(rs).map(function(k){return (REASON[k]||k)+' '+rs[k]}).join('，')+'）':'')+'</div>'})}
+  return h+'</div>';
+}
+function vConfig(r){
+  var c=r.config||{},keys=Object.keys(c);
+  var h='<div class="card" style="margin-top:12px"><h2>配置</h2><div class="scroll"><table>'+keys.map(function(k){return '<tr><td class="mono small">'+esc(k.replace(/^train\./,''))+'</td><td class="mono small">'+esc(JSON.stringify(c[k]))+'</td></tr>'}).join('')+'</table></div>';
+  if(r.commit)h+='<h3>代码</h3><div class="mono small">'+esc(r.commit)+'</div>';
+  if(r.env)h+='<h3>环境变量</h3><div class="mono small">'+esc(r.env)+'</div>';
+  if(r.config_path)h+='<h3>配置文件</h3><div class="mono small" style="word-break:break-all">'+esc(r.config_path)+'</div>';
+  return h+'</div>';
+}
+
+function updateFresh(){var d=S.data;if(!d)return;var age=(Date.now()-new Date(d.generated))/1000;
+  var f=el('fresh');f.textContent='训练机 '+fmtTime(d.generated)+' 读取 · '+ago(d.generated);f.className='small '+(age>360?'warn':'muted')}
+async function load(){
+  try{var r=await fetch('/api/train-data',{cache:'no-store'});
+    if(r.status===401){location.href='/api/auth/login?next=%2Ftrain';return}
+    if(!r.ok)throw new Error('取不到训练数据（'+r.status+'），过一会儿会自动重试');
+    var d=await r.json();if(!d.runs)throw new Error('训练数据格式不对');
+    var changed=!S.data||S.data.generated!==d.generated;S.data=d;S.err=null;if(changed)render();else updateFresh();
+  }catch(e){S.err=String(e.message||e);if(!S.data)render();else{el('fresh').textContent=S.err;el('fresh').className='small err'}}
+}
+var rt=null;window.addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(drawCharts,150)});
+load();setInterval(load,60000);setInterval(updateFresh,15000);
+</script>
+</body>
+</html>

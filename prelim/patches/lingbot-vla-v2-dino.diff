@@ -1,0 +1,279 @@
+diff --git a/lingbotvla/data/vla_data/base_dataset.py b/lingbotvla/data/vla_data/base_dataset.py
+index 71d62a0..4c713ae 100644
+--- a/lingbotvla/data/vla_data/base_dataset.py
++++ b/lingbotvla/data/vla_data/base_dataset.py
+@@ -14,6 +14,7 @@
+ 
+ 
+ import os
++import json  # LingBotRoboTwin
+ import inspect
+ from pathlib import Path
+ 
+@@ -146,6 +147,14 @@ class LeRobotDataset(BaseLeRobotDataset):
+         # Add task as a string
+         task_idx = item["task_index"].item()
+         item["task"] = _get_task_name(self.meta.tasks, task_idx)
++        # LingBotRoboTwin: swap within this episode's seen-instruction pool (rule 2.1)
++        if os.environ.get("LINGBOT_SEEN_POOL") == "1":
++            if not hasattr(self, "_seen_pool"):
++                pool_file = self.root / "meta" / "seen_instructions.json"
++                self._seen_pool = json.loads(pool_file.read_text()) if pool_file.exists() else {}
++            choices = self._seen_pool.get(str(ep_idx))
++            if choices:
++                item["task"] = choices[int(torch.randint(len(choices), ()))]
+ 
+         return item
+ 
+diff --git a/lingbotvla/data/vla_data/multi_vla_dataset.py b/lingbotvla/data/vla_data/multi_vla_dataset.py
+index e6f0e14..2e02f54 100644
+--- a/lingbotvla/data/vla_data/multi_vla_dataset.py
++++ b/lingbotvla/data/vla_data/multi_vla_dataset.py
+@@ -1,4 +1,5 @@
+ from typing import Callable
++import os  # LingBotRoboTwin
+ import numpy as np
+ from lingbotvla.utils import helper
+ import torch
+@@ -128,6 +129,10 @@ class MultiVLADataset(Dataset):
+     def getdata(self, idx: int) -> dict[str, torch.Tensor]:
+         if idx >= len(self):
+             raise IndexError(f"Index {idx} out of bounds.")
++        # LingBotRoboTwin: task-balanced / motion-weighted sampling (rule 2.1: reweighting by data statistics)
++        if os.environ.get("LINGBOT_TASK_SAMPLING") or os.environ.get("LINGBOT_FRAME_WEIGHTS") == "1":
++            from lingbot_sampling import remap_index
++            idx = remap_index(self, idx)
+         # Determine which dataset to get an item from based on the index.
+         dataset_idx = np.searchsorted(self.dataset_start_index,  np.array([idx]), side='right') - 1
+         dataset_idx = dataset_idx[0]
+diff --git a/lingbotvla/data/vla_data/transform.py b/lingbotvla/data/vla_data/transform.py
+index 05fe43f..c49bb2e 100644
+--- a/lingbotvla/data/vla_data/transform.py
++++ b/lingbotvla/data/vla_data/transform.py
+@@ -327,6 +327,12 @@ def prepare_images(
+         if use_depth_align:
+             pil_image_dict[key] = img.cpu().numpy()
+ 
++        # LingBotRoboTwin: Fourier amplitude modulation (p_fourier in the aug config), model input only: the
++        # frozen teachers' image was taken just above; per-camera params are reused on the future frames
++        if train and (augment_params or {}).get("fourier"):
++            from lingbot_aug import apply_fourier
++            img = apply_fourier(img, augment_params["fourier"], key)
++
+         if image_processor is None:
+             img = img.to(dtype) / 127.5 - 1.0 # to [-1, 1]
+         else:
+@@ -364,6 +370,16 @@ def prepare_images(
+                 pil_images.append(pil_img)
+             img_masks.append(False)
+ 
++    # LingBotRoboTwin: wrist-camera dropout (train only): drawn per sample in lingbot_aug and replayed on the
++    # future frames; the view becomes upstream's missing-camera padding with mask False
++    _wrist_drop = (augment_params or {}).get("wrist_drop") if train else None
++    if _wrist_drop:
++        for _i, _key in enumerate(image_keys):
++            if _i < len(images) and any(f"wrist_{_side}" in _key for _side in _wrist_drop):
++                images[_i] = torch.full_like(images[_i], -1.0) if isinstance(images[_i], torch.Tensor) else np.zeros_like(images[_i])
++                img_masks[_i] = False
++                if use_depth_align:
++                    pil_images[_i] = np.zeros_like(pil_images[_i])
+     if isinstance(images[0], torch.Tensor):
+         images = torch.stack(images, dim=0)  # (n, c, h, w)
+     elif isinstance(images[0], np.ndarray):
+@@ -510,3 +526,9 @@ def expert_visual_transform(config, observation: dict[str, Tensor], image_keys=N
+         images = torch.from_numpy(np.stack(images, axis=0))  # (n, c, h, w)
+ 
+     return images
++
++
++# --- LingBotRoboTwin: whitelist-only augmentation, enabled by LINGBOT_AUG_CONFIG ---
++import os as _lbrt_os  # noqa: E402
++if _lbrt_os.environ.get("LINGBOT_AUG_CONFIG"):
++    from lingbot_aug import sample_visual_augmentation_params, apply_visual_augmentation  # noqa: E402,F811
+diff --git a/lingbotvla/data/vla_data/utils.py b/lingbotvla/data/vla_data/utils.py
+index 1daf261..5db000a 100644
+--- a/lingbotvla/data/vla_data/utils.py
++++ b/lingbotvla/data/vla_data/utils.py
+@@ -406,6 +406,10 @@ class FeatureTransform:
+         batch_dict = self.pad_and_concat(item, w_action)
+ 
+         state = prepare_state(batch_dict, self.model_config.max_state_dim) 
++        # LingBotRoboTwin: proprioception noise (rule 2.1), train only, real (non-padded) dims only
++        _state_noise = float(os.environ.get("LINGBOT_STATE_NOISE", "0"))
++        if _state_noise > 0 and self.image_augment and not policy_eval:
++            state = state + torch.randn_like(state) * _state_noise * (state != 0)
+         actions = prepare_action(batch_dict, self.model_config.max_action_dim)
+         return_image_grid_thw = getattr(self.model_config, "return_image_grid_thw", False)
+         if not self.disabled_image_features:
+diff --git a/lingbotvla/models/vla/lingbot_vla/modeling_lingbot_vla_v2.py b/lingbotvla/models/vla/lingbot_vla/modeling_lingbot_vla_v2.py
+index 44ccf04..fd9bec4 100644
+--- a/lingbotvla/models/vla/lingbot_vla/modeling_lingbot_vla_v2.py
++++ b/lingbotvla/models/vla/lingbot_vla/modeling_lingbot_vla_v2.py
+@@ -10,6 +10,7 @@ from transformers.cache_utils import Cache
+ from transformers.utils import logging
+ 
+ from .configuration_lingbot_vla import LingbotVLAV2Config
++from .dino_fusion import DinoFusion  # LingBotRoboTwin
+ from .qwen3vl_in_vla import (
+     Qwen3VLForConditionalGeneration,
+     Qwen3VLTextModel,
+@@ -474,6 +475,14 @@ class FlowMatchingV2(FlowMatchingV1):
+         self.action_out_proj = nn.Linear(self.config.proj_width, self.config.max_action_dim)
+         self.action_time_mlp_in = nn.Linear(self.config.proj_width * 2, self.config.proj_width)
+         self.action_time_mlp_out = nn.Linear(self.config.proj_width, self.config.proj_width)
++        # LingBotRoboTwin: frozen DINOv2 features added to the visual tokens (zero-initialized projection)
++        if getattr(self.config, "dino_fusion_path", None):
++            self.dino_fusion = DinoFusion(
++                self.config.dino_fusion_path,
++                self.qwenvl_with_expert.qwenvl.config.text_config.hidden_size,
++                input_size=getattr(self.config, "dino_fusion_input_size", 224),
++                grid=getattr(self.config, "dino_fusion_grid", 8),
++            )
+ 
+         self.config.align_params = getattr(self.config, "align_params", None) or {}
+         if self.config.align_params != {}:
+@@ -529,6 +538,9 @@ class FlowMatchingV2(FlowMatchingV1):
+         )
+         embed_dtype = img_emb.dtype
+         num_patch = img_emb.shape[1]
++        # LingBotRoboTwin: residual DINOv2 features on the visual tokens (same (b n), token order)
++        if getattr(self, "dino_fusion", None) is not None:
++            img_emb = img_emb + self.dino_fusion(images).to(img_emb.dtype)
+         img_emb = einops.rearrange(img_emb, "(b n) l d -> b n l d", b=bsize, n=num_images)
+         deepstack_embs = [
+             einops.rearrange(x, "(b n) l d -> b n l d", b=bsize, n=num_images)
+diff --git a/lingbotvla/optim/optimizer.py b/lingbotvla/optim/optimizer.py
+index 1de712f..3e4bef7 100644
+--- a/lingbotvla/optim/optimizer.py
++++ b/lingbotvla/optim/optimizer.py
+@@ -16,6 +16,7 @@
+ # limitations under the License.
+ 
+ 
++import os  # LingBotRoboTwin
+ import re
+ from typing import Any, Dict, List, Optional, Sequence, Tuple
+ 
+@@ -258,6 +259,12 @@ def _split_param_groups_by_scaled_lr(
+             scale = layer_to_scale.get(layer_idx)
+             if scale is not None:
+                 lr_for_param = base_lr * scale
++        # LingBotRoboTwin: separate vision-encoder LR multiplier
++        if ".visual." in name:
++            lr_for_param = lr_for_param * float(os.environ.get("LINGBOT_VISION_LR_SCALE", "1"))
++        # LingBotRoboTwin: newly initialized DINOv2 fusion layers may need a larger lr than the continuation
++        if "dino_fusion" in name:
++            lr_for_param = lr_for_param * float(os.environ.get("LINGBOT_DINO_LR_SCALE", "1"))
+         lr_to_params.setdefault(lr_for_param, []).append(p)
+     return [{"params": ps, "lr": lr} for lr, ps in lr_to_params.items() if ps]
+ 
+diff --git a/tasks/vla/train_lingbotvla.py b/tasks/vla/train_lingbotvla.py
+index a09c541..e388590 100644
+--- a/tasks/vla/train_lingbotvla.py
++++ b/tasks/vla/train_lingbotvla.py
+@@ -166,6 +166,12 @@ class MyTrainingArguments(TrainingArguments):
+         default='fm',
+         metadata={"help": "Which loss to use."},
+     )
++    dino_fusion_path: Optional[str] = field(  # LingBotRoboTwin
++        default=None,
++        metadata={"help": "Frozen DINOv2 dir (config.json); its weights must be in model_path."},
++    )
++    dino_fusion_input_size: int = field(default=224, metadata={"help": "DINOv2 input resolution."})
++    dino_fusion_grid: int = field(default=8, metadata={"help": "Token grid per camera (Qwen merger grid)."})
+     align_params: Optional[Dict[str, Any]] = field(
+         default_factory=dict,
+         metadata={"help": "The config of vaco"},
+@@ -366,6 +372,10 @@ def main():
+     if config_key in config_registry.supported_configs:
+         config_cls = config_registry.get_config_cls_from_config_key(config_key)
+         config_cls = config_cls(**config_kwargs)
++        # LingBotRoboTwin: LingbotVLAConfig.__init__ drops unknown kwargs; carry the DINO fusion options over
++        for _key in ("dino_fusion_path", "dino_fusion_input_size", "dino_fusion_grid"):
++            if config_kwargs.get(_key) is not None:
++                setattr(config_cls, _key, config_kwargs[_key])
+         logger.info_rank0(f"Successfully loaded: {config_cls.__class__.__name__}")
+     else:
+         config_cls = None
+diff --git a/lingbotvla/models/vla/lingbot_vla/dino_fusion.py b/lingbotvla/models/vla/lingbot_vla/dino_fusion.py
+new file mode 100644
+index 0000000..c878a7d
+--- /dev/null
++++ b/lingbotvla/models/vla/lingbot_vla/dino_fusion.py
+@@ -0,0 +1,76 @@
++"""Frozen DINOv2 feature fusion for LingBot-VLA 2.0 (competition rule 2.2: public pretrained vision encoder).
++
++DINOv2 (facebook/dinov2-with-registers-base, Apache-2.0, frozen) sees the same camera image as the Qwen3-VL vision
++tower. Its patch features are pooled to the Qwen merger's token grid (8x8 per camera at img_size 256), normalized,
++projected to the LLM width by a ZERO-initialized linear layer and added to the visual tokens in
++FlowMatchingV2.embed_prefix. At initialization the model is therefore exactly the base model; sequence length,
++attention masks, mrope positions and the deepstack path are unchanged. Only `norm` and `proj` are trained.
++
++The image is reconstructed inside the model from the Qwen2-VL processor's pixel_values (patch 16, temporal 2,
++merge 2, mean = std = 0.5), so neither the data pipeline nor the inference server needs changes, and DINOv2 sees
++exactly what Qwen sees (training augmentations included). The DINOv2 weights live in the checkpoint
++(model.dino_fusion.dino.*), so inference still loads one set of weights.
++"""
++
++import torch
++import torch.nn.functional as F
++from torch import nn
++from transformers import Dinov2WithRegistersConfig, Dinov2WithRegistersModel
++
++IMAGENET_MEAN = (0.485, 0.456, 0.406)
++IMAGENET_STD = (0.229, 0.224, 0.225)
++QWEN_PATCH, QWEN_TEMPORAL, QWEN_MERGE = 16, 2, 2
++
++
++def pixel_values_to_images(pixel_values: torch.Tensor) -> torch.Tensor:
++    """Invert Qwen2VLImageProcessor patchification: (N, g*g, 3*2*16*16) -> (N, 3, g*16, g*16) in [0, 1]."""
++    n, length, dim = pixel_values.shape
++    g = int(round(length ** 0.5))
++    assert g * g == length and g % QWEN_MERGE == 0 and dim == 3 * QWEN_TEMPORAL * QWEN_PATCH * QWEN_PATCH, (
++        f"unexpected pixel_values layout {tuple(pixel_values.shape)}")
++    m, p = QWEN_MERGE, QWEN_PATCH
++    # rows: (hb, wb, mh, mw) with hb, wb over g // m merge blocks; columns: (c, t, ph, pw); both t slices are equal
++    x = pixel_values.float().view(n, g // m, g // m, m, m, 3, QWEN_TEMPORAL, p, p)[:, :, :, :, :, :, 0]
++    x = x.permute(0, 5, 1, 3, 6, 2, 4, 7).reshape(n, 3, g * p, g * p)
++    return (x * 0.5 + 0.5).clamp(0.0, 1.0)
++
++
++class DinoFusion(nn.Module):
++    def __init__(self, dino_path: str, out_dim: int, input_size: int = 224, grid: int = 8):
++        super().__init__()
++        cfg = Dinov2WithRegistersConfig.from_pretrained(dino_path)
++        cfg._attn_implementation = "sdpa"
++        self.dino = Dinov2WithRegistersModel(cfg)  # weights come from the checkpoint (model.dino_fusion.dino.*)
++        self.dino.requires_grad_(False)
++        self.input_size, self.grid = input_size, grid
++        self.num_prefix = 1 + cfg.num_register_tokens  # CLS + registers precede the patch tokens
++        self.patch = cfg.patch_size
++        self.norm = nn.LayerNorm(cfg.hidden_size)
++        self.proj = nn.Linear(cfg.hidden_size, out_dim)
++        nn.init.zeros_(self.proj.weight)
++        nn.init.zeros_(self.proj.bias)
++
++    def train(self, mode: bool = True):
++        super().train(mode)
++        self.dino.eval()  # frozen: dropout / drop-path off (both are 0 for this checkpoint anyway)
++        return self
++
++    @torch.compiler.disable  # DINOv2's position-embedding interpolation is not compile-friendly; it is frozen anyway
++    def dino_tokens(self, pixel_values: torch.Tensor) -> torch.Tensor:
++        x = pixel_values_to_images(pixel_values)
++        x = F.interpolate(x, size=(self.input_size, self.input_size), mode="bilinear", align_corners=False,
++                          antialias=True)
++        mean = torch.tensor(IMAGENET_MEAN, device=x.device, dtype=x.dtype).view(1, 3, 1, 1)
++        std = torch.tensor(IMAGENET_STD, device=x.device, dtype=x.dtype).view(1, 3, 1, 1)
++        x = (x - mean) / std
++        weight = self.dino.embeddings.patch_embeddings.projection.weight
++        with torch.no_grad():
++            h = self.dino(pixel_values=x.to(weight.dtype)).last_hidden_state[:, self.num_prefix:]
++        side = self.input_size // self.patch
++        h = h.transpose(1, 2).reshape(h.shape[0], -1, side, side)
++        h = F.adaptive_avg_pool2d(h.float(), self.grid)  # -> Qwen merger grid, raster order like the visual tokens
++        return h.flatten(2).transpose(1, 2)  # (N, grid*grid, hidden)
++
++    def forward(self, pixel_values: torch.Tensor) -> torch.Tensor:
++        tokens = self.dino_tokens(pixel_values)
++        return self.proj(self.norm(tokens.to(self.norm.weight.dtype)))

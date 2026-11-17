@@ -1,0 +1,143 @@
+--- yolocue_bridge.orig.py	2026-11-15 01:35:39
++++ yolocue_bridge.py	2026-11-15 01:37:13
+@@ -40,7 +40,10 @@
+ CMD_OPEN, CMD_CLOSED = 0.5, 0.2
+ GRIPPER_KEYS = ('action.left_gripper.position', 'action.right_gripper.position')
+ DEFAULTS = {'weights': 'weights/v5.torchscript', 'names': 'weights/v5.names.json', 'device': 'cpu',
+-            'det_conf': 0.01, 'det_iou': 0.5, 'max_det': 300, 'conf': 0.5, 'margin': 0.15, 'retry_s': 3.0}
++            'det_conf': 0.01, 'det_iou': 0.5, 'max_det': 300, 'conf': 0.5, 'margin': 0.15, 'retry_s': 3.0,
++            # 11/15: cue_prompt -> while the cue is shown the VLA gets cue_prompts()[0] (only for checkpoints trained
++            # on the *_named box datasets); regrasp -> white box back when the object was released off the destination
++            'cue_prompt': False, 'regrasp': True, 'release_wait_s': 1.5, 'release_window_s': 5.0, 'max_regrasp': 2}
+ 
+ # instruction -> (task, target class, destination class). Templates: field_prompt_policy.PATTERNS (official 647);
+ # phrases: autolabel/build_yolo.T1_PHRASE / T2_PHRASE plus private_instructions aliases.
+@@ -83,6 +86,44 @@
+     return None
+ 
+ 
++# 11/15: box-referencing prompts. *_named box datasets use CUE_NAMED (the object's name stays, so a dropped object can
++# still be found by name), *_gen use CUE_GENERIC (only the boxes say what and where, which forces the model to read
++# them). Online, CUE_NAMED replaces the instruction while the cue is drawn (config cue_prompt).
++CUE_NAMED = {1: 'Pick up the {o} in the white box and place it on the {d} plate in the orange box.',
++             2: 'Put the {o} in the white box into the {d} compartment in the orange box.'}
++CUE_GENERIC = {1: 'Pick up the object in the white box and place it on the plate in the orange box.',
++               2: 'Put the item in the white box into the compartment in the orange box.'}
++_PHRASE_FIX = {'watermellon': 'watermelon'}
++
++
++def parse_phrases(text):
++    """(task, object phrase as written, destination word) with the same patterns as parse(), or None."""
++    s = ' '.join(str(text or '').split())
++    for task, pats, table, dests, prefix in _PATS:
++        for p in pats:
++            m = p.fullmatch(s)
++            if m and m.group(1).lower() in table and m.group(2).lower() in dests:
++                o = m.group(1).lower()
++                return task, _PHRASE_FIX.get(o, o), m.group(2).lower()
++    return None
++
++
++def cue_prompts(text):
++    """(named prompt, generic prompt) for a task-1/2 instruction, or None."""
++    p = parse_phrases(text)
++    if p is None:
++        return None
++    task, o, d = p
++    return CUE_NAMED[task].format(o=o, d=d), CUE_GENERIC[task]
++
++
++def _inside(b, box, pad=0.15):
++    """centre of b inside box grown by pad of its size on every side"""
++    cx, cy = _ctr(b)
++    w, h = box[2] - box[0], box[3] - box[1]
++    return box[0] - pad * w <= cx <= box[2] + pad * w and box[1] - pad * h <= cy <= box[3] + pad * h
++
++
+ def _ctr(b):
+     return ((b[0] + b[2]) / 2, (b[1] + b[3]) / 2)
+ 
+@@ -276,6 +317,8 @@
+         self.t0 = time.monotonic()
+         self.boxes, self.reason, self.grasp, self.opened = None, None, None, [False, False]
+         self.n_obs = self.n_drawn = self.n_chunks = self.n_detect = 0
++        self.prompts = cue_prompts(self.task)
++        self.release_t, self.placed, self.n_regrasp = None, False, 0
+         self.saved, self.closed = set(), False
+ 
+     @property
+@@ -378,6 +421,8 @@
+             self._detect(img, 'retry')
+         if self.boxes is None:
+             return
++        if self.release_t is not None:
++            self._check_release(img)
+         grasped = self.grasp is not None
+         if self.mode == 'on' or (grasped and 'grasp' not in self.saved):
+             cued = draw(img, *self.boxes, grasped)
+@@ -386,13 +431,56 @@
+             if self.mode == 'on':
+                 out[CAM] = cued
+                 self.n_drawn += 1
++                if self.cfg['cue_prompt'] and self.prompts is not None and 'task' in out:
++                    out['task'] = self.prompts[0]
+ 
++    def _check_release(self, img):
++        """Regrasp insurance. After the grasping arm's gripper command opened again (release_t, from _on_chunk), look
++        for the target once the release has happened: on the table off the destination -> the grasp missed or the object
++        dropped: white box back on it and the grasp rule re-armed; on the destination -> placed, stop checking."""
++        dt = time.monotonic() - self.release_t
++        if dt < self.cfg['release_wait_s']:
++            return
++        if dt > self.cfg['release_wait_s'] + self.cfg['release_window_s']:
++            self._log(event='release_unresolved', after_s=round(dt, 2))
++            self.release_t = None
++            return
++        try:
++            dets = detector(self.cfg)(img)
++        except Exception:
++            self.logger.exception('yolocue: release check detection failed')
++            return
++        self.n_detect += 1
++        tcls, tb_old, db = self.parsed[1], self.boxes[0], self.boxes[1]
++        t = sorted([(d[5], d[1:5]) for d in dets if d[0] == tcls and d[5] >= self.cfg['conf']], key=lambda x: -x[0])
++        if not t:
++            return                                     # occluded or out of view: try the next frame
++        tb = [round(v, 1) for v in t[0][1]]
++        if _inside(tb, db):
++            self.placed, self.release_t = True, None
++            self._log(event='placed', after_s=round(dt, 2), target_box=tb)
++            return
++        self.n_regrasp += 1
++        self.boxes, self.grasp, self.opened, self.release_t = (tb, db), None, [False, False], None
++        self._log(event='regrasp', n=self.n_regrasp, after_s=round(dt, 2), target_box=tb, previous_box=tb_old)
++        self._save(f'regrasp{self.n_regrasp}', draw(img, tb, db, False))
++
+     def _on_chunk(self, chunk):
+         self.n_chunks += 1
+-        if self.grasp is not None:
+-            return
+         acts = getattr(chunk, 'actions', None) or {}
+         g = [np.asarray(acts[k], dtype=float).reshape(-1) for k in GRIPPER_KEYS]
++        if self.grasp is not None:
++            # release = the grasping arm's command opens AFTER a closed step of the same chunk. Each chunk is in time
++            # order from its request, but with RTC its first steps repeat the previous chunk's tail, which can still
++            # hold the opening before the grasp; a closed -> open order inside one chunk is a real (planned) reopen.
++            a = ('left', 'right').index(self.grasp['arm'])
++            seq = g[a]
++            shut = np.flatnonzero(seq < CMD_CLOSED)
++            if (self.cfg['regrasp'] and self.boxes is not None and not self.placed and self.release_t is None
++                    and self.n_regrasp < self.cfg['max_regrasp'] and len(shut) and np.any(seq[shut[0]:] > CMD_OPEN)):
++                self.release_t = time.monotonic()
++                self._log(event='release', chunk=self.n_chunks, arm=self.grasp['arm'])
++            return
+         for j in range(min(len(g[0]), len(g[1]))):
+             for a in (0, 1):
+                 v = g[a][j]
+@@ -409,4 +497,5 @@
+         self.closed = True
+         uninstall(self.policy)
+         self._log(event='end', why=why, reason=self.reason, cue=self.boxes, grasp=self.grasp, frames=self.n_obs,
+-                  drawn=self.n_drawn, chunks=self.n_chunks, detections=self.n_detect)
++                  drawn=self.n_drawn, chunks=self.n_chunks, detections=self.n_detect, regrasps=self.n_regrasp,
++                  placed=self.placed, cue_prompt=bool(self.cfg['cue_prompt'] and self.prompts))

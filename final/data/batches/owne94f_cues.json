@@ -1,0 +1,350 @@
+{
+ "summary": {
+  "yolo": "weights/v13.torchscript",
+  "checked_by_eye": "11/15 22:2x: all 17 cues correct (target and destination boxes, grasp of the boxed object, final compartment); 516 no cue (hand in frame 0); partial 519/527/528 end in the right compartment",
+  "mode": "boxgrasp",
+  "line_px": 5
+ },
+ "episodes": {
+  "511": {
+   "id": "ep0511",
+   "instruction": "Put the dark-colored round contour compact in the middle compartment.",
+   "target": "contour",
+   "dest": "organizer_middle",
+   "target_box": [
+    366.3,
+    304.8,
+    421.2,
+    354.7
+   ],
+   "dest_box": [
+    171.2,
+    144.8,
+    332.0,
+    206.5
+   ],
+   "grasp_frame": 173,
+   "T": 475
+  },
+  "512": {
+   "id": "ep0512",
+   "instruction": "Place the light-colored round highlighter compact inside the top level of the organizer.",
+   "target": "highlighter",
+   "dest": "organizer_top",
+   "target_box": [
+    247.7,
+    320.9,
+    303.9,
+    374.8
+   ],
+   "dest_box": [
+    171.8,
+    79.1,
+    333.1,
+    136.4
+   ],
+   "grasp_frame": 181,
+   "T": 530
+  },
+  "513": {
+   "id": "ep0513",
+   "instruction": "Organize the black round glitter compact into the top compartment.",
+   "target": "glitter_compact",
+   "dest": "organizer_top",
+   "target_box": [
+    146.1,
+    301.9,
+    204.7,
+    354.7
+   ],
+   "dest_box": [
+    186.9,
+    74.4,
+    345.3,
+    131.1
+   ],
+   "grasp_frame": 188,
+   "T": 399
+  },
+  "514": {
+   "id": "ep0514",
+   "instruction": "Take the dark-colored round contour compact and put it in the middle section.",
+   "target": "contour",
+   "dest": "organizer_middle",
+   "target_box": [
+    86.4,
+    232.1,
+    140.3,
+    275.2
+   ],
+   "dest_box": [
+    265.1,
+    141.0,
+    425.4,
+    201.7
+   ],
+   "grasp_frame": 239,
+   "T": 546
+  },
+  "515": {
+   "id": "ep0515",
+   "instruction": "Store the light-colored round highlighter compact in the middle compartment.",
+   "target": "highlighter",
+   "dest": "organizer_middle",
+   "target_box": [
+    488.4,
+    236.2,
+    541.4,
+    276.7
+   ],
+   "dest_box": [
+    265.5,
+    143.3,
+    425.3,
+    202.8
+   ],
+   "grasp_frame": 187,
+   "T": 455
+  },
+  "517": {
+   "id": "ep0517",
+   "instruction": "Store the black round glitter compact in the bottom compartment.",
+   "target": "glitter_compact",
+   "dest": "organizer_bottom",
+   "target_box": [
+    498.9,
+    288.1,
+    561.8,
+    339.0
+   ],
+   "dest_box": [
+    91.0,
+    220.5,
+    265.8,
+    277.2
+   ],
+   "grasp_frame": 154,
+   "T": 466
+  },
+  "518": {
+   "id": "ep0518",
+   "instruction": "Put the small black and gold makeup brush in the bottom compartment.",
+   "target": "brush_small",
+   "dest": "organizer_bottom",
+   "target_box": [
+    324.4,
+    318.4,
+    377.6,
+    390.0
+   ],
+   "dest_box": [
+    95.0,
+    219.0,
+    266.1,
+    276.3
+   ],
+   "grasp_frame": 259,
+   "T": 529
+  },
+  "519": {
+   "id": "ep0519",
+   "instruction": "Take the small black and gold makeup brush and put it in the middle section.",
+   "target": "brush_small",
+   "dest": "organizer_middle",
+   "target_box": [
+    282.2,
+    281.8,
+    343.9,
+    335.6
+   ],
+   "dest_box": [
+    395.3,
+    136.8,
+    568.7,
+    199.3
+   ],
+   "grasp_frame": 427,
+   "T": 735
+  },
+  "520": {
+   "id": "ep0520",
+   "instruction": "Organize the small black and gold makeup brush into the bottom compartment.",
+   "target": "brush_small",
+   "dest": "organizer_bottom",
+   "target_box": [
+    205.5,
+    425.3,
+    313.3,
+    446.6
+   ],
+   "dest_box": [
+    444.3,
+    212.0,
+    614.6,
+    267.8
+   ],
+   "grasp_frame": 319,
+   "T": 627
+  },
+  "521": {
+   "id": "ep0521",
+   "instruction": "Place the small black and gold makeup brush inside the top level of the organizer.",
+   "target": "brush_small",
+   "dest": "organizer_top",
+   "target_box": [
+    260.6,
+    410.5,
+    347.3,
+    479.6
+   ],
+   "dest_box": [
+    442.9,
+    71.4,
+    616.7,
+    127.3
+   ],
+   "grasp_frame": 258,
+   "T": 606
+  },
+  "522": {
+   "id": "ep0522",
+   "instruction": "Store the rectangular multicolor eyeshadow palette in the top compartment.",
+   "target": "eyeshadow_palette",
+   "dest": "organizer_top",
+   "target_box": [
+    423.9,
+    383.2,
+    523.4,
+    470.4
+   ],
+   "dest_box": [
+    442.8,
+    69.3,
+    616.4,
+    128.3
+   ],
+   "grasp_frame": 286,
+   "T": 776
+  },
+  "523": {
+   "id": "ep0523",
+   "instruction": "Organize the rectangular multicolor eyeshadow palette into the top compartment.",
+   "target": "eyeshadow_palette",
+   "dest": "organizer_top",
+   "target_box": [
+    309.6,
+    415.3,
+    415.9,
+    480.0
+   ],
+   "dest_box": [
+    60.3,
+    88.8,
+    239.5,
+    146.9
+   ],
+   "grasp_frame": 356,
+   "T": 831
+  },
+  "524": {
+   "id": "ep0524",
+   "instruction": "Organize the beige lotion pump bottle into the middle compartment.",
+   "target": "lotion_bottle",
+   "dest": "organizer_middle",
+   "target_box": [
+    266.8,
+    368.7,
+    371.4,
+    432.1
+   ],
+   "dest_box": [
+    60.0,
+    154.9,
+    238.7,
+    218.1
+   ],
+   "grasp_frame": 275,
+   "T": 703
+  },
+  "525": {
+   "id": "ep0525",
+   "instruction": "Put the beige lip gloss tube in the middle compartment.",
+   "target": "lip_gloss",
+   "dest": "organizer_middle",
+   "target_box": [
+    183.2,
+    327.0,
+    251.5,
+    397.5
+   ],
+   "dest_box": [
+    61.4,
+    154.7,
+    238.2,
+    217.9
+   ],
+   "grasp_frame": 276,
+   "T": 644
+  },
+  "526": {
+   "id": "ep0526",
+   "instruction": "Place the light-colored round highlighter compact inside the top level of the organizer.",
+   "target": "highlighter",
+   "dest": "organizer_top",
+   "target_box": [
+    106.9,
+    361.4,
+    170.6,
+    422.7
+   ],
+   "dest_box": [
+    228.9,
+    107.1,
+    404.3,
+    166.8
+   ],
+   "grasp_frame": 248,
+   "T": 742
+  },
+  "527": {
+   "id": "ep0527",
+   "instruction": "Put the rectangular multicolor eyeshadow palette in the middle compartment.",
+   "target": "eyeshadow_palette",
+   "dest": "organizer_middle",
+   "target_box": [
+    480.4,
+    320.7,
+    579.8,
+    385.1
+   ],
+   "dest_box": [
+    306.5,
+    144.4,
+    466.7,
+    206.7
+   ],
+   "grasp_frame": 319,
+   "T": 954
+  },
+  "528": {
+   "id": "ep0528",
+   "instruction": "Store the rectangular multicolor eyeshadow palette in the middle compartment.",
+   "target": "eyeshadow_palette",
+   "dest": "organizer_middle",
+   "target_box": [
+    128.7,
+    352.0,
+    224.2,
+    443.6
+   ],
+   "dest_box": [
+    317.2,
+    145.0,
+    481.4,
+    207.6
+   ],
+   "grasp_frame": 342,
+   "T": 878
+  }
+ }
+}

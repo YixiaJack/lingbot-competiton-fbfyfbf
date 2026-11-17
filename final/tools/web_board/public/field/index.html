@@ -1,0 +1,784 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>现场作战台</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--fg:#1d2128;--muted:#6b7380;--border:#e3e6eb;--chip:#eef1f5;--hl:#e8edf7;
+--cur:#2f6fdb;--ok:#1f9d55;--warn:#b7791f;--err:#d64545;--grid:#dfe3e9;--track:#e6e9ee;--heat:47,111,219;--sug:214,69,69}
+@media (prefers-color-scheme:dark){:root{--bg:#14161a;--card:#1d2026;--fg:#e7e9ee;--muted:#9097a3;--border:#2b2f37;
+--chip:#262a31;--hl:#232a36;--cur:#5b93f0;--ok:#3cc47c;--warn:#e0a84a;--err:#f06a6a;--grid:#2f343d;--track:#2b2f37;
+--heat:91,147,240;--sug:240,106,106}}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.5 -apple-system,BlinkMacSystemFont,"PingFang SC","Noto Sans SC","Segoe UI",sans-serif}
+.num,.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-variant-numeric:tabular-nums}
+header{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--border)}
+.top{display:flex;align-items:center;gap:12px;padding:10px 16px;max-width:1180px;margin:0 auto}
+.top h1{font-size:16px;margin:0;font-weight:650}
+.top a{color:var(--muted);text-decoration:none;font-size:13px}
+.top .sp{flex:1}
+nav{display:flex;gap:4px;overflow-x:auto;padding:0 12px 8px;max-width:1180px;margin:0 auto}
+nav button{border:0;background:none;color:var(--muted);padding:6px 10px;border-radius:7px;font:inherit;cursor:pointer;white-space:nowrap}
+nav button.on{background:var(--chip);color:var(--fg);font-weight:600}
+main{max-width:1180px;margin:0 auto;padding:14px 16px 60px}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px}
+.card h2{font-size:14px;margin:0 0 8px;font-weight:650}
+.card h3{font-size:13px;margin:12px 0 6px;color:var(--muted);font-weight:600}
+.big{font-size:26px;font-weight:650;line-height:1.15}
+.muted{color:var(--muted)}.ok{color:var(--ok)}.warn{color:var(--warn)}.err{color:var(--err)}
+.small{font-size:12px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 10px}
+.chip{border:1px solid var(--border);background:var(--card);color:var(--fg);padding:4px 10px;border-radius:999px;font:inherit;font-size:13px;cursor:pointer}
+.chip.on{background:var(--cur);border-color:var(--cur);color:#fff}
+.tag{display:inline-block;font-size:11px;padding:1px 7px;border-radius:999px;background:var(--chip);color:var(--muted);margin:1px 3px 1px 0}
+.tag.err{background:rgba(214,69,69,.13);color:var(--err)}.tag.warn{background:rgba(183,121,31,.14);color:var(--warn)}
+.two{display:grid;gap:12px;grid-template-columns:minmax(0,3fr) minmax(0,2fr)}
+@media (max-width:860px){.two{grid-template-columns:1fr}}
+.map{position:relative;border-radius:8px;overflow:hidden;background:var(--track)}
+.map img{display:block;width:100%;height:auto}
+.map svg{position:absolute;inset:0;width:100%;height:100%}
+.bars .row{display:grid;grid-template-columns:7.5em 1fr 2.6em;gap:8px;align-items:center;font-size:12.5px;margin:3px 0}
+.bars .track{height:8px;background:var(--track);border-radius:4px;overflow:hidden}
+.bars .fill{height:100%;background:var(--cur);border-radius:4px}
+.bars .row.low .fill{background:var(--warn)}.bars .row.zero .lab{color:var(--err)}
+.bars .lab{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sug{border:1.5px solid rgb(var(--sug));border-radius:10px;padding:12px;background:rgba(var(--sug),.06)}
+.sug .what{font-size:16px;font-weight:650;margin:2px 0 4px}
+button.act{border:1px solid var(--border);background:var(--chip);color:var(--fg);border-radius:7px;padding:5px 10px;font:inherit;font-size:13px;cursor:pointer}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{text-align:left;padding:6px 6px;border-bottom:1px solid var(--border);vertical-align:top}
+th{color:var(--muted);font-weight:600;font-size:12px}
+tr.click{cursor:pointer}tr.click:hover{background:var(--hl)}
+.scroll{overflow-x:auto}
+.legend{display:flex;flex-wrap:wrap;gap:10px;font-size:12px;color:var(--muted);margin-top:8px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:4px;vertical-align:-1px}
+.drawer{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;z-index:20;align-items:flex-start;justify-content:center;padding:40px 12px;overflow:auto}
+.drawer.on{display:flex}
+.drawer .card{max-width:560px;width:100%}
+.kv{display:grid;grid-template-columns:6.5em 1fr;gap:3px 10px;font-size:13px}
+.kv div:nth-child(odd){color:var(--muted)}
+.trial{display:grid;grid-template-columns:2.2em repeat(6,minmax(0,1fr)) 3.2em;gap:4px;align-items:center;font-size:12px;margin:2px 0}
+.trial label{display:flex;justify-content:center}
+.trial.h{color:var(--muted)}
+input[type=text]{font:inherit;padding:5px 8px;border:1px solid var(--border);border-radius:7px;background:var(--card);color:var(--fg);width:100%}
+.note{font-size:12px;color:var(--muted);margin-top:8px}
+ul.clean{margin:4px 0;padding-left:18px}
+table.mat td,table.mat th{padding:3px 6px;font-size:12px}
+details summary{margin-top:8px}
+.sticky-note{font-size:12px;color:var(--muted);padding:6px 16px;max-width:1180px;margin:0 auto}
+.episode-preview{width:96px;height:54px;object-fit:cover;border-radius:5px;background:var(--track)}
+.data-toolbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:12px 0}
+.data-toolbar form{display:flex;gap:6px;flex:1;min-width:220px}
+.data-toolbar input{min-width:0}.data-toolbar button{white-space:nowrap}
+.data-table td.prompt{min-width:250px;max-width:520px}.pager{display:flex;gap:10px;align-items:center;justify-content:flex-end;margin-top:12px}
+</style>
+</head>
+<body>
+<header>
+  <div class="top"><h1>现场作战台</h1><span class="sp"></span><a href="/">← GPU 看板</a></div>
+  <nav id="nav"></nav>
+</header>
+<div class="sticky-note" id="src"></div>
+<div class="sticky-note" id="msg" style="display:none;color:var(--err)"></div>
+<main id="main"><div class="card">加载中…</div></main>
+<div class="drawer" id="drawer"><div class="card" id="dcard"></div></div>
+<script>
+"use strict";
+var ZH={green_apple:"青苹果",peach:"桃子",pomegranate:"石榴",tangerine:"橘子",watermelon:"西瓜",banana:"香蕉",red_apple:"红苹果",grapes:"葡萄",starfruit:"杨桃",red_delicious:"红蛇果",strawberry:"草莓",persimmon:"柿子",lemon:"柠檬",orange:"橙子",mangosteen:"山竹",pineapple:"菠萝",mango:"芒果",pear:"梨子",passion_fruit:"百香果",dragon_fruit:"火龙果",kiwi:"猕猴桃",avocado:"牛油果",cherry:"樱桃",wax_apple:"莲雾",papaya:"木瓜",tomato:"西红柿",mushroom:"蘑菇",cucumber:"青瓜",pumpkin:"南瓜",bell_pepper:"彩椒",carrot:"胡萝卜",red_chili:"红尖椒",green_chili:"青尖椒",eggplant:"茄子",onion:"洋葱",potato:"土豆",plate_white:"白盘",plate_yellow:"黄盘",plate_pink:"粉盘",plate_purple:"紫盘",plate_blue:"蓝盘",lotion_bottle:"乳液瓶",lip_gloss:"唇蜜",lipstick:"口红",eyeshadow_palette:"眼影盘",brush_large:"大化妆刷",brush_small:"小化妆刷",highlighter:"高光盒",contour:"阴影盒",powder_puff:"粉扑",glitter_compact:"亮片盒",organizer_bottom:"收纳盒下层",organizer_middle:"收纳盒中层",organizer_top:"收纳盒上层",dustpan:"簸箕",brush:"扫把",basket:"收纳筐",paper_ball_red:"红纸团",paper_ball_white:"白纸团"};
+var T1_OBJ=["green_apple","peach","pomegranate","tangerine","watermelon","banana","red_apple","grapes","starfruit","red_delicious","strawberry","persimmon","lemon","orange","mangosteen","pineapple","mango","pear","passion_fruit","dragon_fruit","kiwi","avocado","cherry","wax_apple","papaya","tomato","mushroom","cucumber","pumpkin","bell_pepper","carrot","red_chili","green_chili","eggplant","onion","potato"];
+var T2_OBJ=["lotion_bottle","lip_gloss","lipstick","eyeshadow_palette","brush_large","brush_small","highlighter","contour","powder_puff","glitter_compact"];
+// Missing target examples still belong to the competition inventory. These descriptions
+// come from the item list, not from observed prompt frequencies.
+var T2_MISSING_PHRASES={brush_small:"small black and gold makeup brush",glitter_compact:"black round glitter compact"};
+var EVAL_EXTRA_PHRASES={starfruit:'star fruit',green_chili:'green chili pepper'};
+// Team observations, not training episodes or measured scenario frequencies.
+var EVAL_SCENES={1:[
+  {id:1,label:'三个盘子 · 物体未记录',raw:'三个盘子',objects:null,plates:3,note:'原记录未写物体，本次目标与干扰物由建议补选。'},
+  {id:2,label:'长条物体 · 两个盘子',raw:'各种长条 黄瓜 尖椒 茄子 两个盘子',objects:['cucumber','@chili','eggplant'],plates:2,note:'尖椒颜色未记录，本次在红尖椒、青尖椒之间轮换。'},
+  {id:3,label:'山竹／百香果／茄子／葡萄',raw:'山竹和百花果 茄子 葡萄 三个盘子',objects:['mangosteen','passion_fruit','eggplant','grapes'],plates:3,note:'原记录“百花果”暂按百香果理解。'},
+  {id:4,label:'土豆／火龙果／西瓜／柠檬',raw:'土豆 火龙果 西瓜 柠檬 两个盘子',objects:['potato','dragon_fruit','watermelon','lemon'],plates:2},
+  {id:5,label:'黄瓜／香蕉／胡萝卜／红尖椒',raw:'黄瓜 香蕉 胡萝卜 红尖椒 三个盘子',objects:['cucumber','banana','carrot','red_chili'],plates:3},
+  {id:6,label:'菠萝／黄瓜／香蕉／杨桃',raw:'菠萝 黄瓜 香蕉 杨桃 两个盘子',objects:['pineapple','cucumber','banana','starfruit'],plates:2},
+  {id:7,label:'菠萝／杨桃／柠檬／黄瓜',raw:'菠萝 杨桃 柠檬 黄瓜 三个盘子',objects:['pineapple','starfruit','lemon','cucumber'],plates:3},
+  {id:8,label:'青尖椒／胡萝卜／黄瓜／茄子',raw:'青尖椒 胡萝卜 黄瓜 茄子',objects:['green_chili','carrot','cucumber','eggplant'],plates:null,note:'原记录未写盘数，本次补充设置在两个、三个盘子之间轮换。'},
+  {id:9,label:'全橙色干扰 · 三个盘子',raw:'胡萝卜 南瓜 橙子 柿子全是橙色 三个盘子',objects:['carrot','pumpkin','orange','persimmon'],plates:3,color:'orange'},
+  {id:10,label:'全红色干扰 · 两个盘子',raw:'草莓 樱桃 红尖椒 苹果 全部红色 两个盘子',objects:['strawberry','cherry','red_chili','red_apple'],plates:2,color:'red'}
+],2:[
+  {id:1,label:'乳液／口红／唇蜜 · 左上',raw:'lotion 口红 唇蜜 左上角收纳',objects:['lotion_bottle','lipstick','lip_gloss'],organizer:'左上角'},
+  {id:2,label:'眼影／口红／粉扑 · 左侧',raw:'眼影 口红 粉扑 左边收纳',objects:['eyeshadow_palette','lipstick','powder_puff'],organizer:'左侧'},
+  {id:3,label:'粉扑／高光／眼影 · 中间',raw:'粉扑 亮色 眼影 中间收纳',objects:['powder_puff','highlighter','eyeshadow_palette'],organizer:'中间',note:'“亮色”暂按高光盒理解。'},
+  {id:4,label:'粉扑／大刷子／乳液 · 右上',raw:'粉扑 大刷子 lotion 右上角收纳',objects:['powder_puff','brush_large','lotion_bottle'],organizer:'右上角'},
+  {id:5,label:'高光／阴影／大刷子 · 左上',raw:'亮色 暗色 大刷子 左上角收纳',objects:['highlighter','contour','brush_large'],organizer:'左上角',note:'“亮色／暗色”暂按高光盒／阴影盒理解。'},
+  {id:6,label:'粉扑／小刷子／阴影 · 中间',raw:'粉扑 小刷子 深色 中间收纳',objects:['powder_puff','brush_small','contour'],organizer:'中间',note:'“深色”暂按阴影盒理解。'},
+  {id:7,label:'左右分列 · 收纳盒右上',raw:'粉扑 口红 小刷子 右上角收纳 分列最左边和最右边',objects:['powder_puff','lipstick','brush_small'],organizer:'右上角',split:true},
+  {id:8,label:'眼影／亮片／高光 · 右侧',raw:'眼影 黑色亮片 浅色 右边收纳',objects:['eyeshadow_palette','glitter_compact','highlighter'],organizer:'右侧',note:'“浅色”暂按高光盒理解；黑色亮片对应黑色圆形亮片盒。'},
+  {id:9,label:'唇蜜／亮片／阴影 · 中间',raw:'唇蜜 黑色亮片 深色 中间收纳',objects:['lip_gloss','glitter_compact','contour'],organizer:'中间',note:'“深色”暂按阴影盒理解。'},
+  {id:10,label:'乳液／大刷子 · 左上',raw:'lotion乳液大刷子 左上角',objects:['lotion_bottle','brush_large'],organizer:'左上角',note:'lotion 与乳液按同一件物品处理，本组暂按两类物体。'}
+]};
+ZH.paper_ball_yellow="黄纸团";
+var COLORS=["white","yellow","pink","purple","blue"],COLOR_ZH={white:"白",yellow:"黄",pink:"粉",purple:"紫",blue:"蓝"};
+var PLATE_RGB={white:"#f2f2f2",yellow:"#e9c53f",pink:"#f39ac4",purple:"#9a68d8",blue:"#3f83e6"};
+var LEVELS=["top","middle","bottom"],LEVEL_ZH={top:"上层",middle:"中层",bottom:"下层"};
+var TASK_ZH={1:"任务 1 · 单臂抓放",2:"任务 2 · 化妆品收纳",3:"任务 3 · 双臂清扫"};
+var TEMPL={1:["Put the","Pick up the","Move the","Place the","Could you put the"],2:["Put the","Place the","Store the","Take the","Organize the"]};
+// Public copy: the organizers' scoring rubric is removed; generic equal-weight steps keep the self-test page working.
+var RUBRIC={1:[[25,"步骤 1"],[25,"步骤 2"],[25,"步骤 3"],[25,"步骤 4"]],
+2:[[20,"步骤 1"],[20,"步骤 2"],[20,"步骤 3"],[20,"步骤 4"],[20,"步骤 5"]],
+3:[[20,"步骤 1"],[20,"步骤 2"],[20,"步骤 3"],[20,"步骤 4"],[20,"步骤 5"]]};
+var COLS=8,ROWS=6;
+var SLOTS=[];  // public copy: evaluation slot schedule removed
+var MILESTONES=[["决赛开始","2026-11-14T09:00:00+08:00"],["决赛结束","2026-11-16T10:00:00+08:00"]];
+var S={data:null,tab:"real",task:1,layer:"target",sel:null,sug:0,onlyBad:true,origin:"all",query:"",page:0,posOrigin:null,posLayer:"target",posObject:"all",posCell:null};
+var TABS=[["real","真机数据"],["spatial","位置统计"],["shift","换班"],["coverage","数据覆盖"],["analysis","采集分析"],["quality","数据质量"],["overview","总览"],["eval","评测与提交"],["selftest","自测打分"],["rules","规则速查"]];
+
+function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+function zh(k){return ZH[k]||k||"—"}
+function ctr(b){return b?[(b[0]+b[2])/2,(b[1]+b[3])/2]:null}
+function el(id){return document.getElementById(id)}
+function lsGet(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
+function lsSet(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+function bj(d){return new Date(d).toLocaleString("zh-CN",{timeZone:"Asia/Shanghai",month:"numeric",day:"numeric",hour:"2-digit",minute:"2-digit"})}
+function dur(ms){var neg=ms<0;ms=Math.abs(ms);var h=Math.floor(ms/3600000),m=Math.floor(ms%3600000/60000);var s=(h?h+" 小时 ":"")+m+" 分";return neg?s+"前":s+"后"}
+
+function tmplIndex(e){var s=(e.instruction||"").toLowerCase(),L=TEMPL[e.task];if(!L)return null;
+  if(e.task===1){if(s.indexOf("could you put the")===0)return 4;if(s.indexOf("pick up the")===0)return 1;if(s.indexOf("move the")===0)return 2;if(s.indexOf("place the")===0)return 3;if(s.indexOf("put the")===0)return 0}
+  if(e.task===2){if(s.indexOf("place the")===0)return 1;if(s.indexOf("store the")===0)return 2;if(s.indexOf("take the")===0)return 3;if(s.indexOf("organize the")===0)return 4;if(s.indexOf("put the")===0)return 0}
+  return null}
+
+function prep(d){
+  var E=d.episodes;
+  [1,2].forEach(function(t){var spec=d.prompt_policy&&d.prompt_policy.tasks[String(t)];if(spec&&spec.templates&&spec.templates.length===5)TEMPL[t]=spec.templates.map(function(template){return template.text.split('{object}')[0].trim()})});
+  E.forEach(function(e){var size=e.image_size||d.image_size||[320,240],base=d.image_size||[320,240];function normalized(b){var p=ctr(b);return p?[p[0]*base[0]/size[0],p[1]*base[1]/size[1]]:null}e.tc=normalized(e.target_box);e.dc=normalized(e.dest_box);e.tmpl=tmplIndex(e);e.q=e.source==="rollout"?[]:(e.flags||[]).slice()});   // model runs fail by design: not a data-quality issue
+  [1,2,3].forEach(function(t){
+    var X=E.filter(function(e){return e.task===t&&e.source!=="rollout"});if(!X.length)return;
+    function medmad(a){a=a.filter(function(v){return v!=null}).sort(function(x,y){return x-y});if(!a.length)return null;var m=a[a.length>>1];
+      var dv=a.map(function(v){return Math.abs(v-m)}).sort(function(x,y){return x-y});return [m,dv[dv.length>>1]*1.4826]}
+    var L=medmad(X.map(function(e){return e.len})),H=medmad(X.map(function(e){return e.home_err}));
+    X.forEach(function(e,i){
+      if(L&&e.len!=null&&(e.len<0.5*L[0]||(L[1]>0&&Math.abs(e.len-L[0])>4*L[1])))e.q.push("len_outlier");
+      if(H&&e.home_err!=null&&H[1]>0&&e.home_err>H[0]+4*H[1])e.q.push("not_home");
+      if(e.tc&&!e.spatial){for(var j=0;j<i;j++){var o=X[j];if(o.target===e.target&&o.dest===e.dest&&o.tc&&Math.hypot(o.tc[0]-e.tc[0],o.tc[1]-e.tc[1])<10&&(!e.dc||!o.dc||Math.hypot(o.dc[0]-e.dc[0],o.dc[1]-e.dc[1])<10)){e.q.push("duplicate_of:"+o.n);break}}}
+    })});
+  return d}
+
+var FLAG_ZH={wrong_place:["最后放错了盘子 / 层","err"],not_placed:["最后没放到目标上","err"],wrong_object:["动的是别的物体","err"],not_moved:["没有物体被移动","err"],balls_left:["还有纸团没进筐","err"],regrasp:["抓空重抓","warn"],long_pause:["中途停顿超过 3 秒","warn"],arm_in_view:["结束时没归位，看不清结果","warn"],target_not_detected:["目标没检测到","err"],dest_not_detected:["目的地没检测到","err"],target_unparsed:["指令里认不出目标","err"],task_unknown:["认不出是哪个任务","err"],balls_not_detected:["纸团没检测到","err"],len_outlier:["时长异常","warn"],not_home:["结束时可能没归位","warn"]};
+function flagTag(f){if(f.indexOf("duplicate_of:")===0)return '<span class="tag warn">和 #'+esc(f.slice(13))+' 摆放几乎一样</span>';var z=FLAG_ZH[f]||[f,""];return '<span class="tag '+z[1]+'">'+esc(z[0])+'</span>'}
+
+function nav(){el("nav").innerHTML=TABS.map(function(t){return '<button data-tab="'+t[0]+'" class="'+(S.tab===t[0]?"on":"")+'">'+t[1]+'</button>'}).join("")}
+document.addEventListener("click",function(ev){
+  var b=ev.target.closest("[data-tab]");if(b){S.tab=b.getAttribute("data-tab");location.hash=S.tab;render();return}
+  var t=ev.target.closest("[data-task]");if(t){S.task=+t.getAttribute("data-task");S.sug=0;S.page=0;S.posCell=null;S.posObject="all";render();return}
+  var po=ev.target.closest("[data-pos-origin]");if(po){S.posOrigin=po.getAttribute("data-pos-origin");S.posCell=null;render();return}
+  var pl=ev.target.closest("[data-pos-layer]");if(pl){S.posLayer=pl.getAttribute("data-pos-layer");S.posCell=null;render();return}
+  var pc=ev.target.closest("[data-pos-cell]");if(pc){S.posCell=+pc.getAttribute("data-pos-cell");render();return}
+  var o=ev.target.closest("[data-origin]");if(o){S.origin=o.getAttribute("data-origin");S.page=0;render();return}
+  var pg=ev.target.closest("[data-page]");if(pg){S.page=+pg.getAttribute("data-page");render();return}
+  if(ev.target.closest("[data-next-plan]")){nextCollectionPlan(S.task);render();return}
+  if(ev.target.closest("[data-copy-prompt]")){copyPlan();return}
+  var pm=ev.target.closest('[data-plan-mode]');if(pm){setPlanMode(S.task,pm.getAttribute('data-plan-mode'));render();return}
+  if(ev.target.closest('[data-copy-setup]')){copySetup();return}
+  var l=ev.target.closest("[data-layer]");if(l){S.layer=l.getAttribute("data-layer");render();return}
+  var e=ev.target.closest("[data-ep]");if(e){openEp(+e.getAttribute("data-ep"));return}
+  if(ev.target.id==="drawer"||ev.target.closest("[data-close]")){el("drawer").classList.remove("on");return}
+  if(ev.target.closest("[data-resug]")){S.sug++;render();return}
+  if(ev.target.closest("[data-onlybad]")){S.onlyBad=!S.onlyBad;render();return}
+});
+document.addEventListener("submit",function(ev){if(ev.target.id==="real-search"){ev.preventDefault();S.query=el("real-query").value.trim();S.page=0;render()}});
+document.addEventListener("change",function(ev){if(ev.target.id==="position-object"){S.posObject=ev.target.value;S.posCell=null;render()}if(ev.target.id==='eval-scene'){setEvalScene(S.task,ev.target.value);render()}});
+document.addEventListener("keydown",function(ev){var cell=ev.target.closest&&ev.target.closest('[data-pos-cell]');if(cell&&(ev.key==='Enter'||ev.key===' ')){ev.preventDefault();S.posCell=+cell.getAttribute('data-pos-cell');render()}});
+
+function byTask(t){return S.data.episodes.filter(function(e){return e.task===t})}
+function W(){return (S.data.image_size||[320,240])[0]}function H(){return (S.data.image_size||[320,240])[1]}
+function mapPoint(e,p){var size=e.image_size||[W(),H()];return p?[p[0]*W()/size[0],p[1]*H()/size[1]]:null}
+function cellOf(p){return [Math.min(COLS-1,Math.max(0,Math.floor(p[0]/W()*COLS))),Math.min(ROWS-1,Math.max(0,Math.floor(p[1]/H()*ROWS)))]}
+function cellName(c){return "第 "+(c[1]+1)+" 行第 "+(c[0]+1)+" 列"}
+
+function coverage(t){
+  var X=byTask(t),cnt=[],reg=[],r,c;
+  for(r=0;r<ROWS;r++){cnt.push(new Array(COLS).fill(0));reg.push(new Array(COLS).fill(false))}
+  X.forEach(function(e){
+    (e.dets||[]).forEach(function(d){var p=cellOf(mapPoint(e,ctr(d.slice(1,5))));reg[p[1]][p[0]]=true});
+    var pts=t===3?(e.balls||[]).map(function(b){return mapPoint(e,ctr(b))}):(e.tc?[e.tc]:[]);
+    pts.forEach(function(p){var q=cellOf(p);cnt[q[1]][q[0]]++})});
+  var vals=[];for(r=0;r<ROWS;r++)for(c=0;c<COLS;c++)if(reg[r][c])vals.push(cnt[r][c]);
+  var mean=vals.length?vals.reduce(function(a,b){return a+b},0)/vals.length:0,low=[];
+  for(r=0;r<ROWS;r++)for(c=0;c<COLS;c++)if(reg[r][c]&&cnt[r][c]<Math.max(1,0.5*mean))low.push([c,r,cnt[r][c]]);
+  low.sort(function(a,b){return a[2]-b[2]});
+  var covered=vals.filter(function(v){return v>0}).length;
+  return {cnt:cnt,reg:reg,mean:mean,low:low,covered:covered,cells:vals.length,max:Math.max.apply(null,[1].concat(vals))}}
+
+function counts(keys,vals){var m={};keys.forEach(function(k){m[k]=0});vals.forEach(function(v){if(v!=null)m[v]=(m[v]||0)+1});return m}
+function bars(m,label,opt){opt=opt||{};var ks=Object.keys(m);if(opt.sort)ks.sort(function(a,b){return m[a]-m[b]});
+  var mx=Math.max.apply(null,[1].concat(ks.map(function(k){return m[k]}))),mean=ks.length?ks.reduce(function(a,k){return a+m[k]},0)/ks.length:0;
+  return '<div class="bars">'+ks.map(function(k){var v=m[k],cls=v===0?"zero low":v<0.6*mean?"low":"";
+    return '<div class="row '+cls+'"><div class="lab" title="'+esc(label(k))+'">'+esc(label(k))+'</div><div class="track"><div class="fill" style="width:'+(100*v/mx)+'%"></div></div><div class="num">'+v+'</div></div>'}).join("")+'</div>'}
+
+function suggestion(t){
+  var X=byTask(t),cv=coverage(t),objs=t===1?T1_OBJ:T2_OBJ,dests=t===1?COLORS:LEVELS;
+  if(t===3){var c3=cv.low[S.sug%Math.max(1,cv.low.length)];return {text:"纸团放在"+(c3?cellName([c3[0],c3[1]]):"覆盖最少的区域"),cell:c3,why:"任务 3 只看纸团位置的覆盖"}}
+  var oc=counts(objs,X.map(function(e){return e.target})),combo={};
+  X.forEach(function(e){var k=e.target+"|"+e.dest;combo[k]=(combo[k]||0)+1});
+  var order=objs.slice().sort(function(a,b){return oc[a]-oc[b]||objs.indexOf(a)-objs.indexOf(b)});
+  var o=order[S.sug%order.length];
+  var dd=dests.slice().sort(function(a,b){return (combo[o+"|"+a]||0)-(combo[o+"|"+b]||0)});
+  var dc=counts(dests,X.map(function(e){return e.dest}));
+  var d=dd.filter(function(x){return (combo[o+"|"+x]||0)===(combo[o+"|"+dd[0]]||0)}).sort(function(a,b){return dc[a]-dc[b]})[0];
+  var cell=cv.low.length?cv.low[S.sug%cv.low.length]:null;
+  var tl=TEMPL[t],tc=counts([0,1,2,3,4],X.map(function(e){return e.tmpl})),ti=[0,1,2,3,4].sort(function(a,b){return tc[a]-tc[b]})[0];
+  return {text:"目标 "+zh(o)+" → "+(t===1?COLOR_ZH[d]+"盘":LEVEL_ZH[d]),cell:cell,o:o,d:d,
+    why:zh(o)+" 目前 "+oc[o]+" 条；这个组合 "+(combo[o+"|"+d]||0)+" 条"+(cell?"；目标放在"+cellName([cell[0],cell[1]])+"（地图上红框，现有 "+cell[2]+" 条）":"")+"；指令用第 "+(ti+1)+" 种说法（"+tl[ti]+" …，现有 "+tc[ti]+" 条）"}}
+
+function mapSvg(t,cv,sug){
+  var X=byTask(t),w=W(),h=H(),cw=w/COLS,ch=h/ROWS,s=[],r,c;
+  for(r=0;r<ROWS;r++)for(c=0;c<COLS;c++){
+    if(!cv.reg[r][c])continue;var v=cv.cnt[r][c];
+    s.push('<rect x="'+c*cw+'" y="'+r*ch+'" width="'+cw+'" height="'+ch+'" style="fill:rgba(var(--heat),'+(0.08+0.5*v/cv.max).toFixed(3)+')" stroke="rgba(255,255,255,.35)" stroke-width="0.5"/>');
+    if(v<Math.max(1,0.5*cv.mean))s.push('<rect x="'+(c*cw+1)+'" y="'+(r*ch+1)+'" width="'+(cw-2)+'" height="'+(ch-2)+'" fill="none" stroke="#e0a84a" stroke-width="1.2" stroke-dasharray="3 2"/>');
+    s.push('<text x="'+(c*cw+3)+'" y="'+(r*ch+10)+'" font-size="8" fill="#fff" style="paint-order:stroke;stroke:rgba(0,0,0,.55);stroke-width:2px">'+v+'</text>')}
+  if(sug&&sug.cell)s.push('<rect x="'+(sug.cell[0]*cw+1)+'" y="'+(sug.cell[1]*ch+1)+'" width="'+(cw-2)+'" height="'+(ch-2)+'" fill="none" style="stroke:rgb(var(--sug))" stroke-width="2.2"/>');
+  X.forEach(function(e){
+    if(S.layer!=="dest"){var pts=t===3?(e.balls||[]).map(function(b){return mapPoint(e,ctr(b))}):(e.tc?[e.tc]:[]);
+      pts.forEach(function(p){s.push('<circle data-ep="'+e.n+'" cx="'+p[0]+'" cy="'+p[1]+'" r="3.2" fill="#fff" stroke="#111" stroke-width="1" style="cursor:pointer"><title>#'+e.n+' '+esc(zh(e.target))+'</title></circle>')})}
+    if(S.layer!=="target"&&e.dc){var col=t===1?(PLATE_RGB[e.dest]||"#999"):"#9aa3b2";
+      s.push('<rect data-ep="'+e.n+'" x="'+(e.dc[0]-3.5)+'" y="'+(e.dc[1]-3.5)+'" width="7" height="7" fill="'+col+'" stroke="#111" stroke-width="1" style="cursor:pointer"><title>#'+e.n+' '+esc(t===1?COLOR_ZH[e.dest]+"盘":LEVEL_ZH[e.dest]||"")+'</title></rect>')}
+    if(S.layer==="all")(e.dets||[]).forEach(function(d){var p=mapPoint(e,ctr(d.slice(1,5)));s.push('<circle cx="'+p[0]+'" cy="'+p[1]+'" r="1.6" fill="rgba(255,255,255,.7)"/>')})});
+  return '<svg viewBox="0 0 '+w+' '+h+'" preserveAspectRatio="none">'+s.join("")+'</svg>'}
+
+function imageUrl(name){return '/api/field-img?f='+encodeURIComponent(name)+'&v='+encodeURIComponent(S.data.generated||'')}
+function visualPending(){return S.data.outcome_status==="not_evaluated"||!!(S.data.detector&&S.data.detector.status==="not_evaluated")}
+function originName(e){return e.origin==="public"?"官方公共真机":e.origin==="private"?"现场自采":e.collector||e.source||"未标明"}
+function annotationText(e){var text=e.annotation_quality!=null&&e.annotation_quality!==""?String(e.annotation_quality):e.annotation_score!=null?"评分 "+e.annotation_score:"未标注";return text+(e.annotation_result?' · '+e.annotation_result:'')}
+function realRows(){var q=S.query.toLowerCase();return S.data.episodes.filter(function(e){return e.data_kind==="real"&&e.task===S.task&&(S.origin==="all"||e.origin===S.origin)&&(!q||[e.record_id,e.instruction,e.target,zh(e.target),e.collector,e.ds].join(" ").toLowerCase().indexOf(q)>=0)})}
+function weightedTemplate(templates,random){var total=templates.reduce(function(n,t){return n+t.weight},0),x=(random==null?Math.random():random)*total;for(var i=0;i<templates.length;i++){x-=templates[i].weight;if(x<0)return templates[i]}return templates[templates.length-1]}
+function planningPhrases(task,spec){return Object.assign({},task===2?T2_MISSING_PHRASES:{},spec.object_phrases)}
+function targetCounts(task,rows){return counts(task===1?T1_OBJ:task===2?T2_OBJ:[],rows.map(function(e){return e.target}))}
+function planMode(task){
+  if(task===3)return 'coverage';
+  if(!S.planModes)S.planModes=lsGet('field_plan_modes_v1',{});
+  return S.planModes&&S.planModes[task]==='coverage'?'coverage':'evaluation';
+}
+function setPlanMode(task,mode){
+  if(task===3||['coverage','evaluation'].indexOf(mode)<0)return;
+  planMode(task);S.planModes[task]=mode;lsSet('field_plan_modes_v1',S.planModes);
+  if(S.plans)delete S.plans[task];
+}
+function evalSceneFilter(task){
+  if(!S.evalSceneFilters)S.evalSceneFilters=lsGet('field_eval_scene_filters_v1',{});
+  var value=String((S.evalSceneFilters||{})[task]||'auto');
+  return (EVAL_SCENES[task]||[]).some(function(s){return String(s.id)===value})?value:'auto';
+}
+function setEvalScene(task,value){
+  evalSceneFilter(task);S.evalSceneFilters[task]=String(value);lsSet('field_eval_scene_filters_v1',S.evalSceneFilters);
+  if(S.plans)delete S.plans[task];
+}
+function evaluationHistory(task){
+  if(!S.evalHistory)S.evalHistory=lsGet('field_eval_history_v1',{tasks:{}});
+  if(!S.evalHistory||!S.evalHistory.tasks)S.evalHistory={tasks:{}};
+  var h=S.evalHistory.tasks[task];
+  if(!h||!Array.isArray(h.seen))h=S.evalHistory.tasks[task]={seen:[],used:{},visits:{},lastKey:null,lastPrompt:null};
+  return h;
+}
+function planningHistory(task){
+  if(!S.planHistory)S.planHistory=lsGet('field_plan_history_v1',null);
+  if(!S.planHistory||S.planHistory.version!==1||!S.planHistory.tasks||typeof S.planHistory.tasks!=='object')S.planHistory={version:1,tasks:{}};
+  var h=S.planHistory.tasks[task];
+  if(!h||!Array.isArray(h.used))h=S.planHistory.tasks[task]={used:[],step:0,lastKey:null,lastPrompt:null};
+  return h;
+}
+function planningContext(task,spec){
+  var all=byTask(task).filter(function(e){return e.data_kind==='real'}),own=all.filter(function(e){return e.origin==='private'}),coverage={};
+  all.forEach(function(e){var key=JSON.stringify([e.origin,e.target,e.dest]);coverage[key]=(coverage[key]||0)+1});
+  // Only changes relevant to this task restart its rotation. A new export time,
+  // image estimate, or another task's uploads must not consume its suggestions.
+  return {all:all,own:own,revision:JSON.stringify([spec,Object.keys(coverage).sort().map(function(k){return [k,coverage[k]]})])};
+}
+function nextCollectionPlan(task){S.plans=S.plans||{};delete S.plans[task];return collectionPlan(task)}
+function collectionPlan(task){
+  return planMode(task)==='evaluation'?evaluationPlan(task):coveragePlan(task);
+}
+function coveragePlan(task){
+  var spec=S.data.prompt_policy&&S.data.prompt_policy.tasks[String(task)];if(!spec)return null;
+  var context=planningContext(task,spec),own=context.own,all=context.all;
+  S.plans=S.plans||{};var old=S.plans[task];if(old&&old.mode==='coverage'&&old.revision===context.revision)return old;
+  var history=planningHistory(task),plan={task:task,mode:'coverage',generated:S.data.generated,revision:context.revision,
+    basis:{private_episodes:own.length,public_episodes:all.filter(function(e){return e.origin==='public'}).length,total_episodes:all.length}};
+  if(history.revision!==context.revision){history.used=[];history.revision=context.revision}
+  if(task===3){
+    plan.title='双臂清扫：纸团 → 簸箕 → 收纳筐';
+    plan.setup=['纸团分散摆放，左右两侧都覆盖。','纸团适度聚集，留出扫把与簸箕协作空间。','纸团靠近工作区边缘，保持机器人安全可达。'][((history.step||0)+own.length)%3];
+    plan.action='按提示词扫净桌面，将纸团全部倒入筐；放下两个工具，双臂归位并静止。';
+    plan.reason='任务三按官方权重抽取完整提示词，避开上一条相同提示词，并轮换纸团摆放建议。保留清扫、倒入、放工具和归位要求；摆放建议尚未根据图像计算空间覆盖。';
+  }else{
+    var phrases=planningPhrases(task,spec),combos=[];Object.keys(phrases).forEach(function(o){spec.destinations.forEach(function(d){combos.push({o:o,d:d,key:o+'|'+d,own:own.filter(function(e){return e.target===o&&e.dest===d}).length,total:all.filter(function(e){return e.target===o&&e.dest===d}).length})})});
+    if(!combos.length)return null;
+    history.used=history.used.filter(function(key){return combos.some(function(c){return c.key===key})});
+    var remaining=combos.filter(function(c){return history.used.indexOf(c.key)<0});
+    if(!remaining.length){history.used=[];remaining=combos.slice()}
+    // Rotate through every combination before repeating, including a uniquely
+    // smallest gap. Shown suggestions are never added to actual episode counts.
+    var different=remaining.filter(function(c){return c.key!==history.lastKey});if(different.length)remaining=different;
+    remaining.sort(function(a,b){return a.own-b.own||a.total-b.total});
+    var ties=remaining.filter(function(c){return c.own===remaining[0].own&&c.total===remaining[0].total}),c=ties[Math.floor(Math.random()*ties.length)];
+    plan.object=c.o;plan.destination=c.d;
+    plan.title=zh(c.o)+' → '+(task===1?COLOR_ZH[c.d]+'盘':LEVEL_ZH[c.d]);
+    plan.setup='摆好'+zh(c.o)+'和'+(task===1?COLOR_ZH[c.d]+'色盘子':'收纳盒')+'，加入其他物体作为干扰；变换目标位置和朝向，保持安全可达。';
+    plan.action='确认目标与提示词一致，完成抓取、运输、放置、松手和归位；不要中途改换物体或目标位置。';
+    plan.reason='在本轮尚未推荐的组合里优先补自采缺口（第 '+(history.used.length+1)+' / '+combos.length+' 条建议）：该组合已接入自采 '+c.own+' 条、全部真机 '+c.total+' 条。句式独立按官方频率抽取。';
+    if(!spec.object_phrases[c.o])plan.reason+=' 官方样例没有该物体作为目标的记录；物体描述取自赛题物品清单。';
+    history.used.push(c.key);history.lastKey=c.key;
+  }
+  function promptFor(template){return task===3?template.text:template.text.replace('{object}',phrases[plan.object]).replace('{destination}',plan.destination)}
+  var eligible=spec.templates.filter(function(t){return promptFor(t)!==history.lastPrompt});
+  if(!eligible.length)eligible=spec.templates;
+  var template=weightedTemplate(eligible);plan.template=template.id;plan.prompt=promptFor(template);
+  plan.probability=template.weight/eligible.reduce(function(n,t){return n+t.weight},0);
+  history.lastPrompt=plan.prompt;history.step=(history.step||0)+1;
+  lsSet('field_plan_history_v1',S.planHistory);
+  S.plans[task]=plan;return plan;
+}
+function evaluationPlan(task){
+  var spec=S.data.prompt_policy&&S.data.prompt_policy.tasks[String(task)];if(!spec)return null;
+  var context=planningContext(task,spec),filter=evalSceneFilter(task),scenes=EVAL_SCENES[task];
+  var revision=JSON.stringify([context.revision,scenes,filter]),history=evaluationHistory(task);
+  S.plans=S.plans||{};var old=S.plans[task];if(old&&old.mode==='evaluation'&&old.revision===revision)return old;
+  if(history.revision!==context.revision){history.used={};history.revision=context.revision}
+  var remaining=scenes.filter(function(s){return history.seen.indexOf(s.id)<0});
+  if(!remaining.length){history.seen=[];remaining=scenes.slice()}
+  var scene=filter==='auto'?remaining[0]:scenes.find(function(s){return String(s.id)===filter});
+  var visit=history.visits[scene.id]||0;
+  var phrases=Object.assign({},task===1?EVAL_EXTRA_PHRASES:{},planningPhrases(task,spec));
+  var materials=scene.objects?scene.objects.map(function(o){return o==='@chili'?(visit%2?'green_chili':'red_chili'):o}):null;
+  var candidates=(materials||Object.keys(phrases)).filter(function(o){return !!phrases[o]}),combos=[];
+  candidates.forEach(function(o){spec.destinations.forEach(function(d){combos.push({o:o,d:d,key:o+'|'+d,
+    own:context.own.filter(function(e){return e.target===o&&e.dest===d}).length,
+    total:context.all.filter(function(e){return e.target===o&&e.dest===d}).length})})});
+  if(!combos.length)return null;
+  var used=(history.used[scene.id]||[]).filter(function(k){return combos.some(function(c){return c.key===k})});
+  var pool=combos.filter(function(c){return used.indexOf(c.key)<0});if(!pool.length){used=[];pool=combos.slice()}
+  var different=pool.filter(function(c){return c.key!==history.lastKey});if(different.length)pool=different;
+  pool.sort(function(a,b){return a.own-b.own||a.total-b.total});
+  var ties=pool.filter(function(c){return c.own===pool[0].own&&c.total===pool[0].total}),c=ties[Math.floor(Math.random()*ties.length)];
+  if(!materials){var extras=Object.keys(phrases).filter(function(o){return o!==c.o});materials=[c.o,extras[visit%extras.length],extras[(visit+1)%extras.length]]}
+  var plan={task:task,mode:'evaluation',generated:S.data.generated,revision:revision,scene:scene,materials:materials,
+    object:c.o,destination:c.d,basis:{private_episodes:context.own.length,public_episodes:context.all.filter(function(e){return e.origin==='public'}).length,total_episodes:context.all.length}};
+  plan.title='评测第 '+scene.id+' 组 · '+zh(c.o)+' → '+(task===1?COLOR_ZH[c.d]+'盘':LEVEL_ZH[c.d]);
+  var layout=['摆放物品：'+materials.map(zh).join('、')+'。本条只操作'+zh(c.o)+'，其余作为干扰物。'];
+  if(task===1){
+    plan.plateCount=scene.plates||[2,3][visit%2];
+    var others=COLORS.filter(function(color){return color!==c.d});
+    plan.plateColors=[c.d];for(var i=0;i<plan.plateCount-1;i++)plan.plateColors.push(others[(visit+i)%others.length]);
+    layout.push('摆 '+plan.plateCount+' 个盘子：'+plan.plateColors.map(function(color){return COLOR_ZH[color]+'盘'}).join('、')+'；目标是'+COLOR_ZH[c.d]+'盘。颜色由本次建议补选。');
+    var longObjects=materials.filter(function(o){return ['cucumber','red_chili','green_chili','eggplant','banana','carrot'].indexOf(o)>=0});
+    if(longObjects.length)layout.push('将'+longObjects.map(zh).join('、')+'横放，保留长条物体之间的形状干扰。');
+    if(scene.color)layout.push('所有物品选'+(scene.color==='orange'?'橙色':'红色')+'外观，保留同色干扰；不要用异色物品替代。');
+  }else{
+    plan.organizerPosition=scene.organizer;
+    layout.push('按评测记录的视角，将收纳盒摆在桌面'+scene.organizer+'；本条放入'+LEVEL_ZH[c.d]+'。桌面位置与目标层是两个独立条件。');
+    if(scene.split){plan.targetSide=visit%2?'右':'左';layout.push('物品分列桌面最左边和最右边；'+zh(c.o)+'放'+plan.targetSide+'列，其余分到另一列。')}
+  }
+  layout.push('全部物品和目的地保持机器人可达，录制中不移动干扰物或更换目标。');
+  plan.setup=layout.join(' ');
+  plan.action='按 prompt 完成抓取、运输、放置、松手和归位；核对目标物及目标'+(task===1?'盘子颜色':'层级')+'。';
+  plan.reason='从本组物品中优先选采集少的目标组合：自采 '+c.own+' 条、全部真机 '+c.total+' 条。这是目标×目的地的条数，不代表这整组摆放已采过。句式按官方频率抽取。';
+  function promptFor(t){return t.text.replace('{object}',phrases[c.o]).replace('{destination}',c.d)}
+  var eligible=spec.templates.filter(function(t){return promptFor(t)!==history.lastPrompt});if(!eligible.length)eligible=spec.templates;
+  var template=weightedTemplate(eligible);plan.template=template.id;plan.prompt=promptFor(template);
+  plan.probability=template.weight/eligible.reduce(function(n,t){return n+t.weight},0);
+  used.push(c.key);history.used[scene.id]=used;history.visits[scene.id]=visit+1;
+  if(history.seen.indexOf(scene.id)<0)history.seen.push(scene.id);
+  history.lastKey=c.key;history.lastPrompt=plan.prompt;lsSet('field_eval_history_v1',S.evalHistory);
+  S.plans[task]=plan;return plan;
+}
+function planControls(task){
+  if(task===3)return '';
+  var mode=planMode(task),filter=evalSceneFilter(task);
+  return '<div class="chips">'+[['evaluation','评测难例'],['coverage','补齐覆盖']].map(function(x){return '<button class="chip '+(mode===x[0]?'on':'')+'" data-plan-mode="'+x[0]+'">'+x[1]+'</button>'}).join('')+'</div>'+
+    (mode==='evaluation'?'<label class="small">评测场景 <select id="eval-scene" style="max-width:100%;padding:6px"><option value="auto" '+(filter==='auto'?'selected':'')+'>自动轮换 10 组</option>'+EVAL_SCENES[task].map(function(s){return '<option value="'+s.id+'" '+(filter===String(s.id)?'selected':'')+'>'+s.id+' · '+esc(s.label)+'</option>'}).join('')+'</select></label><div class="note">自动模式逐组轮换；指定一组后，“换一条”轮换该组目标与目的地。场景来自评测记录，英文句式仍按官方概率生成。</div>':'');
+}
+function sceneEvidence(plan){
+  if(plan.mode!=='evaluation')return '';
+  return '<div class="note"><b>原始记录：</b>'+esc(plan.scene.raw)+(plan.scene.note?'<br><b>记录补充：</b>'+esc(plan.scene.note):'')+'</div>';
+}
+function collectionSetupText(plan){return ['任务：'+TASK_ZH[plan.task],'场景：'+plan.title,'摆放：'+plan.setup,'Prompt: '+plan.prompt,plan.scene&&plan.scene.note?'记录补充：'+plan.scene.note:''].filter(Boolean).join('\n')}
+async function copySetup(){var p=collectionPlan(S.task);if(!p)return;try{await navigator.clipboard.writeText(collectionSetupText(p));el('plan-copy-status').textContent='已复制采集安排（含 prompt）。'}catch(e){el('plan-copy-status').textContent='复制失败，请选中采集安排和 prompt 复制。'}}
+async function copyPlan(){var p=collectionPlan(S.task);if(!p)return;try{await navigator.clipboard.writeText(p.prompt);el('plan-copy-status').textContent='已复制，粘贴到本条采集指令中。'}catch(e){el('plan-copy-status').textContent='请选中上方提示词复制。'}}
+function vPlan(){
+  var p=collectionPlan(S.task);if(!p)return '';
+  var spec=S.data.prompt_policy.tasks[String(S.task)],pipeline=S.data.training_pipeline;
+  return '<div class="card" style="margin-top:12px"><h2>下一条怎么采 · '+TASK_ZH[S.task]+'</h2>'+planControls(S.task)+'<div class="note">依据当前任务：自采好数据 <b>'+p.basis.private_episodes+'</b> 条 + 官方 <b>'+p.basis.public_episodes+'</b> 条，共 <b>'+p.basis.total_episodes+'</b> 条。该任务数据变化后，自动按最新缺口重排。</div><h3>'+esc(p.title)+'</h3><div class="note">'+esc(p.reason)+'</div>'+sceneEvidence(p)+'<ol><li>'+esc(p.setup)+'</li><li>将下方 prompt 粘贴到本条采集指令中，再开始录制。</li><li>'+esc(p.action)+'</li><li>结束后填写质量标注；差或未标注的记录不会进入训练副本。</li></ol><div class="mono" style="padding:14px;background:var(--bg);border:1px solid var(--border);border-radius:8px;user-select:all;white-space:pre-wrap">'+esc(p.prompt)+'</div><div style="margin-top:10px"><button class="act" data-copy-prompt>复制 prompt</button> <button class="act" data-next-plan>换一条建议</button>'+(p.mode==='evaluation'?' <button class="act" data-copy-setup>复制采集安排</button>':'')+' <span class="small muted" id="plan-copy-status"></span></div><details style="margin-top:12px"><summary class="small">官方句式分布（'+spec.reference_episodes+' 条参考）</summary><div class="small muted">'+(S.task===3?'共 '+spec.templates.length+' 种完整提示词，按各自出现次数抽取。':spec.templates.map(function(t){return esc(t.text)+' · '+(100*t.weight/spec.reference_episodes).toFixed(2)+'%'}).join('<br>'))+'</div></details><div class="note">按任务记住本机已展示的建议；换建议不会记成已采集，完成记录以实际挂载的数据集为准。</div>'+(pipeline?'<div class="note">训练接入：'+esc(pipeline.message)+'（状态更新时间 '+bj(pipeline.checked_at)+'）。</div>':'')+'</div>';
+}
+function spatialRows(){
+  var origin=S.posOrigin||(S.data.episodes.some(function(e){return e.origin==='private'})?'private':'public');
+  return S.data.episodes.filter(function(e){return e.data_kind==='real'&&e.task===S.task&&(origin==='all'||e.origin===origin)&&(S.posObject==='all'||e.target===S.posObject)})
+}
+function spatialStats(rows,layer){
+  var cells=Array.from({length:48},function(){return {records:[],instances:0}}),located=0,missing=[],points=[];
+  rows.forEach(function(e){
+    var p=e.spatial||{},boxes=layer==='dest'?(p.destination_boxes||[]):layer==='all'?(p.all_boxes||[]):(p.target_boxes||[]),size=e.image_size||S.data.image_size||[320,240],seen={};
+    boxes.forEach(function(b){
+      if(!b||b.length!==4||!b.every(Number.isFinite)||b[2]<=b[0]||b[3]<=b[1])return;
+      var x=(b[0]+b[2])/2/size[0],y=(b[1]+b[3])/2/size[1];if(x<0||x>1||y<0||y>1)return;
+      var col=Math.min(7,Math.floor(x*8)),row=Math.min(5,Math.floor(y*6)),index=row*8+col;
+      cells[index].instances++;points.push({n:e.n,x:x,y:y,cell:index});
+      if(!seen[index]){cells[index].records.push(e);seen[index]=true}
+    });
+    if(Object.keys(seen).length)located++;else missing.push(e);
+  });
+  return {cells:cells,points:points,located:located,missing:missing,covered:cells.filter(function(c){return c.records.length>0}).length,max:Math.max.apply(null,[1].concat(cells.map(function(c){return c.records.length})))};
+}
+function spatialSvg(stats){
+  var s=[];
+  stats.cells.forEach(function(cell,i){var col=i%8,row=Math.floor(i/8),n=cell.records.length,selected=S.posCell===i;
+    s.push('<g data-pos-cell="'+i+'" tabindex="0" role="button" aria-label="第 '+(row+1)+' 行第 '+(col+1)+' 列，'+n+' 条记录" style="cursor:pointer"><rect x="'+col*40+'" y="'+row*40+'" width="40" height="40" fill="'+(n?'rgba(47,111,219,'+(0.12+.62*n/stats.max).toFixed(3)+')':'rgba(0,0,0,.05)')+'" stroke="'+(selected?'#ffad33':'rgba(255,255,255,.65)')+'" stroke-width="'+(selected?2:0.6)+'"/><text x="'+(col*40+20)+'" y="'+(row*40+24)+'" text-anchor="middle" fill="white" font-size="12" font-weight="600" style="paint-order:stroke;stroke:#17212b;stroke-width:2px">'+n+'</text><title>第 '+(row+1)+' 行第 '+(col+1)+' 列：'+n+' 条记录，'+cell.instances+' 个物体中心</title></g>');
+  });
+  return '<svg viewBox="0 0 320 240" preserveAspectRatio="none" style="width:100%;height:100%">'+s.join('')+'</svg>';
+}
+function vSpatial(){
+  if(!S.data.spatial)return '<div class="card"><h2>位置统计待接入</h2><div class="note">当前数据没有首帧位置结果，不能把未定位的记录当成出现 0 次。</div></div>';
+  var origin=S.posOrigin||(S.data.episodes.some(function(e){return e.origin==='private'})?'private':'public'),rows=spatialRows(),stats=spatialStats(rows,S.posLayer),out=[];
+  out.push('<div class="chips">'+[1,2,3].map(function(t){return '<button class="chip '+(S.task===t?'on':'')+'" data-task="'+t+'">'+TASK_ZH[t]+'</button>'}).join('')+'</div>');
+  out.push('<div class="card"><h2>每个位置出现多少次</h2><div class="chips">'+[['private','现场自采'],['public','官方公共'],['all','全部来源']].map(function(p){return '<button class="chip '+(origin===p[0]?'on':'')+'" data-pos-origin="'+p[0]+'">'+p[1]+'</button>'}).join('')+'</div><div class="chips">'+[['target',S.task===3?'纸团位置':'目标物位置'],['dest','目的地候选位置'],['all','全部检测物体']].map(function(p){return '<button class="chip '+(S.posLayer===p[0]?'on':'')+'" data-pos-layer="'+p[0]+'">'+p[1]+'</button>'}).join('')+'</div>');
+  if(S.task!==3){var objects=Object.keys(targetCounts(S.task,byTask(S.task)));out.push('<label class="small">按指令目标筛选 <select id="position-object"><option value="all">全部目标</option>'+objects.map(function(o){return '<option value="'+esc(o)+'" '+(S.posObject===o?'selected':'')+'>'+esc(zh(o))+'</option>'}).join('')+'</select></label>')}
+  out.push('<div class="note">每条记录只取首帧；数字表示该格有物体中心出现的记录数。同一条的多个物体在同一格只计 1 次，跨快照重复采集也只计一次。</div><div class="small">当前 <b>'+rows.length+'</b> 条 · 可统计位置 <b>'+stats.located+'</b> 条 · 未定位 <b class="warn">'+stats.missing.length+'</b> 条 · 有记录的格子 <b>'+stats.covered+'/48</b></div></div>');
+  var backgrounds=S.data.spatial.backgrounds||{},bg=origin==='all'?null:(backgrounds[origin]||{})[String(S.task)];
+  out.push('<div class="two" style="margin-top:12px"><div class="card"><div class="map" style="aspect-ratio:4/3">'+(bg?'<img style="position:absolute;inset:0;width:100%;height:100%;object-fit:fill" alt="当前来源的首帧中位背景" src="'+esc(imageUrl(bg))+'">':'')+spatialSvg(stats)+'</div><div class="note">8 列 × 6 行，行从上往下、列从左往右。点击格子看记录；0 表示已定位样本中没有记录落在此格。'+(origin==='all'?'不同场景仅按画面相对位置合并，不代表同一物理桌面坐标。':'位置基于相机画面，不是机器人坐标。')+'</div></div>');
+  var selected=S.posCell!=null&&stats.cells[S.posCell],shown=selected?selected.records:[];
+  out.push('<div class="card"><h2>'+(selected?'第 '+(Math.floor(S.posCell/8)+1)+' 行第 '+(S.posCell%8+1)+' 列 · '+shown.length+' 条':'点击左侧格子查看对应记录')+'</h2>'+(selected?'<div class="note">该格共 '+selected.instances+' 个物体中心，来自 '+shown.length+' 条独立记录。</div>':'<div class="note">可查看原始提示词、标注结果与首尾画面。</div>')+'<div style="max-height:480px;overflow:auto">'+shown.map(function(e){return '<button class="act" data-ep="'+e.n+'" style="display:flex;text-align:left;align-items:center;gap:8px;width:100%;margin:6px 0"><img loading="lazy" alt="首帧" width="80" src="'+esc(imageUrl('thumbs/'+e.n+'.jpg'))+'"><span><span class="mono">'+esc(e.record_id)+'</span><br>'+esc(e.instruction)+'<br><span class="small muted">'+esc(annotationText(e))+'</span></span></button>'}).join('')+'</div></div></div>');
+  var reasons={unknown_target:'目标含义待确认',not_detected:'未检出足够可靠的位置',ambiguous:'多个候选位置有歧义',class_not_supported:'检测器尚未覆盖该类别'};
+  out.push('<div class="card" style="margin-top:12px"><h2>定位说明</h2><div class="note">使用真实数据训练的 YOLO v2，置信度至少 0.50。结果是自动估计，仍可能错分或漏检；不据此判断操作成功。目的地为匹配颜色／层级的候选位置，多个同色盘子分别统计。</div>');
+  if(stats.missing.length)out.push('<details><summary>查看 '+stats.missing.length+' 条未定位记录（未计入格子）</summary><div class="scroll"><table><thead><tr><th>记录</th><th>目标</th><th>原因</th></tr></thead><tbody>'+stats.missing.map(function(e){var p=e.spatial||{},status=S.posLayer==='target'?p.target_status:S.posLayer==='dest'?p.destination_status:'not_detected';return '<tr class="click" data-ep="'+e.n+'"><td>'+esc(e.record_id)+'</td><td>'+esc(zh(e.target))+'</td><td>'+esc(reasons[status]||'没有可用的位置结果')+'</td></tr>'}).join('')+'</tbody></table></div></details>');
+  out.push('</div>');return out.join('');
+}
+function vReal(){
+  var E=S.data.episodes.filter(function(e){return e.data_kind==="real"}),out=[];
+  var official=E.filter(function(e){return e.origin==="public"}).length,own=E.filter(function(e){return e.origin==="private"}).length;
+  var frames=E.reduce(function(n,e){return n+(e.len||0)},0),seconds=E.reduce(function(n,e){return n+(e.dur_s||0)},0);
+  out.push('<div class="card"><h2>已接入真机数据</h2><div class="big num">'+E.length+' 条</div><div style="margin-top:7px">官方公共数据 <b class="num">'+official+'</b> 条 · 现场自采已接入 <b class="num">'+own+'</b> 条</div><div class="note">'+frames.toLocaleString('zh-CN')+' 帧 · 累计 '+(seconds/3600).toFixed(2)+' 小时。按任务查看原始提示词、标注评分和首尾画面。</div>'+
+    (!own?'<div class="note">当前实例尚未挂载现场自采数据；这里的 0 表示尚未接入，不代表团队尚未采集。</div>':'')+
+    (S.data.quality_policy?'<div class="note">'+esc(S.data.quality_policy.description)+' 数量、位置统计和采集建议使用同一份筛选结果。</div>':((S.data.inventory||{}).private_duplicate_episodes?'<div class="note">私有快照原始 '+S.data.inventory.private_raw_episodes+' 条，去除 '+S.data.inventory.private_duplicate_episodes+' 条重复采集后计 '+own+' 条；所有原始标注均保留。</div>':''))+
+    (S.data.auto_sync?'<div class="note">自动同步：每 '+S.data.auto_sync.poll_seconds+' 秒检查快照，网页每 '+S.data.auto_sync.page_refresh_seconds+' 秒检查更新。最近数据同步 '+bj(S.data.auto_sync.data_updated_at)+'。'+esc(S.data.auto_sync.dependency)+'</div>':'')+
+    '<div class="note">未提供采集时间的记录不计入现场班次新增。</div>'+(S.data.spatial?'<button class="act" data-tab="spatial">查看各位置出现次数</button>':'')+'</div>');
+  out.push('<div class="grid" style="margin-top:12px">'+[1,2,3].map(function(t){var X=E.filter(function(e){return e.task===t}),f=X.reduce(function(n,e){return n+(e.len||0)},0);return '<div class="card"><h2>'+TASK_ZH[t]+'</h2><div class="big num">'+X.length+' 条</div><div class="note">'+f.toLocaleString('zh-CN')+' 帧 · '+new Set(X.map(function(e){return e.instruction})).size+' 种提示词</div><button class="act" style="margin-top:8px" data-task="'+t+'">查看任务 '+t+'</button></div>'}).join('')+'</div>');
+  out.push(vPlan());
+  out.push('<div class="card" style="margin-top:12px"><div class="chips">'+[1,2,3].map(function(t){return '<button class="chip '+(S.task===t?'on':'')+'" data-task="'+t+'">'+TASK_ZH[t]+'</button>'}).join('')+'</div>');
+  out.push('<div class="data-toolbar"><div class="chips" style="margin:0">'+[['all','全部来源'],['public','官方公共'],['private','现场自采']].map(function(p){return '<button class="chip '+(S.origin===p[0]?'on':'')+'" data-origin="'+p[0]+'">'+p[1]+'</button>'}).join('')+'</div><form id="real-search"><input type="text" id="real-query" aria-label="搜索提示词或数据编号" placeholder="搜索提示词、物体或数据编号" value="'+esc(S.query)+'"><button class="act" type="submit">搜索</button></form></div>');
+  var X=realRows(),size=30,pages=Math.max(1,Math.ceil(X.length/size));S.page=Math.min(Math.max(0,S.page),pages-1);
+  var rows=X.slice(S.page*size,(S.page+1)*size);
+  out.push('<div class="small muted">共 '+X.length+' 条 · 点击记录查看首尾图像和完整标注</div><div class="scroll"><table class="data-table"><thead><tr><th>首帧</th><th>数据编号</th><th>原始提示词</th><th>目标 / 目的地</th><th>时长</th><th>原始标注</th><th>来源</th></tr></thead><tbody>'+rows.map(function(e){return '<tr class="click" data-ep="'+e.n+'"><td><img class="episode-preview" loading="lazy" alt="'+esc(e.record_id)+' 首帧" src="'+esc(imageUrl('thumbs/'+e.n+'.jpg'))+'"></td><td class="mono">'+esc(e.record_id||e.ep)+'</td><td class="prompt">'+esc(e.instruction)+'</td><td>'+esc(e.task===3?'纸团清扫':zh(e.target))+'<br><span class="small muted">'+esc(e.task===3?'收纳筐':dz(e.task,e.dest))+'</span></td><td class="num">'+e.dur_s.toFixed(1)+' 秒<br><span class="small muted">'+e.len+' 帧</span></td><td>'+esc(annotationText(e))+'</td><td class="small">'+esc(originName(e))+'</td></tr>'}).join('')+'</tbody></table></div>');
+  if(!X.length)out.push('<div class="muted" style="padding:20px 0">'+(S.origin==='private'?'当前还没有接入现场自采数据。':'没有符合筛选条件的数据。')+'</div>');
+  out.push('<div class="pager"><button class="act" data-page="'+(S.page-1)+'" '+(S.page===0?'disabled':'')+'>上一页</button><span class="num">'+(S.page+1)+' / '+pages+'</span><button class="act" data-page="'+(S.page+1)+'" '+(S.page+1>=pages?'disabled':'')+'>下一页</button></div></div>');
+  if(visualPending())out.push('<div class="note">评分和成功／失败结果来自原始标注。'+(S.data.spatial?'位置为首帧自动估计，未自动判断操作成功。':'真机视觉定位和成功判定尚未核验，未把仿真检测器的结果作为真机质量结论。')+'</div>');
+  return out.join('')}
+
+function vOverview(){
+  var d=S.data,E=d.episodes,now=Date.now(),out=[];
+  var next=MILESTONES.filter(function(m){return new Date(m[1]).getTime()>now})[0];
+  out.push('<div class="grid">');
+  out.push('<div class="card"><h2>时间</h2>'+(next?'<div class="big">'+esc(next[0])+'</div><div class="muted">'+bj(next[1])+'（北京时间），'+dur(new Date(next[1])-now)+'</div>':'<div class="big">决赛已结束</div>')+
+    '<h3>关键时间（北京）</h3>'+MILESTONES.map(function(m){var past=new Date(m[1])<now;return '<div class="small '+(past?"muted":"")+'">'+bj(m[1])+' · '+esc(m[0])+'</div>'}).join("")+'</div>');
+  var per=[1,2,3].map(function(t){return byTask(t).length});
+  var src=counts([],E.map(function(e){return e.source}));
+  out.push('<div class="card"><h2>数据</h2><div class="big num">'+E.length+' 条</div><div class="muted small">'+[1,2,3].map(function(t,i){return "任务 "+t+"："+per[i]}).join(" · ")+'</div>'+
+    '<h3>来源</h3><div class="small">'+Object.keys(src).map(function(k){return esc(k==="dagger"?"DAgger 纠正":k==="demo"?"示范":k)+" "+src[k]}).join(" · ")+'</div></div>');
+  var bad=E.filter(function(e){return e.q.length}).length;
+  out.push('<div class="card"><h2>数据质量</h2><div class="big num '+(bad?"warn":"ok")+'">'+bad+' 条待查</div><div class="muted small">目标/目的地没检测到、时长异常、没归位、摆放重复</div><div style="margin-top:8px"><button class="act" data-tab="quality">去看看</button></div></div>');
+  out.push('<div class="card"><h2>覆盖</h2>'+[1,2,3].map(function(t){var X=byTask(t);if(!X.length)return '<div class="small muted">任务 '+t+'：暂无数据</div>';var cv=coverage(t);
+    if(visualPending())return '<div class="small muted">任务 '+t+'：空间定位待核验</div>';
+    return '<div class="small">任务 '+t+'：活动区域 '+cv.cells+' 格里有 <b class="num">'+cv.covered+'</b> 格放过目标，<span class="'+(cv.low.length?"warn":"ok")+'">'+cv.low.length+' 格偏少</span></div>'}).join("")+'<div style="margin-top:8px"><button class="act" data-tab="coverage">看地图</button></div></div>');
+  out.push('</div>');
+  var g=d.gt_check;
+  if(visualPending())return out.join('')+'<div class="card" style="margin-top:12px"><h2>视觉分析</h2><div class="muted">已接入真机首尾图像，目标定位与结果判定待核验。</div></div>';
+  out.push('<div class="card" style="margin-top:12px"><h2>检测器</h2><div class="small">权重 <span class="mono">'+esc(d.detector&&d.detector.weights)+'</span>，置信度阈值 '+esc(d.detector&&d.detector.conf)+'，'+(d.detector&&d.detector.classes?d.detector.classes.length:0)+' 类。'+
+    (g?'在仿真示范第 0 帧上，目标物检出 <b>'+g.target_hit+'/'+g.checked+'</b>（框和真值重合度 ≥ 0.5）。':'')+
+    '</div><div class="note">赛前训的 YOLO 只见过仿真图。现场拿到公共数据后，先打开几条看检测框准不准；不准的话，换开源的 YOLO-World 重新跑这一页的数据。</div></div>');
+  return out.join("")}
+
+function vCoverage(){
+  var t=S.task,X=byTask(t),out=[];
+  out.push('<div class="chips">'+[1,2,3].map(function(k){return '<button class="chip '+(t===k?"on":"")+'" data-task="'+k+'">'+TASK_ZH[k]+' <span class="num">'+byTask(k).length+'</span></button>'}).join("")+'</div>');
+  if(!X.length)return out.join("")+'<div class="card">这个任务还没有数据。</div>';
+  if(visualPending()){
+    out.push('<div class="card"><h2>'+(S.data.spatial?'位置统计已接入':'空间覆盖待核验')+'</h2><div class="muted">已接入 '+X.length+' 条真机记录及首尾画面；'+(S.data.spatial?'可查看首帧位置的自动估计、各格记录数和未定位样本。':'尚未验证物体定位，暂不生成空间覆盖热图。')+'</div><button class="act" style="margin-top:10px" data-tab="'+(S.data.spatial?'spatial':'real')+'">'+(S.data.spatial?'查看各位置出现次数':'查看真机数据')+'</button></div>');
+    if(t!==3)out.push('<div class="grid" style="margin-top:12px"><div class="card"><h2>提示词中的目标物</h2><div class="note">列出赛题物品清单的全部 '+(t===1?T1_OBJ.length:T2_OBJ.length)+' 类。0 条表示尚无该物体作为指令目标的记录，不代表画面里没有它。</div>'+bars(targetCounts(t,X),zh,{sort:true})+'</div><div class="card"><h2>'+ (t===1?'目标盘子颜色':'目标层')+'</h2>'+bars(counts(t===1?COLORS:LEVELS,X.map(function(e){return e.dest})),function(k){return t===1?COLOR_ZH[k]+'盘':LEVEL_ZH[k]})+'<h3>指令说法</h3>'+bars(counts([0,1,2,3,4],X.map(function(e){return e.tmpl})),function(k){return (+k+1)+'. '+TEMPL[t][k]+' …'})+'</div></div>');
+    return out.join('')}
+  var cv=coverage(t),sug=suggestion(t),bg=(S.data.backgrounds||{})[t];
+  out.push('<div class="two"><div>');
+  out.push('<div class="card"><div class="chips">'+[["target",t===3?"纸团位置":"目标物位置"],["dest",t===1?"盘子位置":t===2?"目标层位置":"收纳筐位置"],["all","全部"]].map(function(l){return '<button class="chip '+(S.layer===l[0]?"on":"")+'" data-layer="'+l[0]+'">'+l[1]+'</button>'}).join("")+'</div>'+
+    '<div class="map">'+(bg?'<img alt="空桌面（各条第 0 帧的中位数）" src="/api/field-img?f='+encodeURIComponent(bg)+'">':'<div style="aspect-ratio:'+W()+'/'+H()+'"></div>')+mapSvg(t,cv,null)+'</div>'+
+    '<div class="legend"><span><i style="background:#fff;border:1px solid #111"></i>'+(t===3?"纸团":"目标物")+'</span>'+(t===1?COLORS.map(function(c){return '<span><i style="background:'+PLATE_RGB[c]+';border-radius:2px;border:1px solid #111"></i>'+COLOR_ZH[c]+'盘</span>'}).join(""):"")+
+    '<span>格子越蓝放得越多；黄色虚线 = 偏少；点圆点看那一条</span></div></div>');
+  out.push('</div><div>');
+  out.push('<div class="small muted" style="margin:0 0 6px">这一班补什么，看“换班”页；这里看分布。</div>');
+  if(t!==3){var objs=t===1?T1_OBJ:T2_OBJ,dests=t===1?COLORS:LEVELS;
+    out.push('<div class="card" style="margin-top:12px"><h2>目标物</h2><div class="small muted">按条数从少到多；红字 = 一条都没有</div>'+bars(counts(objs,X.map(function(e){return e.target})),zh,{sort:true})+
+      '<h3>'+(t===1?"目标盘子颜色":"目标层")+'</h3>'+bars(counts(dests,X.map(function(e){return e.dest})),function(k){return t===1?COLOR_ZH[k]+"盘":LEVEL_ZH[k]})+
+      '<h3>指令说法</h3>'+bars(counts([0,1,2,3,4],X.map(function(e){return e.tmpl})),function(k){return (+k+1)+". "+TEMPL[t][k]+" …"})+'</div>')}
+  out.push('<div class="card" style="margin-top:12px"><h2>谁采的 · 来源</h2>'+bars(counts([],X.map(function(e){return e.collector||"（没填）"})),function(k){return k})+'<h3>来源</h3>'+bars(counts([],X.map(function(e){return e.source})),function(k){return k==="dagger"?"DAgger 纠正":k==="demo"?"示范":k})+'</div>');
+  out.push('</div></div>');
+  return out.join("")}
+
+function vQuality(){
+  var E=S.data.episodes,rows=E.filter(function(e){return !S.onlyBad||e.q.length});
+  var cnt={};E.forEach(function(e){e.q.forEach(function(f){var k=f.indexOf("duplicate_of:")===0?"duplicate":f;cnt[k]=(cnt[k]||0)+1})});
+  return '<div class="card"><h2>数据质量</h2><div class="small">'+(Object.keys(cnt).length?Object.keys(cnt).map(function(k){return (k==="duplicate"?flagTag("duplicate_of:…").replace("#…","别的"):flagTag(k))+' <span class="num">'+cnt[k]+'</span>'}).join(" &nbsp; "):'<span class="ok">没发现问题</span>')+'</div>'+
+    '<div class="note">'+(visualPending()?'当前只进行元数据检查，视觉定位与结果判定尚未核验；没有提示不代表质量已通过。':'“没检测到”可能是检测器认错，不一定是数据坏了，点开看第 0 帧再决定。')+'时长和归位按同任务的中位数判断。</div>'+
+    '<div style="margin:8px 0"><button class="act" data-onlybad>'+(S.onlyBad?"显示全部 "+E.length+" 条":"只看有问题的")+'</button></div>'+
+    '<div class="scroll"><table><thead><tr><th>#</th><th>任务</th><th>指令</th><th>问题</th><th class="num">帧数</th><th class="num">归位误差</th></tr></thead><tbody>'+
+    rows.map(function(e){return '<tr class="click" data-ep="'+e.n+'"><td class="num">'+e.n+'</td><td>'+e.task+'</td><td>'+esc(e.instruction)+'</td><td>'+(e.q.length?e.q.map(flagTag).join(""):'<span class="muted small">—</span>')+'</td><td class="num">'+esc(e.len)+'</td><td class="num">'+(e.home_err!=null?e.home_err.toFixed(2):"—")+'</td></tr>'}).join("")+
+    '</tbody></table></div></div>'}
+
+function vEval(){
+  var now=Date.now(),R=S.round,chk=((S.state&&S.state.check)||{})[R]||{};
+  var rows=SLOTS.map(function(s){var st=new Date("2026-"+s[0]+"T"+s[1]+":00+08:00"),en=new Date("2026-"+s[0]+"T"+s[2]+":00+08:00"),dl=new Date(st.getTime()-20*60000);
+    var state=now>en?'<span class="muted">已结束</span>':now>=st?'<span class="ok">进行中</span>':now>dl?'<span class="err">预约已截止</span>':'<span>可预约，'+dur(dl-now)+'截止</span>';
+    return '<tr><td class="num">'+s[0].replace("-","/")+' '+s[1]+'–'+s[2]+'</td><td class="num">'+s[3]+'</td><td>'+state+'</td></tr>'}).join("");
+  var items=CHECK_ITEMS;
+  return '<div class="two"><div class="card"><h2>评测场次</h2><div class="note" style="margin:0 0 6px">公开版已移除评测场次表。</div><div class="scroll"><table><thead><tr><th>时段</th><th class="num">名额</th><th>状态</th></tr></thead><tbody>'+rows+'</tbody></table></div></div>'+
+  '<div class="card"><h2>提交前检查</h2><div class="chips">'+[["1","第一轮"],["2","第二轮"],["3","第三轮"]].map(function(r){return '<button class="chip '+(R===r[0]?"on":"")+'" data-round="'+r[0]+'">'+r[1]+'</button>'}).join("")+'</div>'+
+  (S.state?"":'<div class="note">共享记录加载中…</div>')+
+  items.map(function(it,i){var c=chk[i]||{};return '<label style="display:flex;gap:8px;margin:6px 0;align-items:flex-start"><input type="checkbox" data-chk="'+i+'" '+(c.v?"checked":"")+(S.state?"":" disabled")+'><span>'+esc(it)+(c.v&&c.by?' <span class="tag">'+esc(c.by)+'</span>':'')+'</span></label>'}).join("")+
+  '<div style="margin-top:6px"><button class="act" id="chkreset">清空这一轮</button></div><div class="note">大家共用同一份，勾选会记下是谁勾的。缺 norm_stats_file 等文件时，推理分发会直接拒收。</div>'+
+  '<h3>每轮要交的东西</h3><ul class="clean small"><li>最终权重、训练和推理代码</li><li>实际用到的训练数据、超参数、过程日志</li><li>赛后可能在同等条件下复训、复测</li></ul></div></div>'}
+
+function psr(task,trials){var R=RUBRIC[task];var s=trials.map(function(tr){var p=0;R.forEach(function(r,i){if(tr[i])p+=r[0]});return p});
+  var ok=trials.filter(function(tr){return R.every(function(r,i){return i===R.length-1||tr[i]})}).length;
+  return {psr:s.length?s.reduce(function(a,b){return a+b},0)/s.length:null,sr:trials.length?100*ok/trials.length:null,n:trials.length}}
+
+function vSelf(){
+  if(!S.state)return '<div class="card">共享记录加载中…</div>';
+  var st=S.state.selftest||{},names=Object.keys(st),ck=lsGet("field.selfck","");if(!st[ck])ck=names[names.length-1]||"";
+  var cur=st[ck],out=[];
+  out.push('<div class="card"><h2>自测打分</h2><div class="small muted">按评分步骤逐次勾（公开版用等权的通用步骤代替了主办方的评分细则）。记录全队共享，每次都记下是谁打的。</div>'+
+    '<div class="chips" style="margin-top:10px">'+names.map(function(n){return '<button class="chip '+(n===ck?"on":"")+'" data-ck="'+esc(n)+'">'+esc(n)+'</button>'}).join("")+'</div>'+
+    '<div style="display:flex;gap:8px;margin:6px 0 10px;align-items:center"><input type="text" id="ckname" placeholder="新 checkpoint 名字，比如 v1-2000步" style="max-width:260px"><button class="act" id="cknew">新建</button></div>');
+  if(!cur){out.push('<div class="note">还没有 checkpoint。先在上面新建一个，再开始记。</div></div>');return out.join("")}
+  if(![1,2,3].some(function(k){return (cur[k]||[]).length}))out.push('<div style="margin:0 0 8px"><button class="act" id="ckdel">删除 '+esc(ck)+'（还没有记录）</button></div>');
+  [1,2,3].forEach(function(t){var R=RUBRIC[t],tr=cur[t]||[];var p=psr(t,tr.map(function(x){return x.s}));
+    out.push('<h3>'+TASK_ZH[t]+' · 已记 '+tr.length+' 次 · 过程分 '+(p.psr==null?"—":p.psr.toFixed(1))+' · 成功率 '+(p.sr==null?"—":p.sr.toFixed(0)+"%")+'</h3>');
+    out.push('<div class="trial h"><div>#</div>'+R.map(function(r){return '<div title="'+esc(r[1])+'">'+r[0]+' '+esc(r[1])+'</div>'}).join("")+(R.length<6?'<div></div>'.repeat(6-R.length):"")+'<div>得分</div></div>');
+    tr.forEach(function(x,i){var sc=0;R.forEach(function(r,j){if(x.s[j])sc+=r[0]});
+      out.push('<div class="trial"><div class="num" title="'+esc((x.by||"")+" "+(x.at?bj(x.at):""))+'">'+(i+1)+'</div>'+R.map(function(r,j){return '<label><input type="checkbox" data-tr="'+t+','+i+','+j+'" '+(x.s[j]?"checked":"")+'></label>'}).join("")+(R.length<6?'<div></div>'.repeat(6-R.length):"")+'<div class="num">'+sc+'</div></div>')});
+    out.push('<div style="display:flex;gap:6px;margin:4px 0 2px"><button class="act" data-addtr="'+t+'">+ 记一次</button>'+(tr.length?'<button class="act" data-deltr="'+t+'">删最后一次</button>':"")+'</div>')});
+  out.push('</div>');
+  out.push('<div class="card" style="margin-top:12px"><h2>checkpoint 对比</h2><div class="scroll"><table><thead><tr><th>checkpoint</th><th class="num">任务1</th><th class="num">任务2</th><th class="num">任务3</th><th class="num">估算总分</th><th class="num">次数</th></tr></thead><tbody>'+
+    names.map(function(nm){var c=st[nm],P=[1,2,3].map(function(t){return psr(t,(c[t]||[]).map(function(x){return x.s}))}),have=P.filter(function(p){return p.n});
+      var tot=have.length?have.reduce(function(a,p){return a+0.7*p.psr+0.3*p.sr},0)/have.length:null;
+      return '<tr><td>'+esc(nm)+'</td>'+P.map(function(p){return '<td class="num">'+(p.n?(0.7*p.psr+0.3*p.sr).toFixed(1):"—")+'</td>'}).join("")+'<td class="num"><b>'+(tot==null?"—":tot.toFixed(1))+'</b></td><td class="num">'+P.map(function(p){return p.n}).join("/")+'</td></tr>'}).join("")+
+    '</tbody></table></div><div class="note">每个任务只测 5 次左右时，两个 checkpoint 的过程分要差 15 分以上才算真的有差别。</div></div>');
+  return out.join("")}
+
+function vRules(){
+  return '<div class="card"><h2>规则速查</h2><div class="note">这一页在比赛时摘录了主办方的评分和合规规则，公开版已移除。</div></div>'}
+
+function endBoxes(e){return (e.dets_end||[]).map(function(d){var isT=d[0]===e.target,isD=e.dest&&(d[0]==="plate_"+e.dest||d[0]==="organizer_"+e.dest);var col=isT?"#ffffff":isD?"#ff9a2e":"#5ab4ff";
+  return '<rect x="'+d[1]+'" y="'+d[2]+'" width="'+(d[3]-d[1])+'" height="'+(d[4]-d[2])+'" fill="none" stroke="'+col+'" stroke-width="'+(isT||isD?1.6:1)+'"/><text x="'+(d[1]+1)+'" y="'+Math.max(8,d[2]-2)+'" font-size="8" fill="'+col+'" style="paint-order:stroke;stroke:rgba(0,0,0,.7);stroke-width:2px">'+esc(zh(d[0]))+'</text>'}).join("")}
+function trajText(e){var t=e.traj||{},f=function(v){return v==null?"—":v.toFixed(1)+" 秒"};
+  if(e.task===3)return "起步前 "+f(t.wait)+" · 两只夹爪都夹住 "+f(t.grasp_tools)+" · 停顿 "+f(t.pause)+" · 整条 "+f(t.total);
+  return (t.arm==="left"?"左臂":"右臂")+" · 起步前 "+f(t.wait)+" · 伸手到夹住 "+f(t.reach)+" · 夹住到松开 "+f(t.carry)+" · 松开到归位 "+f(t.back)+" · 停顿 "+f(t.pause)+(t.regrasp?" · 重抓 "+t.regrasp+" 次":"")}
+function openEp(n){
+  var e=S.data.episodes.find(function(x){return x.n===n});if(!e)return;var w=(e.image_size||[W(),H()])[0],h=(e.image_size||[W(),H()])[1];
+  var boxes=(e.dets||[]).map(function(d){var isT=d[0]===e.target,isD=e.dest&&(d[0]==="plate_"+e.dest||d[0]==="organizer_"+e.dest);var col=isT?"#ffffff":isD?"#ff9a2e":"#5ab4ff";
+    return '<rect x="'+d[1]+'" y="'+d[2]+'" width="'+(d[3]-d[1])+'" height="'+(d[4]-d[2])+'" fill="none" stroke="'+col+'" stroke-width="'+(isT||isD?1.6:1)+'"/><text x="'+(d[1]+1)+'" y="'+Math.max(8,d[2]-2)+'" font-size="8" fill="'+col+'" style="paint-order:stroke;stroke:rgba(0,0,0,.7);stroke-width:2px">'+esc(zh(d[0]))+' '+d[5].toFixed(2)+'</text>'}).join("");
+  var gt=e.gt_target_box?'<rect x="'+e.gt_target_box[0]+'" y="'+e.gt_target_box[1]+'" width="'+(e.gt_target_box[2]-e.gt_target_box[0])+'" height="'+(e.gt_target_box[3]-e.gt_target_box[1])+'" fill="none" stroke="#3cc47c" stroke-width="1" stroke-dasharray="3 2"/>':"";
+  el("dcard").innerHTML='<div style="display:flex;align-items:center;gap:8px"><h2 style="margin:0">#'+e.n+'</h2><span class="sp" style="flex:1"></span><button class="act" data-close>关闭</button></div>'+
+    '<div class="two" style="margin:10px 0;grid-template-columns:1fr 1fr"><div><div class="small muted">第 0 帧</div><div class="map"><img alt="第 0 帧" src="'+esc(imageUrl('thumbs/'+e.n+'.jpg'))+'"><svg viewBox="0 0 '+w+' '+h+'" preserveAspectRatio="none">'+boxes+gt+'</svg></div></div>'+
+    '<div><div class="small muted">最后一帧'+(e.out?' · '+esc(OUT_ZH[e.out]||e.out):'')+'</div><div class="map"><img alt="最后一帧" src="'+esc(imageUrl('thumbs/'+e.n+'_end.jpg'))+'" onerror="this.parentNode.innerHTML=\'<div class=small style=padding:8px>没有最后一帧</div>\'"><svg viewBox="0 0 '+w+' '+h+'" preserveAspectRatio="none">'+endBoxes(e)+'</svg></div></div></div>'+
+    '<div class="legend" style="margin:0 0 8px"><span><i style="background:#fff;border:1px solid #111;border-radius:2px"></i>目标</span><span><i style="background:#ff9a2e;border-radius:2px"></i>目的地</span><span><i style="background:#5ab4ff;border-radius:2px"></i>其他</span>'+(gt?'<span><i style="background:#3cc47c;border-radius:2px"></i>仿真真值</span>':"")+'</div>'+
+    '<div class="kv"><div>指令</div><div>'+esc(e.instruction)+'</div><div>任务</div><div>'+esc(TASK_ZH[e.task]||"认不出")+'</div><div>目标</div><div>'+esc(zh(e.target))+'</div><div>目的地</div><div>'+esc(e.task===1?(COLOR_ZH[e.dest]||"—")+"盘":LEVEL_ZH[e.dest]||e.dest||"—")+'</div>'+
+    (e.traj?'<div>每一步</div><div class="small">'+trajText(e)+'</div>':'')+(e.source==="rollout"&&e.out?'<div>失败环节</div><div>'+esc(stageOf(e)||'—')+'</div>':'')+
+    '<div>来源</div><div>'+esc(originName(e))+'</div><div>标注编号</div><div class="mono">'+esc(e.record_id||'—')+'</div><div>原始标注</div><div>'+esc(annotationText(e))+'</div><div>视觉判定</div><div>'+esc(e.visual_status==='not_evaluated'?'待核验':e.out||'—')+'</div><div>数据集</div><div class="mono">'+esc(e.ds)+' / episode '+esc(e.ep)+'</div>'+
+    (e.target_from==='manual_annotation'?'<div>目标名称来源</div><div>原始自定义标注（提示词保持原文）</div>':'')+
+    (e.source_records&&e.source_records.length>1?'<div>跨快照去重</div><div>'+e.source_records.length+' 份相同动作／状态序列，仅计为 1 条。'+e.source_records.map(function(r){return '<div class="small mono">'+esc(r.ds.slice(0,8))+' / ep '+r.ep+' · '+esc(r.annotation_result||'未标注结果')+'</div>'}).join('')+'</div>':'')+
+    '<div>帧数</div><div class="num">'+esc(e.len)+'</div><div>时长</div><div>'+esc(e.dur_s)+' 秒</div><div>问题</div><div>'+(e.q.length?e.q.map(flagTag).join(""):"—")+'</div></div>';
+  el("drawer").classList.add("on")}
+
+var CHECK_ITEMS=["权重分片 model-*.safetensors 和 config.json、tokenizer 等文件齐全","lingbotvla_cli.yaml 里 data.norm_stats_file 不为空","robot_config.yaml 在","norm_states.json 在，而且是用这次实际训练的数据现算的","在推理机上自测过：能加载、三个任务都能动","本轮产物和日志放进 /workspace/submit_result/对应轮次（first / second / third）","记下提交路径和时间，评测员会记录"];
+S.round="1";
+function setMsg(t){var m=el("msg");if(m){m.textContent=t||"";m.style.display=t?"block":"none"}}
+function loadState(){return fetch("/api/field-state",{credentials:"same-origin",cache:"no-store"}).then(function(r){if(!r.ok)throw new Error("HTTP "+r.status);return r.json()}).then(function(d){S.state=d;if(S.tab==="eval"||S.tab==="selftest")render()}).catch(function(e){setMsg("共享记录取不到（"+e.message+"），稍后再试")})}
+function send(op){setMsg("保存中…");return fetch("/api/field-state",{method:"POST",credentials:"same-origin",headers:{"Content-Type":"application/json"},body:JSON.stringify(op)})
+  .then(function(r){return r.json().then(function(d){if(!r.ok)throw new Error(d.error||("HTTP "+r.status));return d})})
+  .then(function(d){S.state=d;setMsg("");render()}).catch(function(e){setMsg("没保存上："+e.message);loadState()})}
+function curCk(){var st=(S.state&&S.state.selftest)||{},ck=lsGet("field.selfck","");if(!st[ck]){var n=Object.keys(st);ck=n[n.length-1]||""}return ck}
+document.addEventListener("change",function(ev){
+  var c=ev.target.getAttribute("data-chk");if(c!=null){send({op:"check_set",round:S.round,i:+c,v:ev.target.checked});return}
+  var tr=ev.target.getAttribute("data-tr");if(tr){var p=tr.split(",").map(Number);send({op:"trial_set",ck:curCk(),task:p[0],i:p[1],j:p[2],v:ev.target.checked})}});
+document.addEventListener("click",function(ev){
+  var a=ev.target.closest("[data-addtr]"),d=ev.target.closest("[data-deltr]");
+  if(a){send({op:"trial_add",ck:curCk(),task:+a.getAttribute("data-addtr")});return}
+  if(d){var t=+d.getAttribute("data-deltr"),L=((S.state.selftest[curCk()]||{})[t]||[]);if(L.length)send({op:"trial_del",ck:curCk(),task:t,i:L.length-1});return}
+  var k=ev.target.closest("[data-ck]");if(k){lsSet("field.selfck",k.getAttribute("data-ck"));render();return}
+  var r=ev.target.closest("[data-round]");if(r){S.round=r.getAttribute("data-round");render();return}
+  if(ev.target.id==="cknew"){var v=(el("ckname").value||"").trim();if(v){lsSet("field.selfck",v);send({op:"ck_add",ck:v})}return}
+  if(ev.target.id==="ckdel"){var c0=curCk();lsSet("field.selfck","");send({op:"ck_del",ck:c0});return}
+  if(ev.target.id==="chkreset"){send({op:"check_reset",round:S.round})}});
+
+
+/* ---------- 换班视图和采集分析：全部从同步来的数据里算，不需要在网页上点任何东西 ---------- */
+var SHIFT_H=3,SHIFT_BASE=Date.parse("2026-11-14T09:00:00+08:00");   // 3 小时一班，从开赛 09:00 起算
+function epT(e){var t=e.seen?Date.parse(e.seen):NaN;return isFinite(t)?t:null}
+function shiftOf(t){return Math.floor((t-SHIFT_BASE)/(SHIFT_H*3600000))}
+function shiftName(k){if(k<0)return "赛前";var a=SHIFT_BASE+k*SHIFT_H*3600000;return bj(a)+"–"+bj(a+SHIFT_H*3600000).slice(-5)}
+function med(a){a=a.filter(function(x){return x!=null&&isFinite(x)}).sort(function(x,y){return x-y});if(!a.length)return null;var m=a.length>>1;return a.length%2?a[m]:(a[m-1]+a[m])/2}
+function dz(t,d){return t===1?(COLOR_ZH[d]||d||"?")+"盘":LEVEL_ZH[d]||d||"?"}
+function gapList(t,X){var objs=t===1?T1_OBJ:T2_OBJ,dests=t===1?COLORS:LEVELS,oc=counts(objs,X.map(function(e){return e.target})),dc=counts(dests,X.map(function(e){return e.dest})),cc={};
+  X.forEach(function(e){var k=e.target+"|"+e.dest;cc[k]=(cc[k]||0)+1});
+  var L=[];objs.forEach(function(o){dests.forEach(function(d){L.push({o:o,d:d,n:cc[o+"|"+d]||0,on:oc[o],dn:dc[d]})})});
+  L.sort(function(a,b){return a.n-b.n||a.on-b.on||a.dn-b.dn});return {list:L,oc:oc,dc:dc,cc:cc}}
+function lastShift(){var E=S.data.episodes,cur=shiftOf(Date.now()),ks=[];E.forEach(function(e){var t=epT(e);if(t!=null&&ks.indexOf(shiftOf(t))<0)ks.push(shiftOf(t))});ks.sort(function(a,b){return a-b});
+  var past=ks.filter(function(k){return k<cur});return {cur:cur,last:past.length?past[past.length-1]:(ks.length?ks[ks.length-1]:null),all:ks}}
+function inShift(X,k){return X.filter(function(e){var t=epT(e);return t!=null&&shiftOf(t)===k})}
+function matrix(t,g){var objs=t===1?T1_OBJ:T2_OBJ,dests=t===1?COLORS:LEVELS,mx=Math.max.apply(null,[1].concat(objs.map(function(o){return Math.max.apply(null,dests.map(function(d){return g.cc[o+"|"+d]||0}))})));
+  return '<div class="scroll"><table class="mat"><thead><tr><th></th>'+dests.map(function(d){return '<th class="num">'+esc(dz(t,d))+'</th>'}).join("")+'<th class="num">合计</th></tr></thead><tbody>'+
+    objs.map(function(o){return '<tr><td>'+esc(zh(o))+'</td>'+dests.map(function(d){var v=g.cc[o+"|"+d]||0;return '<td class="num" style="background:rgba(var(--heat),'+(v?0.1+0.6*v/mx:0).toFixed(2)+')'+(v?'':';color:var(--err)')+'">'+v+'</td>'}).join("")+'<td class="num"><b>'+g.oc[o]+'</b></td></tr>'}).join("")+'</tbody></table></div>'}
+
+function shiftTask(t,sh){var X=byTask(t);if(!X.length)return '<div class="card"><h2>'+TASK_ZH[t]+'</h2><div class="small muted">还没有数据</div></div>';
+  var lastX=sh.last!=null?inShift(X,sh.last):[],curX=inShift(X,sh.cur),out=[];
+  out.push('<div class="card"><h2>'+TASK_ZH[t]+'</h2><div class="small">累计 <b class="num">'+X.length+'</b> 条 · 上一班 <b class="num">+'+lastX.length+'</b> · 本班至今 <b class="num">+'+curX.length+'</b></div>');
+  var cv=coverage(t),cells=cv.low.slice(0,4).map(function(c){return cellName([c[0],c[1]])+"（"+c[2]+" 条）"});
+  if(t===3){out.push('<h3>这一班优先补</h3><ul class="clean small"><li>纸团放得少的区域：'+(cells.join("、")||"—")+'</li></ul></div>');return out.join("")}
+  var g=gapList(t,X),lg=gapList(t,lastX),objs=t===1?T1_OBJ:T2_OBJ,dests=t===1?COLORS:LEVELS;
+  var top=g.list.slice(0,t===1?12:8);
+  var lowObj=objs.slice().sort(function(a,b){return g.oc[a]-g.oc[b]}).slice(0,6),lowD=dests.slice().sort(function(a,b){return g.dc[a]-g.dc[b]}).slice(0,2);
+  var tc=counts([0,1,2,3,4],X.map(function(e){return e.tmpl})),lowT=[0,1,2,3,4].sort(function(a,b){return tc[a]-tc[b]})[0];
+  out.push('<h3>这一班优先补（累计最少的组合）</h3><ol class="clean small" style="padding-left:20px">'+top.map(function(x){var lastN=lg.cc[x.o+"|"+x.d]||0;
+    return '<li>'+esc(zh(x.o))+' → '+esc(dz(t,x.d))+' <span class="'+(x.n?"muted":"err")+'">现有 '+x.n+' 条</span>'+(lastX.length&&!lastN?' <span class="tag">上一班没采</span>':'')+'</li>'}).join("")+'</ol>');
+  out.push('<ul class="clean small"><li>目标物最少：'+lowObj.map(function(o){return esc(zh(o))+" "+g.oc[o]}).join("、")+'</li><li>'+(t===1?"盘子颜色":"层")+'最少：'+lowD.map(function(d){return esc(dz(t,d))+" "+g.dc[d]}).join("、")+'</li>'+
+    '<li>指令说法最少：第 '+(lowT+1)+' 种（'+esc(TEMPL[t][lowT])+' …，'+tc[lowT]+' 条）</li><li>桌面上放得少的区域：'+(cells.join("、")||"—")+'</li></ul>');
+  out.push('<details><summary class="small" style="cursor:pointer;color:var(--cur)">全部组合的条数（'+objs.length+' × '+dests.length+'）</summary>'+matrix(t,g)+'</details></div>');
+  return out.join("")}
+
+
+function nextShiftAdvice(sh){var E=S.data.episodes,A=[],lastX=sh.last!=null?inShift(E,sh.last):[],before=E.filter(function(e){var t=epT(e);return t!=null&&sh.last!=null&&shiftOf(t)<sh.last});
+  var tot=[1,2,3].map(function(t){return byTask(t).length}),have=[1,2,3].filter(function(t,i){return tot[i]>0});
+  if(!E.length)return ["还没有同步到数据。"];
+  var minT=[1,2,3].sort(function(a,b){return tot[a-1]-tot[b-1]})[0],maxN=Math.max.apply(null,tot);
+  if(maxN&&tot[minT-1]<0.7*maxN)A.push("三个任务里累计最少的是<b>任务 "+minT+"</b>（"+tot[minT-1]+" 条，最多的有 "+maxN+" 条），这一班先补它。");
+  if(lastX.length){var lt=[1,2,3].map(function(t){return lastX.filter(function(e){return e.task===t}).length});
+    A.push("上一班（"+esc(shiftName(sh.last))+"）一共进来 "+lastX.length+" 条："+[1,2,3].map(function(t){return "任务 "+t+" "+lt[t-1]}).join("、")+"。");
+    var bk=sh.all.filter(function(k){return k<sh.last}).pop();if(bk!=null){var bx=inShift(E,bk).length;if(bx>=5&&lastX.length<0.75*bx)A.push("上一班比再上一班（"+bx+" 条）少了 "+Math.round(100*(1-lastX.length/bx))+"%，看看是哪一步慢了。")}}
+  [1,2].forEach(function(t){var X=byTask(t);if(X.length<5)return;var g=gapList(t,X),zero=g.list.filter(function(x){return x.n===0}).length,objs=t===1?T1_OBJ:T2_OBJ,miss=objs.filter(function(o){return !g.oc[o]});
+    if(miss.length)A.push("任务 "+t+" 还有 "+miss.length+" 种目标物一条都没有："+miss.slice(0,8).map(zh).join("、")+(miss.length>8?" 等":"")+"。");
+    else if(zero)A.push("任务 "+t+" 还有 "+zero+" 个“目标 × "+(t===1?"盘子":"层")+"”组合是 0 条，清单见下面。")});
+  [1,2,3].forEach(function(t){var X=byTask(t).filter(function(e){return e.tc});if(t===3)X=byTask(t).filter(function(e){return (e.balls||[]).length});if(X.length<8)return;
+    var xs=t===3?[].concat.apply([],X.map(function(e){return e.balls.map(function(b){return (b[0]+b[2])/2})})):X.map(function(e){return e.tc[0]}),left=xs.filter(function(x){return x<W()/2}).length/xs.length;
+    if(left>0.65||left<0.35)A.push("任务 "+t+" 的"+(t===3?"纸团":"目标物")+"有 "+Math.round(100*Math.max(left,1-left))+"% 放在画面"+(left>0.5?"左":"右")+"半边，这一班多往"+(left>0.5?"右":"左")+"边放。")});
+  [1,2,3].forEach(function(t){var a=med(before.filter(function(e){return e.task===t}).map(function(e){return e.dur_s})),b=med(lastX.filter(function(e){return e.task===t}).map(function(e){return e.dur_s}));
+    if(a&&b&&lastX.filter(function(e){return e.task===t}).length>=4){if(b>1.25*a)A.push("任务 "+t+" 上一班每条录制比之前慢 "+Math.round(100*(b/a-1))+"%（"+a.toFixed(0)+" 秒 → "+b.toFixed(0)+" 秒），注意动作是不是在犹豫、停顿。");
+      else if(b<0.75*a)A.push("任务 "+t+" 上一班每条录制比之前快 "+Math.round(100*(1-b/a))+"%（"+a.toFixed(0)+" 秒 → "+b.toFixed(0)+" 秒），抽几条看看动作是否完整、有没有省掉归位。")}});
+  var badL=lastX.length?lastX:E,bad=badL.filter(function(e){return e.q.length});
+  if(bad.length){var why={};bad.forEach(function(e){e.q.forEach(function(f){var k=f.indexOf("duplicate_of:")===0?"duplicate":f;why[k]=(why[k]||0)+1})});
+    var names={not_home:"结束时可能没归位",target_not_detected:"目标没检测到",dest_not_detected:"目的地没检测到",len_outlier:"时长异常",duplicate:"和之前的摆放几乎一样",target_unparsed:"指令认不出目标"};
+    A.push((lastX.length?"上一班":"目前")+"有 "+bad.length+" 条要查（"+Object.keys(why).map(function(k){return (names[k]||k)+" "+why[k]}).join("、")+"），去“数据质量”页逐条看。"+(why.not_home?"提醒这一班每条结束都要归位。":"")+(why.duplicate?"摆放尽量每条都换位置。":""))}
+  var lastDemos=(lastX.length?lastX:E).filter(function(e){return e.source!=="rollout"}),wrongEnd=lastDemos.filter(function(e){return ["wrong_plate","wrong_level","not_placed","wrong_object","not_moved","partial","not_swept"].indexOf(e.out)>=0});
+  if(wrongEnd.length)A.push((lastX.length?"上一班":"目前")+"有 <b>"+wrongEnd.length+" 条示范</b>最后的结果和指令不符（"+Object.entries(counts([],wrongEnd.map(function(e){return OUT_ZH[e.out]||e.out}))).map(function(x){return x[0]+" "+x[1]}).join("、")+"），先在“数据质量”里看首尾两帧，确实错的剔除。");
+  var rg=lastDemos.filter(function(e){return (e.traj||{}).regrasp}).length;if(rg>=3)A.push((lastX.length?"上一班":"目前")+"有 "+rg+" 条示范里抓空重抓过，抓之前先对准再夹。");
+  var R=(lastX.length?lastX:E).filter(function(e){return e.source==="rollout"&&e.out});
+  [1,2,3].forEach(function(t){var Y=R.filter(function(e){return e.task===t});if(Y.length<3)return;var c=counts([],Y.map(stageOf)),top=Object.keys(c).filter(function(k){return k!=="成功"}).sort(function(a,b){return c[b]-c[a]})[0];
+    if(top)A.push("模型在任务 "+t+" 上最常见的失败是<b>"+esc(top)+"</b>（"+c[top]+"/"+Y.length+" 条），这一班的 DAgger 重点纠正这一步。")});
+  var dg=E.filter(function(e){return e.source==="dagger"}).length;if(E.length>=50)A.push("DAgger 纠正数据占 "+Math.round(100*dg/E.length)+"%"+(dg?"":"（还没有）")+"。");
+  return A.length?A:["数据还少，等多同步几批再看。"]}
+
+function shiftBars(E){var ks=lastShift().all;if(!ks.length)return "";var W0=640,H0=170,pad=28,bw=(W0-pad-10)/ks.length,col={1:"#2f6fdb",2:"#1f9d55",3:"#b7791f"},
+  C=ks.map(function(k){var X=inShift(E,k);return [1,2,3].map(function(t){return X.filter(function(e){return e.task===t}).length})}),mx=Math.max.apply(null,[1].concat(C.map(function(c){return c[0]+c[1]+c[2]}))),s=[];
+  ks.forEach(function(k,i){var y=H0-pad;[0,1,2].forEach(function(j){var h=(H0-2*pad)*C[i][j]/mx;if(h>0)s.push('<rect x="'+(pad+i*bw+2).toFixed(1)+'" y="'+(y-h).toFixed(1)+'" width="'+Math.max(2,bw-4).toFixed(1)+'" height="'+h.toFixed(1)+'" fill="'+col[j+1]+'"><title>'+esc(shiftName(k))+' 任务'+(j+1)+' '+C[i][j]+'</title></rect>');y-=h});
+    s.push('<text x="'+(pad+i*bw+bw/2).toFixed(1)+'" y="'+(H0-10)+'" font-size="9" text-anchor="middle" style="fill:var(--muted)">'+esc(k<0?"赛前":shiftName(k).replace(/^\d+\/\d+ /,"").slice(0,5))+'</text><text x="'+(pad+i*bw+bw/2).toFixed(1)+'" y="'+(y-3).toFixed(1)+'" font-size="9" text-anchor="middle" style="fill:var(--fg)">'+(C[i][0]+C[i][1]+C[i][2])+'</text>')});
+  return '<svg viewBox="0 0 '+W0+' '+H0+'" style="width:100%;height:auto">'+s.join("")+'</svg>'}
+
+function durHist(t){var D=byTask(t).map(function(e){return e.dur_s}).filter(function(x){return x});if(!D.length)return '<div class="small muted">没有数据</div>';
+  var mx=Math.max.apply(null,D),bins=12,w=Math.max(1,Math.ceil(mx/bins)),H=new Array(bins).fill(0);D.forEach(function(d){H[Math.min(bins-1,Math.floor(d/w))]++});
+  var W0=300,H0=110,pad=16,bw=(W0-pad)/bins,hm=Math.max.apply(null,H),col={1:"#2f6fdb",2:"#1f9d55",3:"#b7791f"}[t],s=[];
+  H.forEach(function(v,i){var h=(H0-2*pad)*v/hm;s.push('<rect x="'+(pad+i*bw+1).toFixed(1)+'" y="'+(H0-pad-h).toFixed(1)+'" width="'+(bw-2).toFixed(1)+'" height="'+h.toFixed(1)+'" fill="'+col+'"><title>'+(i*w)+'–'+((i+1)*w)+' 秒：'+v+' 条</title></rect>')});
+  s.push('<text x="'+pad+'" y="'+(H0-2)+'" font-size="9" style="fill:var(--muted)">0</text><text x="'+(W0-2)+'" y="'+(H0-2)+'" font-size="9" text-anchor="end" style="fill:var(--muted)">'+(bins*w)+' 秒</text>');
+  return '<svg viewBox="0 0 '+W0+' '+H0+'" style="width:100%;height:auto">'+s.join("")+'</svg>'}
+
+
+var OUT_ZH={ok:"放对了",wrong_plate:"放错盘子",wrong_level:"放错层",not_placed:"没放上",wrong_object:"拿错物体",not_moved:"没动",target_not_seen_end:"终点看不到目标",arm_in_view:"没归位看不清",partial:"部分扫进",not_swept:"没扫进",unknown:"无法判断"};
+function stageOf(e){var o=e.out,tr=e.traj||{};if(!o)return null;
+  if(e.task===3){if(tr.grasp_tools==null)return "没抓起工具";return o==="ok"?"成功":o==="partial"?"只扫进一部分":o==="not_swept"?"没扫进":"看不清"}
+  if(o==="ok")return (tr.home_dist!=null&&tr.home_dist>0.3)?"放对了但没归位":"成功";
+  if(o==="wrong_object")return "识别错（拿了别的）";if(o==="wrong_plate"||o==="wrong_level")return "放错位置";if(o==="not_placed")return "放置失败（掉了或没放进）";
+  if(o==="not_moved")return (tr.closes||0)>0?"抓取失败（没抓起来）":"没去抓";return "看不清"}
+function phaseRow(t,X){var k=t===3?["wait","grasp_tools","pause","total"]:["wait","reach","carry","back","pause","total"];
+  return k.map(function(f){var v=med(X.map(function(e){return (e.traj||{})[f]}));return '<td class="num">'+(v==null?"—":v.toFixed(1))+'</td>'}).join("")}
+function vShift(){
+  var d=S.data,sh=lastShift(),lag=(Date.now()-Date.parse(d.generated))/60000,out=[];
+  out.push('<div class="card"><div class="small muted">当前班次</div><div class="big">'+esc(shiftName(sh.cur))+'</div><div class="small">上一班：'+(sh.last==null?"—":esc(shiftName(sh.last)))+' · 每班 '+SHIFT_H+' 小时，从 11/14 09:00 起算</div>'+
+    '<div class="note">数据最后同步于 '+bj(d.generated)+'（'+(lag<1?"刚刚":Math.round(lag)+" 分钟前")+'）。采完的数据要在平台上存快照、预热后才同步得到，所以最近几分钟到几十分钟采的可能还没进来。</div></div>');
+  if(d.episodes.length&&d.episodes.every(function(e){return e.origin==='public'&&epT(e)==null}))out.push('<div class="card" style="margin-top:12px">当前已接入 '+d.episodes.length+' 条官方公共真机数据。采集时间未提供，暂不计算现场班次新增和上一班表现。</div>');
+  else out.push('<div class="card sug" style="margin-top:12px"><h2>给这一班的建议</h2><ul class="clean small">'+nextShiftAdvice(sh).map(function(x){return '<li style="margin:5px 0">'+x+'</li>'}).join("")+'</ul><div class="note">根据已经同步进来的数据自动算，每次数据更新都会重算。</div></div>');
+  out.push('<div class="grid" style="margin-top:12px">'+[1,2,3].map(function(t){return shiftTask(t,sh)}).join("")+'</div>');
+  return out.join("")}
+
+function vAnalysis(){
+  var E=S.data.episodes,sh=lastShift(),out=[];
+  out.push('<div class="card"><h2>每个任务</h2><div class="scroll"><table><thead><tr><th>任务</th><th class="num">条数</th><th class="num">录制时长（中位数）</th><th class="num">25%–75%</th><th class="num">最长</th></tr></thead><tbody>'+
+    [1,2,3].map(function(t){var D=byTask(t).map(function(e){return e.dur_s}).filter(function(x){return x}).sort(function(a,b){return a-b});
+      function q(p){return D.length?D[Math.min(D.length-1,Math.floor(p*D.length))]:null}
+      return '<tr><td>'+esc(TASK_ZH[t])+'</td><td class="num">'+byTask(t).length+'</td><td class="num">'+(D.length?med(D).toFixed(0)+" 秒":"—")+'</td><td class="num">'+(D.length?q(.25).toFixed(0)+"–"+q(.75).toFixed(0)+" 秒":"—")+'</td><td class="num">'+(D.length?D[D.length-1].toFixed(0)+" 秒":"—")+'</td></tr>'}).join("")+
+    '</tbody></table></div><div class="note">录制时长 = 帧数 ÷ 帧率，从数据里直接算。摆放和两条之间的间隔要用平台记录的采集时间，现场接上平台数据后会自动出现在这里。</div></div>');
+  var ks=sh.all;
+  out.push('<div class="card" style="margin-top:12px"><h2>每一班进来的条数</h2>'+shiftBars(E)+'<div class="legend"><span><i style="background:#2f6fdb"></i>任务 1</span><span><i style="background:#1f9d55"></i>任务 2</span><span><i style="background:#b7791f"></i>任务 3</span></div></div>');
+  out.push('<div class="grid" style="margin-top:12px">'+[1,2,3].map(function(t){return '<div class="card"><h2>'+TASK_ZH[t]+' · 录制时长分布</h2>'+durHist(t)+'</div>'}).join("")+'</div>');
+  out.push('<div class="card" style="margin-top:12px"><h2>每一班采了多少</h2><div class="scroll"><table><thead><tr><th>班次</th><th class="num">任务 1</th><th class="num">任务 2</th><th class="num">任务 3</th><th class="num">合计</th><th class="num">每小时</th></tr></thead><tbody>'+
+    ks.slice().reverse().map(function(k){var X=E.filter(function(e){var t=epT(e);return t!=null&&shiftOf(t)===k}),c=[1,2,3].map(function(t){return X.filter(function(e){return e.task===t}).length});
+      return '<tr><td>'+esc(shiftName(k))+(k===sh.cur?' <span class="tag">本班</span>':'')+'</td>'+c.map(function(v){return '<td class="num">'+v+'</td>'}).join("")+'<td class="num"><b>'+X.length+'</b></td><td class="num">'+(k<0?"—":(X.length/SHIFT_H).toFixed(1))+'</td></tr>'}).join("")+
+    '</tbody></table></div><div class="note">按每条第一次同步进来的时间分班；平台自带采集时间的话用平台的。</div></div>');
+  var demos=E.filter(function(e){return e.source!=="rollout"}),rolls=E.filter(function(e){return e.source==="rollout"});
+  out.push('<div class="card" style="margin-top:12px"><h2>示范每一步花多久（秒，中位数）</h2><div class="scroll"><table><thead><tr><th>任务</th><th class="num">起步前</th><th class="num">伸手到夹住</th><th class="num">夹住到松开</th><th class="num">松开到归位</th><th class="num">停顿合计</th><th class="num">整条</th></tr></thead><tbody>'+
+    [1,2].map(function(t){return '<tr><td>'+esc(TASK_ZH[t])+'</td>'+phaseRow(t,demos.filter(function(e){return e.task===t}))+'</tr>'}).join("")+
+    '<tr><td>'+esc(TASK_ZH[3])+'（起步前 / 两只夹爪都夹住 / 停顿 / 整条）</td>'+phaseRow(3,demos.filter(function(e){return e.task===3}))+'<td></td><td></td></tr></tbody></table></div>'+
+    '<div class="note">从关节和夹爪数据算：夹爪离开起始开度一半以上算"夹住"；松开后机械臂回到离起点 15% 以内算"归位"。真机夹爪的数值范围拿到现场数据再核对一次。</div></div>');
+  function outTable(X){var ks=[];X.forEach(function(e){if(e.out&&ks.indexOf(e.out)<0)ks.push(e.out)});if(!ks.length)return '<div class="small muted">没有最后一帧的结果</div>';
+    return '<div class="small">'+[1,2,3].map(function(t){var Y=X.filter(function(e){return e.task===t&&e.out});if(!Y.length)return "";var c=counts([],Y.map(function(e){return e.out}));
+      return '<div style="margin:4px 0"><b>任务 '+t+'</b>（'+Y.length+' 条）：'+Object.keys(c).sort(function(a,b){return c[b]-c[a]}).map(function(k){return '<span class="tag '+(k==="ok"?"":"warn")+'">'+esc(OUT_ZH[k]||k)+' '+c[k]+'</span>'}).join("")+'</div>'}).join("")+'</div>'}
+  out.push('<div class="card" style="margin-top:12px"><h2>示范最后的结果（比第 0 帧和最后一帧）</h2>'+outTable(demos)+'<div class="note">示范应该都"放对了"。不是的点进"数据质量"看首尾两帧：标错的示范（指令说粉盘、实际放紫盘）对训练伤害最大，建议剔除。</div></div>');
+  out.push('<div class="card" style="margin-top:12px"><h2>模型自测 / 推理录像：在哪一步失败</h2>'+(rolls.length?[1,2,3].map(function(t){var Y=rolls.filter(function(e){return e.task===t&&e.out});if(!Y.length)return "";var c=counts([],Y.map(stageOf));
+      return '<h3>'+esc(TASK_ZH[t])+' · '+Y.length+' 条</h3>'+bars(c,function(k){return k},{sort:false})}).join(""):'<div class="small muted">还没有。同步时把平台上模型自己跑的数据集标成 rollout（例如 <span class="mono">dev:/路径 rollout 自测</span>），这里就会按任务统计失败发生在哪一步。</div>')+'<div class="note">识别错 → DAgger 重点纠正"伸向错误物体"；抓取失败 → 补抓取姿态多样的示范；放置失败 / 放错 → 补放置和对准；没归位 → 示范结尾一定要归位。</div></div>');
+  var C={};E.forEach(function(e){var k=e.collector||"（没填）";(C[k]=C[k]||[]).push(e)});
+  out.push('<div class="card" style="margin-top:12px"><h2>按采集人 / 数据集</h2><div class="scroll"><table><thead><tr><th>谁</th><th class="num">任务 1</th><th class="num">任务 2</th><th class="num">任务 3</th><th class="num">录制时长中位数</th><th class="num">有问题的</th></tr></thead><tbody>'+
+    Object.keys(C).sort().map(function(k){var X=C[k];return '<tr><td>'+esc(k)+'</td>'+[1,2,3].map(function(t){return '<td class="num">'+X.filter(function(e){return e.task===t}).length+'</td>'}).join("")+'<td class="num">'+(med(X.map(function(e){return e.dur_s}))||0).toFixed(0)+' 秒</td><td class="num">'+X.filter(function(e){return e.q.length}).length+'</td></tr>'}).join("")+
+    '</tbody></table></div><div class="note">采集人按同步时给每个数据集填的名字来算。</div></div>');
+  out.push('<div class="card" style="margin-top:12px"><h2>录制时长的变化</h2>'+durTrend(E)+'<div class="legend"><span><i style="background:#2f6fdb"></i>任务 1</span><span><i style="background:#1f9d55"></i>任务 2</span><span><i style="background:#b7791f"></i>任务 3</span><span>横轴是同步顺序，纵轴是每条的录制秒数；越往右越新</span></div></div>');
+  return out.join("")}
+
+function durTrend(E){var X=E.filter(function(e){return e.dur_s}).slice().sort(function(a,b){return (epT(a)||0)-(epT(b)||0)||a.n-b.n});if(!X.length)return '<div class="small muted">没有数据</div>';
+  var W0=640,H0=180,pad=28,ymax=Math.max(10,Math.ceil(Math.max.apply(null,X.map(function(e){return e.dur_s}))/10)*10),col={1:"#2f6fdb",2:"#1f9d55",3:"#b7791f"},s=[];
+  for(var g=0;g<=ymax;g+=ymax/4){var y=H0-pad-(H0-2*pad)*g/ymax;s.push('<line x1="'+pad+'" x2="'+(W0-6)+'" y1="'+y+'" y2="'+y+'" style="stroke:var(--grid)"/><text x="2" y="'+(y+4)+'" font-size="10" style="fill:var(--muted)">'+Math.round(g)+'</text>')}
+  X.forEach(function(e,i){var x=pad+(W0-pad-6)*i/Math.max(1,X.length-1),y=H0-pad-(H0-2*pad)*e.dur_s/ymax;s.push('<circle data-ep="'+e.n+'" cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="2.6" fill="'+(col[e.task]||"#999")+'" style="cursor:pointer"><title>#'+e.n+' '+e.dur_s+' 秒</title></circle>')});
+  return '<svg viewBox="0 0 '+W0+' '+H0+'" style="width:100%;height:auto">'+s.join("")+'</svg>'}
+
+function render(){
+  nav();var m=el("main"),needData={real:1,spatial:1,shift:1,overview:1,coverage:1,analysis:1,quality:1}[S.tab];
+  if(needData&&!S.data){m.innerHTML='<div class="card">加载中…</div>';return}
+  var v={real:vReal,spatial:vSpatial,shift:vShift,overview:vOverview,coverage:vCoverage,analysis:vAnalysis,quality:vQuality,eval:vEval,selftest:vSelf,rules:vRules}[S.tab]||vReal;
+  m.innerHTML=v();
+  sourceText();
+}
+function sourceText(){if(S.data)el("src").textContent="覆盖数据："+(S.data.title||"未命名")+" · 生成于 "+bj(S.data.generated)+"（北京时间）· "+S.data.episodes.length+" 条"}
+
+var dataLoading=false;
+function load(){
+  if(dataLoading)return;dataLoading=true;
+  return fetch("/api/field-data",{credentials:"same-origin",cache:"no-store"}).then(function(r){
+    if(r.status===401){location.href="/api/auth/login?next=%2Ffield";throw new Error("login")}
+    if(!r.ok)throw new Error("HTTP "+r.status);return r.json()}).then(function(d){
+      if(!S.data||S.data.generated!==d.generated){S.data=prep(d);render()}else sourceText();
+    }).catch(function(e){
+    if(String(e.message)!=="login"){
+      if(S.data)el("src").textContent='暂时无法检查更新，保留 '+bj(S.data.generated)+' 的数据；稍后自动重试。';
+      else el("main").innerHTML='<div class="card">数据暂时取不到（'+esc(e.message)+'），稍后自动重试。</div>';
+    }}).finally(function(){dataLoading=false})}
+
+var h=(location.hash||"").slice(1);if(TABS.some(function(t){return t[0]===h}))S.tab=h;
+window.addEventListener("hashchange",function(){var k=(location.hash||"").slice(1);if(TABS.some(function(t){return t[0]===k})&&k!==S.tab){S.tab=k;el("drawer").classList.remove("on");render()}});
+nav();load();loadState();
+setInterval(function(){if(document.visibilityState==="visible"&&!el("drawer").classList.contains("on"))load()},30000);
+document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')load()});
+setInterval(function(){if(document.visibilityState==="visible"&&(S.tab==="eval"||S.tab==="selftest"))loadState()},20000);
+</script>
+</body>
+</html>

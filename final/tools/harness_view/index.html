@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VLA 指令实时</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--ink:#16181d;--mute:#6b7280;--line:#e5e7eb;--acc:#2563eb;--ok:#16a34a;--warn:#d97706;--bad:#dc2626;--chip:#eef2ff;--hl:#fff7e6}
+@media (prefers-color-scheme:dark){:root{--bg:#0f1115;--card:#171a21;--ink:#e8eaee;--mute:#9aa3b2;--line:#2a2f3a;--acc:#60a5fa;--ok:#22c55e;--warn:#f59e0b;--bad:#f87171;--chip:#1e2533;--hl:#2a2414}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 -apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue",sans-serif}
+header{display:flex;flex-wrap:wrap;gap:12px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--line);background:var(--card);position:sticky;top:0;z-index:2}
+header h1{font-size:16px;margin:0 8px 0 0}.pill{display:inline-flex;align-items:center;gap:6px;padding:2px 10px;border-radius:999px;background:var(--chip);color:var(--mute);font-size:12px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--bad)}.dot.ok{background:var(--ok)}
+main{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:14px;padding:14px 16px;max-width:1500px;margin:0 auto}
+@media (max-width:900px){main{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.state{font-weight:600;padding:2px 10px;border-radius:999px;font-size:12px;color:#fff}
+.s-running{background:var(--ok)}.s-paused{background:var(--warn)}.s-stopped{background:var(--mute)}
+.label{color:var(--mute);font-size:12px}
+#instr{font-size:28px;line-height:1.3;font-weight:600;margin:10px 0 6px;word-break:break-word}
+#instr.small{font-size:22px}
+.sub{display:inline-block;font-weight:600;padding:2px 10px;border-radius:6px;background:var(--acc);color:#fff;font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;margin-top:10px}
+.kv{border:1px solid var(--line);border-radius:8px;padding:6px 10px}.kv b{display:block;font-size:20px}
+#obs{margin-top:6px}
+.tl{list-style:none;margin:0;padding:0}.tl li{display:grid;grid-template-columns:64px 22px 1fr;gap:6px;padding:6px 0;border-top:1px solid var(--line)}
+.tl li:first-child{border-top:0}.tl .t{color:var(--mute);font-variant-numeric:tabular-nums}.tl li.prompt{background:var(--hl)}
+.tl .x{color:var(--mute);font-size:12px;word-break:break-word}.tl li.llm{color:var(--mute);font-size:13px}.tl li.veto{background:#fde8e8}@media (prefers-color-scheme:dark){.tl li.veto{background:#3a1d1d}}
+.sess{list-style:none;margin:0;padding:0}.sess li{padding:8px 6px;border-top:1px solid var(--line);cursor:pointer;border-radius:6px}
+.sess li:first-child{border-top:0}.sess li.sel{background:var(--chip)}.sess .tk{font-size:12px;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+h2{font-size:13px;margin:0 0 8px;color:var(--mute);font-weight:600}
+.stack{display:flex;flex-direction:column;gap:14px;min-width:0}
+button{font:inherit;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;padding:3px 10px;cursor:pointer}
+button.on{border-color:var(--acc);color:var(--acc)}
+.empty{color:var(--mute);padding:20px 0;text-align:center}
+</style>
+</head>
+<body>
+<header>
+  <h1>VLA 指令实时</h1>
+  <nav style="display:flex;gap:4px"><a href="/" style="padding:3px 12px;border-radius:8px;text-decoration:none;border:1px solid var(--acc);color:var(--acc);font-size:13px;font-weight:600">任务三 · 指令实时</a><a href="/yolo" style="padding:3px 12px;border-radius:8px;text-decoration:none;border:1px solid var(--line);color:var(--mute);font-size:13px">任务一/二 · YOLO</a><a href="/topref?t=1" style="padding:3px 12px;border-radius:8px;text-decoration:none;border:1px solid var(--line);color:var(--mute);font-size:13px">复位 · 任务一</a><a href="/topref?t=2" style="padding:3px 12px;border-radius:8px;text-decoration:none;border:1px solid var(--line);color:var(--mute);font-size:13px">复位 · 任务二</a><a href="/topref?t=3" style="padding:3px 12px;border-radius:8px;text-decoration:none;border:1px solid var(--line);color:var(--mute);font-size:13px">复位 · 任务三</a></nav>
+  <span class="pill"><span class="dot" id="ldot"></span><span id="ltxt">连接中…</span></span>
+  <span class="pill" id="clock">5080 时间 —</span>
+  <span class="pill" id="modes">harness — · yolocue —</span>
+  <span style="flex:1"></span>
+  <button id="follow" class="on" title="自动切到最新会话">跟随最新</button>
+</header>
+<main>
+  <div class="stack">
+    <div class="card">
+      <div class="row"><span class="state s-stopped" id="state">无会话</span><span class="label" id="meta"></span></div>
+      <div class="label" style="margin-top:10px" id="instrLabel">当前发给 VLA 的指令</div>
+      <div id="instr">—</div>
+      <div class="row" id="subrow"></div>
+      <div class="label" style="margin-top:8px" id="orig"></div>
+    </div>
+    <div class="card" id="viewCard" hidden>
+      <h2 id="viewTitle">harness 看到的</h2>
+      <div id="obs"></div>
+      <div class="grid" id="kvs"></div>
+    </div>
+    <div class="card" id="smCard" hidden><h2 id="smTitle">动作平滑（本会话）</h2><div class="grid" id="smKvs"></div></div>
+    <div class="card"><h2>时间线（最新在上）</h2><ul class="tl" id="tl"></ul></div>
+  </div>
+  <div class="stack">
+    <div class="card"><h2>最近会话</h2><ul class="sess" id="sess"></ul></div>
+  </div>
+</main>
+<script>
+const SUB={grasp:'抓取工具',sweep:'清扫',dump:'倾倒',home:'归位'};
+const sessions=new Map(), byFile=new Map();
+let sel=null, follow=true, offset=0, lastHb=0, linkOk=false, hbInfo={}; const smooth=[];
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const kindOf=t=>/dustpan|paper ball/i.test(t||'')?3:(/plate/i.test(t||'')?1:2);
+const hhmmss=w=>new Date(w*1000).toLocaleTimeString('zh-CN',{hour12:false});
+function sess(sid,w,task){
+  if(!sid) return null;
+  let s=sessions.get(sid);
+  if(!s){s={sid,start:w,task:task||'',state:'running',ev:[],prompt:null,shadow:null,llm:null,harness:null,yolo:{},end:null};sessions.set(sid,s);}
+  if(task&&!s.task) s.task=task; if(w&&(!s.start||w<s.start)) s.start=w; return s;
+}
+function add(s,w,icon,text,x,cls){s.ev.push({w,icon,text,x,cls});}
+function onRec(m){
+  const r=m.rec||{}, w=r.wall_time;
+  if(m.src==='hb'){offset=r.wall_time-Date.now()/1000;lastHb=Date.now();hbInfo=r;return;}
+  if(m.src==='actsmooth'){smooth.push(r);return;}
+  if(m.src==='session'){
+    const s=sess(r.session_id,w,r.task); if(!s) return;
+    if(r.event==='start'){s.state='running';add(s,w,'▶','会话开始',r.task);}
+    else if(r.event==='pause'){s.state='paused';add(s,w,'✋','人工接管（策略暂停）');}
+    else if(r.event==='resume'){s.state='running';add(s,w,'↩','交还策略');}
+    else if(r.event==='stop'){s.state='stopped';s.end=w;add(s,w,'■','会话结束');}
+    return;
+  }
+  if(m.src==='harness'||m.src==='yolocue'){
+    let s=r.session_id?sess(r.session_id,w,r.task):sessions.get(byFile.get(m.file));
+    if(r.session_id) byFile.set(m.file,r.session_id);
+    if(!s) return;
+    if(m.src==='harness'){
+      if(r.event==='start'){s.harness={mode:r.mode,scheduler:r.scheduler};add(s,w,'⚙',`harness 启动（${r.mode} · ${r.scheduler}）`);}
+      else if(r.event==='prompt'){
+        const p={text:r.prompt,sub:r.subtask,side:r.side,t:r.t,why:r.why,w};
+        if(r.applied===false){s.shadow=p;add(s,w,'◌',`影子模式建议（未下发）：${r.prompt}`,`${SUB[r.subtask]||r.subtask||''} · ${r.why||''}`);}
+        else{s.prompt=p;add(s,w,'➜',r.prompt,`${SUB[r.subtask]||r.subtask||''}${r.side?' · 簸箕在'+(r.side==='left'?'左':'右'):''} · 原因：${r.why||''}`,'prompt');}
+      } else if(r.event==='llm'){
+        let rep={}; try{rep=JSON.parse(r.reply||'{}')}catch(e){}
+        const u=r.user||'', gl=u.match(/left (\d+(?:\.\d+)?)/), gr=u.match(/right (\d+(?:\.\d+)?)/), g=(gl&&gr)?[null,gl[1],gr[1]]:null, tm=u.match(/Time ([\d.]+) s of (\d+) s/), run=u.match(/subtask (\w+) \(for ([\d.]+) s\)/);
+        s.llm={rep,err:r.error,lat:r.latency_s,g:g?[g[1],g[2]]:null,tm:tm?[tm[1],tm[2]]:null,run:run?[run[1],run[2]]:null,w};
+        if(r.error) add(s,w,'!','大模型调用出错',r.error);
+        else { const yn=v=>v===true?'✓':(v===false?'✗':'?'); const lat=(r.latency_s||0).toFixed(1);
+          add(s,w,'👁',`大模型回复（耗时 ${lat}s，看到的是约 ${lat}s 前的画面）：簸箕${yn(rep.dustpan_held)} 刷子${yn(rep.brush_held)} · 桌上${rep.balls_on_table??'?'} 簸箕里${rep.balls_in_dustpan??'?'} 篮里${rep.balls_in_basket??'?'} · 簸箕${rep.dustpan_state??'?'}`,
+              `当时夹爪 左${g?g[1]:'?'} 右${g?g[2]:'?'} · ${rep.observation||''}`,'llm'); }
+        if(r.held_veto) add(s,w,'⛔','大模型说两个工具都拿住了，但夹爪张开，不算数',r.held_veto,'veto');
+      } else if(r.event==='summary'){add(s,w,'Σ',`harness 汇总：${r.n_calls??'?'} 次调用，平均 ${r.latency_mean_s??'?'} s`);}
+      else add(s,w,'·',`harness ${r.event||''}`,JSON.stringify(r).slice(0,220));
+    } else {
+      if(r.event==='start'){s.yolo.mode=r.mode;s.yolo.parsed=r.parsed;add(s,w,'□',`yolocue 启动（${r.mode}）`,(r.parsed||[]).join(' · '));}
+      else if(r.event==='detect'){s.yolo.reason=r.reason;s.yolo.why=r.why;add(s,w,'□',r.reason==='ok'?'框提示：目标与目的地都找到':'框提示：'+r.reason,r.why);}
+      else if(r.event==='grasp'){s.yolo.grasp=r;add(s,w,'✊',`夹爪闭合（第 ${r.chunk} 块，${r.arm==='left'?'左':'右'}臂）→ 撤掉白框`);}
+      else if(r.event==='end'){s.yolo.end=r;add(s,w,'□',`yolocue 结束：placed=${r.placed}，regrasp ${r.regrasps}`);}
+      else add(s,w,'□',`yolocue ${r.event||''}`,JSON.stringify(r).slice(0,220));
+    }
+  }
+}
+function fmtRel(s,w){const d=Math.max(0,w-(s.start||w));return d<600?'+'+d.toFixed(1)+'s':'+'+Math.floor(d/60)+'m';}
+function render(){
+  const list=[...sessions.values()].sort((a,b)=>(b.start||0)-(a.start||0));
+  if(follow&&list.length) sel=list[0].sid;
+  const s=sessions.get(sel);
+  $('sess').innerHTML=list.slice(0,20).map(x=>`<li data-sid="${x.sid}" class="${x.sid===sel?'sel':''}"><div class="row"><span class="state s-${x.state}" style="font-size:11px">${{running:'运行',paused:'接管',stopped:'结束'}[x.state]}</span><b>${hhmmss(x.start)}</b><span class="label">任务${kindOf(x.task)}</span></div><div class="tk">${esc(x.prompt?x.prompt.text:x.task)}</div></li>`).join('')||'<li class="empty">还没有会话</li>';
+  if(!s){return;}
+  const st={running:'运行中',paused:'人工接管中',stopped:'已结束'}[s.state];
+  $('state').className='state s-'+s.state; $('state').textContent=st;
+  const now=Date.now()/1000+offset, dur=(s.end||now)-s.start;
+  $('meta').textContent=`${hhmmss(s.start)} 开始 · ${s.state==='stopped'?'用时':'已运行'} ${dur.toFixed(0)} s · 任务${kindOf(s.task)} · ${s.sid.slice(0,8)}`;
+  const k=kindOf(s.task);
+  if(s.prompt){$('instrLabel').textContent='当前发给 VLA 的指令（harness 下发）';$('instr').textContent=s.prompt.text;
+    $('subrow').innerHTML=`<span class="sub">${esc(SUB[s.prompt.sub]||s.prompt.sub||'')}</span><span class="label">从 ${fmtRel(s,s.prompt.w)} 起 · 原因：${esc(s.prompt.why||'')}</span>`;
+    $('orig').textContent='原始任务：'+s.task;}
+  else{$('instrLabel').textContent=k===3?'当前发给 VLA 的指令（harness 尚未下发，先用原始任务）':'当前发给 VLA 的指令（任务1/2 不经过 harness，原样下发）';
+    $('instr').textContent=s.task||'—';$('subrow').innerHTML=s.shadow?`<span class="label">影子模式建议：${esc(s.shadow.text)}</span>`:'';$('orig').textContent='';}
+  $('instr').className=($('instr').textContent.length>110)?'small':'';
+  const vc=$('viewCard');
+  if(s.llm){vc.hidden=false;$('viewTitle').textContent=`harness 看到的（${hbInfo.llm||'大模型'}；最新回复于 ${fmtRel(s,s.llm.w)}，耗时 ${s.llm.lat?.toFixed?.(1)??'?'}s，看到的是约 ${s.llm.lat?.toFixed?.(1)??'?'}s 前的画面）`;
+    const r=s.llm.rep||{}; $('obs').textContent=r.observation||(s.llm.err?'出错：'+s.llm.err:'');
+    const kv=[['桌上球',r.balls_on_table],['簸箕里',r.balls_in_dustpan],['篮子里',r.balls_in_basket],['看不见',r.balls_hidden],['总数',r.balls_total],
+      ['簸箕拿住',r.dustpan_held===undefined?'—':(r.dustpan_held?'是':'否')],['刷子拿住',r.brush_held===undefined?'—':(r.brush_held?'是':'否')],['簸箕状态',r.dustpan_state],
+      ['夹爪 左/右',s.llm.g?s.llm.g.join(' / '):'—'],['子任务已持续',s.llm.run?(SUB[s.llm.run[0]]||s.llm.run[0])+' '+s.llm.run[1]+'s':'—']];
+    $('kvs').innerHTML=kv.map(([a,b])=>`<div class="kv"><span class="label">${a}</span><b>${esc(b??'—')}</b></div>`).join('');}
+  else if(k!==3&&(s.yolo.parsed||s.yolo.reason)){vc.hidden=false;$('viewTitle').textContent='yolocue 框提示';
+    const y=s.yolo;$('obs').textContent=y.parsed?`目标 ${y.parsed[1]} → 目的地 ${y.parsed[2]}`:'';
+    $('kvs').innerHTML=[['检测',y.reason||'—'],['夹取',y.grasp?`第${y.grasp.chunk}块 ${y.grasp.arm==='left'?'左':'右'}臂`:'未发生'],['regrasp',y.end?y.end.regrasps:'—'],['已放下',y.end?String(y.end.placed):'—']]
+      .map(([a,b])=>`<div class="kv"><span class="label">${a}</span><b>${esc(b)}</b></div>`).join('');}
+  else vc.hidden=true;
+  const now2=Date.now()/1000+offset, sm=smooth.filter(x=>x.t>=s.start-1&&x.t<=(s.end||now2)+1);
+  if(sm.length){ $('smCard').hidden=false; const med=a=>{a=a.slice().sort((x,y)=>x-y);return a.length?a[Math.floor(a.length/2)]:0};
+    const sum=(k,i)=>sm.reduce((a,x)=>a+((x[k]||[0,0])[i]||0),0);
+    $('smTitle').textContent=`动作平滑（本会话，模式 ${sm[sm.length-1].mode}，${sm.length} 块动作）`;
+    $('smKvs').innerHTML=[['左夹爪指令来回',`${sum('left_gripper_rev',0)} → ${sum('left_gripper_rev',1)}`],['右夹爪指令来回',`${sum('right_gripper_rev',0)} → ${sum('right_gripper_rev',1)}`],
+      ['左臂高频残差 rad',`${med(sm.map(x=>(x.left_arm_hf||[0,0])[0])).toFixed(4)} → ${med(sm.map(x=>(x.left_arm_hf||[0,0])[1])).toFixed(4)}`],
+      ['右臂高频残差 rad',`${med(sm.map(x=>(x.right_arm_hf||[0,0])[0])).toFixed(4)} → ${med(sm.map(x=>(x.right_arm_hf||[0,0])[1])).toFixed(4)}`],
+      ['平滑最大改动 rad',Math.max(...sm.map(x=>Math.max(x.left_arm_maxdev||0,x.right_arm_maxdev||0))).toFixed(3)]]
+      .map(([a,b])=>`<div class="kv"><span class="label">${a}</span><b>${b}</b></div>`).join(''); }
+  else $('smCard').hidden=true;
+  $('tl').innerHTML=s.ev.slice().sort((a,b)=>b.w-a.w).map(e=>`<li class="${e.cls||''}"><span class="t">${fmtRel(s,e.w)}</span><span>${e.icon}</span><span>${esc(e.text)}${e.x?`<div class="x">${esc(e.x)}</div>`:''}</span></li>`).join('')||'<li class="empty">暂无事件</li>';
+}
+function tick(){
+  const alive=linkOk&&Date.now()-lastHb<6000;
+  $('ldot').className='dot'+(alive?' ok':''); $('ltxt').textContent=alive?'已连接 5080':(linkOk?'等待数据…':'未连接（自动重连中）');
+  if(lastHb) $('clock').textContent='5080 时间 '+hhmmss(Date.now()/1000+offset);
+  $('modes').textContent=`harness ${hbInfo.harness_mode??'—'} · ${hbInfo.scheduler??'—'} · yolocue ${hbInfo.yolocue_mode??'—'} · 动作平滑 ${hbInfo.actsmooth_mode??'—'} · 大模型 ${hbInfo.llm??'—'}`;
+  render();
+}
+$('sess').addEventListener('click',e=>{const li=e.target.closest('li[data-sid]');if(!li)return;sel=li.dataset.sid;follow=false;$('follow').classList.remove('on');render();});
+$('follow').addEventListener('click',()=>{follow=!follow;$('follow').classList.toggle('on',follow);render();});
+let pending=false;
+function connect(){
+  const es=new EventSource('/events');
+  es.onmessage=ev=>{const m=JSON.parse(ev.data);
+    if(m.src==='reset'){sessions.clear();byFile.clear();smooth.length=0;return;}
+    if(m.src==='link'){linkOk=!!m.rec.ok;return;}
+    linkOk=true; onRec(m); if(!pending){pending=true;requestAnimationFrame(()=>{pending=false;render();});}};
+  es.onerror=()=>{linkOk=false;};
+}
+connect(); setInterval(tick,500);
+</script>
+</body>
+</html>

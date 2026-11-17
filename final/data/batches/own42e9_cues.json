@@ -1,0 +1,130 @@
+{
+ "summary": {
+  "yolo": "weights/v9.torchscript",
+  "checked_by_eye": "all 6: f0 cue, grasp frame, gf+30, last frame (340 ambiguous, 342 not detected -> plain only)",
+  "mode": "boxgrasp",
+  "line_px": 5
+ },
+ "episodes": {
+  "341": {
+   "id": "ep0341",
+   "instruction": "Put the beige lotion pump bottle in the middle compartment.",
+   "target": "lotion_bottle",
+   "dest": "organizer_middle",
+   "target_box": [
+    326.0,
+    291.0,
+    420.7,
+    324.4
+   ],
+   "dest_box": [
+    127.4,
+    144.5,
+    293.6,
+    207.6
+   ],
+   "grasp_frame": 288,
+   "T": 680
+  },
+  "357": {
+   "id": "ep0357",
+   "instruction": "Organize the small black and gold makeup brush into the middle compartment.",
+   "target": "brush_small",
+   "dest": "organizer_middle",
+   "target_box": [
+    165.8,
+    288.0,
+    250.3,
+    323.2
+   ],
+   "dest_box": [
+    287.1,
+    152.6,
+    452.8,
+    216.4
+   ],
+   "grasp_frame": 272,
+   "T": 619
+  },
+  "358": {
+   "id": "ep0358",
+   "instruction": "Take the small black and gold makeup brush and put it in the middle section.",
+   "target": "brush_small",
+   "dest": "organizer_middle",
+   "target_box": [
+    464.2,
+    261.2,
+    497.0,
+    316.8
+   ],
+   "dest_box": [
+    252.9,
+    146.3,
+    414.1,
+    208.2
+   ],
+   "grasp_frame": 334,
+   "T": 729
+  },
+  "359": {
+   "id": "ep0359",
+   "instruction": "Store the pink makeup puff in the bottom compartment.",
+   "target": "powder_puff",
+   "dest": "organizer_bottom",
+   "target_box": [
+    453.1,
+    202.3,
+    500.2,
+    234.8
+   ],
+   "dest_box": [
+    244.2,
+    221.8,
+    404.8,
+    277.8
+   ],
+   "grasp_frame": 193,
+   "T": 553
+  },
+  "360": {
+   "id": "ep0360",
+   "instruction": "Store the dark-colored round contour compact in the top compartment.",
+   "target": "contour",
+   "dest": "organizer_top",
+   "target_box": [
+    99.9,
+    226.4,
+    151.8,
+    268.2
+   ],
+   "dest_box": [
+    230.8,
+    79.9,
+    392.3,
+    140.0
+   ],
+   "grasp_frame": 241,
+   "T": 571
+  },
+  "361": {
+   "id": "ep0361",
+   "instruction": "Place the dark-colored round contour compact inside the bottom level of the organizer.",
+   "target": "contour",
+   "dest": "organizer_bottom",
+   "target_box": [
+    512.3,
+    238.9,
+    567.3,
+    281.4
+   ],
+   "dest_box": [
+    246.1,
+    222.5,
+    409.1,
+    278.3
+   ],
+   "grasp_frame": 272,
+   "T": 657
+  }
+ }
+}

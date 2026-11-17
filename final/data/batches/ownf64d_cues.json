@@ -1,0 +1,130 @@
+{
+ "summary": {
+  "yolo": "weights/v11.torchscript",
+  "checked_by_eye": "f0 cue, grasp frame, gf+30, last frame; 395 dropped (v11 boxed the straight cucumber as green chili, demo moves the curved green chili); 396/397/398 no cue",
+  "mode": "boxgrasp",
+  "line_px": 5
+ },
+ "episodes": {
+  "391": {
+   "id": "ep0391",
+   "instruction": "Put the carrot on the yellow plate.",
+   "target": "carrot",
+   "dest": "plate_yellow",
+   "target_box": [
+    468.2,
+    196.6,
+    606.6,
+    235.3
+   ],
+   "dest_box": [
+    331.8,
+    174.0,
+    475.3,
+    269.8
+   ],
+   "grasp_frame": 268,
+   "T": 626
+  },
+  "392": {
+   "id": "ep0392",
+   "instruction": "Pick up the carrot and place it on the white plate.",
+   "target": "carrot",
+   "dest": "plate_white",
+   "target_box": [
+    477.6,
+    190.1,
+    617.3,
+    235.9
+   ],
+   "dest_box": [
+    353.9,
+    264.9,
+    533.0,
+    404.9
+   ],
+   "grasp_frame": 369,
+   "T": 744
+  },
+  "393": {
+   "id": "ep0393",
+   "instruction": "Move the red chili pepper onto the white plate.",
+   "target": "red_chili",
+   "dest": "plate_white",
+   "target_box": [
+    457.5,
+    226.5,
+    531.1,
+    279.7
+   ],
+   "dest_box": [
+    354.7,
+    265.1,
+    533.3,
+    405.1
+   ],
+   "grasp_frame": 278,
+   "T": 693
+  },
+  "394": {
+   "id": "ep0394",
+   "instruction": "Put the red chili pepper on the yellow plate.",
+   "target": "red_chili",
+   "dest": "plate_yellow",
+   "target_box": [
+    470.2,
+    238.1,
+    599.1,
+    274.6
+   ],
+   "dest_box": [
+    344.0,
+    173.4,
+    487.1,
+    270.7
+   ],
+   "grasp_frame": 301,
+   "T": 709
+  },
+  "399": {
+   "id": "ep0399",
+   "instruction": "Move the carrot onto the white plate.",
+   "target": "carrot",
+   "dest": "plate_white",
+   "target_box": [
+    478.3,
+    193.8,
+    622.9,
+    233.6
+   ],
+   "dest_box": [
+    354.6,
+    276.6,
+    537.6,
+    422.5
+   ],
+   "grasp_frame": 334,
+   "T": 722
+  },
+  "400": {
+   "id": "ep0400",
+   "instruction": "Pick up the red chili pepper and place it on the white plate.",
+   "target": "red_chili",
+   "dest": "plate_white",
+   "target_box": [
+    459.1,
+    239.8,
+    595.7,
+    283.3
+   ],
+   "dest_box": [
+    360.5,
+    277.3,
+    543.8,
+    423.8
+   ],
+   "grasp_frame": 242,
+   "T": 673
+  }
+ }
+}

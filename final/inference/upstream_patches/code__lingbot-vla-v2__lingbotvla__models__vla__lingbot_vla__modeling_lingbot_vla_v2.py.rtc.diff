@@ -1,0 +1,108 @@
+--- original/code/lingbot-vla-v2/lingbotvla/models/vla/lingbot_vla/modeling_lingbot_vla_v2.py	2026-10-13 17:38:14.000000000 +0800
++++ patched/code/lingbot-vla-v2/lingbotvla/models/vla/lingbot_vla/modeling_lingbot_vla_v2.py	2026-11-14 23:42:03.361173628 +0800
+@@ -34,6 +34,30 @@
+ from .flex_attention import build_block_mask, flex_attention_forward, flex_attention_with_block_mask
+ from lingbotvla.models.loader import LingBotVLAWeightLoader
+ from lingbotvla.ops.triton_moe_loss import triton_sequence_wise_balance_loss
++
++import os as _p10_os
++
++# p10: training-time real-time chunking (see experiments/train_real/patches/p10_rtc.py in the notes repo).
++_P10_RTC_MAX_DELAY = int(_p10_os.environ.get("LB_RTC_MAX_DELAY", "0"))
++_P10_RTC_P0 = float(_p10_os.environ.get("LB_RTC_P0", "0.3"))
++if _P10_RTC_MAX_DELAY > 0:
++    print(f"[p10] training-time RTC on: LB_RTC_MAX_DELAY={_P10_RTC_MAX_DELAY} LB_RTC_P0={_P10_RTC_P0}", flush=True)
++
++
++def _p10_rtc_prefix_mask(bsize, horizon, device, max_delay=None, p0=None):
++    """[B, T] bool, True on each sample's clean prefix: d = 0 with probability p0, else uniform in 1..max_delay."""
++    max_delay = _P10_RTC_MAX_DELAY if max_delay is None else max_delay
++    p0 = _P10_RTC_P0 if p0 is None else p0
++    d = torch.randint(1, max_delay + 1, (bsize,), device=device)
++    d = torch.where(torch.rand(bsize, device=device) < p0, torch.zeros_like(d), d)
++    return torch.arange(horizon, device=device)[None, :] < d[:, None]
++
++
++def _p10_rtc_mask_losses(losses, prefix_mask):
++    """Zero the prefix tokens' loss and rescale each sample so its mean is taken over its postfix tokens."""
++    keep = (~prefix_mask).to(losses.dtype)
++    scale = keep.shape[1] / keep.sum(dim=1, keepdim=True).clamp(min=1)
++    return losses * (keep * scale)[:, :, None]
+ from lingbotvla.models.vla.lingbot_vla.qwen2_action_expert import (
+     Qwen2ForCausalLM,
+     Qwen2TokenMoeBlock,
+@@ -792,6 +816,12 @@
+         time_expanded = time[:, None, None]
+         x_t = time_expanded * noise + (1 - time_expanded) * actions
+         u_t = noise - actions
++        rtc_prefix = None
++        suffix_time = time
++        if self.training and _P10_RTC_MAX_DELAY > 0:  # p10 RTC: clean ground-truth prefix, time 0
++            rtc_prefix = _p10_rtc_prefix_mask(actions.shape[0], actions.shape[1], device)
++            suffix_time = torch.where(rtc_prefix, torch.zeros_like(time)[:, None], time[:, None])  # [B, T]
++            x_t = suffix_time[:, :, None] * noise + (1 - suffix_time[:, :, None]) * actions
+ 
+         (
+             prefix_embs,
+@@ -808,7 +838,7 @@
+             image_grid_thw=image_grid_thw,
+         )
+         time_embs, suffix_embs, suffix_pad_masks, suffix_att_masks = self.embed_suffix(
+-            state, x_t, time
++            state, x_t, suffix_time
+         )
+ 
+         pad_masks = torch.cat([prefix_pad_masks, suffix_pad_masks], dim=1)
+@@ -910,6 +940,8 @@
+         elif loss_type == "L1_fm":
+             losses = F.l1_loss(u_t, v_t, reduction="none")
+ 
++        if rtc_prefix is not None:  # p10 RTC: no loss on the given prefix
++            losses = _p10_rtc_mask_losses(losses, rtc_prefix)
+         seq_wise_loss, router_z_loss, moe_metrics = self._moe_losses_and_metrics(
+             router_logits_list, losses
+         )
+@@ -926,8 +958,11 @@
+         state,
+         noise=None,
+         image_grid_thw=None,
++        prefix_actions=None,
++        prefix_len=0,
+     ) -> Tensor:
+-        """Do a full Qwen3-VL inference forward and compute the action."""
++        """Do a full Qwen3-VL inference forward and compute the action.
++        p10 RTC: prefix_actions [B, T, D] (normalized, model space) with prefix_len d > 0 holds the first d actions."""
+         bsize = state.shape[0]
+         device = state.device
+         dtype = state.dtype
+@@ -971,6 +1006,11 @@
+         dt = torch.tensor(-1.0 / self.config.num_steps, dtype=dtype, device=device)
+         x_t = noise
+         time = torch.tensor(1.0, dtype=dtype, device=device)
++        rtc_d = int(prefix_len or 0)  # p10 RTC
++        if rtc_d > 0:
++            rtc_prefix = prefix_actions[:, :rtc_d].to(device=device, dtype=x_t.dtype)
++            x_t = x_t.clone()
++            x_t[:, :rtc_d] = rtc_prefix
+         count = 0
+         predict_velocity_fn = self.predict_velocity
+         if getattr(self, "_use_compile_predict_velocity", False):
+@@ -987,6 +1027,9 @@
+         while time >= -dt / 2:
+             count += 1
+             expanded_time = time.expand(bsize)
++            if rtc_d > 0:  # p10 RTC: prefix tokens stay clean (time 0)
++                expanded_time = expanded_time[:, None].repeat(1, x_t.shape[1])
++                expanded_time[:, :rtc_d] = 0
+             v_t = predict_velocity_fn(
+                 state,
+                 prefix_pad_masks,
+@@ -997,6 +1040,8 @@
+             )
+ 
+             x_t += dt * v_t
++            if rtc_d > 0:  # p10 RTC
++                x_t[:, :rtc_d] = rtc_prefix
+             time += dt
+         print(f"Denoise {count} steps")
+         return x_t

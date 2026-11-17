@@ -1,0 +1,129 @@
+diff --git a/lingbotvla/data/vla_data/base_dataset.py b/lingbotvla/data/vla_data/base_dataset.py
+index 71d62a0..4c713ae 100644
+--- a/lingbotvla/data/vla_data/base_dataset.py
++++ b/lingbotvla/data/vla_data/base_dataset.py
+@@ -14,6 +14,7 @@
+ 
+ 
+ import os
++import json  # LingBotRoboTwin
+ import inspect
+ from pathlib import Path
+ 
+@@ -146,6 +147,14 @@ class LeRobotDataset(BaseLeRobotDataset):
+         # Add task as a string
+         task_idx = item["task_index"].item()
+         item["task"] = _get_task_name(self.meta.tasks, task_idx)
++        # LingBotRoboTwin: swap within this episode's seen-instruction pool (rule 2.1)
++        if os.environ.get("LINGBOT_SEEN_POOL") == "1":
++            if not hasattr(self, "_seen_pool"):
++                pool_file = self.root / "meta" / "seen_instructions.json"
++                self._seen_pool = json.loads(pool_file.read_text()) if pool_file.exists() else {}
++            choices = self._seen_pool.get(str(ep_idx))
++            if choices:
++                item["task"] = choices[int(torch.randint(len(choices), ()))]
+ 
+         return item
+ 
+diff --git a/lingbotvla/data/vla_data/multi_vla_dataset.py b/lingbotvla/data/vla_data/multi_vla_dataset.py
+index e6f0e14..2e02f54 100644
+--- a/lingbotvla/data/vla_data/multi_vla_dataset.py
++++ b/lingbotvla/data/vla_data/multi_vla_dataset.py
+@@ -1,4 +1,5 @@
+ from typing import Callable
++import os  # LingBotRoboTwin
+ import numpy as np
+ from lingbotvla.utils import helper
+ import torch
+@@ -128,6 +129,10 @@ class MultiVLADataset(Dataset):
+     def getdata(self, idx: int) -> dict[str, torch.Tensor]:
+         if idx >= len(self):
+             raise IndexError(f"Index {idx} out of bounds.")
++        # LingBotRoboTwin: task-balanced / motion-weighted sampling (rule 2.1: reweighting by data statistics)
++        if os.environ.get("LINGBOT_TASK_SAMPLING") or os.environ.get("LINGBOT_FRAME_WEIGHTS") == "1":
++            from lingbot_sampling import remap_index
++            idx = remap_index(self, idx)
+         # Determine which dataset to get an item from based on the index.
+         dataset_idx = np.searchsorted(self.dataset_start_index,  np.array([idx]), side='right') - 1
+         dataset_idx = dataset_idx[0]
+diff --git a/lingbotvla/data/vla_data/transform.py b/lingbotvla/data/vla_data/transform.py
+index 05fe43f..c49bb2e 100644
+--- a/lingbotvla/data/vla_data/transform.py
++++ b/lingbotvla/data/vla_data/transform.py
+@@ -327,6 +327,12 @@ def prepare_images(
+         if use_depth_align:
+             pil_image_dict[key] = img.cpu().numpy()
+ 
++        # LingBotRoboTwin: Fourier amplitude modulation (p_fourier in the aug config), model input only: the
++        # frozen teachers' image was taken just above; per-camera params are reused on the future frames
++        if train and (augment_params or {}).get("fourier"):
++            from lingbot_aug import apply_fourier
++            img = apply_fourier(img, augment_params["fourier"], key)
++
+         if image_processor is None:
+             img = img.to(dtype) / 127.5 - 1.0 # to [-1, 1]
+         else:
+@@ -364,6 +370,16 @@ def prepare_images(
+                 pil_images.append(pil_img)
+             img_masks.append(False)
+ 
++    # LingBotRoboTwin: wrist-camera dropout (train only): drawn per sample in lingbot_aug and replayed on the
++    # future frames; the view becomes upstream's missing-camera padding with mask False
++    _wrist_drop = (augment_params or {}).get("wrist_drop") if train else None
++    if _wrist_drop:
++        for _i, _key in enumerate(image_keys):
++            if _i < len(images) and any(f"wrist_{_side}" in _key for _side in _wrist_drop):
++                images[_i] = torch.full_like(images[_i], -1.0) if isinstance(images[_i], torch.Tensor) else np.zeros_like(images[_i])
++                img_masks[_i] = False
++                if use_depth_align:
++                    pil_images[_i] = np.zeros_like(pil_images[_i])
+     if isinstance(images[0], torch.Tensor):
+         images = torch.stack(images, dim=0)  # (n, c, h, w)
+     elif isinstance(images[0], np.ndarray):
+@@ -510,3 +526,9 @@ def expert_visual_transform(config, observation: dict[str, Tensor], image_keys=N
+         images = torch.from_numpy(np.stack(images, axis=0))  # (n, c, h, w)
+ 
+     return images
++
++
++# --- LingBotRoboTwin: whitelist-only augmentation, enabled by LINGBOT_AUG_CONFIG ---
++import os as _lbrt_os  # noqa: E402
++if _lbrt_os.environ.get("LINGBOT_AUG_CONFIG"):
++    from lingbot_aug import sample_visual_augmentation_params, apply_visual_augmentation  # noqa: E402,F811
+diff --git a/lingbotvla/data/vla_data/utils.py b/lingbotvla/data/vla_data/utils.py
+index 1daf261..5db000a 100644
+--- a/lingbotvla/data/vla_data/utils.py
++++ b/lingbotvla/data/vla_data/utils.py
+@@ -406,6 +406,10 @@ class FeatureTransform:
+         batch_dict = self.pad_and_concat(item, w_action)
+ 
+         state = prepare_state(batch_dict, self.model_config.max_state_dim) 
++        # LingBotRoboTwin: proprioception noise (rule 2.1), train only, real (non-padded) dims only
++        _state_noise = float(os.environ.get("LINGBOT_STATE_NOISE", "0"))
++        if _state_noise > 0 and self.image_augment and not policy_eval:
++            state = state + torch.randn_like(state) * _state_noise * (state != 0)
+         actions = prepare_action(batch_dict, self.model_config.max_action_dim)
+         return_image_grid_thw = getattr(self.model_config, "return_image_grid_thw", False)
+         if not self.disabled_image_features:
+diff --git a/lingbotvla/optim/optimizer.py b/lingbotvla/optim/optimizer.py
+index 1de712f..4f24c67 100644
+--- a/lingbotvla/optim/optimizer.py
++++ b/lingbotvla/optim/optimizer.py
+@@ -16,6 +16,7 @@
+ # limitations under the License.
+ 
+ 
++import os  # LingBotRoboTwin
+ import re
+ from typing import Any, Dict, List, Optional, Sequence, Tuple
+ 
+@@ -258,6 +259,9 @@ def _split_param_groups_by_scaled_lr(
+             scale = layer_to_scale.get(layer_idx)
+             if scale is not None:
+                 lr_for_param = base_lr * scale
++        # LingBotRoboTwin: separate vision-encoder LR multiplier
++        if ".visual." in name:
++            lr_for_param = lr_for_param * float(os.environ.get("LINGBOT_VISION_LR_SCALE", "1"))
+         lr_to_params.setdefault(lr_for_param, []).append(p)
+     return [{"params": ps, "lr": lr} for lr, ps in lr_to_params.items() if ps]
+ 

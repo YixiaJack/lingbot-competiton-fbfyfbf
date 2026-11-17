@@ -1,0 +1,94 @@
+{
+ "episodes": 24,
+ "queries": 334,
+ "every_frames": 60,
+ "image_size": "320x240",
+ "model": "deepseek-flash",
+ "exact": 0.949,
+ "lenient": 0.994,
+ "side_ok": 24,
+ "per_subtask": {
+  "grasp": {
+   "n": 93,
+   "exact": 0.989
+  },
+  "sweep": {
+   "n": 55,
+   "exact": 0.873
+  },
+  "dump": {
+   "n": 61,
+   "exact": 0.869
+  },
+  "home": {
+   "n": 125,
+   "exact": 0.992
+  }
+ },
+ "confusion_target_to_answer": {
+  "grasp": {
+   "grasp": 92,
+   "sweep": 1,
+   "dump": 0,
+   "home": 0,
+   "None": 0
+  },
+  "sweep": {
+   "grasp": 0,
+   "sweep": 48,
+   "dump": 7,
+   "home": 0,
+   "None": 0
+  },
+  "dump": {
+   "grasp": 0,
+   "sweep": 1,
+   "dump": 53,
+   "home": 7,
+   "None": 0
+  },
+  "home": {
+   "grasp": 0,
+   "sweep": 0,
+   "dump": 1,
+   "home": 124,
+   "None": 0
+  }
+ },
+ "complete_before_release": 0,
+ "never_complete": 0,
+ "llm_complete_before_arms_home": 24,
+ "stop_before_arms_home": 0,
+ "stop_fired_within_demo": 0,
+ "latency_mean_s": 1.109,
+ "latency_p95_s": 1.443,
+ "cache_hit_rate": 0.888,
+ "invalid": 0,
+ "side_mismatch_answers": 0,
+ "episode_list": [
+  12,
+  21,
+  32,
+  46,
+  55,
+  61,
+  78,
+  79,
+  91,
+  109,
+  111,
+  117,
+  118,
+  125,
+  131,
+  132,
+  136,
+  147,
+  154,
+  188,
+  197,
+  202,
+  204,
+  213
+ ]
+}

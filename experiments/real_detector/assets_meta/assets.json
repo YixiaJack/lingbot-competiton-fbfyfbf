@@ -1,0 +1,1138 @@
+{
+ "green_apple": {
+  "task": 1,
+  "name": "green apple",
+  "source": [
+   "rt",
+   "103_fruit",
+   "0"
+  ],
+  "file": "green_apple.glb",
+  "extents": [
+   0.06,
+   0.0602,
+   0.0656
+  ],
+  "graspable_width": 0.06,
+  "grasp_center": [
+   0.0,
+   0.0,
+   0.0
+  ]
+ },
+ "peach": {
+  "task": 1,
+  "name": "peach",
+  "source": [
+   "rt",
+   "103_fruit",
+   "5"
+  ],
+  "file": "peach.glb",
+  "extents": [
+   0.07,
+   0.0597,
+   0.0628
+  ],
+  "graspable_width": 0.0597,
+  "grasp_center": [
+   0.0,
+   -0.0007,
+   -0.0012
+  ]
+ },
+ "pomegranate": {
+  "task": 1,
+  "name": "pomegranate",
+  "source": [
+   "obj",
+   "pomegranate__1"
+  ],
+  "file": "pomegranate.glb",
+  "extents": [
+   0.06,
+   0.0607,
+   0.0598
+  ],
+  "graspable_width": 0.06,
+  "grasp_center": [
+   0.0008,
+   -0.0003,
+   0.0
+  ]
+ },
+ "tangerine": {
+  "task": 1,
+  "name": "tangerine",
+  "source": [
+   "obj",
+   "tangerine__0"
+  ],
+  "file": "tangerine.glb",
+  "extents": [
+   0.0599,
+   0.06,
+   0.0438
+  ],
+  "graspable_width": 0.0599,
+  "grasp_center": [
+   0.0003,
+   -0.002,
+   0.0004
+  ]
+ },
+ "watermelon": {
+  "task": 1,
+  "name": "watermelon",
+  "source": [
+   "obj",
+   "watermelon__0"
+  ],
+  "file": "watermelon.glb",
+  "extents": [
+   0.06,
+   0.0814,
+   0.0589
+  ],
+  "graspable_width": 0.06,
+  "grasp_center": [
+   -0.0003,
+   -0.0,
+   0.0
+  ]
+ },
+ "banana": {
+  "task": 1,
+  "name": "banana",
+  "source": [
+   "obj",
+   "banana__1"
+  ],
+  "file": "banana.glb",
+  "extents": [
+   0.15,
+   0.0708,
+   0.0276
+  ],
+  "graspable_width": 0.0708,
+  "grasp_center": [
+   0.0011,
+   0.0114,
+   -0.0
+  ]
+ },
+ "red_apple": {
+  "task": 1,
+  "name": "red apple",
+  "source": [
+   "rt",
+   "035_apple",
+   "1"
+  ],
+  "file": "red_apple.glb",
+  "extents": [
+   0.063,
+   0.06,
+   0.0625
+  ],
+  "graspable_width": 0.06,
+  "grasp_center": [
+   -0.0001,
+   0.0001,
+   0.0
+  ]
+ },
+ "grapes": {
+  "task": 1,
+  "name": "grapes",
+  "source": [
+   "obj",
+   "grapes__0"
+  ],
+  "file": "grapes.glb",
+  "extents": [
+   0.06,
+   0.0616,
+   0.085
+  ],
+  "graspable_width": 0.06,
+  "grasp_center": [
+   0.0009,
+   -0.0002,
+   0.0
+  ]
+ },
+ "starfruit": {
+  "task": 1,
+  "name": "star fruit",
+  "source": [
+   "obj",
+   "starfruit__0"
+  ],
+  "file": "starfruit.glb",
+  "extents": [
+   0.06,
+   0.063,
+   0.0347
+  ],
+  "graspable_width": 0.06,
+  "grasp_center": [
+   0.0011,
+   0.0003,
+   0.0002
+  ]
+ },
+ "red_delicious": {
+  "task": 1,
+  "name": "red delicious apple",
+  "source": [
+   "obj",
+   "red_delicious__0"
+  ],
+  "file": "red_delicious.glb",
+  "extents": [
+   0.06,
+   0.0605,
+   0.0714
+  ],
+  "graspable_width": 0.06,
+  "grasp_center": [
+   0.0005,
+   0.0008,
+   -0.0018
+  ]
+ },
+ "strawberry": {
+  "task": 1,
+  "name": "strawberry",
+  "source": [
+   "obj",
+   "strawberry__1"
+  ],
+  "file": "strawberry.glb",
+  "extents": [
+   0.0318,
+   0.0387,
+   0.045
+  ],
+  "graspable_width": 0.0318,
+  "grasp_center": [
+   0.0002,
+   0.0002,
+   0.0
+  ]
+ },
+ "persimmon": {
+  "task": 1,
+  "name": "persimmon",
+  "source": [
+   "proc",
+   "persimmon"
+  ],
+  "file": "persimmon.glb",
+  "extents": [
+   0.065,
+   0.065,
+   0.0529
+  ],
+  "graspable_width": 0.065,
+  "grasp_center": [
+   -0.0,
+   -0.0,
+   0.0
+  ]
+ },
+ "lemon": {
+  "task": 1,
+  "name": "lemon",
+  "source": [
+   "rt",
+   "103_fruit",
+   "3"
+  ],
+  "file": "lemon.glb",
+  "extents": [
+   0.0598,
+   0.07,
+   0.057
+  ],
+  "graspable_width": 0.0598,
+  "grasp_center": [
+   -0.0,
+   0.0001,
+   0.0
+  ]
+ },
+ "orange": {
+  "task": 1,
+  "name": "orange",
+  "source": [
+   "rt",
+   "103_fruit",
+   "2"
+  ],
+  "file": "orange.glb",
+  "extents": [
+   0.0601,
+   0.06,
+   0.0633
+  ],
+  "graspable_width": 0.06,
+  "grasp_center": [
+   -0.0001,
+   -0.0,
+   0.0
+  ]
+ },
+ "mangosteen": {
+  "task": 1,
+  "name": "mangosteen",
+  "source": [
+   "proc",
+   "mangosteen"
+  ],
+  "file": "mangosteen.glb",
+  "extents": [
+   0.0576,
+   0.0576,
+   0.06
+  ],
+  "graspable_width": 0.0576,
+  "grasp_center": [
+   -0.0,
+   0.0,
+   0.0
+  ]
+ },
+ "pineapple": {
+  "task": 1,
+  "name": "pineapple",
+  "source": [
+   "rt",
+   "103_fruit",
+   "4"
+  ],
+  "file": "pineapple.glb",
+  "extents": [
+   0.06,
+   0.06,
+   0.1221
+  ],
+  "graspable_width": 0.06,
+  "grasp_center": [
+   -0.0,
+   -0.0002,
+   -0.0123
+  ]
+ },
+ "mango": {
+  "task": 1,
+  "name": "mango",
+  "source": [
+   "obj",
+   "mango__0"
+  ],
+  "file": "mango.glb",
+  "extents": [
+   0.06,
+   0.086,
+   0.0629
+  ],
+  "graspable_width": 0.06,
+  "grasp_center": [
+   -0.0001,
+   -0.0,
+   0.0
+  ]
+ },
+ "pear": {
+  "task": 1,
+  "name": "pear",
+  "source": [
+   "rt",
+   "103_fruit",
+   "1"
+  ],
+  "file": "pear.glb",
+  "extents": [
+   0.0588,
+   0.0582,
+   0.09
+  ],
+  "graspable_width": 0.0582,
+  "grasp_center": [
+   0.0,
+   0.0006,
+   -0.0001
+  ]
+ },
+ "passion_fruit": {
+  "task": 1,
+  "name": "passion fruit",
+  "source": [
+   "obj",
+   "passion_fruit__0"
+  ],
+  "file": "passion_fruit.glb",
+  "extents": [
+   0.065,
+   0.0424,
+   0.042
+  ],
+  "graspable_width": 0.0424,
+  "grasp_center": [
+   -0.0002,
+   0.0,
+   -0.0
+  ]
+ },
+ "dragon_fruit": {
+  "task": 1,
+  "name": "dragon fruit",
+  "source": [
+   "obj",
+   "dragon_fruit__0"
+  ],
+  "file": "dragon_fruit.glb",
+  "extents": [
+   0.0711,
+   0.06,
+   0.0618
+  ],
+  "graspable_width": 0.06,
+  "grasp_center": [
+   0.0006,
+   0.0003,
+   0.0002
+  ]
+ },
+ "kiwi": {
+  "task": 1,
+  "name": "kiwi",
+  "source": [
+   "obj",
+   "kiwi__0"
+  ],
+  "file": "kiwi.glb",
+  "extents": [
+   0.0465,
+   0.065,
+   0.0501
+  ],
+  "graspable_width": 0.0465,
+  "grasp_center": [
+   -0.0019,
+   0.0007,
+   -0.0
+  ]
+ },
+ "avocado": {
+  "task": 1,
+  "name": "avocado",
+  "source": [
+   "obj",
+   "avocado__0"
+  ],
+  "file": "avocado.glb",
+  "extents": [
+   0.09,
+   0.0582,
+   0.0588
+  ],
+  "graspable_width": 0.0582,
+  "grasp_center": [
+   0.0,
+   0.0004,
+   0.0
+  ]
+ },
+ "cherry": {
+  "task": 1,
+  "name": "cherry",
+  "source": [
+   "obj",
+   "cherry__1"
+  ],
+  "file": "cherry.glb",
+  "extents": [
+   0.0242,
+   0.0252,
+   0.045
+  ],
+  "graspable_width": 0.0242,
+  "grasp_center": [
+   0.0001,
+   0.0001,
+   0.0
+  ]
+ },
+ "wax_apple": {
+  "task": 1,
+  "name": "wax apple",
+  "source": [
+   "obj",
+   "wax_apple__0"
+  ],
+  "file": "wax_apple.glb",
+  "extents": [
+   0.0408,
+   0.06,
+   0.0559
+  ],
+  "graspable_width": 0.0408,
+  "grasp_center": [
+   -0.0001,
+   -0.0012,
+   -0.0044
+  ]
+ },
+ "papaya": {
+  "task": 1,
+  "name": "papaya",
+  "source": [
+   "obj",
+   "papaya__0"
+  ],
+  "file": "papaya.glb",
+  "extents": [
+   0.12,
+   0.0674,
+   0.0878
+  ],
+  "graspable_width": 0.0674,
+  "grasp_center": [
+   0.0001,
+   0.0004,
+   -0.0033
+  ]
+ },
+ "tomato": {
+  "task": 1,
+  "name": "tomato",
+  "source": [
+   "rt",
+   "069_vagetable",
+   "3"
+  ],
+  "file": "tomato.glb",
+  "extents": [
+   0.0593,
+   0.0595,
+   0.065
+  ],
+  "graspable_width": 0.0593,
+  "grasp_center": [
+   0.0,
+   -0.0012,
+   0.0
+  ]
+ },
+ "mushroom": {
+  "task": 1,
+  "name": "mushroom",
+  "source": [
+   "obj",
+   "mushroom__0"
+  ],
+  "file": "mushroom.glb",
+  "extents": [
+   0.0502,
+   0.0525,
+   0.08
+  ],
+  "graspable_width": 0.0502,
+  "grasp_center": [
+   0.0007,
+   -0.0001,
+   0.0019
+  ]
+ },
+ "cucumber": {
+  "task": 1,
+  "name": "cucumber",
+  "source": [
+   "rt",
+   "069_vagetable",
+   "2"
+  ],
+  "file": "cucumber.glb",
+  "extents": [
+   0.15,
+   0.0483,
+   0.081
+  ],
+  "graspable_width": 0.0483,
+  "grasp_center": [
+   0.0,
+   0.0001,
+   -0.0
+  ]
+ },
+ "pumpkin": {
+  "task": 1,
+  "name": "pumpkin",
+  "source": [
+   "obj",
+   "pumpkin__0"
+  ],
+  "file": "pumpkin.glb",
+  "extents": [
+   0.06,
+   0.0609,
+   0.0451
+  ],
+  "graspable_width": 0.06,
+  "grasp_center": [
+   0.0002,
+   -0.0005,
+   0.0006
+  ]
+ },
+ "bell_pepper": {
+  "task": 1,
+  "name": "bell pepper",
+  "source": [
+   "obj",
+   "bell_pepper__0"
+  ],
+  "file": "bell_pepper.glb",
+  "extents": [
+   0.06,
+   0.0628,
+   0.0659
+  ],
+  "graspable_width": 0.06,
+  "grasp_center": [
+   -0.0003,
+   -0.0004,
+   -0.0022
+  ]
+ },
+ "carrot": {
+  "task": 1,
+  "name": "carrot",
+  "source": [
+   "rt",
+   "069_vagetable",
+   "6"
+  ],
+  "file": "carrot.glb",
+  "extents": [
+   0.0406,
+   0.14,
+   0.05
+  ],
+  "graspable_width": 0.0406,
+  "grasp_center": [
+   0.0002,
+   0.0002,
+   -0.0011
+  ]
+ },
+ "red_chili": {
+  "task": 1,
+  "name": "red chili pepper",
+  "source": [
+   "obj",
+   "red_chili__0"
+  ],
+  "file": "red_chili.glb",
+  "extents": [
+   0.11,
+   0.0959,
+   0.0202
+  ],
+  "graspable_width": 0.0959,
+  "grasp_center": [
+   -0.0054,
+   0.025,
+   0.0003
+  ]
+ },
+ "green_chili": {
+  "task": 1,
+  "name": "green chili pepper",
+  "source": [
+   "obj",
+   "red_chili__1"
+  ],
+  "file": "green_chili.glb",
+  "extents": [
+   0.11,
+   0.0959,
+   0.0202
+  ],
+  "graspable_width": 0.0959,
+  "grasp_center": [
+   -0.0054,
+   0.025,
+   0.0003
+  ]
+ },
+ "eggplant": {
+  "task": 1,
+  "name": "eggplant",
+  "source": [
+   "rt",
+   "069_vagetable",
+   "4"
+  ],
+  "file": "eggplant.glb",
+  "extents": [
+   0.0602,
+   0.14,
+   0.0962
+  ],
+  "graspable_width": 0.0602,
+  "grasp_center": [
+   0.0001,
+   0.0,
+   -0.0123
+  ]
+ },
+ "onion": {
+  "task": 1,
+  "name": "onion",
+  "source": [
+   "rt",
+   "069_vagetable",
+   "1"
+  ],
+  "file": "onion.glb",
+  "extents": [
+   0.06,
+   0.0601,
+   0.0694
+  ],
+  "graspable_width": 0.06,
+  "grasp_center": [
+   -0.0,
+   0.0003,
+   0.0
+  ]
+ },
+ "potato": {
+  "task": 1,
+  "name": "potato",
+  "source": [
+   "rt",
+   "069_vagetable",
+   "0"
+  ],
+  "file": "potato.glb",
+  "extents": [
+   0.08,
+   0.0558,
+   0.0516
+  ],
+  "graspable_width": 0.0558,
+  "grasp_center": [
+   -0.0,
+   -0.0,
+   -0.0001
+  ]
+ },
+ "lotion_bottle": {
+  "task": 2,
+  "name": "beige lotion pump bottle",
+  "source": [
+   "proc",
+   "lotion_bottle"
+  ],
+  "file": "lotion_bottle.glb",
+  "extents": [
+   0.046,
+   0.044,
+   0.1355
+  ],
+  "graspable_width": 0.044,
+  "grasp_center": [
+   -0.001,
+   0.0,
+   -0.0053
+  ]
+ },
+ "lip_gloss": {
+  "task": 2,
+  "name": "beige lip gloss",
+  "source": [
+   "proc",
+   "lip_gloss"
+  ],
+  "file": "lip_gloss.glb",
+  "extents": [
+   0.085,
+   0.018,
+   0.018
+  ],
+  "graspable_width": 0.018,
+  "grasp_center": [
+   0.0125,
+   -0.0,
+   -0.0
+  ]
+ },
+ "lipstick": {
+  "task": 2,
+  "name": "black lipstick",
+  "source": [
+   "proc",
+   "lipstick"
+  ],
+  "file": "lipstick.glb",
+  "extents": [
+   0.082,
+   0.0224,
+   0.0224
+  ],
+  "graspable_width": 0.0224,
+  "grasp_center": [
+   0.0064,
+   -0.0,
+   -0.0
+  ]
+ },
+ "eyeshadow_palette": {
+  "task": 2,
+  "name": "multicolor eyeshadow palette",
+  "source": [
+   "proc",
+   "eyeshadow_palette"
+  ],
+  "file": "eyeshadow_palette.glb",
+  "extents": [
+   0.095,
+   0.058,
+   0.012
+  ],
+  "graspable_width": 0.058,
+  "grasp_center": [
+   -0.0,
+   0.0,
+   0.0054
+  ]
+ },
+ "brush_large": {
+  "task": 2,
+  "name": "large black and gold makeup brush",
+  "source": [
+   "proc",
+   "brush_large"
+  ],
+  "file": "brush_large.glb",
+  "extents": [
+   0.202,
+   0.024,
+   0.024
+  ],
+  "graspable_width": 0.024,
+  "grasp_center": [
+   0.0278,
+   0.0,
+   -0.0
+  ]
+ },
+ "brush_small": {
+  "task": 2,
+  "name": "small black and gold makeup brush",
+  "source": [
+   "proc",
+   "brush_small"
+  ],
+  "file": "brush_small.glb",
+  "extents": [
+   0.1374,
+   0.0163,
+   0.0163
+  ],
+  "graspable_width": 0.0163,
+  "grasp_center": [
+   0.0189,
+   0.0,
+   -0.0
+  ]
+ },
+ "highlighter": {
+  "task": 2,
+  "name": "light round compact",
+  "source": [
+   "proc",
+   "highlighter"
+  ],
+  "file": "highlighter.glb",
+  "extents": [
+   0.056,
+   0.056,
+   0.0122
+  ],
+  "graspable_width": 0.056,
+  "grasp_center": [
+   0.0,
+   0.0,
+   0.0
+  ]
+ },
+ "contour": {
+  "task": 2,
+  "name": "dark round compact",
+  "source": [
+   "proc",
+   "contour"
+  ],
+  "file": "contour.glb",
+  "extents": [
+   0.056,
+   0.056,
+   0.0122
+  ],
+  "graspable_width": 0.056,
+  "grasp_center": [
+   0.0,
+   0.0,
+   0.0
+  ]
+ },
+ "powder_puff": {
+  "task": 2,
+  "name": "pink powder puff",
+  "source": [
+   "proc",
+   "powder_puff"
+  ],
+  "file": "powder_puff.glb",
+  "extents": [
+   0.058,
+   0.058,
+   0.016
+  ],
+  "graspable_width": 0.058,
+  "grasp_center": [
+   0.0,
+   -0.0,
+   -0.001
+  ]
+ },
+ "glitter_compact": {
+  "task": 2,
+  "name": "black round glitter compact",
+  "source": [
+   "proc",
+   "glitter_compact"
+  ],
+  "file": "glitter_compact.glb",
+  "extents": [
+   0.054,
+   0.054,
+   0.0126
+  ],
+  "graspable_width": 0.054,
+  "grasp_center": [
+   0.0,
+   0.0,
+   0.0
+  ]
+ },
+ "dustpan": {
+  "task": 3,
+  "name": "dustpan",
+  "source": [
+   "rt",
+   "082_smallshovel",
+   "3"
+  ],
+  "file": "dustpan.glb",
+  "extents": [
+   0.1482,
+   0.2,
+   0.0618
+  ],
+  "graspable_width": 0.1482,
+  "grasp_center": [
+   -0.0,
+   0.0004,
+   -0.03
+  ]
+ },
+ "brush": {
+  "task": 3,
+  "name": "brush",
+  "source": [
+   "rt",
+   "083_brush",
+   "2"
+  ],
+  "file": "brush.glb",
+  "extents": [
+   0.2,
+   0.0171,
+   0.0872
+  ],
+  "graspable_width": 0.0171,
+  "grasp_center": [
+   0.0003,
+   -0.0011,
+   -0.0073
+  ]
+ },
+ "basket": {
+  "task": 3,
+  "name": "basket",
+  "source": [
+   "rt",
+   "110_basket",
+   "0"
+  ],
+  "file": "basket.glb",
+  "extents": [
+   0.22,
+   0.1356,
+   0.1657
+  ],
+  "graspable_width": 0.1356,
+  "grasp_center": [
+   -0.0,
+   -0.0007,
+   0.0
+  ]
+ },
+ "paper_ball_red": {
+  "task": 3,
+  "name": "red paper ball",
+  "source": [
+   "proc",
+   "paper_ball_red"
+  ],
+  "file": "paper_ball_red.glb",
+  "extents": [
+   0.0583,
+   0.0576,
+   0.0543
+  ],
+  "graspable_width": 0.0576,
+  "grasp_center": [
+   0.0002,
+   0.0,
+   0.0
+  ]
+ },
+ "paper_ball_white": {
+  "task": 3,
+  "name": "white paper ball",
+  "source": [
+   "proc",
+   "paper_ball_white"
+  ],
+  "file": "paper_ball_white.glb",
+  "extents": [
+   0.0607,
+   0.0584,
+   0.0582
+  ],
+  "graspable_width": 0.0584,
+  "grasp_center": [
+   0.0001,
+   -0.0002,
+   0.0005
+  ]
+ },
+ "plate_white": {
+  "task": 1,
+  "name": "white plate",
+  "source": [
+   "proc",
+   "plate"
+  ],
+  "file": "plate_white.glb",
+  "extents": [
+   0.12,
+   0.12,
+   0.019
+  ],
+  "graspable_width": 0.12,
+  "grasp_center": [
+   0.0,
+   0.0,
+   0.002
+  ]
+ },
+ "plate_yellow": {
+  "task": 1,
+  "name": "yellow plate",
+  "source": [
+   "proc",
+   "plate"
+  ],
+  "file": "plate_yellow.glb",
+  "extents": [
+   0.12,
+   0.12,
+   0.019
+  ],
+  "graspable_width": 0.12,
+  "grasp_center": [
+   0.0,
+   0.0,
+   0.002
+  ]
+ },
+ "plate_pink": {
+  "task": 1,
+  "name": "pink plate",
+  "source": [
+   "proc",
+   "plate"
+  ],
+  "file": "plate_pink.glb",
+  "extents": [
+   0.12,
+   0.12,
+   0.019
+  ],
+  "graspable_width": 0.12,
+  "grasp_center": [
+   0.0,
+   0.0,
+   0.002
+  ]
+ },
+ "plate_purple": {
+  "task": 1,
+  "name": "purple plate",
+  "source": [
+   "proc",
+   "plate"
+  ],
+  "file": "plate_purple.glb",
+  "extents": [
+   0.12,
+   0.12,
+   0.019
+  ],
+  "graspable_width": 0.12,
+  "grasp_center": [
+   0.0,
+   0.0,
+   0.002
+  ]
+ },
+ "plate_blue": {
+  "task": 1,
+  "name": "blue plate",
+  "source": [
+   "proc",
+   "plate"
+  ],
+  "file": "plate_blue.glb",
+  "extents": [
+   0.12,
+   0.12,
+   0.019
+  ],
+  "graspable_width": 0.12,
+  "grasp_center": [
+   0.0,
+   0.0,
+   0.002
+  ]
+ }
+}

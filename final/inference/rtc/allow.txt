@@ -1,0 +1,10 @@
+/home/guest/workspace/lingbot/inference/models/checkpoints/3b79e738-0cad-4c51-a85b-bcdec8578c9a/hf_ckpt
+/home/guest/workspace/lingbot/inference/models/checkpoints/705a0faa-3c2d-413d-b470-912541f5a1d7/hf_ckpt
+/home/guest/workspace/lingbot/inference/models/checkpoints/3151ff74-3e97-41a8-90ab-2963b3f5235b/hf_ckpt
+/home/guest/workspace/lingbot/inference/models/checkpoints/bc389c53-e9aa-41a2-bfdb-b6050931e9f3/hf_ckpt
+/home/guest/workspace/lingbot/inference/models/checkpoints/1a79755e-d086-4c15-8c98-efde73ef5f6e/hf_ckpt
+/home/guest/workspace/lingbot/inference/models/checkpoints/a6b24abb-808c-43a1-a05e-172002254e90/hf_ckpt
+/home/guest/workspace/lingbot/inference/models/checkpoints/5f633d69-1be5-4d0c-8540-b33b9691a0c6/hf_ckpt
+/home/guest/workspace/lingbot/inference/models/checkpoints/fc299e2c-c8d1-416c-8b88-9dae756df6b8/hf_ckpt
+/home/guest/workspace/lingbot/inference/models/checkpoints/6ea3deb7-7cf1-4326-b287-344b289f4491/hf_ckpt
+/home/guest/workspace/lingbot/inference/models/checkpoints/6da6301f-a0a0-4d19-8f67-3d3347b0abfe/hf_ckpt

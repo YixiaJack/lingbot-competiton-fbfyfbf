@@ -1,0 +1,561 @@
+diff --git a/lingbotvla/checkpoint/checkpointer.py b/lingbotvla/checkpoint/checkpointer.py
+index 970181d..b3b8838 100644
+--- a/lingbotvla/checkpoint/checkpointer.py
++++ b/lingbotvla/checkpoint/checkpointer.py
+@@ -456,9 +456,14 @@ class DistributedCheckpointer(CheckpointerBase):
+             extra_state_dir = os.path.join(checkpoint_dir, _EXTRA_STATE_DIR)
+             os.makedirs(extra_state_dir, exist_ok=True)
+             extra_state_path = os.path.join(extra_state_dir, _EXTRA_STATE_FORMAT.format(dist.get_rank()))
++            # LingBotRoboTwin: saved by fewer ranks (2xA100 -> 4xB200) -> no file for this rank; take a saved one
++            _saved = sorted(f for f in os.listdir(extra_state_dir) if f.startswith("extra_state_rank_"))
++            if not os.path.exists(extra_state_path) and _saved:
++                extra_state_path = os.path.join(extra_state_dir, _saved[dist.get_rank() % len(_saved)])
+             state["extra_state"] = torch.load(
+                 extra_state_path,
+             )
++            state["extra_state"]["_saved_world_size"] = len(_saved)  # LingBotRoboTwin
+ 
+         logger.info_rank0(f"Loaded checkpoint from {checkpoint_dir}")
+ 
+diff --git a/lingbotvla/data/vla_data/base_dataset.py b/lingbotvla/data/vla_data/base_dataset.py
+index 71d62a0..4c713ae 100644
+--- a/lingbotvla/data/vla_data/base_dataset.py
++++ b/lingbotvla/data/vla_data/base_dataset.py
+@@ -14,6 +14,7 @@
+ 
+ 
+ import os
++import json  # LingBotRoboTwin
+ import inspect
+ from pathlib import Path
+ 
+@@ -146,6 +147,14 @@ class LeRobotDataset(BaseLeRobotDataset):
+         # Add task as a string
+         task_idx = item["task_index"].item()
+         item["task"] = _get_task_name(self.meta.tasks, task_idx)
++        # LingBotRoboTwin: swap within this episode's seen-instruction pool (rule 2.1)
++        if os.environ.get("LINGBOT_SEEN_POOL") == "1":
++            if not hasattr(self, "_seen_pool"):
++                pool_file = self.root / "meta" / "seen_instructions.json"
++                self._seen_pool = json.loads(pool_file.read_text()) if pool_file.exists() else {}
++            choices = self._seen_pool.get(str(ep_idx))
++            if choices:
++                item["task"] = choices[int(torch.randint(len(choices), ()))]
+ 
+         return item
+ 
+diff --git a/lingbotvla/data/vla_data/multi_vla_dataset.py b/lingbotvla/data/vla_data/multi_vla_dataset.py
+index e6f0e14..2e02f54 100644
+--- a/lingbotvla/data/vla_data/multi_vla_dataset.py
++++ b/lingbotvla/data/vla_data/multi_vla_dataset.py
+@@ -1,4 +1,5 @@
+ from typing import Callable
++import os  # LingBotRoboTwin
+ import numpy as np
+ from lingbotvla.utils import helper
+ import torch
+@@ -128,6 +129,10 @@ class MultiVLADataset(Dataset):
+     def getdata(self, idx: int) -> dict[str, torch.Tensor]:
+         if idx >= len(self):
+             raise IndexError(f"Index {idx} out of bounds.")
++        # LingBotRoboTwin: task-balanced / motion-weighted sampling (rule 2.1: reweighting by data statistics)
++        if os.environ.get("LINGBOT_TASK_SAMPLING") or os.environ.get("LINGBOT_FRAME_WEIGHTS") == "1":
++            from lingbot_sampling import remap_index
++            idx = remap_index(self, idx)
+         # Determine which dataset to get an item from based on the index.
+         dataset_idx = np.searchsorted(self.dataset_start_index,  np.array([idx]), side='right') - 1
+         dataset_idx = dataset_idx[0]
+diff --git a/lingbotvla/data/vla_data/transform.py b/lingbotvla/data/vla_data/transform.py
+index 05fe43f..c49bb2e 100644
+--- a/lingbotvla/data/vla_data/transform.py
++++ b/lingbotvla/data/vla_data/transform.py
+@@ -327,6 +327,12 @@ def prepare_images(
+         if use_depth_align:
+             pil_image_dict[key] = img.cpu().numpy()
+ 
++        # LingBotRoboTwin: Fourier amplitude modulation (p_fourier in the aug config), model input only: the
++        # frozen teachers' image was taken just above; per-camera params are reused on the future frames
++        if train and (augment_params or {}).get("fourier"):
++            from lingbot_aug import apply_fourier
++            img = apply_fourier(img, augment_params["fourier"], key)
++
+         if image_processor is None:
+             img = img.to(dtype) / 127.5 - 1.0 # to [-1, 1]
+         else:
+@@ -364,6 +370,16 @@ def prepare_images(
+                 pil_images.append(pil_img)
+             img_masks.append(False)
+ 
++    # LingBotRoboTwin: wrist-camera dropout (train only): drawn per sample in lingbot_aug and replayed on the
++    # future frames; the view becomes upstream's missing-camera padding with mask False
++    _wrist_drop = (augment_params or {}).get("wrist_drop") if train else None
++    if _wrist_drop:
++        for _i, _key in enumerate(image_keys):
++            if _i < len(images) and any(f"wrist_{_side}" in _key for _side in _wrist_drop):
++                images[_i] = torch.full_like(images[_i], -1.0) if isinstance(images[_i], torch.Tensor) else np.zeros_like(images[_i])
++                img_masks[_i] = False
++                if use_depth_align:
++                    pil_images[_i] = np.zeros_like(pil_images[_i])
+     if isinstance(images[0], torch.Tensor):
+         images = torch.stack(images, dim=0)  # (n, c, h, w)
+     elif isinstance(images[0], np.ndarray):
+@@ -510,3 +526,9 @@ def expert_visual_transform(config, observation: dict[str, Tensor], image_keys=N
+         images = torch.from_numpy(np.stack(images, axis=0))  # (n, c, h, w)
+ 
+     return images
++
++
++# --- LingBotRoboTwin: whitelist-only augmentation, enabled by LINGBOT_AUG_CONFIG ---
++import os as _lbrt_os  # noqa: E402
++if _lbrt_os.environ.get("LINGBOT_AUG_CONFIG"):
++    from lingbot_aug import sample_visual_augmentation_params, apply_visual_augmentation  # noqa: E402,F811
+diff --git a/lingbotvla/data/vla_data/utils.py b/lingbotvla/data/vla_data/utils.py
+index 1daf261..5db000a 100644
+--- a/lingbotvla/data/vla_data/utils.py
++++ b/lingbotvla/data/vla_data/utils.py
+@@ -406,6 +406,10 @@ class FeatureTransform:
+         batch_dict = self.pad_and_concat(item, w_action)
+ 
+         state = prepare_state(batch_dict, self.model_config.max_state_dim) 
++        # LingBotRoboTwin: proprioception noise (rule 2.1), train only, real (non-padded) dims only
++        _state_noise = float(os.environ.get("LINGBOT_STATE_NOISE", "0"))
++        if _state_noise > 0 and self.image_augment and not policy_eval:
++            state = state + torch.randn_like(state) * _state_noise * (state != 0)
+         actions = prepare_action(batch_dict, self.model_config.max_action_dim)
+         return_image_grid_thw = getattr(self.model_config, "return_image_grid_thw", False)
+         if not self.disabled_image_features:
+diff --git a/lingbotvla/models/vla/lingbot_vla/modeling_lingbot_vla_v2.py b/lingbotvla/models/vla/lingbot_vla/modeling_lingbot_vla_v2.py
+index 44ccf04..fd9bec4 100644
+--- a/lingbotvla/models/vla/lingbot_vla/modeling_lingbot_vla_v2.py
++++ b/lingbotvla/models/vla/lingbot_vla/modeling_lingbot_vla_v2.py
+@@ -10,6 +10,7 @@ from transformers.cache_utils import Cache
+ from transformers.utils import logging
+ 
+ from .configuration_lingbot_vla import LingbotVLAV2Config
++from .dino_fusion import DinoFusion  # LingBotRoboTwin
+ from .qwen3vl_in_vla import (
+     Qwen3VLForConditionalGeneration,
+     Qwen3VLTextModel,
+@@ -474,6 +475,14 @@ class FlowMatchingV2(FlowMatchingV1):
+         self.action_out_proj = nn.Linear(self.config.proj_width, self.config.max_action_dim)
+         self.action_time_mlp_in = nn.Linear(self.config.proj_width * 2, self.config.proj_width)
+         self.action_time_mlp_out = nn.Linear(self.config.proj_width, self.config.proj_width)
++        # LingBotRoboTwin: frozen DINOv2 features added to the visual tokens (zero-initialized projection)
++        if getattr(self.config, "dino_fusion_path", None):
++            self.dino_fusion = DinoFusion(
++                self.config.dino_fusion_path,
++                self.qwenvl_with_expert.qwenvl.config.text_config.hidden_size,
++                input_size=getattr(self.config, "dino_fusion_input_size", 224),
++                grid=getattr(self.config, "dino_fusion_grid", 8),
++            )
+ 
+         self.config.align_params = getattr(self.config, "align_params", None) or {}
+         if self.config.align_params != {}:
+@@ -529,6 +538,9 @@ class FlowMatchingV2(FlowMatchingV1):
+         )
+         embed_dtype = img_emb.dtype
+         num_patch = img_emb.shape[1]
++        # LingBotRoboTwin: residual DINOv2 features on the visual tokens (same (b n), token order)
++        if getattr(self, "dino_fusion", None) is not None:
++            img_emb = img_emb + self.dino_fusion(images).to(img_emb.dtype)
+         img_emb = einops.rearrange(img_emb, "(b n) l d -> b n l d", b=bsize, n=num_images)
+         deepstack_embs = [
+             einops.rearrange(x, "(b n) l d -> b n l d", b=bsize, n=num_images)
+diff --git a/lingbotvla/optim/optimizer.py b/lingbotvla/optim/optimizer.py
+index 1de712f..3e4bef7 100644
+--- a/lingbotvla/optim/optimizer.py
++++ b/lingbotvla/optim/optimizer.py
+@@ -16,6 +16,7 @@
+ # limitations under the License.
+ 
+ 
++import os  # LingBotRoboTwin
+ import re
+ from typing import Any, Dict, List, Optional, Sequence, Tuple
+ 
+@@ -258,6 +259,12 @@ def _split_param_groups_by_scaled_lr(
+             scale = layer_to_scale.get(layer_idx)
+             if scale is not None:
+                 lr_for_param = base_lr * scale
++        # LingBotRoboTwin: separate vision-encoder LR multiplier
++        if ".visual." in name:
++            lr_for_param = lr_for_param * float(os.environ.get("LINGBOT_VISION_LR_SCALE", "1"))
++        # LingBotRoboTwin: newly initialized DINOv2 fusion layers may need a larger lr than the continuation
++        if "dino_fusion" in name:
++            lr_for_param = lr_for_param * float(os.environ.get("LINGBOT_DINO_LR_SCALE", "1"))
+         lr_to_params.setdefault(lr_for_param, []).append(p)
+     return [{"params": ps, "lr": lr} for lr, ps in lr_to_params.items() if ps]
+ 
+diff --git a/tasks/vla/train_lingbotvla.py b/tasks/vla/train_lingbotvla.py
+index a09c541..9348200 100644
+--- a/tasks/vla/train_lingbotvla.py
++++ b/tasks/vla/train_lingbotvla.py
+@@ -2,6 +2,7 @@ import json
+ import os
+ import re
+ import time
++_PROCESS_START = time.time()  # LingBotRoboTwin: time-based saves count from here
+ from dataclasses import asdict, dataclass, field
+ from functools import partial
+ from io import BytesIO
+@@ -166,6 +167,12 @@ class MyTrainingArguments(TrainingArguments):
+         default='fm',
+         metadata={"help": "Which loss to use."},
+     )
++    dino_fusion_path: Optional[str] = field(  # LingBotRoboTwin
++        default=None,
++        metadata={"help": "Frozen DINOv2 dir (config.json); its weights must be in model_path."},
++    )
++    dino_fusion_input_size: int = field(default=224, metadata={"help": "DINOv2 input resolution."})
++    dino_fusion_grid: int = field(default=8, metadata={"help": "Token grid per camera (Qwen merger grid)."})
+     align_params: Optional[Dict[str, Any]] = field(
+         default_factory=dict,
+         metadata={"help": "The config of vaco"},
+@@ -330,6 +337,16 @@ class Arguments:
+     eval: "EvalArguments" = field(default_factory=EvalArguments)
+ 
+ 
++def _lb_reseed(key, worker_id=None):
++    # LingBotRoboTwin: seeds torch (CPU + CUDA), random and numpy from `key` (+ a dataloader worker id); see main()
++    import hashlib
++    import random
++    s = int.from_bytes(hashlib.sha256(repr((*key, worker_id)).encode()).digest()[:8], "little") >> 1
++    torch.manual_seed(s)
++    random.seed(s)
++    np.random.seed(s % 2**32)
++
++
+ def main():
+     args = parse_args(Arguments)
+     logger.info(f"Process rank: {args.train.global_rank}, world size: {args.train.world_size}")
+@@ -366,6 +383,10 @@ def main():
+     if config_key in config_registry.supported_configs:
+         config_cls = config_registry.get_config_cls_from_config_key(config_key)
+         config_cls = config_cls(**config_kwargs)
++        # LingBotRoboTwin: LingbotVLAConfig.__init__ drops unknown kwargs; carry the DINO fusion options over
++        for _key in ("dino_fusion_path", "dino_fusion_input_size", "dino_fusion_grid"):
++            if config_kwargs.get(_key) is not None:
++                setattr(config_cls, _key, config_kwargs[_key])
+         logger.info_rank0(f"Successfully loaded: {config_cls.__class__.__name__}")
+     else:
+         config_cls = None
+@@ -605,6 +626,57 @@ def main():
+         eval_args=args.eval,
+     )
+ 
++    def _prune_resume_only(keep: str) -> None:  # rank 0, after `keep` was saved
++        # deletes only checkpoints older than `keep` (user request 10/24), except the newest one with a complete
++        # hf_ckpt (for evaluation), the newest one saved by each world size (fallback for a member with another
++        # GPU count) and any checkpoint holding a file named `keep`
++        import shutil, threading
++        try:
++            root, keep_step = os.path.dirname(keep), int(os.path.basename(keep).rsplit("_", 1)[1])
++            steps = {int(m.group(1)): os.path.join(root, m.group(0)) for m in
++                     (re.fullmatch(r"global_step_(\d+)", n) for n in os.listdir(root)) if m}
++            hf_ok = lambda p: os.path.exists(os.path.join(p, "hf_ckpt", "model.safetensors.index.json"))
++            newest_hf = max((st for st, p in steps.items() if st <= keep_step and hf_ok(p)), default=None)
++            n_ranks = lambda p: (sum(f.startswith("extra_state_rank_") for f in os.listdir(os.path.join(p, "extra_state")))
++                                 if os.path.isdir(os.path.join(p, "extra_state")) else 0)
++            newest_ws = {n_ranks(steps[st]): st for st in sorted(steps) if st <= keep_step}  # world size -> step
++            newest_ws.pop(0, None)
++            doomed = [os.path.join(root, n) for n in os.listdir(root) if n.endswith(".deleting")]
++            for st, path in steps.items():
++                if st >= keep_step or st in (newest_hf, *newest_ws.values()) or os.path.exists(os.path.join(path, "keep")):
++                    continue
++                os.rename(path, path + ".deleting")  # the resume scan only matches global_step_<n>
++                logger.info_rank0(f"deleting checkpoint {path} (keeping {keep_step}, hf {newest_hf}, "
++                                  f"per world size {newest_ws})")
++                doomed.append(path + ".deleting")
++            for path in doomed:
++                threading.Thread(target=shutil.rmtree, args=(path,), kwargs={"ignore_errors": True},
++                                 daemon=True).start()
++        except Exception as e:  # never stop training over a cleanup
++            logger.info_rank0(f"checkpoint cleanup failed: {e!r}")
++
++    # LingBotRoboTwin: preemptible partitions may end a job 30 min after it starts (PreemptExemptTime) with no
++    # grace time, so a member slower than save_steps per ~25 min (2xA100: 200 steps x 15 s) restarted from the
++    # same checkpoint every time. LINGBOT_TIME_SAVE_MIN=m (default 24, 0 = off) also saves at m, 2m, ... minutes
++    # after the process started (resume state only, no hf_ckpt), whatever step saves happened in between; skipped
++    # when a save finished under LINGBOT_TIME_SAVE_SKIP_MIN (default 3) minutes earlier. Rank 0's clock decides
++    # (broadcast every step) so that all ranks enter the collective save together.
++    _time_save_min = float(os.environ.get("LINGBOT_TIME_SAVE_MIN", "24"))
++    _time_save_skip_min = float(os.environ.get("LINGBOT_TIME_SAVE_SKIP_MIN", "3"))
++    _last_save_time = [_PROCESS_START]
++    _next_time_save = [_PROCESS_START + 60 * _time_save_min]
++
++    def _time_save_due() -> bool:
++        if _time_save_min <= 0:
++            return False
++        now = time.time()
++        due = now >= _next_time_save[0] and now - _last_save_time[0] >= 60 * _time_save_skip_min
++        while _next_time_save[0] <= now:  # next slot on the grid counted from the process start
++            _next_time_save[0] += 60 * _time_save_min
++        due = torch.tensor([int(due)], dtype=torch.int32, device="cuda")
++        dist.broadcast(due, src=0)
++        return bool(due.item())
++
+     def save_hf_checkpoint_best_effort(
+         checkpoint_path: str | None,
+         checkpoint_state: Dict[str, Any],
+@@ -659,8 +731,10 @@ def main():
+             else:
+                 logger.info_rank0(f"No checkpoints in {args.train.output_dir} now!")
+     if candidates:
++        fresh_base_lrs = list(lr_scheduler.base_lrs)  # LingBotRoboTwin: the config's lr, before a resume
+         last_err = None
+         loaded = False
++        _resume_note = os.path.join(args.train.output_dir, ".resume_failed", os.environ.get("SLURM_JOB_ID", "local"))
+         for cp in candidates:
+             state = {"model": model, "ema": None, "optimizer": optimizer, "extra_state": {}}  # cannot be None
+             try:
+@@ -669,22 +743,58 @@ def main():
+                 start_epoch = global_step // args.train.train_steps
+                 start_step = global_step % args.train.train_steps
+                 lr_scheduler.load_state_dict(state["extra_state"]["lr_scheduler"])
+-                if start_step > 0 and args.train.resume_dataloader_state:
++                # LingBotRoboTwin: load_state_dict brings back the checkpoint's base lrs; use the config's
++                if (os.environ.get("LINGBOT_RESUME_KEEP_LR", "0") != "1"
++                        and len(lr_scheduler.base_lrs) == len(fresh_base_lrs)
++                        and lr_scheduler.base_lrs != fresh_base_lrs):
++                    logger.info_rank0(f"resume: base lrs {lr_scheduler.base_lrs} -> {fresh_base_lrs} (config)")
++                    lr_scheduler.base_lrs = fresh_base_lrs
++                    for _g, _base, _fn in zip(optimizer.param_groups, fresh_base_lrs, lr_scheduler.lr_lambdas):
++                        _g["initial_lr"] = _base
++                        _g["lr"] = _base * _fn(lr_scheduler.last_epoch)
++                    lr_scheduler._last_lr = [_g["lr"] for _g in optimizer.param_groups]
++                # LingBotRoboTwin: the dataloader state is per rank; after a world size change start it afresh
++                _saved_ws = state["extra_state"].get("_saved_world_size", dist.get_world_size())
++                if _saved_ws != dist.get_world_size():
++                    logger.info_rank0(f"resume: checkpoint saved by {_saved_ws} ranks, running "
++                                      f"{dist.get_world_size()}: dataloader state not restored")
++                if start_step > 0 and args.train.resume_dataloader_state and _saved_ws == dist.get_world_size():
+                     train_dataloader.load_state_dict(state["extra_state"]["train_dataloader"])
+                 environ_meter.load_state_dict(state["extra_state"]["environ_meter"])
+                 torch.set_rng_state(state["extra_state"]["torch_rng_state"])
+                 if start_step == 0:  # resume at the end of epoch
+                     iter(train_dataloader)  # clear resume state and prefetch data
+-                dist.barrier()
++                _ok = 1  # LingBotRoboTwin: counts only if every rank loaded it (below)
++            except Exception as e:
++                last_err, _ok = e, 0
++                logger.info(f"rank {dist.get_rank()}: failed to load checkpoint {cp}: {e!r}")
++            # LingBotRoboTwin: a rank that failed alone went on to an older checkpoint (a collective) while the
++            # others waited in dist.barrier() -> NCCL timeout, job FAILED and out of the queue (4xB200, 10/24);
++            # now the ranks agree on every candidate and move on together
++            _agree = torch.tensor([_ok], dtype=torch.int32, device="cuda")
++            dist.all_reduce(_agree, op=dist.ReduceOp.MIN)
++            if _agree.item() == 1:
+                 logger.info_rank0(f"Load distributed checkpoint from {cp} successfully!")
++                if args.train.global_rank == 0 and os.path.exists(_resume_note):
++                    os.remove(_resume_note)  # earlier failed resumes of this job no longer count
+                 loaded = True
+                 break
+-            except Exception as e:
+-                last_err = e
+-                logger.info_rank0(f"Failed to load checkpoint {cp}: {repr(e)}. Trying older one...")
+-                continue
++            logger.info_rank0(f"Failed to load checkpoint {cp} on at least one rank. Trying older one...")
+         if not loaded:
+-            logger.info_rank0("Starting training from scratch. No valid checkpoint could be loaded.")
++            # LingBotRoboTwin: never start from scratch by itself while checkpoints exist. Decision for
++            # scripts/hpc/train.sbatch: "requeue" hands the run to the other members when a checkpoint was saved
++            # with another GPU count (one of them may read it) and this job has not failed before; else "restart":
++            # the checkpoints are moved aside and training starts again from the initial model (user request 10/24)
++            if args.train.global_rank == 0:
++                _ws = lambda p: (sum(f.startswith("extra_state_rank_") for f in os.listdir(os.path.join(p, "extra_state")))
++                                 if os.path.isdir(os.path.join(p, "extra_state")) else 0)
++                _other_ws = any(_ws(c) not in (0, dist.get_world_size()) for c in candidates)
++                _action = "requeue" if _other_ws and not os.path.exists(_resume_note) else "restart"
++                os.makedirs(os.path.dirname(_resume_note), exist_ok=True)
++                with open(_resume_note, "a") as _f:
++                    _f.write(f"{os.path.basename(candidates[0])} {_action} {time.strftime('%F %T')} {last_err!r}\n")
++            dist.barrier()
++            raise SystemExit(f"no checkpoint in {args.train.output_dir}/checkpoints could be loaded: {last_err!r}")
+     else:
+         logger.info_rank0("Starting training from scratch.")
+ 
+@@ -724,6 +834,15 @@ def main():
+                 initial=start_step,
+                 disable=args.train.local_rank != 0,
+             )
++        # LingBotRoboTwin (10/25): set_seed gives every rank the same seed, so the dataloader workers of all ranks drew
++        # the same temp:2 (task, frame) and augmentation and the flow-matching noise was the same on every rank (a step
++        # had 128 / NGPU distinct samples); a resume also restored the workers' base seed but not their position, so it
++        # drew again what its iterator had drawn since it was created. Workers and the main process (noise) now get
++        # their own streams from (seed, dp rank, step, epoch); a rerun from the same checkpoint draws the same.
++        _seed_key = (args.train.seed, get_parallel_state().dp_rank, global_step, epoch)
++        train_dataloader.worker_init_fn = partial(_lb_reseed, _seed_key)
++        _lb_reseed(_seed_key + ("main",))
++        logger.info_rank0(f"reseeded dataloader workers and noise per rank (step {global_step}, epoch {epoch})")
+         data_iterator = iter(train_dataloader)
+         for epoch_step in range(start_step, args.train.train_steps):
+             current_epoch_step_for_eval = epoch_step + 1
+@@ -1082,7 +1201,9 @@ def main():
+                                     current_pred_feats=future_video_current_preds,
+                                 )
+ 
+-            if args.train.save_steps and global_step % args.train.save_steps == 0:
++            _step_save = bool(args.train.save_steps and global_step % args.train.save_steps == 0)
++            _time_only = _time_save_due() and not _step_save  # LingBotRoboTwin (every rank, every step)
++            if _step_save or _time_only:
+                 helper.empty_cache()
+                 save_checkpoint_path = os.path.join(args.train.save_checkpoint_path, f"global_step_{global_step}")
+                 
+@@ -1112,14 +1233,18 @@ def main():
+                     writer.flush()
+                 Checkpointer.save(args.train.save_checkpoint_path, state, global_steps=global_step)
+                 dist.barrier()
+-                logger.info_rank0(f"Distributed checkpoint saved at {save_checkpoint_path} successfully!")
++                _last_save_time[0] = time.time()  # LingBotRoboTwin
++                logger.info_rank0(f"Distributed checkpoint saved at {save_checkpoint_path} successfully!"
++                                  + (" (time-based, no hf_ckpt)" if _time_only else ""))
+                 save_hf_checkpoint_best_effort(
+-                    save_checkpoint_path,
++                    None if _time_only else save_checkpoint_path,  # LingBotRoboTwin: time-based = resume only
+                     state,
+                     global_step,
+                     current_epoch_for_eval,
+                     current_epoch_step_for_eval,
+                 )
++                if args.train.global_rank == 0:
++                    _prune_resume_only(save_checkpoint_path)  # LingBotRoboTwin
+ 
+             if args.train.max_steps is not None and global_step >= args.train.max_steps:
+                 logger.info_rank0(f"Reached max_steps={args.train.max_steps}, stopping training.")
+diff --git a/configs/robot_configs/robotwin_clean.yaml b/configs/robot_configs/robotwin_clean.yaml
+new file mode 100644
+index 0000000..991835d
+--- /dev/null
++++ b/configs/robot_configs/robotwin_clean.yaml
+@@ -0,0 +1,49 @@
++states:
++  - observation.state.arm.position:
++      origin_keys:
++        - observation.state:
++            start: 0
++            end: 6
++        - observation.state:
++            start: 7
++            end: 13
++
++  - observation.state.effector.position: 
++      origin_keys:
++        - observation.state:
++            start: 6
++            end: 7
++        - observation.state:
++            start: 13
++            end: 14
++
++actions:
++  - action.arm.position: 
++      origin_keys:
++          - action:
++              start: 0
++              end: 6
++          - action:
++              start: 7
++              end: 13
++      subtract_state: False
++
++  - action.effector.position: 
++      origin_keys:
++          - action:
++              start: 6
++              end: 7
++          - action:
++              start: 13
++              end: 14
++      subtract_state: False
++  
++images:
++  - observation.images.camera_top: 
++      origin_keys:  observation.images.cam_high
++  - observation.images.camera_wrist_left: 
++      origin_keys: observation.images.cam_left_wrist
++  - observation.images.camera_wrist_right: 
++      origin_keys: observation.images.cam_right_wrist
++
++norm_stats: $SCRATCH/lingbot/LingBotRoboTwin/configs/norm_stats/robotwin_clean.json
+diff --git a/lingbotvla/models/vla/lingbot_vla/dino_fusion.py b/lingbotvla/models/vla/lingbot_vla/dino_fusion.py
+new file mode 100644
+index 0000000..c878a7d
+--- /dev/null
++++ b/lingbotvla/models/vla/lingbot_vla/dino_fusion.py
+@@ -0,0 +1,76 @@
++"""Frozen DINOv2 feature fusion for LingBot-VLA 2.0 (competition rule 2.2: public pretrained vision encoder).
++
++DINOv2 (facebook/dinov2-with-registers-base, Apache-2.0, frozen) sees the same camera image as the Qwen3-VL vision
++tower. Its patch features are pooled to the Qwen merger's token grid (8x8 per camera at img_size 256), normalized,
++projected to the LLM width by a ZERO-initialized linear layer and added to the visual tokens in
++FlowMatchingV2.embed_prefix. At initialization the model is therefore exactly the base model; sequence length,
++attention masks, mrope positions and the deepstack path are unchanged. Only `norm` and `proj` are trained.
++
++The image is reconstructed inside the model from the Qwen2-VL processor's pixel_values (patch 16, temporal 2,
++merge 2, mean = std = 0.5), so neither the data pipeline nor the inference server needs changes, and DINOv2 sees
++exactly what Qwen sees (training augmentations included). The DINOv2 weights live in the checkpoint
++(model.dino_fusion.dino.*), so inference still loads one set of weights.
++"""
++
++import torch
++import torch.nn.functional as F
++from torch import nn
++from transformers import Dinov2WithRegistersConfig, Dinov2WithRegistersModel
++
++IMAGENET_MEAN = (0.485, 0.456, 0.406)
++IMAGENET_STD = (0.229, 0.224, 0.225)
++QWEN_PATCH, QWEN_TEMPORAL, QWEN_MERGE = 16, 2, 2
++
++
++def pixel_values_to_images(pixel_values: torch.Tensor) -> torch.Tensor:
++    """Invert Qwen2VLImageProcessor patchification: (N, g*g, 3*2*16*16) -> (N, 3, g*16, g*16) in [0, 1]."""
++    n, length, dim = pixel_values.shape
++    g = int(round(length ** 0.5))
++    assert g * g == length and g % QWEN_MERGE == 0 and dim == 3 * QWEN_TEMPORAL * QWEN_PATCH * QWEN_PATCH, (
++        f"unexpected pixel_values layout {tuple(pixel_values.shape)}")
++    m, p = QWEN_MERGE, QWEN_PATCH
++    # rows: (hb, wb, mh, mw) with hb, wb over g // m merge blocks; columns: (c, t, ph, pw); both t slices are equal
++    x = pixel_values.float().view(n, g // m, g // m, m, m, 3, QWEN_TEMPORAL, p, p)[:, :, :, :, :, :, 0]
++    x = x.permute(0, 5, 1, 3, 6, 2, 4, 7).reshape(n, 3, g * p, g * p)
++    return (x * 0.5 + 0.5).clamp(0.0, 1.0)
++
++
++class DinoFusion(nn.Module):
++    def __init__(self, dino_path: str, out_dim: int, input_size: int = 224, grid: int = 8):
++        super().__init__()
++        cfg = Dinov2WithRegistersConfig.from_pretrained(dino_path)
++        cfg._attn_implementation = "sdpa"
++        self.dino = Dinov2WithRegistersModel(cfg)  # weights come from the checkpoint (model.dino_fusion.dino.*)
++        self.dino.requires_grad_(False)
++        self.input_size, self.grid = input_size, grid
++        self.num_prefix = 1 + cfg.num_register_tokens  # CLS + registers precede the patch tokens
++        self.patch = cfg.patch_size
++        self.norm = nn.LayerNorm(cfg.hidden_size)
++        self.proj = nn.Linear(cfg.hidden_size, out_dim)
++        nn.init.zeros_(self.proj.weight)
++        nn.init.zeros_(self.proj.bias)
++
++    def train(self, mode: bool = True):
++        super().train(mode)
++        self.dino.eval()  # frozen: dropout / drop-path off (both are 0 for this checkpoint anyway)
++        return self
++
++    @torch.compiler.disable  # DINOv2's position-embedding interpolation is not compile-friendly; it is frozen anyway
++    def dino_tokens(self, pixel_values: torch.Tensor) -> torch.Tensor:
++        x = pixel_values_to_images(pixel_values)
++        x = F.interpolate(x, size=(self.input_size, self.input_size), mode="bilinear", align_corners=False,
++                          antialias=True)
++        mean = torch.tensor(IMAGENET_MEAN, device=x.device, dtype=x.dtype).view(1, 3, 1, 1)
++        std = torch.tensor(IMAGENET_STD, device=x.device, dtype=x.dtype).view(1, 3, 1, 1)
++        x = (x - mean) / std
++        weight = self.dino.embeddings.patch_embeddings.projection.weight
++        with torch.no_grad():
++            h = self.dino(pixel_values=x.to(weight.dtype)).last_hidden_state[:, self.num_prefix:]
++        side = self.input_size // self.patch
++        h = h.transpose(1, 2).reshape(h.shape[0], -1, side, side)
++        h = F.adaptive_avg_pool2d(h.float(), self.grid)  # -> Qwen merger grid, raster order like the visual tokens
++        return h.flatten(2).transpose(1, 2)  # (N, grid*grid, hidden)
++
++    def forward(self, pixel_values: torch.Tensor) -> torch.Tensor:
++        tokens = self.dino_tokens(pixel_values)
++        return self.proj(self.norm(tokens.to(self.norm.weight.dtype)))

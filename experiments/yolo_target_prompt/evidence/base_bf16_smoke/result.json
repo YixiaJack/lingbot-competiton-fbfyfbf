@@ -1,0 +1,117 @@
+{
+  "run": "base",
+  "mode": "text",
+  "source": "oracle",
+  "item": 30,
+  "seed": 100030,
+  "split": "heldout_combo",
+  "target": 0,
+  "destination": 0,
+  "instruction": "Pick up the red block and place it on the yellow plate.",
+  "prompt": "Pick up the red block and place it on the yellow plate.",
+  "boxes_used": [
+    [
+      88,
+      75,
+      113,
+      104
+    ],
+    [
+      121,
+      172,
+      162,
+      212
+    ]
+  ],
+  "cue_applied": false,
+  "first_approach": {
+    "object": 0,
+    "arm": "left",
+    "step": 44,
+    "distance_m": 0.0997096359292233
+  },
+  "first_approach_correct": true,
+  "success": false,
+  "steps": 600,
+  "seconds": 174.75382494926453,
+  "detector_ms": null,
+  "latency_ms": [
+    150835.91110999987,
+    398.38432100077625,
+    159.5012809993932,
+    158.9106330065988,
+    157.68463400308974,
+    159.16399098932743,
+    158.12238201033324,
+    158.5772319958778,
+    157.7979589928873,
+    157.70433699071873,
+    157.6999539975077,
+    158.85830100160092
+  ],
+  "memory": [
+    {
+      "infer_ms": 150835.91110999987,
+      "peak_allocated_gib": 12.077214241027832,
+      "peak_reserved_gib": 12.099609375
+    },
+    {
+      "infer_ms": 398.38432100077625,
+      "peak_allocated_gib": 12.077214241027832,
+      "peak_reserved_gib": 12.103515625
+    },
+    {
+      "infer_ms": 159.5012809993932,
+      "peak_allocated_gib": 12.077214241027832,
+      "peak_reserved_gib": 12.103515625
+    },
+    {
+      "infer_ms": 158.9106330065988,
+      "peak_allocated_gib": 12.077214241027832,
+      "peak_reserved_gib": 12.103515625
+    },
+    {
+      "infer_ms": 157.68463400308974,
+      "peak_allocated_gib": 12.077214241027832,
+      "peak_reserved_gib": 12.103515625
+    },
+    {
+      "infer_ms": 159.16399098932743,
+      "peak_allocated_gib": 12.077214241027832,
+      "peak_reserved_gib": 12.103515625
+    },
+    {
+      "infer_ms": 158.12238201033324,
+      "peak_allocated_gib": 12.077214241027832,
+      "peak_reserved_gib": 12.103515625
+    },
+    {
+      "infer_ms": 158.5772319958778,
+      "peak_allocated_gib": 12.077214241027832,
+      "peak_reserved_gib": 12.103515625
+    },
+    {
+      "infer_ms": 157.7979589928873,
+      "peak_allocated_gib": 12.077214241027832,
+      "peak_reserved_gib": 12.103515625
+    },
+    {
+      "infer_ms": 157.70433699071873,
+      "peak_allocated_gib": 12.077214241027832,
+      "peak_reserved_gib": 12.103515625
+    },
+    {
+      "infer_ms": 157.6999539975077,
+      "peak_allocated_gib": 12.077214241027832,
+      "peak_reserved_gib": 12.103515625
+    },
+    {
+      "infer_ms": 158.85830100160092,
+      "peak_allocated_gib": 12.077214241027832,
+      "peak_reserved_gib": 12.103515625
+    }
+  ],
+  "precision": "BF16",
+  "metric_version": 2,
+  "metric_definition": "first gripper TCP within 10cm of an initial candidate, >4cm progress, TCP z<0.90m; no approach counts incorrect"
+}

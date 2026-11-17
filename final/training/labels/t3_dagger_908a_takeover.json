@@ -1,0 +1,258 @@
+{
+ "episodes": [
+  {
+   "id": "ep0466",
+   "episode_index": 466,
+   "pan_arm": "left",
+   "b": [
+    1424,
+    3031,
+    3347,
+    3485
+   ],
+   "human": [
+    [
+     2195,
+     3760
+    ]
+   ],
+   "note": "",
+   "segments": [
+    {
+     "start": 2195,
+     "end": 3031,
+     "subtask": "sweep",
+     "instruction": "Sweep all the paper balls into the dustpan with the brush."
+    }
+   ]
+  },
+  {
+   "id": "ep0467",
+   "episode_index": 467,
+   "pan_arm": "left",
+   "b": [
+    1305,
+    1719,
+    2177,
+    2292
+   ],
+   "human": [
+    [
+     510,
+     2346
+    ],
+    [
+     2396,
+     2546
+    ]
+   ],
+   "note": "",
+   "segments": [
+    {
+     "start": 510,
+     "end": 1305,
+     "subtask": "grasp",
+     "instruction": "Grasp the dustpan handle with the left gripper, then grasp the brush handle with the right gripper."
+    },
+    {
+     "start": 2396,
+     "end": 2546,
+     "subtask": "home",
+     "instruction": "Put the dustpan and the brush down on the table, then return both arms home and stay still."
+    }
+   ]
+  },
+  {
+   "id": "ep0468",
+   "episode_index": 468,
+   "pan_arm": "right",
+   "b": [
+    1502,
+    1804,
+    2020,
+    2142
+   ],
+   "human": [
+    [
+     1331,
+     2352
+    ]
+   ],
+   "note": "",
+   "segments": [
+    {
+     "start": 1331,
+     "end": 1502,
+     "subtask": "grasp",
+     "instruction": "Grasp the dustpan handle with the right gripper, then grasp the brush handle with the left gripper."
+    }
+   ]
+  },
+  {
+   "id": "ep0469",
+   "episode_index": 469,
+   "pan_arm": "left",
+   "b": [
+    495,
+    996,
+    1309,
+    1448
+   ],
+   "human": [
+    [
+     515,
+     1568
+    ],
+    [
+     1604,
+     1809
+    ]
+   ],
+   "note": "release on brush arm from thr 0.3",
+   "segments": [
+    {
+     "start": 515,
+     "end": 996,
+     "subtask": "sweep",
+     "instruction": "Sweep all the paper balls into the dustpan with the brush."
+    },
+    {
+     "start": 1604,
+     "end": 1809,
+     "subtask": "home",
+     "instruction": "Put the dustpan and the brush down on the table, then return both arms home and stay still."
+    }
+   ]
+  },
+  {
+   "id": "ep0470",
+   "episode_index": 470,
+   "pan_arm": "right",
+   "b": [
+    362,
+    750,
+    1081,
+    1158
+   ],
+   "human": [
+    [
+     375,
+     1455
+    ]
+   ],
+   "note": "",
+   "segments": [
+    {
+     "start": 375,
+     "end": 750,
+     "subtask": "sweep",
+     "instruction": "Sweep all the paper balls into the dustpan with the brush."
+    }
+   ]
+  },
+  {
+   "id": "ep0471",
+   "episode_index": 471,
+   "pan_arm": "right",
+   "b": [
+    531,
+    880,
+    1177,
+    1333
+   ],
+   "human": [
+    [
+     413,
+     1649
+    ]
+   ],
+   "note": "",
+   "segments": [
+    {
+     "start": 413,
+     "end": 531,
+     "subtask": "grasp",
+     "instruction": "Grasp the dustpan handle with the right gripper, then grasp the brush handle with the left gripper."
+    }
+   ]
+  },
+  {
+   "id": "ep0472",
+   "episode_index": 472,
+   "pan_arm": "left",
+   "b": [
+    909,
+    1507,
+    1859,
+    1940
+   ],
+   "human": [
+    [
+     315,
+     2330
+    ]
+   ],
+   "note": "",
+   "segments": [
+    {
+     "start": 315,
+     "end": 909,
+     "subtask": "grasp",
+     "instruction": "Grasp the dustpan handle with the left gripper, then grasp the brush handle with the right gripper."
+    }
+   ]
+  },
+  {
+   "id": "ep0473",
+   "episode_index": 473,
+   "pan_arm": "left",
+   "b": [
+    591,
+    950,
+    1127,
+    1225
+   ],
+   "human": [
+    [
+     440,
+     1459
+    ]
+   ],
+   "note": "",
+   "segments": [
+    {
+     "start": 440,
+     "end": 591,
+     "subtask": "grasp",
+     "instruction": "Grasp the dustpan handle with the left gripper, then grasp the brush handle with the right gripper."
+    }
+   ]
+  },
+  {
+   "id": "ep0474",
+   "episode_index": 474,
+   "pan_arm": "left",
+   "b": [
+    697,
+    986,
+    1171,
+    1277
+   ],
+   "human": [
+    [
+     291,
+     1560
+    ]
+   ],
+   "note": "",
+   "segments": [
+    {
+     "start": 291,
+     "end": 697,
+     "subtask": "grasp",
+     "instruction": "Grasp the dustpan handle with the left gripper, then grasp the brush handle with the right gripper."
+    }
+   ]
+  }
+ ]
+}

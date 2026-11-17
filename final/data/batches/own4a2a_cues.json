@@ -1,0 +1,30 @@
+{
+ "summary": {
+  "yolo": "weights/v9.torchscript",
+  "checked_by_eye": "ep302: frame0 cue, grasp frame, gf+30, last frame",
+  "mode": "boxgrasp",
+  "line_px": 5
+ },
+ "episodes": {
+  "302": {
+   "id": "ep0302",
+   "instruction": "Take the large black and gold makeup brush and put it in the middle section.",
+   "target": "brush_large",
+   "dest": "organizer_middle",
+   "target_box": [
+    114.0,
+    386.2,
+    233.4,
+    416.8
+   ],
+   "dest_box": [
+    460.1,
+    133.9,
+    633.9,
+    200.0
+   ],
+   "grasp_frame": 159,
+   "T": 683
+  }
+ }
+}

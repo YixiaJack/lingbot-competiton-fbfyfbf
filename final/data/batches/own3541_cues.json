@@ -1,0 +1,190 @@
+{
+ "summary": {
+  "yolo": "weights/v9.torchscript",
+  "checked_by_eye": "all 9: f0 cue, grasp frame, gf+30, last frame; 383/384 are task-3 demos mislabelled with a task-2 instruction -> task-3 subtask set; ep387 grasp frame set to 334 (blocked gripper; the command close at 227 was an early empty close, checked frame by frame)",
+  "mode": "boxgrasp",
+  "line_px": 5
+ },
+ "episodes": {
+  "375": {
+   "id": "ep0375",
+   "instruction": "Put the black lipstick with a clear cap in the middle compartment.",
+   "target": "lipstick",
+   "dest": "organizer_middle",
+   "target_box": [
+    184.5,
+    201.6,
+    216.1,
+    242.6
+   ],
+   "dest_box": [
+    421.5,
+    139.7,
+    594.9,
+    202.7
+   ],
+   "grasp_frame": 197,
+   "T": 572
+  },
+  "376": {
+   "id": "ep0376",
+   "instruction": "Organize the pink makeup puff into the middle compartment.",
+   "target": "powder_puff",
+   "dest": "organizer_middle",
+   "target_box": [
+    92.9,
+    214.4,
+    140.5,
+    247.5
+   ],
+   "dest_box": [
+    411.0,
+    147.6,
+    588.4,
+    211.3
+   ],
+   "grasp_frame": 254,
+   "T": 559
+  },
+  "377": {
+   "id": "ep0377",
+   "instruction": "Put the dark-colored round contour compact in the middle compartment.",
+   "target": "contour",
+   "dest": "organizer_middle",
+   "target_box": [
+    528.1,
+    206.8,
+    579.0,
+    244.9
+   ],
+   "dest_box": [
+    103.8,
+    150.7,
+    276.8,
+    214.5
+   ],
+   "grasp_frame": 173,
+   "T": 500
+  },
+  "379": {
+   "id": "ep0379",
+   "instruction": "Store the rectangular multicolor eyeshadow palette in the middle compartment.",
+   "target": "eyeshadow_palette",
+   "dest": "organizer_middle",
+   "target_box": [
+    105.0,
+    224.5,
+    180.4,
+    280.7
+   ],
+   "dest_box": [
+    412.8,
+    146.7,
+    592.8,
+    210.2
+   ],
+   "grasp_frame": 278,
+   "T": 737
+  },
+  "380": {
+   "id": "ep0380",
+   "instruction": "Organize the large black and gold makeup brush into the bottom compartment.",
+   "target": "brush_large",
+   "dest": "organizer_bottom",
+   "target_box": [
+    215.7,
+    189.1,
+    240.3,
+    246.4
+   ],
+   "dest_box": [
+    412.7,
+    228.1,
+    591.9,
+    285.0
+   ],
+   "grasp_frame": 241,
+   "T": 567
+  },
+  "381": {
+   "id": "ep0381",
+   "instruction": "Place the light-colored round highlighter compact inside the middle level of the organizer.",
+   "target": "highlighter",
+   "dest": "organizer_middle",
+   "target_box": [
+    97.9,
+    211.6,
+    150.8,
+    251.2
+   ],
+   "dest_box": [
+    412.3,
+    146.5,
+    588.5,
+    210.1
+   ],
+   "grasp_frame": 206,
+   "T": 639
+  },
+  "382": {
+   "id": "ep0382",
+   "instruction": "Place the rectangular multicolor eyeshadow palette inside the bottom level of the organizer.",
+   "target": "eyeshadow_palette",
+   "dest": "organizer_bottom",
+   "target_box": [
+    159.8,
+    219.8,
+    236.2,
+    265.5
+   ],
+   "dest_box": [
+    402.4,
+    226.2,
+    578.1,
+    282.2
+   ],
+   "grasp_frame": 225,
+   "T": 611
+  },
+  "385": {
+   "id": "ep0385",
+   "instruction": "Could you put the carrot on the white plate?",
+   "target": "carrot",
+   "dest": "plate_white",
+   "target_box": [
+    421.8,
+    207.8,
+    572.0,
+    246.2
+   ],
+   "dest_box": [
+    243.2,
+    168.6,
+    386.6,
+    265.7
+   ],
+   "grasp_frame": 347,
+   "T": 723
+  },
+  "387": {
+   "id": "ep0387",
+   "instruction": "Move the red chili pepper onto the white plate.",
+   "target": "red_chili",
+   "dest": "plate_white",
+   "target_box": [
+    95.0,
+    195.3,
+    225.0,
+    231.2
+   ],
+   "dest_box": [
+    256.6,
+    169.7,
+    398.5,
+    266.5
+   ],
+   "grasp_frame": 334,
+   "T": 575
+  }
+ }
+}

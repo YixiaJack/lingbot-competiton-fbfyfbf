@@ -1,0 +1,70 @@
+{
+ "summary": {
+  "yolo": "weights/v13.torchscript",
+  "checked_by_eye": "11/16 02:0x: 3 cues correct; 616 tangerine not detected (plain only)",
+  "mode": "boxgrasp",
+  "line_px": 5
+ },
+ "episodes": {
+  "613": {
+   "id": "ep0613",
+   "instruction": "Move the cucumber onto the pink plate.",
+   "target": "cucumber",
+   "dest": "plate_pink",
+   "target_box": [
+    531.1,
+    276.4,
+    587.2,
+    397.4
+   ],
+   "dest_box": [
+    269.5,
+    161.0,
+    410.5,
+    255.7
+   ],
+   "grasp_frame": 259,
+   "T": 739
+  },
+  "614": {
+   "id": "ep0614",
+   "instruction": "Could you put the green chili pepper on the pink plate?",
+   "target": "green_chili",
+   "dest": "plate_pink",
+   "target_box": [
+    400.8,
+    251.6,
+    532.7,
+    324.3
+   ],
+   "dest_box": [
+    184.3,
+    268.1,
+    360.6,
+    409.6
+   ],
+   "grasp_frame": 274,
+   "T": 650
+  },
+  "615": {
+   "id": "ep0615",
+   "instruction": "Pick up the orange and place it on the pink plate.",
+   "target": "orange",
+   "dest": "plate_pink",
+   "target_box": [
+    0.1,
+    276.9,
+    79.4,
+    354.0
+   ],
+   "dest_box": [
+    200.8,
+    159.1,
+    341.3,
+    253.3
+   ],
+   "grasp_frame": 266,
+   "T": 576
+  }
+ }
+}

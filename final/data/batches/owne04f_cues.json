@@ -1,0 +1,610 @@
+{
+ "summary": {
+  "yolo": "weights/v13.torchscript",
+  "checked_by_eye": "11/16 00:5x: all 30 cues correct (target, destination, grasp of the boxed object, final plate / compartment); 553 no cue (green chili not detected)",
+  "mode": "boxgrasp",
+  "line_px": 5
+ },
+ "episodes": {
+  "548": {
+   "id": "ep0548",
+   "instruction": "Pick up the cucumber and place it on the yellow plate.",
+   "target": "cucumber",
+   "dest": "plate_yellow",
+   "target_box": [
+    34.6,
+    231.7,
+    117.4,
+    336.2
+   ],
+   "dest_box": [
+    410.6,
+    290.6,
+    598.8,
+    441.9
+   ],
+   "grasp_frame": 196,
+   "T": 507
+  },
+  "549": {
+   "id": "ep0549",
+   "instruction": "Put the red chili pepper on the yellow plate.",
+   "target": "red_chili",
+   "dest": "plate_yellow",
+   "target_box": [
+    446.9,
+    185.9,
+    497.2,
+    274.4
+   ],
+   "dest_box": [
+    410.6,
+    290.2,
+    598.8,
+    441.9
+   ],
+   "grasp_frame": 345,
+   "T": 683
+  },
+  "550": {
+   "id": "ep0550",
+   "instruction": "Move the bunch of grapes onto the pink plate.",
+   "target": "grapes",
+   "dest": "plate_pink",
+   "target_box": [
+    205.7,
+    200.4,
+    335.3,
+    281.6
+   ],
+   "dest_box": [
+    437.8,
+    220.3,
+    604.5,
+    337.9
+   ],
+   "grasp_frame": 211,
+   "T": 583
+  },
+  "551": {
+   "id": "ep0551",
+   "instruction": "Move the bunch of grapes onto the pink plate.",
+   "target": "grapes",
+   "dest": "plate_pink",
+   "target_box": [
+    200.4,
+    190.7,
+    323.0,
+    273.9
+   ],
+   "dest_box": [
+    438.3,
+    219.8,
+    604.8,
+    337.5
+   ],
+   "grasp_frame": 197,
+   "T": 525
+  },
+  "552": {
+   "id": "ep0552",
+   "instruction": "Could you put the mangosteen on the blue plate?",
+   "target": "mangosteen",
+   "dest": "plate_blue",
+   "target_box": [
+    497.1,
+    374.8,
+    573.4,
+    447.8
+   ],
+   "dest_box": [
+    67.1,
+    166.6,
+    215.6,
+    262.8
+   ],
+   "grasp_frame": 202,
+   "T": 524
+  },
+  "554": {
+   "id": "ep0554",
+   "instruction": "Put the green chili pepper on the pink plate.",
+   "target": "green_chili",
+   "dest": "plate_pink",
+   "target_box": [
+    382.2,
+    252.9,
+    507.0,
+    330.8
+   ],
+   "dest_box": [
+    185.2,
+    260.4,
+    358.3,
+    397.1
+   ],
+   "grasp_frame": 169,
+   "T": 391
+  },
+  "555": {
+   "id": "ep0555",
+   "instruction": "Place the potato on the purple plate.",
+   "target": "potato",
+   "dest": "plate_purple",
+   "target_box": [
+    407.9,
+    213.7,
+    462.8,
+    271.8
+   ],
+   "dest_box": [
+    89.8,
+    186.2,
+    242.4,
+    291.0
+   ],
+   "grasp_frame": 289,
+   "T": 749
+  },
+  "556": {
+   "id": "ep0556",
+   "instruction": "Place the potato on the purple plate.",
+   "target": "potato",
+   "dest": "plate_purple",
+   "target_box": [
+    387.0,
+    200.7,
+    442.1,
+    261.7
+   ],
+   "dest_box": [
+    89.5,
+    186.3,
+    242.4,
+    290.5
+   ],
+   "grasp_frame": 277,
+   "T": 681
+  },
+  "557": {
+   "id": "ep0557",
+   "instruction": "Pick up the potato and place it on the purple plate.",
+   "target": "potato",
+   "dest": "plate_purple",
+   "target_box": [
+    388.5,
+    195.6,
+    450.5,
+    255.5
+   ],
+   "dest_box": [
+    88.1,
+    184.1,
+    240.4,
+    288.5
+   ],
+   "grasp_frame": 226,
+   "T": 572
+  },
+  "558": {
+   "id": "ep0558",
+   "instruction": "Take the black round glitter compact and put it in the middle section.",
+   "target": "glitter_compact",
+   "dest": "organizer_middle",
+   "target_box": [
+    389.0,
+    321.7,
+    449.0,
+    377.7
+   ],
+   "dest_box": [
+    1.3,
+    231.8,
+    212.1,
+    307.7
+   ],
+   "grasp_frame": 280,
+   "T": 730
+  },
+  "559": {
+   "id": "ep0559",
+   "instruction": "Store the dark-colored round contour compact in the top compartment.",
+   "target": "contour",
+   "dest": "organizer_top",
+   "target_box": [
+    418.9,
+    321.5,
+    477.1,
+    375.2
+   ],
+   "dest_box": [
+    0.9,
+    153.4,
+    214.6,
+    219.5
+   ],
+   "grasp_frame": 251,
+   "T": 790
+  },
+  "560": {
+   "id": "ep0560",
+   "instruction": "Place the dark-colored round contour compact inside the bottom level of the organizer.",
+   "target": "contour",
+   "dest": "organizer_bottom",
+   "target_box": [
+    140.6,
+    286.6,
+    196.3,
+    336.9
+   ],
+   "dest_box": [
+    304.4,
+    340.9,
+    514.6,
+    411.2
+   ],
+   "grasp_frame": 229,
+   "T": 737
+  },
+  "561": {
+   "id": "ep0561",
+   "instruction": "Organize the light-colored round highlighter compact into the bottom compartment.",
+   "target": "highlighter",
+   "dest": "organizer_bottom",
+   "target_box": [
+    488.0,
+    295.7,
+    547.9,
+    345.3
+   ],
+   "dest_box": [
+    251.6,
+    325.9,
+    455.5,
+    396.5
+   ],
+   "grasp_frame": 262,
+   "T": 734
+  },
+  "562": {
+   "id": "ep0562",
+   "instruction": "Organize the small black and gold makeup brush into the middle compartment.",
+   "target": "brush_small",
+   "dest": "organizer_middle",
+   "target_box": [
+    570.6,
+    358.9,
+    617.3,
+    427.4
+   ],
+   "dest_box": [
+    247.5,
+    243.0,
+    453.9,
+    320.8
+   ],
+   "grasp_frame": 333,
+   "T": 808
+  },
+  "563": {
+   "id": "ep0563",
+   "instruction": "Put the black lipstick with a clear cap in the top compartment.",
+   "target": "lipstick",
+   "dest": "organizer_top",
+   "target_box": [
+    491.7,
+    311.3,
+    543.9,
+    368.8
+   ],
+   "dest_box": [
+    21.1,
+    163.5,
+    236.6,
+    231.2
+   ],
+   "grasp_frame": 284,
+   "T": 781
+  },
+  "564": {
+   "id": "ep0564",
+   "instruction": "Organize the black lipstick with a clear cap into the top compartment.",
+   "target": "lipstick",
+   "dest": "organizer_top",
+   "target_box": [
+    505.4,
+    330.5,
+    572.8,
+    387.3
+   ],
+   "dest_box": [
+    20.1,
+    162.8,
+    237.6,
+    230.5
+   ],
+   "grasp_frame": 219,
+   "T": 517
+  },
+  "565": {
+   "id": "ep0565",
+   "instruction": "Put the rectangular multicolor eyeshadow palette in the middle compartment.",
+   "target": "eyeshadow_palette",
+   "dest": "organizer_middle",
+   "target_box": [
+    54.3,
+    221.1,
+    136.6,
+    282.8
+   ],
+   "dest_box": [
+    245.6,
+    218.1,
+    441.7,
+    290.1
+   ],
+   "grasp_frame": 349,
+   "T": 761
+  },
+  "566": {
+   "id": "ep0566",
+   "instruction": "Take the rectangular multicolor eyeshadow palette and put it in the middle section.",
+   "target": "eyeshadow_palette",
+   "dest": "organizer_middle",
+   "target_box": [
+    0.0,
+    243.6,
+    82.0,
+    310.2
+   ],
+   "dest_box": [
+    238.8,
+    215.6,
+    433.8,
+    288.3
+   ],
+   "grasp_frame": 330,
+   "T": 828
+  },
+  "567": {
+   "id": "ep0567",
+   "instruction": "Organize the small black and gold makeup brush into the top compartment.",
+   "target": "brush_small",
+   "dest": "organizer_top",
+   "target_box": [
+    476.8,
+    353.3,
+    522.6,
+    426.9
+   ],
+   "dest_box": [
+    238.1,
+    86.3,
+    404.0,
+    144.0
+   ],
+   "grasp_frame": 434,
+   "T": 994
+  },
+  "568": {
+   "id": "ep0568",
+   "instruction": "Put the small black and gold makeup brush in the top compartment.",
+   "target": "brush_small",
+   "dest": "organizer_top",
+   "target_box": [
+    516.0,
+    346.5,
+    613.0,
+    398.3
+   ],
+   "dest_box": [
+    236.9,
+    85.5,
+    402.8,
+    144.1
+   ],
+   "grasp_frame": 277,
+   "T": 660
+  },
+  "569": {
+   "id": "ep0569",
+   "instruction": "Store the small black and gold makeup brush in the middle compartment.",
+   "target": "brush_small",
+   "dest": "organizer_middle",
+   "target_box": [
+    139.9,
+    238.6,
+    193.9,
+    292.8
+   ],
+   "dest_box": [
+    386.9,
+    188.3,
+    578.2,
+    257.3
+   ],
+   "grasp_frame": 257,
+   "T": 642
+  },
+  "570": {
+   "id": "ep0570",
+   "instruction": "Take the small black and gold makeup brush and put it in the middle section.",
+   "target": "brush_small",
+   "dest": "organizer_middle",
+   "target_box": [
+    71.6,
+    232.9,
+    148.3,
+    273.4
+   ],
+   "dest_box": [
+    387.3,
+    187.2,
+    578.3,
+    256.8
+   ],
+   "grasp_frame": 425,
+   "T": 802
+  },
+  "571": {
+   "id": "ep0571",
+   "instruction": "Put the small black and gold makeup brush in the middle compartment.",
+   "target": "brush_small",
+   "dest": "organizer_middle",
+   "target_box": [
+    444.4,
+    258.2,
+    530.6,
+    282.0
+   ],
+   "dest_box": [
+    59.6,
+    192.6,
+    254.8,
+    261.3
+   ],
+   "grasp_frame": 376,
+   "T": 719
+  },
+  "572": {
+   "id": "ep0572",
+   "instruction": "Put the light-colored round highlighter compact in the top compartment.",
+   "target": "highlighter",
+   "dest": "organizer_top",
+   "target_box": [
+    437.0,
+    237.6,
+    489.1,
+    279.6
+   ],
+   "dest_box": [
+    36.8,
+    91.6,
+    222.0,
+    152.2
+   ],
+   "grasp_frame": 305,
+   "T": 718
+  },
+  "573": {
+   "id": "ep0573",
+   "instruction": "Place the light-colored round highlighter compact inside the top level of the organizer.",
+   "target": "highlighter",
+   "dest": "organizer_top",
+   "target_box": [
+    471.0,
+    244.2,
+    524.2,
+    286.9
+   ],
+   "dest_box": [
+    30.7,
+    89.6,
+    213.2,
+    148.6
+   ],
+   "grasp_frame": 523,
+   "T": 948
+  },
+  "574": {
+   "id": "ep0574",
+   "instruction": "Place the light-colored round highlighter compact inside the middle level of the organizer.",
+   "target": "highlighter",
+   "dest": "organizer_middle",
+   "target_box": [
+    471.5,
+    235.6,
+    524.1,
+    276.8
+   ],
+   "dest_box": [
+    30.8,
+    157.3,
+    215.0,
+    221.7
+   ],
+   "grasp_frame": 547,
+   "T": 1007
+  },
+  "575": {
+   "id": "ep0575",
+   "instruction": "Store the light-colored round highlighter compact in the bottom compartment.",
+   "target": "highlighter",
+   "dest": "organizer_bottom",
+   "target_box": [
+    470.8,
+    234.7,
+    522.7,
+    275.2
+   ],
+   "dest_box": [
+    31.1,
+    237.9,
+    215.9,
+    296.8
+   ],
+   "grasp_frame": 574,
+   "T": 1052
+  },
+  "576": {
+   "id": "ep0576",
+   "instruction": "Store the dark-colored round contour compact in the bottom compartment.",
+   "target": "contour",
+   "dest": "organizer_bottom",
+   "target_box": [
+    482.7,
+    328.1,
+    543.9,
+    383.7
+   ],
+   "dest_box": [
+    30.1,
+    237.9,
+    214.7,
+    296.6
+   ],
+   "grasp_frame": 295,
+   "T": 663
+  },
+  "577": {
+   "id": "ep0577",
+   "instruction": "Take the dark-colored round contour compact and put it in the middle section.",
+   "target": "contour",
+   "dest": "organizer_middle",
+   "target_box": [
+    471.3,
+    331.8,
+    533.0,
+    387.5
+   ],
+   "dest_box": [
+    31.6,
+    157.3,
+    213.7,
+    221.0
+   ],
+   "grasp_frame": 356,
+   "T": 765
+  },
+  "578": {
+   "id": "ep0578",
+   "instruction": "Place the dark-colored round contour compact inside the top level of the organizer.",
+   "target": "contour",
+   "dest": "organizer_top",
+   "target_box": [
+    471.1,
+    333.3,
+    534.3,
+    389.0
+   ],
+   "dest_box": [
+    30.5,
+    90.0,
+    213.9,
+    148.6
+   ],
+   "grasp_frame": 314,
+   "T": 983
+  }
+ }
+}
